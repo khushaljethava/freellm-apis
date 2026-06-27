@@ -11,36 +11,71 @@ const maxContext = (id) => {
   const c = Math.max(...ctxs);
   return c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
 };
-const cardLabel = { no: '✅ No', registration: '📧 Email', phone: '📱 Phone', yes: '💳 Yes' };
+const cardLabel = { no: 'No card', registration: 'Email signup', phone: 'Phone verify', yes: 'Card required' };
 const cardBadge = { no: 'badge-green', registration: 'badge-blue', phone: 'badge-orange', yes: 'badge-red' };
 
 const permanent = providers.filter(p => p.free_type === 'permanent').sort((a,b) => modelCount(b.id) - modelCount(a.id));
 const credits = providers.filter(p => p.free_type === 'credits').sort((a,b) => (b.credit_amount_usd||0) - (a.credit_amount_usd||0));
 const totalModels = models.filter(m => !m.deprecated).length;
 const lastVerified = providers[0]?.last_verified ?? '';
+
+const quickPick = permanent.find(p => p.credit_card_required === 'no');
+const quickPickCtx = quickPick ? maxContext(quickPick.id) : null;
+const quickPickModels = quickPick ? modelCount(quickPick.id) : 0;
 ---
 <Base
   title="Free LLM APIs — Free AI API Keys from 30+ Providers | freellm.site"
   description={`${providers.length} free LLM API providers, ${totalModels} models. Groq, Mistral, GitHub Models, Together AI & more. Find your free API key in seconds.`}
 >
   <div class="hero">
-    <h1>Free LLM APIs</h1>
-    <p>Every way to get free LLM API access — permanent free tiers and free credits — in one place.</p>
-    <div class="stats">
-      <span><strong>{providers.length}</strong> providers</span>
-      <span><strong>{totalModels}</strong> models</span>
-      <span>Updated <strong>{lastVerified}</strong></span>
+    <div class="hero-eyebrow">Free &amp; verified · Updated {lastVerified}</div>
+    <h1>Every free LLM API.<br/><em>One place.</em></h1>
+    <p>Permanent free tiers and free-credit plans from {providers.length} providers — no hunting, no paywalls. Find your key in seconds.</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">{providers.length}</span>
+        <span class="stat-label">Providers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{totalModels}</span>
+        <span class="stat-label">Models</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{permanent.length}</span>
+        <span class="stat-label">Always free</span>
+      </div>
     </div>
   </div>
+
+  {quickPick && (
+    <div class="quick-pick">
+      <span class="quick-pick-label">Quick pick</span>
+      <div class="quick-pick-sep"></div>
+      <div class="quick-pick-content">
+        <span class="quick-pick-name">{quickPick.name}</span>
+        <span class="quick-pick-meta">— {quickPickModels} models · {quickPickCtx} context · no card required · free forever</span>
+      </div>
+      <a href={quickPick.signup_url} target="_blank" rel="noopener" class="quick-pick-cta">Get free key →</a>
+    </div>
+  )}
 
   <div class="ad-slot">Advertisement</div>
 
   <FilterBar />
 
-  <h2 class="section-title">⚡ Permanent Free Tiers</h2>
+  <h2 class="section-title">Permanent free tiers</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Provider</th><th>Models</th><th>Card?</th><th>Max Context</th><th>Last Verified</th><th>Get Key</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Models</th>
+          <th>Card?</th>
+          <th>Max context</th>
+          <th>Last verified</th>
+          <th>Get key</th>
+        </tr>
+      </thead>
       <tbody>
         {permanent.map(p => (
           <tr data-free-type="permanent" data-card-required={p.credit_card_required}>
@@ -49,17 +84,27 @@ const lastVerified = providers[0]?.last_verified ?? '';
             <td><span class={`badge ${cardBadge[p.credit_card_required]}`}>{cardLabel[p.credit_card_required]}</span></td>
             <td>{maxContext(p.id)}</td>
             <td>{p.last_verified}</td>
-            <td><a href={p.signup_url} target="_blank" rel="noopener">Get Key →</a></td>
+            <td><a href={p.signup_url} target="_blank" rel="noopener">Get key →</a></td>
           </tr>
         ))}
       </tbody>
     </table>
   </div>
 
-  <h2 class="section-title">💳 Free Credits on Signup</h2>
+  <h2 class="section-title">Free credits on signup</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Provider</th><th>Credits</th><th>Expiry</th><th>Card?</th><th>Models</th><th>Last Verified</th><th>Get Key</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Credits</th>
+          <th>Expiry</th>
+          <th>Card?</th>
+          <th>Models</th>
+          <th>Last verified</th>
+          <th>Get key</th>
+        </tr>
+      </thead>
       <tbody>
         {credits.map(p => (
           <tr data-free-type="credits" data-card-required={p.credit_card_required}>
@@ -69,7 +114,7 @@ const lastVerified = providers[0]?.last_verified ?? '';
             <td><span class={`badge ${cardBadge[p.credit_card_required]}`}>{cardLabel[p.credit_card_required]}</span></td>
             <td>{modelCount(p.id)}</td>
             <td>{p.last_verified}</td>
-            <td><a href={p.signup_url} target="_blank" rel="noopener">Get Key →</a></td>
+            <td><a href={p.signup_url} target="_blank" rel="noopener">Get key →</a></td>
           </tr>
         ))}
       </tbody>
