@@ -1,0 +1,212 @@
+[
+  {
+    "provider_id": "groq",
+    "model_id": "llama-3.1-70b-versatile",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": 30,
+    "rpd": null,
+    "tpm": 6000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "groq",
+    "model_id": "llama-3.1-405b-reasoning",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": 30,
+    "rpd": null,
+    "tpm": 3000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "groq",
+    "model_id": "mixtral-8x7b-32768",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": 30,
+    "rpd": null,
+    "tpm": 9000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "mistral",
+    "model_id": "mistral-large-latest",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "mistral",
+    "model_id": "mistral-small-latest",
+    "context_window": 32000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "google_gemini",
+    "model_id": "gemini-1.5-flash",
+    "context_window": 1000000,
+    "modalities": ["text", "image", "code", "audio"],
+    "rpm": 2000,
+    "rpd": null,
+    "tpm": 1000000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "google_gemini",
+    "model_id": "gemini-1.5-pro",
+    "context_window": 2000000,
+    "modalities": ["text", "image", "code", "audio"],
+    "rpm": 1000,
+    "rpd": null,
+    "tpm": 32000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "github_models",
+    "model_id": "gpt-4o",
+    "context_window": 128000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "github_models",
+    "model_id": "Phi-4",
+    "context_window": 16000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "github_models",
+    "model_id": "Llama-3.1-70b-Instruct",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cerebras",
+    "model_id": "llama-3.1-70b",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cerebras",
+    "model_id": "llama-3.2-90b",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cohere",
+    "model_id": "command-r-plus",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": 20,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "huggingface",
+    "model_id": "mistralai/Mistral-7B-Instruct-v0.2",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "together_ai",
+    "model_id": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "fireworks",
+    "model_id": "accounts/fireworks/models/llama-v2-70b-chat",
+    "context_window": 4096,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "deepseek",
+    "model_id": "deepseek-chat",
+    "context_window": 4000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "meta-llama/llama-3.1-70b-instruct:free",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "mistralai/mistral-7b-instruct:free",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "xai",
+    "model_id": "grok-2",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "hyperbolic",
+    "model_id": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  }
+]

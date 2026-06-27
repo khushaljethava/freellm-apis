@@ -1,0 +1,35 @@
+---
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-XXXXXXXXXX';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={Astro.url.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`} crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/styles/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="inner">
+        <a href="/" class="wordmark">freellm.site</a>
+        <nav>
+          <a href="/models/">Models</a>
+          <a href="https://github.com/open-free-llm-api/freellm-apis" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer>
+      <p>Data updated regularly · <a href="https://github.com/open-free-llm-api/freellm-apis" target="_blank" rel="noopener">Contribute on GitHub</a></p>
+      <p style="margin-top:0.25rem">© {new Date().getFullYear()} freellm.site</p>
+    </footer>
+  </body>
+</html>

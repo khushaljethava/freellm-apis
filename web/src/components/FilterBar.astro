@@ -1,0 +1,42 @@
+---
+// No props — JS wires it up at runtime
+---
+<div class="filter-bar" id="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="permanent">Permanent Free</button>
+  <button class="filter-btn" data-filter="credits">Free Credits</button>
+  <button class="filter-btn" data-filter="no-card">No Card Required</button>
+</div>
+
+<script>
+  const bar = document.getElementById('filter-bar');
+  if (bar) {
+    const btns = bar.querySelectorAll('.filter-btn');
+    let activeFilter = 'all';
+    let noCardOnly = false;
+
+    function applyFilters() {
+      document.querySelectorAll('tr[data-free-type]').forEach(row => {
+        const r = row as HTMLTableRowElement;
+        const matchType = activeFilter === 'all' || r.dataset.freeType === activeFilter;
+        const matchCard = !noCardOnly || r.dataset.cardRequired === 'no';
+        r.classList.toggle('hidden', !(matchType && matchCard));
+      });
+    }
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const b = btn as HTMLButtonElement;
+        if (b.dataset.filter === 'no-card') {
+          noCardOnly = !noCardOnly;
+          b.classList.toggle('active', noCardOnly);
+        } else {
+          activeFilter = b.dataset.filter || 'all';
+          btns.forEach(x => { if ((x as HTMLButtonElement).dataset.filter !== 'no-card') x.classList.remove('active'); });
+          b.classList.add('active');
+        }
+        applyFilters();
+      });
+    });
+  }
+</script>

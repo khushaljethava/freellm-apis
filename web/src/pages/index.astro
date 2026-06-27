@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import FilterBar from '../components/FilterBar.astro';
+import providers from '../../../data/providers.json';
+import models from '../../../data/models.json';
+
+const modelCount = (id) => models.filter(m => m.provider_id === id && !m.deprecated).length;
+const maxContext = (id) => {
+  const ctxs = models.filter(m => m.provider_id === id && !m.deprecated).map(m => m.context_window);
+  if (!ctxs.length) return '—';
+  const c = Math.max(...ctxs);
+  return c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
+};
+const cardLabel = { no: '✅ No', registration: '📧 Email', phone: '📱 Phone', yes: '💳 Yes' };
+const cardBadge = { no: 'badge-green', registration: 'badge-blue', phone: 'badge-orange', yes: 'badge-red' };
+
+const permanent = providers.filter(p => p.free_type === 'permanent').sort((a,b) => modelCount(b.id) - modelCount(a.id));
+const credits = providers.filter(p => p.free_type === 'credits').sort((a,b) => (b.credit_amount_usd||0) - (a.credit_amount_usd||0));
+const totalModels = models.filter(m => !m.deprecated).length;
+const lastVerified = providers[0]?.last_verified ?? '';
+---
+<Base
+  title="Free LLM APIs — Free AI API Keys from 30+ Providers | freellm.site"
+  description={`${providers.length} free LLM API providers, ${totalModels} models. Groq, Mistral, GitHub Models, Together AI & more. Find your free API key in seconds.`}
+>
+  <div class="hero">
+    <h1>Free LLM APIs</h1>
+    <p>Every way to get free LLM API access — permanent free tiers and free credits — in one place.</p>
+    <div class="stats">
+      <span><strong>{providers.length}</strong> providers</span>
+      <span><strong>{totalModels}</strong> models</span>
+      <span>Updated <strong>{lastVerified}</strong></span>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <FilterBar />
+
+  <h2 class="section-title">⚡ Permanent Free Tiers</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Provider</th><th>Models</th><th>Card?</th><th>Max Context</th><th>Last Verified</th><th>Get Key</th></tr></thead>
+      <tbody>
+        {permanent.map(p => (
+          <tr data-free-type="permanent" data-card-required={p.credit_card_required}>
+            <td><a href={`/providers/${p.id}/`}>{p.name}</a></td>
+            <td>{modelCount(p.id)}</td>
+            <td><span class={`badge ${cardBadge[p.credit_card_required]}`}>{cardLabel[p.credit_card_required]}</span></td>
+            <td>{maxContext(p.id)}</td>
+            <td>{p.last_verified}</td>
+            <td><a href={p.signup_url} target="_blank" rel="noopener">Get Key →</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-title">💳 Free Credits on Signup</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Provider</th><th>Credits</th><th>Expiry</th><th>Card?</th><th>Models</th><th>Last Verified</th><th>Get Key</th></tr></thead>
+      <tbody>
+        {credits.map(p => (
+          <tr data-free-type="credits" data-card-required={p.credit_card_required}>
+            <td><a href={`/providers/${p.id}/`}>{p.name}</a></td>
+            <td>{p.credit_amount_usd ? `$${p.credit_amount_usd}` : 'Free tier'}</td>
+            <td>{p.credit_expiry ?? '—'}</td>
+            <td><span class={`badge ${cardBadge[p.credit_card_required]}`}>{cardLabel[p.credit_card_required]}</span></td>
+            <td>{modelCount(p.id)}</td>
+            <td>{p.last_verified}</td>
+            <td><a href={p.signup_url} target="_blank" rel="noopener">Get Key →</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+</Base>

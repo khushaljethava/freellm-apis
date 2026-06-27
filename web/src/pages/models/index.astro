@@ -1,0 +1,74 @@
+---
+import Base from '../../layouts/Base.astro';
+import providers from '../../../../data/providers.json';
+import models from '../../../../data/models.json';
+
+const activeModels = models.filter(m => !m.deprecated);
+const providerMap = Object.fromEntries(providers.map(p => [p.id, p]));
+const providerIds = [...new Set(activeModels.map(m => m.provider_id))].sort();
+const allModalities = [...new Set(activeModels.flatMap(m => m.modalities))].sort();
+const fmtCtx = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
+---
+<Base
+  title={`Free LLM Models — Browse ${activeModels.length} Models from ${providers.length} Providers | freellm.site`}
+  description={`Browse ${activeModels.length} free LLM models from ${providers.length} providers. Filter by provider and modality.`}
+>
+  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:0.5rem">Free LLM Models</h1>
+  <p style="color:#555;margin-bottom:1.5rem">{activeModels.length} models across {providers.length} providers</p>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <div class="filter-bar">
+    <select id="filter-provider" style="padding:0.4rem 0.75rem;border:1px solid #ddd;border-radius:20px;font-size:0.875rem;background:#fff;cursor:pointer">
+      <option value="">All Providers</option>
+      {providerIds.map(id => (
+        <option value={id}>{providerMap[id]?.name ?? id}</option>
+      ))}
+    </select>
+    <select id="filter-modality" style="padding:0.4rem 0.75rem;border:1px solid #ddd;border-radius:20px;font-size:0.875rem;background:#fff;cursor:pointer">
+      <option value="">All Modalities</option>
+      {allModalities.map(m => <option value={m}>{m}</option>)}
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Model ID</th><th>Provider</th><th>Context</th><th>Modalities</th><th>RPM</th><th>RPD</th></tr>
+      </thead>
+      <tbody id="models-tbody">
+        {activeModels.map(m => (
+          <tr data-provider={m.provider_id} data-modalities={m.modalities.join(',')}>
+            <td><code>{m.model_id}</code></td>
+            <td><a href={`/providers/${m.provider_id}/`}>{providerMap[m.provider_id]?.name ?? m.provider_id}</a></td>
+            <td>{fmtCtx(m.context_window)}</td>
+            <td>{m.modalities.join(', ')}</td>
+            <td>{m.rpm ?? '—'}</td>
+            <td>{m.rpd ?? '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+</Base>
+
+<script>
+  const provSel = document.getElementById('filter-provider');
+  const modSel = document.getElementById('filter-modality');
+
+  function applyFilters() {
+    const prov = (provSel as HTMLSelectElement).value;
+    const mod = (modSel as HTMLSelectElement).value;
+    document.querySelectorAll('#models-tbody tr').forEach(row => {
+      const r = row as HTMLTableRowElement;
+      const matchProv = !prov || r.dataset.provider === prov;
+      const matchMod = !mod || (r.dataset.modalities || '').split(',').includes(mod);
+      r.classList.toggle('hidden', !(matchProv && matchMod));
+    });
+  }
+
+  provSel?.addEventListener('change', applyFilters);
+  modSel?.addEventListener('change', applyFilters);
+</script>

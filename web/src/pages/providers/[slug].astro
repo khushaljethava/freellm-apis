@@ -1,0 +1,116 @@
+---
+import Base from '../../layouts/Base.astro';
+import providers from '../../../../data/providers.json';
+import models from '../../../../data/models.json';
+
+export function getStaticPaths() {
+  return providers.map(p => ({ params: { slug: p.id }, props: { provider: p } }));
+}
+
+const { provider } = Astro.props;
+const providerModels = models.filter(m => m.provider_id === provider.id && !m.deprecated);
+const firstModel = providerModels[0];
+
+const cardLabel = { no: '✅ No', registration: '📧 Email', phone: '📱 Phone', yes: '💳 Yes' };
+
+const fmtCtx = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
+
+const pythonSnippet = `from openai import OpenAI
+
+client = OpenAI(
+    base_url="${provider.base_url}",
+    api_key="YOUR_API_KEY",  # get at ${provider.signup_url}
+)
+response = client.chat.completions.create(
+    model="${firstModel?.model_id ?? 'MODEL_ID'}",
+    messages=[{"role": "user", "content": "Hello!"}],
+)
+print(response.choices[0].message.content)`;
+
+const curlSnippet = `curl ${provider.base_url}/chat/completions \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "${firstModel?.model_id ?? 'MODEL_ID'}",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'`;
+---
+<Base
+  title={`${provider.name} Free LLM API — Rate Limits, Models & Setup | freellm.site`}
+  description={`${provider.notes}. Base URL: ${provider.base_url}. ${providerModels.length} free model${providerModels.length !== 1 ? 's' : ''} available.`}
+>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span><span>{provider.name}</span>
+  </div>
+
+  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">{provider.name}</h1>
+
+  <div class="provider-meta">
+    <div class="row">
+      <span class="label">Base URL</span>
+      <button class="copy-url" id="copy-btn">{provider.base_url}</button>
+    </div>
+    <div class="row"><span class="label">Card required</span><span>{cardLabel[provider.credit_card_required]}</span></div>
+    {provider.free_type === 'credits' && provider.credit_amount_usd != null && (
+      <div class="row"><span class="label">Free credits</span><span>${provider.credit_amount_usd} USD ({provider.credit_expiry})</span></div>
+    )}
+    <div class="row"><span class="label">Notes</span><span>{provider.notes}</span></div>
+    <div class="row"><span class="label">Last verified</span><span>{provider.last_verified}</span></div>
+    <div class="row">
+      <a href={provider.signup_url} target="_blank" rel="noopener"
+         style="background:#0066cc;color:#fff;padding:0.5rem 1.25rem;border-radius:6px;font-weight:600;font-size:0.9rem;display:inline-block">
+        Get Free API Key →
+      </a>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  {providerModels.length > 0 && (
+    <>
+      <h2 class="section-title">Free Models</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Model ID</th><th>Context</th><th>Modalities</th><th>RPM</th><th>RPD</th></tr></thead>
+          <tbody>
+            {providerModels.map(m => (
+              <tr>
+                <td><code>{m.model_id}</code></td>
+                <td>{fmtCtx(m.context_window)}</td>
+                <td>{m.modalities.join(', ')}</td>
+                <td>{m.rpm ?? '—'}</td>
+                <td>{m.rpd ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  )}
+
+  <h2 class="section-title">Quick Start</h2>
+  <div class="snippets">
+    <div class="snippet-block">
+      <div class="snippet-label">Python (OpenAI SDK)</div>
+      <pre>{pythonSnippet}</pre>
+    </div>
+    <div class="snippet-block">
+      <div class="snippet-label">curl</div>
+      <pre>{curlSnippet}</pre>
+    </div>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+</Base>
+
+<script define:vars={{ baseUrl: provider.base_url }}>
+  const btn = document.getElementById('copy-btn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(baseUrl);
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = orig, 1500);
+    });
+  }
+</script>
