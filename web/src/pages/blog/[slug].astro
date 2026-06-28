@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
 import posts from '../../../../data/blog.json';
 
 export function getStaticPaths() {
@@ -44,7 +45,9 @@ const htmlContent = renderContent(post.content);
         {post.tags.map(tag => <span class="tag">{tag}</span>)}
       </div>
     </div>
+    <AdSlot variant="top" />
     <div class="post-body" set:html={htmlContent} />
+    <AdSlot variant="bottom" />
     <div class="post-footer">
       <a href="/blog/" class="back-link">← Back to Blog</a>
       <a href="/" class="cta-link">Browse free LLM APIs →</a>

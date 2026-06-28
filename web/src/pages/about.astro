@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import providers from '../../../data/providers.json';
+import models from '../../../data/models.json';
+
+const providerCount = providers.length;
+const modelCount = models.filter(m => !m.deprecated).length;
+---
+<Base
+  title="About freellm.site — Free LLM API Directory"
+  description="Learn about freellm.site — an open, community-maintained directory of free LLM API providers, models, and setup guides."
+>
+  <article class="legal-page">
+    <h1>About freellm.site</h1>
+    <p class="legal-lead">
+      freellm.site is a free, open directory that helps developers find LLM API providers with permanent free tiers and signup credits — without hunting across dozens of websites.
+    </p>
+
+    <h2>What we do</h2>
+    <p>
+      We track {providerCount} providers and {modelCount} models, covering rate limits, context windows, credit card requirements, and signup links. Each provider has a dedicated page with model tables and copy-paste code snippets so you can get started in minutes.
+    </p>
+
+    <h2>How data is sourced</h2>
+    <p>Provider information is maintained in the open-source <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">freellm-apis</a> repository on GitHub. Data includes:</p>
+    <ul>
+      <li>Provider base URLs, signup links, and free tier type</li>
+      <li>Model IDs, context windows, modalities, and rate limits</li>
+      <li>Last verified dates for each provider entry</li>
+    </ul>
+    <p>Entries are verified manually and updated regularly. Because provider terms change, always confirm details on the provider's own website before relying on them for production use.</p>
+
+    <h2>Who runs this site</h2>
+    <p>
+      freellm.site is maintained by <a href="https://github.com/khushaljethava" target="_blank" rel="noopener">Khushal Jethava</a> as part of the freellm-apis open-source project. The site is free to use and the underlying data is open for anyone to contribute.
+    </p>
+
+    <h2>Open source</h2>
+    <p>
+      Both the data and website code are public. You can report outdated information, suggest new providers, or submit corrections via <a href="https://github.com/khushaljethava/freellm-apis/issues" target="_blank" rel="noopener">GitHub Issues</a> or pull requests.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Have a question, correction, or provider to add? Visit our <a href="/contact/">Contact page</a> or email <a href="mailto:contact@freellm.site">contact@freellm.site</a>.
+    </p>
+  </article>
+</Base>

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import providers from '../../../../data/providers.json';
+import AdSlot from '../../components/AdSlot.astro';
 import models from '../../../../data/models.json';
 
 const activeModels = models.filter(m => !m.deprecated);
@@ -16,7 +17,7 @@ const fmtCtx = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.r
   <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:0.5rem">Free LLM Models</h1>
   <p style="color:#555;margin-bottom:1.5rem">{activeModels.length} models across {providers.length} providers</p>
 
-  <div class="ad-slot">Advertisement</div>
+  <AdSlot variant="top" />
 
   <div class="filter-bar">
     <select id="filter-provider" style="padding:0.4rem 0.75rem;border:1px solid #ddd;border-radius:20px;font-size:0.875rem;background:#fff;cursor:pointer">
@@ -51,7 +52,7 @@ const fmtCtx = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.r
     </table>
   </div>
 
-  <div class="ad-slot">Advertisement</div>
+  <AdSlot variant="bottom" />
 </Base>
 
 <script>

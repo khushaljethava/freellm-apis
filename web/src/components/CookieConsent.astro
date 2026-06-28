@@ -1,0 +1,80 @@
+---
+const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-XXXXXXXXXX';
+---
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <div class="cookie-banner-inner">
+    <p>
+      We use cookies for analytics (Google Analytics) and advertising (Google AdSense).
+      See our <a href="/cookies/">Cookie Policy</a> and <a href="/privacy/">Privacy Policy</a>.
+    </p>
+    <div class="cookie-banner-actions">
+      <button type="button" id="cookie-reject" class="cookie-btn cookie-btn--secondary">Essential only</button>
+      <button type="button" id="cookie-accept" class="cookie-btn cookie-btn--primary">Accept all</button>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ adsenseId }}>
+  const STORAGE_KEY = 'freellm-cookie-consent';
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const rejectBtn = document.getElementById('cookie-reject');
+
+  function gtagConsent(granted) {
+    if (typeof gtag !== 'function') return;
+    gtag('consent', 'update', {
+      ad_storage: granted ? 'granted' : 'denied',
+      ad_user_data: granted ? 'granted' : 'denied',
+      ad_personalization: granted ? 'granted' : 'denied',
+      analytics_storage: granted ? 'granted' : 'denied',
+    });
+  }
+
+  function loadAdSense() {
+    if (document.querySelector('script[data-adsense]')) return;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`;
+    s.crossOrigin = 'anonymous';
+    s.dataset.adsense = 'true';
+    document.head.appendChild(s);
+  }
+
+  function hideBanner() {
+    if (banner) banner.hidden = true;
+  }
+
+  function saveChoice(value) {
+    try { localStorage.setItem(STORAGE_KEY, value); } catch (_) {}
+  }
+
+  function applyChoice(value) {
+    const granted = value === 'all';
+    gtagConsent(granted);
+    if (granted) loadAdSense();
+    hideBanner();
+  }
+
+  acceptBtn?.addEventListener('click', () => {
+    saveChoice('all');
+    applyChoice('all');
+  });
+
+  rejectBtn?.addEventListener('click', () => {
+    saveChoice('essential');
+    applyChoice('essential');
+  });
+
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === 'all') {
+      applyChoice('all');
+    } else if (saved === 'essential') {
+      applyChoice('essential');
+    } else if (banner) {
+      banner.hidden = false;
+    }
+  } catch (_) {
+    if (banner) banner.hidden = false;
+  }
+</script>

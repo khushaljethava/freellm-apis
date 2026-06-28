@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import FilterBar from '../components/FilterBar.astro';
+import AdSlot from '../components/AdSlot.astro';
 import providers from '../../../data/providers.json';
 import models from '../../../data/models.json';
 
@@ -59,7 +60,7 @@ const quickPickModels = quickPick ? modelCount(quickPick.id) : 0;
     </div>
   )}
 
-  <div class="ad-slot">Advertisement</div>
+  <AdSlot variant="top" />
 
   <FilterBar />
 
@@ -121,5 +122,5 @@ const quickPickModels = quickPick ? modelCount(quickPick.id) : 0;
     </table>
   </div>
 
-  <div class="ad-slot">Advertisement</div>
+  <AdSlot variant="bottom" />
 </Base>

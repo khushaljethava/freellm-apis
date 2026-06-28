@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
 import posts from '../../../../data/blog.json';
 
 const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
@@ -12,6 +13,8 @@ const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
     <h1>Blog</h1>
     <p>Guides and tutorials for using free LLM APIs.</p>
   </div>
+
+  <AdSlot variant="top" />
 
   <div class="blog-list">
     {sorted.map(post => (
@@ -30,6 +33,8 @@ const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
       </a>
     ))}
   </div>
+
+  <AdSlot variant="bottom" />
 </Base>
 
 <style>

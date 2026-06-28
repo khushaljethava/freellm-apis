@@ -1,7 +1,8 @@
 ---
+import CookieConsent from '../components/CookieConsent.astro';
+
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
-const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-XXXXXXXXXX';
 ---
 <!doctype html>
 <html lang="en">
@@ -13,15 +14,22 @@ const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-XXXXXXXXXX';
     <link rel="canonical" href={Astro.url.href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-23KHWSDYBD"></script>
-    <script>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500,
+      });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-23KHWSDYBD"></script>
+    <script is:inline>
       gtag('js', new Date());
       gtag('config', 'G-23KHWSDYBD');
     </script>
-    <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`} crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/styles/global.css" />
   </head>
   <body>
@@ -31,14 +39,24 @@ const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-XXXXXXXXXX';
         <nav>
           <a href="/models/">Models</a>
           <a href="/blog/">Blog</a>
+          <a href="/about/">About</a>
           <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">GitHub</a>
         </nav>
       </div>
     </header>
     <main><slot /></main>
     <footer>
+      <nav class="footer-nav" aria-label="Legal and site links">
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+        <a href="/cookies/">Cookies</a>
+      </nav>
       <p>Data updated regularly · <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">Contribute on GitHub</a></p>
+      <p><a href="mailto:contact@freellm.site">contact@freellm.site</a></p>
       <p style="margin-top:0.25rem">© {new Date().getFullYear()} freellm.site</p>
     </footer>
+    <CookieConsent />
   </body>
 </html>
