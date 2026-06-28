@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "best-free-llm-apis-2026",
+    "title": "Best Free LLM APIs in 2026 — No Credit Card Required",
+    "description": "A curated list of the best free LLM APIs you can use today without a credit card. Groq, GitHub Models, Google Gemini, and more.",
+    "date": "2026-06-28",
+    "author": "freellm.site",
+    "tags": ["free-llm", "api", "groq", "gemini"],
+    "content": "Finding a free LLM API that actually works — without handing over a credit card — is harder than it should be. Here are the top picks for 2026.\n\n## 1. Groq — Fastest Free Inference\n\nGroq offers **30 requests/minute** and **14,400 requests/day** for free, no credit card needed. It runs Llama 3.3 70B at speeds that feel instant.\n\n```python\nfrom openai import OpenAI\nclient = OpenAI(base_url=\"https://api.groq.com/openai/v1\", api_key=\"YOUR_KEY\")\nresponse = client.chat.completions.create(\n    model=\"llama-3.3-70b-versatile\",\n    messages=[{\"role\": \"user\", \"content\": \"Hello!\"}]\n)\n```\n\nGet your key at [console.groq.com/keys](https://console.groq.com/keys).\n\n## 2. Google Gemini — Largest Free Context Window\n\nGemini Flash gives you **2 million tokens of context** for free. That's enough for entire codebases or book-length documents.\n\nGet your key at [aistudio.google.com](https://aistudio.google.com/app/apikey).\n\n## 3. GitHub Models — No Signup Friction\n\nIf you have a GitHub account you already have access. Supports GPT-4o, Llama, Mistral, Phi, and more.\n\nAccess at [github.com/marketplace/models](https://github.com/marketplace/models).\n\n## 4. Mistral AI — Best European Option\n\nMistral's free tier gives rate-limited access to Mistral Small and Medium. GDPR-compliant, EU-hosted.\n\n## 5. Cloudflare Workers AI — Edge Inference\n\n10,000 neurons per day on their global edge network. Great for low-latency use cases.\n\n## Quick Comparison\n\n| Provider | Card? | Rate Limit | Context |\n|---|---|---|---|\n| Groq | No | 30 RPM | 262K |\n| Google Gemini | No | 15 RPM | 2M |\n| GitHub Models | No | Varies | 1M |\n| Mistral AI | No | Rate-limited | 256K |\n| Cloudflare Workers AI | No | 10K/day | 10M |\n\nAll of these expose OpenAI-compatible endpoints — swap the `base_url` and you're done."
+  },
+  {
+    "slug": "openai-compatible-api-guide",
+    "title": "What Is an OpenAI-Compatible API and How to Use One",
+    "description": "Learn what OpenAI-compatible APIs are, why they matter, and how to swap any provider into your existing code with one line.",
+    "date": "2026-06-25",
+    "author": "freellm.site",
+    "tags": ["openai", "api", "tutorial", "python"],
+    "content": "Every free LLM provider listed on freellm.site exposes an **OpenAI-compatible API**. That means you can use the same code — just swap the `base_url`.\n\n## What Makes an API \"OpenAI-Compatible\"?\n\nThe OpenAI API has become the de-facto standard for LLM APIs. A provider is \"OpenAI-compatible\" if it implements the same HTTP endpoints:\n\n- `POST /v1/chat/completions` — the main chat endpoint\n- `GET /v1/models` — list available models\n\nThe request/response format is identical to OpenAI's.\n\n## How to Swap Providers in One Line\n\n```python\nfrom openai import OpenAI\n\n# OpenAI (paid)\nclient = OpenAI(api_key=\"sk-...\")\n\n# Groq (free, no card)\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"YOUR_GROQ_KEY\"\n)\n\n# GitHub Models (free, just need GitHub account)\nclient = OpenAI(\n    base_url=\"https://models.github.ai/inference\",\n    api_key=\"YOUR_GITHUB_TOKEN\"\n)\n```\n\nOnly two things change: `base_url` and `api_key`. Everything else — streaming, tool use, system prompts — works the same.\n\n## Using Environment Variables\n\nThe cleanest pattern is to drive both from env vars:\n\n```bash\nexport OPENAI_BASE_URL=\"https://api.groq.com/openai/v1\"\nexport OPENAI_API_KEY=\"your-groq-key\"\n```\n\nThen your code needs zero changes:\n\n```python\nfrom openai import OpenAI\nclient = OpenAI()  # reads env vars automatically\n```\n\nThis lets you switch providers without touching code — just change the environment variables."
+  },
+  {
+    "slug": "groq-vs-google-gemini-free-tier",
+    "title": "Groq vs Google Gemini Free Tier — Which Should You Use?",
+    "description": "Comparing Groq and Google Gemini Flash free tiers for speed, context window, rate limits, and use cases.",
+    "date": "2026-06-20",
+    "author": "freellm.site",
+    "tags": ["groq", "gemini", "comparison", "free-llm"],
+    "content": "Both Groq and Google Gemini offer excellent free tiers with no credit card required. Here's how to choose.\n\n## Groq — Choose for Speed\n\n- **30 RPM** free, 14,400 RPD\n- **262K context** window\n- Runs Llama 3.3 70B at ~500 tokens/second\n- Best for: chatbots, code completion, quick Q&A\n\n## Google Gemini Flash — Choose for Context\n\n- **15 RPM** free on Flash, 1,500 RPD\n- **2 million token context** (best in class)\n- Multimodal: handles images, audio, video\n- Best for: long document analysis, RAG, multimodal tasks\n\n## Side-by-Side\n\n| Feature | Groq | Gemini Flash |\n|---|---|---|\n| Card required | No | No |\n| Rate limit | 30 RPM | 15 RPM |\n| Context window | 262K | 2M |\n| Speed | ~500 tok/s | ~100 tok/s |\n| Multimodal | No | Yes |\n| Best model | Llama 3.3 70B | Gemini 1.5 Flash |\n\n## Verdict\n\n- **Speed matters** → Groq\n- **Long documents / images** → Gemini Flash\n- **Both are free** → try both and benchmark your specific use case\n\nBoth are OpenAI-compatible so switching is one line of code."
+  },
+  {
+    "slug": "free-llm-api-india",
+    "title": "Free LLM APIs for Indian Developers — Regional Options & Global Picks",
+    "description": "Best free LLM APIs for developers in India including Indian language model providers like Sarvam AI, Krutrim, and global options.",
+    "date": "2026-06-15",
+    "author": "freellm.site",
+    "tags": ["india", "sarvam", "krutrim", "free-llm", "regional"],
+    "content": "India has a growing AI ecosystem with several providers offering free API access for Indian language models alongside global options.\n\n## Global Free APIs (Work Everywhere)\n\nThese are the best no-card options for any developer in India:\n\n- **Groq** — fastest inference, Llama 3.3 70B free\n- **Google Gemini** — 2M context, free tier\n- **GitHub Models** — free with GitHub account\n- **Hugging Face** — free inference API\n\n## Indian Language Model Providers\n\n### Sarvam AI\nBuilt specifically for Indian languages — supports Hindi, Tamil, Telugu, Kannada, Marathi, Bengali, Gujarati, Malayalam, Odia, and Punjabi.\n- Signup: [sarvam.ai](https://sarvam.ai)\n- Free API access available\n\n### Krutrim AI (by Ola)\nIndia's first full-stack AI company by Ola's Bhavish Aggarwal. Offers multilingual support for Indian languages.\n- Signup: [krutrim.com](https://www.krutrim.com)\n\n### AI4Bharat (IIT Madras)\nOpen-source models for Indian languages. Research-grade APIs available.\n- Website: [ai4bharat.iitm.ac.in](https://ai4bharat.iitm.ac.in)\n\n## Quick Start for Indian Developers\n\n```python\nfrom openai import OpenAI\n\n# Start with Groq — fastest, free, no card\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"YOUR_GROQ_KEY\"  # console.groq.com/keys\n)\n```\n\nSee the full list of 90+ providers at [freellm.site](https://www.freellm.site/)."
+  },
+  {
+    "slug": "use-free-llm-api-cursor-claude-code",
+    "title": "Use a Free LLM API in Cursor, Claude Code, or Any AI Tool",
+    "description": "Step-by-step guide to pointing Cursor, Claude Code, VS Code and other AI coding tools at a free LLM API provider.",
+    "date": "2026-06-10",
+    "author": "freellm.site",
+    "tags": ["cursor", "claude-code", "vscode", "tutorial", "free-llm"],
+    "content": "Most AI coding tools support custom LLM endpoints. Here's how to point them at a free provider.\n\n## Environment Variables (Universal)\n\nMost tools respect standard OpenAI env vars:\n\n```bash\nexport OPENAI_BASE_URL=\"https://api.groq.com/openai/v1\"\nexport OPENAI_API_KEY=\"your-groq-key\"\n```\n\nAdd these to your `~/.bashrc` or `~/.zshrc`.\n\n## Claude Code\n\n```bash\nexport ANTHROPIC_BASE_URL=\"https://api.groq.com/openai/v1\"\nexport ANTHROPIC_API_KEY=\"your-groq-key\"\n```\n\n## Cursor\n\n1. Open Cursor Settings (`Cmd/Ctrl + ,`)\n2. Go to **Models** → **Add Model**\n3. Set **API Base URL** to `https://api.groq.com/openai/v1`\n4. Set **API Key** to your Groq key\n5. Add model name: `llama-3.3-70b-versatile`\n\n## Python Scripts\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"llama-3.3-70b-versatile\",\n    messages=[{\"role\": \"user\", \"content\": \"Write a Python function to sort a list\"}]\n)\nprint(response.choices[0].message.content)\n```\n\n## Get Your Free Key\n\nVisit [freellm.site](https://www.freellm.site/) to find the right free provider for your use case."
+  }
+]
