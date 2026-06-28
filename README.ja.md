@@ -1,91 +1,137 @@
-# 無料 LLM API 一覧
+<p align="center">
+  <h1 align="center">🆓 無料 LLM API 一覧</h1>
+  <p align="center"><strong>90以上のプロバイダー · 8地域 · 永久無料枠 + トライアルクレジット</strong></p>
+</p>
 
-> 永久無料枠とトライアルクレジットを提供する 90 以上のプロバイダーをまとめた大規模言語モデル API ディレクトリ。
+<p align="center">
+  <a href="https://www.freellm.site" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/🌐_サイト-freellm.site-6366f1?style=for-the-badge" alt="サイト"/></a>
+  <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener"><img src="https://img.shields.io/github/stars/khushaljethava/freellm-apis?style=for-the-badge&color=f59e0b" alt="Stars"/></a>
+  <img src="https://img.shields.io/badge/プロバイダー-90%2B-ec4899?style=for-the-badge" alt="90+プロバイダー"/>
+</p>
 
-**[English](README.md) · [简体中文](README.zh.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · 日本語 · [한국어](README.ko.md) · [Português](README.pt.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Русский](README.ru.md)**
-
-🌐 ウェブサイト: [freellm.site](https://www.freellm.site/)
-
----
-
-## 概要
-
-このリポジトリでは、無料 LLM API の最新情報を管理しています：
-
-- プロバイダーの詳細と API エンドポイント
-- 無料枠の制限とクレジット額
-- 登録要件（クレジットカード・電話番号認証の有無）
-- 最終確認日
-
-**90 以上のプロバイダー · グローバル・インド・中国・日本・韓国・ヨーロッパ・中東・東南アジア**
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh.md">简体中文</a> · <a href="README.hi.md">हिन्दी</a> · <a href="README.es.md">Español</a> · <strong>日本語</strong> · <a href="README.ko.md">한국어</a> · <a href="README.pt.md">Português</a> · <a href="README.ar.md">العربية</a> · <a href="README.fr.md">Français</a> · <a href="README.de.md">Deutsch</a> · <a href="README.ru.md">Русский</a>
+</p>
 
 ---
 
-## クイックスタート
+## なぜこのプロジェクトが必要か
 
-[providers.json](data/providers.json) を参照して無料 LLM API を探してください。
+無料の LLM API を探すために、何十ものウェブサイトを調べたり、5つのプラットフォームに登録したり、どの無料枠がまだ使えるかを推測したりする必要はありません。
 
-- **Base URL**: OpenAI 互換の API エンドポイント
-- **Signup URL**: API キーを取得するリンク
-- **無料枠**: 無料アクセスの種類と期間
-- **要件**: クレジットカードまたは認証の必要性
+このリポジトリは、すべての無料 LLM API の**構造化された機械可読ディレクトリ**です — クレジットカード要件、ベース URL、直接 API キーリンク付き。
 
----
-
-## 永久無料枠
-
-| プロバイダー | カード不要 | 備考 | キーを取得 |
-|------------|---------|------|----------|
-| Groq | ✅ 不要 | 毎分 30 リクエスト | [取得 →](https://console.groq.com/keys) |
-| GitHub Models | ✅ 不要 | GitHub アカウント必要 | [取得 →](https://github.com/marketplace/models) |
-| Google Gemini | ✅ 不要 | 最大 200 万トークンコンテキスト | [取得 →](https://aistudio.google.com/app/apikey) |
-| Mistral AI | ✅ 不要 | レート制限付き無料枠 | [取得 →](https://console.mistral.ai/api-keys) |
-| Cerebras | ✅ 不要 | 超高速推論 | [取得 →](https://cloud.cerebras.ai/) |
-| Cohere | ✅ 不要 | 毎分 20 コール | [取得 →](https://dashboard.cohere.com/api-keys) |
-| Hugging Face | ✅ 不要 | 無料推論 API | [取得 →](https://huggingface.co/settings/tokens) |
-| Cloudflare Workers AI | ✅ 不要 | 1日 10,000 ニューロン | [取得 →](https://dash.cloudflare.com/profile/api-tokens) |
-| OpenRouter | 📧 登録 | 永久無料モデルあり | [取得 →](https://openrouter.ai/workspaces/default/keys) |
-| Chutes AI | ✅ 不要 | コミュニティ無料枠 | [取得 →](https://chutes.ai) |
-| NVIDIA NIM | 📱 電話 | 75 以上のモデル | [取得 →](https://build.nvidia.com/settings/api-keys) |
+- ✅ **カード不要の選択肢を優先** — どのプロバイダーが支払い情報不要かを明確に表示
+- ✅ **OpenAI 互換** — すべてのプロバイダーが `baseURL` 置換として機能
+- ✅ **90以上のプロバイダー** — グローバル、インド、中国、日本、韓国、ヨーロッパ、中東、SEA
+- ✅ **機械可読データ** — `data/providers.json` の構造化 JSON
 
 ---
 
-## 無料クレジット
+## ⚡ 3ステップで始める
 
-| プロバイダー | クレジット | 有効期限 | カード | キーを取得 |
-|------------|---------|---------|-------|----------|
-| xAI (Grok) | $25 | 毎月 | 📧 登録 | [取得 →](https://console.x.ai) |
-| Modal | $30 | 毎月 | ✅ 不要 | [取得 →](https://modal.com) |
-| Hyperbolic | $10 | 無期限 | ✅ 不要 | [取得 →](https://app.hyperbolic.xyz/settings) |
-| Lambda AI | $10 | 無期限 | ✅ 不要 | [取得 →](https://lambda.ai) |
-| AI21 Labs | $10 | 無期限 | ✅ 不要 | [取得 →](https://www.ai21.com) |
-| DeepSeek | $5 | 登録時 | 📧 登録 | [取得 →](https://platform.deepseek.com/api_keys) |
-| Anthropic | $5 | 無期限 | 💳 必要 | [取得 →](https://console.anthropic.com) |
-| Together AI | $1 | 無期限 | ✅ 不要 | [取得 →](https://api.together.ai/settings/api-keys) |
-| Fireworks AI | $1 | 無期限 | ✅ 不要 | [取得 →](https://fireworks.ai/account/api-keys) |
+**1. プロバイダーを選ぶ** — 下の[プロバイダーディレクトリ](#-プロバイダーディレクトリ)を参照。**Groq** から始めましょう（クレジットカード不要、30 RPM 無料）。
+
+**2. API キーを取得** — `取得 →` リンクをクリックし、メールで登録してキーをコピー。1分以内に完了。
+
+**3. 接続する** — Base URL + モデル ID をツールにペーストするだけ。
 
 ---
 
-## 日本のプロバイダー
+## 🚀 30秒で始める
+
+### Python (OpenAI SDK)
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.groq.com/openai/v1",  # 無料、クレジットカード不要
+    api_key="YOUR_GROQ_KEY",                     # console.groq.com/keys で取得
+)
+
+response = client.chat.completions.create(
+    model="llama-3.3-70b-versatile",
+    messages=[{"role": "user", "content": "こんにちは！"}],
+)
+print(response.choices[0].message.content)
+# Groq 無料枠: 毎分30リクエスト、1日14,400リクエスト
+```
+
+### curl
+
+```bash
+curl https://api.groq.com/openai/v1/chat/completions \
+  -H "Authorization: Bearer $GROQ_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"llama-3.3-70b-versatile","messages":[{"role":"user","content":"こんにちは！"}]}'
+```
+
+---
+
+## 📋 プロバイダーディレクトリ
+
+### ⚡ 永久無料枠
+
+**無制限の無料アクセス**（レート制限あり）— 期限なし。
+
+| プロバイダー | カード | 備考 | 最大コンテキスト | キーを取得 |
+|---|---|---|---|---|
+| Groq | ✅ 不要 | 30 RPM · 14,400 RPD | 262K | <a href="https://console.groq.com/keys" target="_blank" rel="noopener">取得 →</a> |
+| GitHub Models | ✅ 不要 | GitHub アカウント必要 | 1M | <a href="https://github.com/marketplace/models" target="_blank" rel="noopener">取得 →</a> |
+| Google Gemini | ✅ 不要 | Flash で 200万トークン | 2M | <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">取得 →</a> |
+| Mistral AI | ✅ 不要 | レート制限付き | 256K | <a href="https://console.mistral.ai/api-keys" target="_blank" rel="noopener">取得 →</a> |
+| Cerebras | ✅ 不要 | 超高速推論 | 131K | <a href="https://cloud.cerebras.ai/" target="_blank" rel="noopener">取得 →</a> |
+| Cohere | ✅ 不要 | 毎分20コール | 256K | <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener">取得 →</a> |
+| Hugging Face | ✅ 不要 | 無料推論 API | 131K | <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">取得 →</a> |
+| Cloudflare Workers AI | ✅ 不要 | 1日10,000ニューロン | 10M | <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">取得 →</a> |
+| OpenRouter | 📧 登録 | 100以上の無料モデル | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">取得 →</a> |
+| NVIDIA NIM | 📱 電話 | 75以上のモデル | 1M | <a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">取得 →</a> |
+
+### 💰 登録時無料クレジット
+
+| プロバイダー | クレジット | 期限 | カード | キーを取得 |
+|---|---|---|---|---|
+| xAI (Grok) | $25 | 毎月 | 📧 登録 | <a href="https://console.x.ai" target="_blank" rel="noopener">取得 →</a> |
+| Modal | $30 | 毎月 | ✅ 不要 | <a href="https://modal.com" target="_blank" rel="noopener">取得 →</a> |
+| Hyperbolic | $10 | 無期限 | ✅ 不要 | <a href="https://app.hyperbolic.xyz/settings" target="_blank" rel="noopener">取得 →</a> |
+| Lambda AI | $10 | 無期限 | ✅ 不要 | <a href="https://lambda.ai" target="_blank" rel="noopener">取得 →</a> |
+| DeepSeek | $5 | 登録時 | 📧 登録 | <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">取得 →</a> |
+| Anthropic | $5 | 無期限 | 💳 必要 | <a href="https://console.anthropic.com" target="_blank" rel="noopener">取得 →</a> |
+| Together AI | $1 | 無期限 | ✅ 不要 | <a href="https://api.together.ai/settings/api-keys" target="_blank" rel="noopener">取得 →</a> |
+
+---
+
+<details>
+<summary><strong>🇯🇵 日本のプロバイダー (5)</strong></summary>
 
 | プロバイダー | 特徴 | 登録 |
-|------------|------|------|
-| Sakana AI | 日本の AI 研究所 | [→](https://sakana.ai) |
-| Preferred Networks | PLaMo モデル | [→](https://www.preferred.jp) |
-| Fujitsu Kozuchi | 富士通エンタープライズ AI | [→](https://www.fujitsu.com/global/services/business-services/kozuchi) |
-| SB Intuitions | ソフトバンク日本語 LLM | [→](https://www.sbintuitions.co.jp) |
-| Rakuten AI | 楽天 AI モデル | [→](https://corp.rakuten.com) |
+|---|---|---|
+| Sakana AI | 日本の AI 研究所 | <a href="https://sakana.ai" target="_blank" rel="noopener">→</a> |
+| Preferred Networks | PLaMo モデル | <a href="https://www.preferred.jp" target="_blank" rel="noopener">→</a> |
+| Fujitsu Kozuchi | 富士通エンタープライズ AI | <a href="https://www.fujitsu.com/global/services/business-services/kozuchi" target="_blank" rel="noopener">→</a> |
+| SB Intuitions | ソフトバンク日本語 LLM | <a href="https://www.sbintuitions.co.jp" target="_blank" rel="noopener">→</a> |
+| Rakuten AI | 楽天 AI モデル | <a href="https://corp.rakuten.com" target="_blank" rel="noopener">→</a> |
+
+</details>
 
 ---
 
-## コントリビュート
+## 🤝 コントリビュート
 
-[CONTRIBUTING.md](CONTRIBUTING.md) をご覧ください。
+1. このリポジトリを **Fork** する
+2. [schema](data/schema.md) に従って `data/providers.json` を **編集** する
+3. 簡単な説明と共に **PR を送る**
 
-## ライセンス
+詳細は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
-MIT License · [LICENSE](LICENSE) 参照
+---
 
-## 免責事項
+<p align="center">
+  <strong>役に立ったら ⭐ スターをお願いします！</strong><br/>
+  <a href="https://github.com/khushaljethava/freellm-apis">github.com/khushaljethava/freellm-apis</a>
+</p>
 
-このリポジトリはコミュニティによって維持されており、情報が古くなる場合があります。APIを使用する前に、必ず公式ウェブサイトで詳細を確認してください。
+---
+
+MIT License · [LICENSE](LICENSE) · © 2026 freellm.site

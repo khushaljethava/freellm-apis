@@ -1,88 +1,135 @@
-# دليل واجهات برمجة تطبيقات LLM المجانية
+<p align="center">
+  <h1 align="center">🆓 دليل واجهات برمجة تطبيقات LLM المجانية</h1>
+  <p align="center"><strong>90+ مزوداً · 8 مناطق · طبقات مجانية دائمة + أرصدة تجريبية</strong></p>
+</p>
 
-> دليل يضم أكثر من 90 مزوداً لواجهات برمجة تطبيقات نماذج اللغة الكبيرة مع طبقات مجانية دائمة وأرصدة تجريبية.
+<p align="center">
+  <a href="https://www.freellm.site" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/🌐_الموقع-freellm.site-6366f1?style=for-the-badge" alt="الموقع"/></a>
+  <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener"><img src="https://img.shields.io/github/stars/khushaljethava/freellm-apis?style=for-the-badge&color=f59e0b" alt="Stars"/></a>
+  <img src="https://img.shields.io/badge/المزودون-90%2B-ec4899?style=for-the-badge" alt="90+ مزود"/>
+</p>
 
-**[English](README.md) · [简体中文](README.zh.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Português](README.pt.md) · العربية · [Français](README.fr.md) · [Deutsch](README.de.md) · [Русский](README.ru.md)**
-
-🌐 الموقع: [freellm.site](https://www.freellm.site/)
-
----
-
-## نظرة عامة
-
-يحتفظ هذا المستودع بمعلومات محدّثة حول واجهات برمجة تطبيقات LLM المجانية:
-
-- تفاصيل المزود ونقاط نهاية API
-- حدود الطبقة المجانية ومبالغ الأرصدة
-- متطلبات التسجيل (بطاقة ائتمان / التحقق من الهاتف)
-- تواريخ آخر تحقق
-
-**أكثر من 90 مزوداً · عالمي، الهند، الصين، اليابان، كوريا، أوروبا، الشرق الأوسط، جنوب شرق آسيا**
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh.md">简体中文</a> · <a href="README.hi.md">हिन्दी</a> · <a href="README.es.md">Español</a> · <a href="README.ja.md">日本語</a> · <a href="README.ko.md">한국어</a> · <a href="README.pt.md">Português</a> · <strong>العربية</strong> · <a href="README.fr.md">Français</a> · <a href="README.de.md">Deutsch</a> · <a href="README.ru.md">Русский</a>
+</p>
 
 ---
 
-## البدء السريع
+## لماذا يوجد هذا المشروع
 
-تصفح [providers.json](data/providers.json) للعثور على واجهات برمجة تطبيقات LLM المجانية.
+لا ينبغي أن يعني إيجاد واجهة برمجة تطبيقات LLM مجانية البحث في عشرات المواقع، أو التسجيل في خمس منصات، أو التخمين بشأن الطبقات المجانية التي لا تزال تعمل.
 
-- **Base URL**: نقطة نهاية API متوافقة مع OpenAI
-- **Signup URL**: رابط للحصول على مفاتيح API
-- **الطبقة المجانية**: نوع ومدة الوصول المجاني
-- **المتطلبات**: هل تحتاج إلى بطاقة ائتمان أو تحقق
+هذا المستودع هو **دليل منظم وقابل للقراءة آلياً** لكل واجهة برمجة تطبيقات LLM مجانية — مع متطلبات بطاقة الائتمان وروابط API المباشرة.
 
----
-
-## الطبقة المجانية الدائمة
-
-| المزود | بطاقة ائتمان؟ | ملاحظات | احصل على المفتاح |
-|--------|-------------|---------|----------------|
-| Groq | ✅ لا | 30 طلب/دقيقة | [احصل →](https://console.groq.com/keys) |
-| GitHub Models | ✅ لا | يتطلب حساب GitHub | [احصل →](https://github.com/marketplace/models) |
-| Google Gemini | ✅ لا | سياق 2 مليون رمز | [احصل →](https://aistudio.google.com/app/apikey) |
-| Mistral AI | ✅ لا | طبقة مجانية بحد معدل | [احصل →](https://console.mistral.ai/api-keys) |
-| Cerebras | ✅ لا | استنتاج فائق السرعة | [احصل →](https://cloud.cerebras.ai/) |
-| Cohere | ✅ لا | 20 استدعاء/دقيقة | [احصل →](https://dashboard.cohere.com/api-keys) |
-| Hugging Face | ✅ لا | API استنتاج مجاني | [احصل →](https://huggingface.co/settings/tokens) |
-| Cloudflare Workers AI | ✅ لا | 10,000 نيورون/يوم | [احصل →](https://dash.cloudflare.com/profile/api-tokens) |
-| OpenRouter | 📧 بريد | نماذج مجانية متاحة | [احصل →](https://openrouter.ai/workspaces/default/keys) |
-| NVIDIA NIM | 📱 هاتف | أكثر من 75 نموذجاً | [احصل →](https://build.nvidia.com/settings/api-keys) |
+- ✅ **خيارات بدون بطاقة أولاً** — يوضح أي المزودين لا يحتاجون إلى معلومات دفع
+- ✅ **متوافق مع OpenAI** — كل مزود يعمل كبديل `baseURL`
+- ✅ **90+ مزود** — عالمي، الهند، الصين، اليابان، كوريا، أوروبا، الشرق الأوسط، جنوب شرق آسيا
+- ✅ **بيانات قابلة للقراءة آلياً** — JSON منظم في `data/providers.json`
 
 ---
 
-## أرصدة مجانية
+## ⚡ كيفية الاستخدام — 3 خطوات
+
+**1. اختر مزوداً** — انظر [دليل المزودين](#-دليل-المزودين) أدناه. ابدأ بـ **Groq** (بدون بطاقة ائتمان، 30 طلب/دقيقة مجاناً).
+
+**2. احصل على مفتاح API** — انقر على أي رابط `احصل →`، سجّل بالبريد الإلكتروني وانسخ المفتاح. أقل من دقيقة.
+
+**3. ابدأ الاستخدام** — الصق Base URL + معرف النموذج في أداتك.
+
+---
+
+## 🚀 البدء السريع — 30 ثانية
+
+### Python (OpenAI SDK)
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.groq.com/openai/v1",  # مجاني، بدون بطاقة
+    api_key="YOUR_GROQ_KEY",                     # احصل عليه من console.groq.com/keys
+)
+
+response = client.chat.completions.create(
+    model="llama-3.3-70b-versatile",
+    messages=[{"role": "user", "content": "مرحبا!"}],
+)
+print(response.choices[0].message.content)
+# الطبقة المجانية من Groq: 30 طلب/دقيقة، 14,400 طلب/يوم
+```
+
+### curl
+
+```bash
+curl https://api.groq.com/openai/v1/chat/completions \
+  -H "Authorization: Bearer $GROQ_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"llama-3.3-70b-versatile","messages":[{"role":"user","content":"مرحبا!"}]}'
+```
+
+---
+
+## 📋 دليل المزودين
+
+### ⚡ الطبقات المجانية الدائمة
+
+**وصول مجاني غير محدود** (مع حد المعدل) — بدون انتهاء صلاحية.
+
+| المزود | بطاقة؟ | ملاحظات | أقصى سياق | احصل على المفتاح |
+|---|---|---|---|---|
+| Groq | ✅ لا | 30 طلب/دقيقة · 14,400 طلب/يوم | 262K | <a href="https://console.groq.com/keys" target="_blank" rel="noopener">احصل →</a> |
+| GitHub Models | ✅ لا | يتطلب حساب GitHub | 1M | <a href="https://github.com/marketplace/models" target="_blank" rel="noopener">احصل →</a> |
+| Google Gemini | ✅ لا | 2 مليون رمز في Flash | 2M | <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">احصل →</a> |
+| Mistral AI | ✅ لا | طبقة مجانية بحد معدل | 256K | <a href="https://console.mistral.ai/api-keys" target="_blank" rel="noopener">احصل →</a> |
+| Cerebras | ✅ لا | استنتاج فائق السرعة | 131K | <a href="https://cloud.cerebras.ai/" target="_blank" rel="noopener">احصل →</a> |
+| Cohere | ✅ لا | 20 استدعاء/دقيقة | 256K | <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener">احصل →</a> |
+| Hugging Face | ✅ لا | واجهة برمجة استنتاج مجانية | 131K | <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">احصل →</a> |
+| Cloudflare Workers AI | ✅ لا | 10,000 نيورون/يوم | 10M | <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">احصل →</a> |
+| OpenRouter | 📧 بريد | 100+ نموذج مجاني | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">احصل →</a> |
+| NVIDIA NIM | 📱 هاتف | 75+ نموذجاً | 1M | <a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">احصل →</a> |
+
+### 💰 أرصدة مجانية عند التسجيل
 
 | المزود | الرصيد | انتهاء الصلاحية | بطاقة؟ | احصل على المفتاح |
-|--------|--------|----------------|--------|----------------|
-| xAI (Grok) | $25 | شهرياً | 📧 بريد | [احصل →](https://console.x.ai) |
-| Modal | $30 | شهرياً | ✅ لا | [احصل →](https://modal.com) |
-| Hyperbolic | $10 | لا تنتهي | ✅ لا | [احصل →](https://app.hyperbolic.xyz/settings) |
-| Lambda AI | $10 | لا تنتهي | ✅ لا | [احصل →](https://lambda.ai) |
-| AI21 Labs | $10 | لا تنتهي | ✅ لا | [احصل →](https://www.ai21.com) |
-| DeepSeek | $5 | عند التسجيل | 📧 بريد | [احصل →](https://platform.deepseek.com/api_keys) |
-| Anthropic | $5 | لا تنتهي | 💳 نعم | [احصل →](https://console.anthropic.com) |
-| Together AI | $1 | لا تنتهي | ✅ لا | [احصل →](https://api.together.ai/settings/api-keys) |
+|---|---|---|---|---|
+| xAI (Grok) | $25 | شهرياً | 📧 بريد | <a href="https://console.x.ai" target="_blank" rel="noopener">احصل →</a> |
+| Modal | $30 | شهرياً | ✅ لا | <a href="https://modal.com" target="_blank" rel="noopener">احصل →</a> |
+| Hyperbolic | $10 | لا تنتهي | ✅ لا | <a href="https://app.hyperbolic.xyz/settings" target="_blank" rel="noopener">احصل →</a> |
+| Lambda AI | $10 | لا تنتهي | ✅ لا | <a href="https://lambda.ai" target="_blank" rel="noopener">احصل →</a> |
+| DeepSeek | $5 | عند التسجيل | 📧 بريد | <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">احصل →</a> |
+| Together AI | $1 | لا تنتهي | ✅ لا | <a href="https://api.together.ai/settings/api-keys" target="_blank" rel="noopener">احصل →</a> |
 
 ---
 
-## مزودو الشرق الأوسط
+<details>
+<summary><strong>🇦🇪 مزودو الشرق الأوسط (4)</strong></summary>
 
 | المزود | الميزة | التسجيل |
-|--------|--------|---------|
-| Falcon (TII) | نماذج مفتوحة المصدر من الإمارات | [→](https://falconllm.tii.ae) |
-| AI71 | نماذج مبنية على Falcon | [→](https://ai71.ai) |
-| Inception AI | شركة ناشئة للذكاء الاصطناعي، الإمارات | [→](https://inceptionai.ai) |
-| Core42 | نموذج JAIS العربي | [→](https://core42.ai) |
+|---|---|---|
+| Falcon (TII) | نماذج مفتوحة المصدر من الإمارات | <a href="https://falconllm.tii.ae" target="_blank" rel="noopener">→</a> |
+| AI71 | نماذج Falcon مع واجهة API | <a href="https://ai71.ai" target="_blank" rel="noopener">→</a> |
+| Inception AI | شركة ناشئة للذكاء الاصطناعي، الإمارات | <a href="https://inceptionai.ai" target="_blank" rel="noopener">→</a> |
+| Core42 | نموذج JAIS العربي | <a href="https://core42.ai" target="_blank" rel="noopener">→</a> |
+
+</details>
 
 ---
 
-## المساهمة
+## 🤝 المساهمة
 
-راجع [CONTRIBUTING.md](CONTRIBUTING.md).
+1. **Fork** هذا المستودع
+2. **عدّل** `data/providers.json` وفق [schema](data/schema.md)
+3. **أرسل PR** مع وصف موجز
 
-## الرخصة
+راجع [CONTRIBUTING.md](CONTRIBUTING.md) للتفاصيل.
 
-MIT License · انظر [LICENSE](LICENSE)
+---
 
-## إخلاء المسؤولية
+<p align="center">
+  <strong>إذا وفّر هذا وقتك، امنح المستودع ⭐ نجمة!</strong><br/>
+  <a href="https://github.com/khushaljethava/freellm-apis">github.com/khushaljethava/freellm-apis</a>
+</p>
 
-يتم صيانة هذا المستودع من قِبل المجتمع. تحقق دائماً من تفاصيل المزود على مواقعهم الرسمية قبل استخدام واجهات برمجة التطبيقات.
+---
+
+MIT License · [LICENSE](LICENSE) · © 2026 freellm.site

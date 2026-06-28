@@ -1,96 +1,147 @@
-# APIs LLM Gratuitas
+<p align="center">
+  <h1 align="center">🆓 APIs LLM Gratuitas</h1>
+  <p align="center"><strong>90+ proveedores · 8 regiones · Niveles gratuitos permanentes + créditos de prueba</strong></p>
+</p>
 
-> Directorio de más de 90 proveedores de APIs de modelos de lenguaje con niveles gratuitos permanentes y créditos de prueba.
+<p align="center">
+  <a href="https://www.freellm.site" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/🌐_Sitio_Web-freellm.site-6366f1?style=for-the-badge" alt="Sitio Web"/></a>
+  <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener"><img src="https://img.shields.io/github/stars/khushaljethava/freellm-apis?style=for-the-badge&color=f59e0b" alt="Stars"/></a>
+  <img src="https://img.shields.io/badge/Proveedores-90%2B-ec4899?style=for-the-badge" alt="90+ Proveedores"/>
+</p>
 
-**[English](README.md) · [简体中文](README.zh.md) · [हिन्दी](README.hi.md) · Español · [日本語](README.ja.md) · [한국어](README.ko.md) · [Português](README.pt.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Русский](README.ru.md)**
-
-🌐 Sitio web: [freellm.site](https://www.freellm.site/)
-
----
-
-## Descripción general
-
-Este repositorio mantiene información actualizada sobre APIs de LLM gratuitas:
-
-- Detalles del proveedor y endpoints de API
-- Límites del nivel gratuito y montos de crédito
-- Requisitos de registro (tarjeta de crédito / verificación)
-- Fechas de última verificación
-
-**90+ proveedores · Global, India, China, Japón, Corea, Europa, Oriente Medio, SEA**
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh.md">简体中文</a> · <a href="README.hi.md">हिन्दी</a> · <strong>Español</strong> · <a href="README.ja.md">日本語</a> · <a href="README.ko.md">한국어</a> · <a href="README.pt.md">Português</a> · <a href="README.ar.md">العربية</a> · <a href="README.fr.md">Français</a> · <a href="README.de.md">Deutsch</a> · <a href="README.ru.md">Русский</a>
+</p>
 
 ---
 
-## Inicio rápido
+## Por qué existe esto
 
-Consulta [providers.json](data/providers.json) para encontrar APIs LLM gratuitas. Cada proveedor incluye:
+Encontrar una API LLM gratuita no debería significar buscar en docenas de sitios web, registrarse en cinco plataformas o adivinar qué nivel gratuito sigue funcionando.
 
-- **Base URL**: Endpoint compatible con OpenAI
-- **Signup URL**: Enlace para obtener claves API
-- **Nivel gratuito**: Tipo y duración del acceso gratuito
-- **Requisitos**: Tarjeta de crédito o verificación necesaria
+Este repositorio es un **directorio estructurado y legible por máquinas** de cada API LLM gratuita — con requisitos de tarjeta de crédito, URLs base y enlaces directos a claves API.
 
----
-
-## Nivel gratuito permanente
-
-Acceso ilimitado (con límite de velocidad):
-
-| Proveedor | ¿Tarjeta? | Notas | Obtener clave |
-|-----------|-----------|-------|---------------|
-| Groq | ✅ No | 30 RPM gratis | [Obtener →](https://console.groq.com/keys) |
-| GitHub Models | ✅ No | Requiere cuenta GitHub | [Obtener →](https://github.com/marketplace/models) |
-| Google Gemini | ✅ No | Contexto de 2M tokens | [Obtener →](https://aistudio.google.com/app/apikey) |
-| Mistral AI | ✅ No | Nivel gratuito con límites | [Obtener →](https://console.mistral.ai/api-keys) |
-| Cerebras | ✅ No | Inferencia ultrarrápida | [Obtener →](https://cloud.cerebras.ai/) |
-| Cohere | ✅ No | 20 llamadas/min | [Obtener →](https://dashboard.cohere.com/api-keys) |
-| Hugging Face | ✅ No | API de inferencia gratuita | [Obtener →](https://huggingface.co/settings/tokens) |
-| Cloudflare Workers AI | ✅ No | 10,000 neurons/día | [Obtener →](https://dash.cloudflare.com/profile/api-tokens) |
-| OpenRouter | 📧 Email | Modelos gratuitos disponibles | [Obtener →](https://openrouter.ai/workspaces/default/keys) |
-| Chutes AI | ✅ No | Nivel comunitario gratuito | [Obtener →](https://chutes.ai) |
-| NVIDIA NIM | 📱 Teléfono | 75+ modelos | [Obtener →](https://build.nvidia.com/settings/api-keys) |
+- ✅ **Opciones sin tarjeta primero** — muestra claramente qué proveedores no requieren datos de pago
+- ✅ **Compatible con OpenAI** — todos los proveedores funcionan como reemplazo de `baseURL`
+- ✅ **90+ proveedores** — global, India, China, Japón, Corea, Europa, Oriente Medio, SEA
+- ✅ **Datos legibles por máquinas** — JSON estructurado en `data/providers.json`
 
 ---
 
-## Créditos gratuitos
+## ⚡ Cómo usar — 3 pasos
+
+**1. Elige un proveedor** — ver [Directorio de proveedores](#-directorio-de-proveedores). Empieza con **Groq** (sin tarjeta, 30 RPM gratis).
+
+**2. Obtén tu clave API** — haz clic en cualquier enlace `Obtener →`, regístrate (la mayoría solo necesitan email) y copia tu clave. Menos de 1 minuto.
+
+**3. Conéctalo** — copia el Base URL + Model ID en tu herramienta.
+
+---
+
+## 🚀 Inicio rápido — 30 segundos
+
+### Python (OpenAI SDK)
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.groq.com/openai/v1",  # gratis, sin tarjeta
+    api_key="TU_CLAVE_GROQ",                     # obtén en console.groq.com/keys
+)
+
+response = client.chat.completions.create(
+    model="llama-3.3-70b-versatile",
+    messages=[{"role": "user", "content": "¡Hola!"}],
+)
+print(response.choices[0].message.content)
+# Groq tier gratuito: 30 RPM, 14,400 RPD
+```
+
+### curl
+
+```bash
+curl https://api.groq.com/openai/v1/chat/completions \
+  -H "Authorization: Bearer $GROQ_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"llama-3.3-70b-versatile","messages":[{"role":"user","content":"¡Hola!"}]}'
+```
+
+> **Consejo:** Cambia `base_url` a cualquier proveedor de las tablas — mismo código, diferente proveedor, costo cero.
+
+---
+
+## 📋 Directorio de proveedores
+
+### ⚡ Niveles gratuitos permanentes
+
+**Acceso ilimitado** (con límite de velocidad) — sin caducidad.
+
+| Proveedor | ¿Tarjeta? | Notas | Contexto máx. | Obtener clave |
+|---|---|---|---|---|
+| Groq | ✅ No | 30 RPM · 14,400 RPD | 262K | <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Obtener →</a> |
+| GitHub Models | ✅ No | Requiere cuenta GitHub | 1M | <a href="https://github.com/marketplace/models" target="_blank" rel="noopener">Obtener →</a> |
+| Google Gemini | ✅ No | 2M tokens en Flash | 2M | <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Obtener →</a> |
+| Mistral AI | ✅ No | Tier gratuito con límites | 256K | <a href="https://console.mistral.ai/api-keys" target="_blank" rel="noopener">Obtener →</a> |
+| Cerebras | ✅ No | Inferencia ultrarrápida | 131K | <a href="https://cloud.cerebras.ai/" target="_blank" rel="noopener">Obtener →</a> |
+| Cohere | ✅ No | 20 llamadas/min | 256K | <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener">Obtener →</a> |
+| Hugging Face | ✅ No | API de inferencia gratuita | 131K | <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">Obtener →</a> |
+| Cloudflare Workers AI | ✅ No | 10,000 neurons/día | 10M | <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">Obtener →</a> |
+| OpenRouter | 📧 Email | 100+ modelos gratuitos | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">Obtener →</a> |
+| Chutes AI | ✅ No | Tier comunitario gratuito | 131K | <a href="https://chutes.ai" target="_blank" rel="noopener">Obtener →</a> |
+| NVIDIA NIM | 📱 Teléfono | 75+ modelos | 1M | <a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">Obtener →</a> |
+
+### 💰 Créditos gratuitos al registrarse
 
 | Proveedor | Créditos | Caducidad | ¿Tarjeta? | Obtener clave |
-|-----------|----------|-----------|-----------|---------------|
-| xAI (Grok) | $25 | Mensual | 📧 Email | [Obtener →](https://console.x.ai) |
-| Modal | $30 | Mensual | ✅ No | [Obtener →](https://modal.com) |
-| Hyperbolic | $10 | Nunca | ✅ No | [Obtener →](https://app.hyperbolic.xyz/settings) |
-| Lambda AI | $10 | Nunca | ✅ No | [Obtener →](https://lambda.ai) |
-| AI21 Labs | $10 | Nunca | ✅ No | [Obtener →](https://www.ai21.com) |
-| DeepSeek | $5 | Al registrarse | 📧 Email | [Obtener →](https://platform.deepseek.com/api_keys) |
-| Anthropic | $5 | Nunca | 💳 Sí | [Obtener →](https://console.anthropic.com) |
-| Perplexity AI | $5 | Nunca | 💳 Sí | [Obtener →](https://www.perplexity.ai/settings/api) |
-| SiliconFlow | $2 | Nunca | 📧 Email | [Obtener →](https://cloud.siliconflow.cn/account/ak) |
-| Together AI | $1 | Nunca | ✅ No | [Obtener →](https://api.together.ai/settings/api-keys) |
-| Fireworks AI | $1 | Nunca | ✅ No | [Obtener →](https://fireworks.ai/account/api-keys) |
+|---|---|---|---|---|
+| xAI (Grok) | $25 | Mensual | 📧 Email | <a href="https://console.x.ai" target="_blank" rel="noopener">Obtener →</a> |
+| Modal | $30 | Mensual | ✅ No | <a href="https://modal.com" target="_blank" rel="noopener">Obtener →</a> |
+| Hyperbolic | $10 | Nunca | ✅ No | <a href="https://app.hyperbolic.xyz/settings" target="_blank" rel="noopener">Obtener →</a> |
+| Lambda AI | $10 | Nunca | ✅ No | <a href="https://lambda.ai" target="_blank" rel="noopener">Obtener →</a> |
+| DeepSeek | $5 | Al registrarse | 📧 Email | <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">Obtener →</a> |
+| Anthropic | $5 | Nunca | 💳 Sí | <a href="https://console.anthropic.com" target="_blank" rel="noopener">Obtener →</a> |
+| Together AI | $1 | Nunca | ✅ No | <a href="https://api.together.ai/settings/api-keys" target="_blank" rel="noopener">Obtener →</a> |
+| Fireworks AI | $1 | Nunca | ✅ No | <a href="https://fireworks.ai/account/api-keys" target="_blank" rel="noopener">Obtener →</a> |
 
 ---
 
-## Proveedores europeos
+<details>
+<summary><strong>🇪🇺 Proveedores europeos (11)</strong></summary>
 
 | Proveedor | País | Especialidad | Registrarse |
-|-----------|------|-------------|-------------|
-| Mistral AI | Francia | LLM líder en Europa | [→](https://console.mistral.ai/api-keys) |
-| Aleph Alpha | Alemania | Modelos Luminous | [→](https://aleph-alpha.com) |
-| ElevenLabs | Polonia | Síntesis de voz | [→](https://elevenlabs.io) |
-| DeepL API | Alemania | Traducción 500K chars/mes gratis | [→](https://developers.deepl.com) |
-| Stability AI | Reino Unido | Modelos de imagen/audio | [→](https://stability.ai) |
-| Scaleway AI | Francia | Llama & Mistral en cloud europeo | [→](https://www.scaleway.com) |
+|---|---|---|---|
+| Mistral AI | Francia | LLM líder en Europa | <a href="https://console.mistral.ai/api-keys" target="_blank" rel="noopener">→</a> |
+| Aleph Alpha | Alemania | Modelos Luminous | <a href="https://aleph-alpha.com" target="_blank" rel="noopener">→</a> |
+| DeepL API | Alemania | Traducción — 500K chars/mes gratis | <a href="https://developers.deepl.com" target="_blank" rel="noopener">→</a> |
+| ElevenLabs | Polonia | Síntesis de voz | <a href="https://elevenlabs.io" target="_blank" rel="noopener">→</a> |
+| Stability AI | UK | Modelos imagen/audio/vídeo | <a href="https://stability.ai" target="_blank" rel="noopener">→</a> |
+| Scaleway AI | Francia | Llama & Mistral en cloud europeo | <a href="https://www.scaleway.com" target="_blank" rel="noopener">→</a> |
+| OVHcloud AI | Francia | Modelos open-source | <a href="https://www.ovhcloud.com" target="_blank" rel="noopener">→</a> |
+| LightOn | Francia | Modelos Alfred | <a href="https://lighton.ai" target="_blank" rel="noopener">→</a> |
+| Silo AI | Finlandia | Modelos Poro finlandeses | <a href="https://www.silo.ai" target="_blank" rel="noopener">→</a> |
+| PolyAI | UK | IA conversacional | <a href="https://poly.ai" target="_blank" rel="noopener">→</a> |
+| H Company | Francia | Startup francesa de IA | <a href="https://hcompany.ai" target="_blank" rel="noopener">→</a> |
+
+</details>
 
 ---
 
-## Contribuir
+## 🤝 Contribuir
 
-Consulta [CONTRIBUTING.md](CONTRIBUTING.md).
+1. **Fork** este repositorio
+2. **Edita** `data/providers.json` siguiendo el [schema](data/schema.md)
+3. **Envía un PR** con una breve descripción
 
-## Licencia
+Ver [CONTRIBUTING.md](CONTRIBUTING.md) para más detalles.
 
-MIT License · Ver [LICENSE](LICENSE)
+---
 
-## Aviso legal
+<p align="center">
+  <strong>Si esto te ahorró tiempo, ¡dale una ⭐ estrella al repo!</strong><br/>
+  <a href="https://github.com/khushaljethava/freellm-apis">github.com/khushaljethava/freellm-apis</a>
+</p>
 
-Este repositorio es mantenido por la comunidad. Siempre verifica los detalles del proveedor en sus sitios web oficiales antes de usar sus APIs.
+---
+
+MIT License · [LICENSE](LICENSE) · © 2026 freellm.site
