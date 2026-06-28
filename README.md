@@ -2,6 +2,10 @@
 
 A structured directory of free LLM APIs for developers. Curated list of providers offering free tiers or trial credits for large language models.
 
+**English · [简体中文](README.zh.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Português](README.pt.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Русский](README.ru.md)**
+
+🌐 Website: [freellm.site](https://www.freellm.site/)
+
 ## Overview
 
 This repository maintains up-to-date information about free LLM APIs, including:

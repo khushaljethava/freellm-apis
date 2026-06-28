@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://freellm.site',
+  site: 'https://www.freellm.site',
   output: 'static',
   integrations: [sitemap()],
 });

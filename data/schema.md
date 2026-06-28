@@ -10,6 +10,7 @@ Each provider is a JSON object with the following fields:
 |-------|------|----------|-------------|
 | `id` | string | Yes | Unique identifier for the provider (lowercase, no spaces, e.g., "groq", "mistral"). Used internally for deduplication. |
 | `name` | string | Yes | Human-readable provider name (e.g., "Groq", "Mistral AI"). |
+| `region` | string | Yes | Geographic region. Valid values: `"global"`, `"india"`, `"china"`, `"japan"`, `"korea"`, `"europe"`, `"middle_east"`, `"sea"`. |
 | `base_url` | string | Yes | OpenAI-compatible API base URL (e.g., "https://api.groq.com/openai/v1"). May contain placeholder segments like `{account_id}`. |
 | `signup_url` | string | Yes | URL to sign up or manage API keys (e.g., "https://console.groq.com/keys"). |
 | `credit_card_required` | string | Yes | Whether a credit card is needed to access the free tier. Valid values: `"yes"`, `"no"`, `"phone"`, `"registration"`. |
