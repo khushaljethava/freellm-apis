@@ -87,6 +87,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | Cloudflare Workers AI | ✅ 不要 | 1日10,000ニューロン | 10M | <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">取得 →</a> |
 | OpenRouter | 📧 登録 | 100以上の無料モデル | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">取得 →</a> |
 | NVIDIA NIM | 📱 電話 | 75以上のモデル | 1M | <a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">取得 →</a> |
+| Zhipu AI | ✅ 不要 | GLM-4.7-Flash と GLM-4.5-Flash が無料 | 128K | <a href="https://open.bigmodel.cn" target="_blank" rel="noopener">取得 →</a> |
 
 ### 💰 登録時無料クレジット
 

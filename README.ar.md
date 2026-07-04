@@ -87,6 +87,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | Cloudflare Workers AI | ✅ لا | 10,000 نيورون/يوم | 10M | <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">احصل →</a> |
 | OpenRouter | 📧 بريد | 100+ نموذج مجاني | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">احصل →</a> |
 | NVIDIA NIM | 📱 هاتف | 75+ نموذجاً | 1M | <a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">احصل →</a> |
+| Zhipu AI | ✅ لا | GLM-4.7-Flash و GLM-4.5-Flash مجانًا | 128K | <a href="https://open.bigmodel.cn" target="_blank" rel="noopener">احصل →</a> |
 
 ### 💰 أرصدة مجانية عند التسجيل
 

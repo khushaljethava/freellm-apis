@@ -88,6 +88,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | OpenRouter | 📧 Email | 100+ modèles gratuits | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">Obtenir →</a> |
 | Chutes AI | ✅ Non | Niveau communautaire gratuit | 131K | <a href="https://chutes.ai" target="_blank" rel="noopener">Obtenir →</a> |
 | NVIDIA NIM | 📱 Téléphone | 75+ modèles | 1M | <a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">Obtenir →</a> |
+| Zhipu AI | ✅ Non | GLM-4.7-Flash et GLM-4.5-Flash gratuits | 128K | <a href="https://open.bigmodel.cn" target="_blank" rel="noopener">Obtenir →</a> |
 
 ### 💰 Crédits gratuits à l'inscription
 

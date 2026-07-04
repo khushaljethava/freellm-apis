@@ -85,6 +85,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | Hugging Face | ✅ नहीं | मुफ़्त इन्फरेंस API | 131K | <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">प्राप्त करें →</a> |
 | Cloudflare Workers AI | ✅ नहीं | 10,000 neurons/दिन | 10M | <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">प्राप्त करें →</a> |
 | OpenRouter | 📧 ईमेल | 100+ मुफ़्त मॉडल | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">प्राप्त करें →</a> |
+| Zhipu AI | ✅ नहीं | GLM-4.7-Flash और GLM-4.5-Flash मुफ़्त | 128K | <a href="https://open.bigmodel.cn" target="_blank" rel="noopener">प्राप्त करें →</a> |
 
 ### 💰 साइनअप पर मुफ़्त क्रेडिट
 

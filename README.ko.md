@@ -87,6 +87,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | Cloudflare Workers AI | ✅ 불필요 | 하루 10,000 neurons | 10M | <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">받기 →</a> |
 | OpenRouter | 📧 이메일 | 100개 이상 무료 모델 | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">받기 →</a> |
 | NVIDIA NIM | 📱 전화 | 75개 이상 모델 | 1M | <a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">받기 →</a> |
+| Zhipu AI | ✅ 불필요 | GLM-4.7-Flash 및 GLM-4.5-Flash 무료 | 128K | <a href="https://open.bigmodel.cn" target="_blank" rel="noopener">받기 →</a> |
 
 ### 💰 가입 시 무료 크레딧
 

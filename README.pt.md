@@ -87,6 +87,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | Cloudflare Workers AI | ✅ Não | 10.000 neurons/dia | 10M | <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener">Obter →</a> |
 | OpenRouter | 📧 Email | 100+ modelos gratuitos | 1M | <a href="https://openrouter.ai/workspaces/default/keys" target="_blank" rel="noopener">Obter →</a> |
 | Chutes AI | ✅ Não | Tier comunitário gratuito | 131K | <a href="https://chutes.ai" target="_blank" rel="noopener">Obter →</a> |
+| Zhipu AI | ✅ Não | GLM-4.7-Flash e GLM-4.5-Flash grátis | 128K | <a href="https://open.bigmodel.cn" target="_blank" rel="noopener">Obter →</a> |
 
 ### 💰 Créditos gratuitos no cadastro
 

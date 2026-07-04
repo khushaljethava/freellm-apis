@@ -642,12 +642,12 @@
     "region": "china",
     "base_url": "https://open.bigmodel.cn/api/paas/v4",
     "signup_url": "https://open.bigmodel.cn",
-    "credit_card_required": "registration",
-    "free_type": "credits",
+    "credit_card_required": "no",
+    "free_type": "permanent",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "GLM models; free trial tokens",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "GLM-4.7-Flash & GLM-4.5-Flash free, no card; 1 concurrent request, ~1000 req/day",
+    "last_verified": "2026-07-01"
   },
   {
     "id": "minimax",

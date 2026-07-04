@@ -134,6 +134,7 @@ Providers with **unlimited free access** (rate-limited) — no time expiry.
 | NVIDIA NIM | 📱 Phone | 75+ models | 1M | <a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">Get Key →</a> |
 | SambaNova Cloud | 📧 Email | Fast Llama inference | 128K | <a href="https://cloud.sambanova.ai/apis" target="_blank" rel="noopener">Get Key →</a> |
 | Parasail | 📧 Email | Free tier available | — | <a href="https://parasail.io" target="_blank" rel="noopener">Get Key →</a> |
+| Zhipu AI | ✅ No | GLM-4.7-Flash & GLM-4.5-Flash free, 1 concurrent req | 128K | <a href="https://open.bigmodel.cn" target="_blank" rel="noopener">Get Key →</a> |
 <!-- END_PERMANENT -->
 
 ### 💰 Free Credits on Signup
