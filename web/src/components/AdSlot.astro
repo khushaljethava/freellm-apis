@@ -24,7 +24,18 @@ const isLive = !isPlaceholderId && adSlot && adSlot !== 'XXXXXXXXXX';
     ></ins>
   </div>
 ) : (
-  <div class="ad-slot" aria-hidden="true">Advertisement</div>
+  <div class="ad-slot ad-slot--house">
+    <a class="banner" href="https://solopreneurshub.com/" target="_blank" rel="noopener sponsored">
+      <div class="left">
+        <div class="icon">🚀</div>
+        <div class="content">
+          <div class="title">Find Better AI Tools Faster</div>
+          <div class="subtitle">Submit Your AI Tool &amp; Reach Thousands of Builders</div>
+        </div>
+      </div>
+      <div class="cta">Get Started →</div>
+    </a>
+  </div>
 )}
 
 {isLive && (
@@ -32,3 +43,67 @@ const isLive = !isPlaceholderId && adSlot && adSlot !== 'XXXXXXXXXX';
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 )}
+
+<style>
+  .ad-slot--house {
+    display: flex;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 1.5rem auto;
+  }
+  .banner {
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, #111827, #2563eb);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
+  }
+  .banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px rgba(37, 99, 235, 0.35);
+  }
+  .banner .left { display: flex; align-items: center; gap: 16px; min-width: 0; }
+  .banner .icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .banner .content { display: flex; flex-direction: column; min-width: 0; }
+  .banner .title { font-size: 1.25rem; font-weight: 800; line-height: 1.1; margin-bottom: 4px; }
+  .banner .subtitle { font-size: 0.8rem; color: #dbeafe; font-weight: 500; }
+  .banner .cta {
+    background: #fff;
+    color: #2563eb;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: background 0.25s, color 0.25s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .banner:hover .cta { background: #22c55e; color: #fff; }
+  @media (max-width: 520px) {
+    .banner .icon { width: 44px; height: 44px; font-size: 22px; }
+    .banner .title { font-size: 1.05rem; }
+    .banner .cta { padding: 10px 16px; font-size: 0.85rem; }
+  }
+</style>

@@ -23,10 +23,66 @@ const lastVerified = providers[0]?.last_verified ?? '';
 const quickPick = permanent.find(p => p.credit_card_required === 'no');
 const quickPickCtx = quickPick ? maxContext(quickPick.id) : null;
 const quickPickModels = quickPick ? modelCount(quickPick.id) : 0;
+
+const faqs = [
+  {
+    q: "What is the best free LLM API?",
+    a: `The best free LLM API depends on your use case. Groq is the fastest, Google Gemini has the largest free context window, and GitHub Models needs no separate signup. All ${providers.length} providers listed here offer a free LLM API with no upfront cost.`,
+  },
+  {
+    q: "How do I get a free LLM API key?",
+    a: "Pick a provider from the tables above, click Get key, and sign up on their console. Most issue a free LLM API key instantly with just an email — no credit card. Then set it as your API key and start making requests.",
+  },
+  {
+    q: "Are there free LLM APIs with no credit card?",
+    a: `Yes. Many providers here offer a free LLM API with no credit card required — the "No card" badge marks them. Groq, Google Gemini, GitHub Models, and Mistral all give free API keys without any payment details.`,
+  },
+  {
+    q: "What is the cheapest LLM API?",
+    a: "The cheapest LLM API is a free one. Every provider on this page has a free tier or free credits, so you pay nothing to start. For high volume, compare paid pricing per provider once your free LLM API calls run out.",
+  },
+  {
+    q: "Are there open source LLM APIs?",
+    a: "Yes. Providers like Groq, Together AI, and DeepInfra serve open source LLM models such as Llama and Mistral through a free LLM API. You get the best open source LLM models via a hosted, OpenAI-compatible endpoint without running your own hardware.",
+  },
+  {
+    q: "Are there open source LLM API keys available for free?",
+    a: "Yes. You can get a free API key from any provider on this page and call open source LLM models through it. That gives you open source LLM API keys without a credit card — Groq, Together AI, and DeepInfra all serve open-weight models this way.",
+  },
+  {
+    q: "What is the cheapest LLM API provider?",
+    a: "For free usage, any provider here is the cheapest LLM API — you pay nothing to start. When you need paid scale, run an LLM API pricing comparison across providers, since per-token rates for a cheap LLM API vary widely by model and region.",
+  },
+  {
+    q: "Can I make free LLM API calls without limits?",
+    a: "Free LLM API calls come with per-minute and per-day rate limits, not unlimited use. The limits are generous enough for prototyping and light production. When you outgrow a free tier, switch providers or upgrade to a paid plan.",
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'freellm.site',
+      url: 'https://www.freellm.site/',
+      description: `Directory of ${providers.length} free LLM API providers and ${totalModels} models.`,
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
 ---
 <Base
-  title="Free LLM APIs — Free AI API Keys from 30+ Providers | freellm.site"
-  description={`${providers.length} free LLM API providers, ${totalModels} models. Groq, Mistral, GitHub Models, Together AI & more. Find your free API key in seconds.`}
+  title="Free LLM API — Free LLM API Keys from 30+ Providers | freellm.site"
+  description={`Find a free LLM API with no credit card. ${providers.length} providers, ${totalModels} models — Groq, Gemini, Mistral, GitHub Models. Get your free LLM API key in seconds.`}
+  schema={schema}
 >
   <div class="hero">
     <div class="hero-eyebrow">Free &amp; verified · Updated {lastVerified}</div>
@@ -123,4 +179,58 @@ const quickPickModels = quickPick ? modelCount(quickPick.id) : 0;
   </div>
 
   <AdSlot variant="bottom" />
+
+  <section class="seo-content">
+    <h2>Every free LLM API in one directory</h2>
+    <p>
+      Finding a free LLM API that works — without a credit card — shouldn't take an afternoon of
+      tab-hopping. This directory tracks {providers.length} providers and {totalModels} models, from
+      always-free tiers to free-credit plans, so you can grab a free LLM API key and start building in
+      minutes. Every LLM API here exposes an
+      <a href="/blog/openai-compatible-api-guide/">OpenAI-compatible endpoint</a>, so switching
+      providers is a one-line change.
+    </p>
+    <p>
+      Whether you need the cheapest LLM API for a side project, the best open source LLM models like
+      Llama and Mistral, or a fast free LLM API for coding, the tables above compare them on models,
+      context window, and whether a card is required. Need paid scale later? Start free, then run an
+      LLM API pricing comparison across providers. For hands-on guides, see our
+      <a href="/blog/best-free-llm-apis-2026/">roundup of the best free LLM APIs</a>,
+      <a href="/blog/best-open-source-llm-apis/">best open source LLM APIs</a>, and
+      <a href="/blog/best-free-llm-apis-for-coding/">best free LLM APIs for coding</a>.
+    </p>
+
+    <h2>Free LLM API FAQ</h2>
+    <div class="faq-list">
+      {faqs.map(f => (
+        <div class="faq-item">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
 </Base>
+
+<style>
+  .seo-content {
+    max-width: 760px;
+    margin: 3rem auto 0;
+    padding: 0 1rem 2rem;
+  }
+  .seo-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 0.75rem;
+  }
+  .seo-content > p {
+    line-height: 1.7;
+    color: var(--text-muted, #6b7280);
+    margin: 0 0 1rem;
+  }
+  .seo-content a { color: var(--accent, #6366f1); }
+  .faq-list { margin-top: 0.5rem; }
+  .faq-item { margin-bottom: 1.25rem; }
+  .faq-item h3 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.35rem; }
+  .faq-item p { margin: 0; line-height: 1.7; color: var(--text-muted, #6b7280); }
+</style>

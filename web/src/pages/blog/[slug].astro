@@ -17,22 +17,62 @@ function renderContent(text: string): string {
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
-    .replace(/^\| *-+ *\|.*$/gm, '')
+    // Mark the header/body separator so we can promote the header row to <th>.
+    .replace(/^\| *-+ *\|.*$/gm, '__THEAD__')
     .replace(/^\|(.+)\|$/gm, (line) => {
       const cells = line.split('|').filter(c => c.trim());
       return '<tr>' + cells.map(c => `<td>${c.trim()}</td>`).join('') + '</tr>';
     })
+    // Group a header row + __THEAD__ separator + one-or-more body rows into ONE table.
+    .replace(/(<tr>.*?<\/tr>)\s*__THEAD__\s*((?:<tr>.*?<\/tr>\s*)+)/g, (_m, head, body) => {
+      const thead = '<thead>' + head.replace(/<td>/g, '<th>').replace(/<\/td>/g, '</th>') + '</thead>';
+      return `<table class="prose-table">${thead}<tbody>${body.trim()}</tbody></table>`;
+    })
+    .replace(/__THEAD__/g, '')
     .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>[\s\S]+?<\/li>)/g, '<ul>$1</ul>')
-    .replace(/(<tr>[\s\S]+?<\/tr>)/g, '<table class="prose-table">$1</table>')
+    // Group consecutive <li> lines into a single <ul> (was: one <ul> per item).
+    .replace(/(?:^<li>.*<\/li>\n?)+/gm, (m) => `<ul>${m.replace(/\n/g, '')}</ul>`)
     .replace(/\n\n(?!<)/g, '</p><p>')
     .replace(/^(?!<)(.)/m, '<p>$1')
     + '</p>';
 }
 
 const htmlContent = renderContent(post.content);
+
+const modified = post.lastUpdated ?? post.date;
+const blogPosting = {
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: post.description,
+  datePublished: post.date,
+  dateModified: modified,
+  author: { '@type': 'Organization', name: post.author, url: 'https://www.freellm.site/' },
+  publisher: { '@type': 'Organization', name: 'freellm.site', url: 'https://www.freellm.site/' },
+  keywords: post.tags.join(', '),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.freellm.site/blog/${post.slug}/` },
+};
+const graph: object[] = [blogPosting];
+if (post.faq?.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    mainEntity: post.faq.map((f: { q: string; a: string }) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
+const schema = { '@context': 'https://schema.org', '@graph': graph };
+
+// Related posts: most tag overlap first, then newest. Top 3.
+const related = posts
+  .filter(p => p.slug !== post.slug)
+  .map(p => ({ p, overlap: p.tags.filter(t => post.tags.includes(t)).length }))
+  .sort((a, b) => b.overlap - a.overlap || b.p.date.localeCompare(a.p.date))
+  .slice(0, 3)
+  .map(x => x.p);
 ---
-<Base title={`${post.title} | freellm.site`} description={post.description}>
+<Base title={`${post.title} | freellm.site`} description={post.description} ogType="article" schema={schema}>
   <article class="post">
     <div class="post-header">
       <div class="post-meta">
@@ -47,7 +87,28 @@ const htmlContent = renderContent(post.content);
     </div>
     <AdSlot variant="top" />
     <div class="post-body" set:html={htmlContent} />
+    {post.faq?.length > 0 && (
+      <section class="faq">
+        <h2>Frequently asked questions</h2>
+        {post.faq.map((f) => (
+          <div class="faq-item">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </section>
+    )}
     <AdSlot variant="bottom" />
+    {related.length > 0 && (
+      <aside class="related">
+        <h2>Related guides</h2>
+        <ul>
+          {related.map(r => (
+            <li><a href={`/blog/${r.slug}/`}>{r.title}</a></li>
+          ))}
+        </ul>
+      </aside>
+    )}
     <div class="post-footer">
       <a href="/blog/" class="back-link">← Back to Blog</a>
       <a href="/" class="cta-link">Browse free LLM APIs →</a>
@@ -129,6 +190,27 @@ const htmlContent = renderContent(post.content);
     padding: 0.5rem 0.75rem;
   }
   .post-body :global(a) { color: var(--accent, #6366f1); text-decoration: underline; }
+  .related {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+  .related h2 { font-size: 1.2rem; font-weight: 600; margin: 0 0 0.75rem; }
+  .faq { margin-top: 2.5rem; }
+  .faq > h2 { font-size: 1.4rem; font-weight: 600; margin: 0 0 1rem; }
+  .faq-item { margin-bottom: 1.25rem; }
+  .faq-item h3 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.35rem; }
+  .faq-item p { margin: 0; line-height: 1.7; color: var(--text, inherit); }
+  .related ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .related a { color: var(--accent, #6366f1); text-decoration: none; font-weight: 500; }
+  .related a:hover { text-decoration: underline; }
+  .post-body :global(thead th) {
+    background: var(--tag-bg, #f3f4f6);
+    font-weight: 600;
+    text-align: left;
+    border: 1px solid var(--border, #e5e7eb);
+    padding: 0.5rem 0.75rem;
+  }
   .post-footer {
     margin-top: 3rem;
     padding-top: 1.5rem;

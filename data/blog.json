@@ -4,8 +4,14 @@
     "title": "Best Free LLM APIs in 2026 — No Credit Card Required",
     "description": "A curated list of the best free LLM APIs you can use today without a credit card. Groq, GitHub Models, Google Gemini, and more.",
     "date": "2026-06-28",
+    "lastUpdated": "2026-06-28",
     "author": "freellm.site",
-    "tags": ["free-llm", "api", "groq", "gemini"],
+    "tags": [
+      "free-llm",
+      "api",
+      "groq",
+      "gemini"
+    ],
     "content": "Finding a free LLM API that actually works — without handing over a credit card — is harder than it should be. Here are the top picks for 2026.\n\n## 1. Groq — Fastest Free Inference\n\nGroq offers **30 requests/minute** and **14,400 requests/day** for free, no credit card needed. It runs Llama 3.3 70B at speeds that feel instant.\n\n```python\nfrom openai import OpenAI\nclient = OpenAI(base_url=\"https://api.groq.com/openai/v1\", api_key=\"YOUR_KEY\")\nresponse = client.chat.completions.create(\n    model=\"llama-3.3-70b-versatile\",\n    messages=[{\"role\": \"user\", \"content\": \"Hello!\"}]\n)\n```\n\nGet your key at [console.groq.com/keys](https://console.groq.com/keys).\n\n## 2. Google Gemini — Largest Free Context Window\n\nGemini Flash gives you **2 million tokens of context** for free. That's enough for entire codebases or book-length documents.\n\nGet your key at [aistudio.google.com](https://aistudio.google.com/app/apikey).\n\n## 3. GitHub Models — No Signup Friction\n\nIf you have a GitHub account you already have access. Supports GPT-4o, Llama, Mistral, Phi, and more.\n\nAccess at [github.com/marketplace/models](https://github.com/marketplace/models).\n\n## 4. Mistral AI — Best European Option\n\nMistral's free tier gives rate-limited access to Mistral Small and Medium. GDPR-compliant, EU-hosted.\n\n## 5. Cloudflare Workers AI — Edge Inference\n\n10,000 neurons per day on their global edge network. Great for low-latency use cases.\n\n## Quick Comparison\n\n| Provider | Card? | Rate Limit | Context |\n|---|---|---|---|\n| Groq | No | 30 RPM | 262K |\n| Google Gemini | No | 15 RPM | 2M |\n| GitHub Models | No | Varies | 1M |\n| Mistral AI | No | Rate-limited | 256K |\n| Cloudflare Workers AI | No | 10K/day | 10M |\n\nAll of these expose OpenAI-compatible endpoints — swap the `base_url` and you're done."
   },
   {
@@ -13,8 +19,14 @@
     "title": "What Is an OpenAI-Compatible API and How to Use One",
     "description": "Learn what OpenAI-compatible APIs are, why they matter, and how to swap any provider into your existing code with one line.",
     "date": "2026-06-25",
+    "lastUpdated": "2026-06-25",
     "author": "freellm.site",
-    "tags": ["openai", "api", "tutorial", "python"],
+    "tags": [
+      "openai",
+      "api",
+      "tutorial",
+      "python"
+    ],
     "content": "Every free LLM provider listed on freellm.site exposes an **OpenAI-compatible API**. That means you can use the same code — just swap the `base_url`.\n\n## What Makes an API \"OpenAI-Compatible\"?\n\nThe OpenAI API has become the de-facto standard for LLM APIs. A provider is \"OpenAI-compatible\" if it implements the same HTTP endpoints:\n\n- `POST /v1/chat/completions` — the main chat endpoint\n- `GET /v1/models` — list available models\n\nThe request/response format is identical to OpenAI's.\n\n## How to Swap Providers in One Line\n\n```python\nfrom openai import OpenAI\n\n# OpenAI (paid)\nclient = OpenAI(api_key=\"sk-...\")\n\n# Groq (free, no card)\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"YOUR_GROQ_KEY\"\n)\n\n# GitHub Models (free, just need GitHub account)\nclient = OpenAI(\n    base_url=\"https://models.github.ai/inference\",\n    api_key=\"YOUR_GITHUB_TOKEN\"\n)\n```\n\nOnly two things change: `base_url` and `api_key`. Everything else — streaming, tool use, system prompts — works the same.\n\n## Using Environment Variables\n\nThe cleanest pattern is to drive both from env vars:\n\n```bash\nexport OPENAI_BASE_URL=\"https://api.groq.com/openai/v1\"\nexport OPENAI_API_KEY=\"your-groq-key\"\n```\n\nThen your code needs zero changes:\n\n```python\nfrom openai import OpenAI\nclient = OpenAI()  # reads env vars automatically\n```\n\nThis lets you switch providers without touching code — just change the environment variables."
   },
   {
@@ -22,8 +34,14 @@
     "title": "Groq vs Google Gemini Free Tier — Which Should You Use?",
     "description": "Comparing Groq and Google Gemini Flash free tiers for speed, context window, rate limits, and use cases.",
     "date": "2026-06-20",
+    "lastUpdated": "2026-06-20",
     "author": "freellm.site",
-    "tags": ["groq", "gemini", "comparison", "free-llm"],
+    "tags": [
+      "groq",
+      "gemini",
+      "comparison",
+      "free-llm"
+    ],
     "content": "Both Groq and Google Gemini offer excellent free tiers with no credit card required. Here's how to choose.\n\n## Groq — Choose for Speed\n\n- **30 RPM** free, 14,400 RPD\n- **262K context** window\n- Runs Llama 3.3 70B at ~500 tokens/second\n- Best for: chatbots, code completion, quick Q&A\n\n## Google Gemini Flash — Choose for Context\n\n- **15 RPM** free on Flash, 1,500 RPD\n- **2 million token context** (best in class)\n- Multimodal: handles images, audio, video\n- Best for: long document analysis, RAG, multimodal tasks\n\n## Side-by-Side\n\n| Feature | Groq | Gemini Flash |\n|---|---|---|\n| Card required | No | No |\n| Rate limit | 30 RPM | 15 RPM |\n| Context window | 262K | 2M |\n| Speed | ~500 tok/s | ~100 tok/s |\n| Multimodal | No | Yes |\n| Best model | Llama 3.3 70B | Gemini 1.5 Flash |\n\n## Verdict\n\n- **Speed matters** → Groq\n- **Long documents / images** → Gemini Flash\n- **Both are free** → try both and benchmark your specific use case\n\nBoth are OpenAI-compatible so switching is one line of code."
   },
   {
@@ -31,17 +49,246 @@
     "title": "Free LLM APIs for Indian Developers — Regional Options & Global Picks",
     "description": "Best free LLM APIs for developers in India including Indian language model providers like Sarvam AI, Krutrim, and global options.",
     "date": "2026-06-15",
+    "lastUpdated": "2026-06-15",
     "author": "freellm.site",
-    "tags": ["india", "sarvam", "krutrim", "free-llm", "regional"],
+    "tags": [
+      "india",
+      "sarvam",
+      "krutrim",
+      "free-llm",
+      "regional"
+    ],
     "content": "India has a growing AI ecosystem with several providers offering free API access for Indian language models alongside global options.\n\n## Global Free APIs (Work Everywhere)\n\nThese are the best no-card options for any developer in India:\n\n- **Groq** — fastest inference, Llama 3.3 70B free\n- **Google Gemini** — 2M context, free tier\n- **GitHub Models** — free with GitHub account\n- **Hugging Face** — free inference API\n\n## Indian Language Model Providers\n\n### Sarvam AI\nBuilt specifically for Indian languages — supports Hindi, Tamil, Telugu, Kannada, Marathi, Bengali, Gujarati, Malayalam, Odia, and Punjabi.\n- Signup: [sarvam.ai](https://sarvam.ai)\n- Free API access available\n\n### Krutrim AI (by Ola)\nIndia's first full-stack AI company by Ola's Bhavish Aggarwal. Offers multilingual support for Indian languages.\n- Signup: [krutrim.com](https://www.krutrim.com)\n\n### AI4Bharat (IIT Madras)\nOpen-source models for Indian languages. Research-grade APIs available.\n- Website: [ai4bharat.iitm.ac.in](https://ai4bharat.iitm.ac.in)\n\n## Quick Start for Indian Developers\n\n```python\nfrom openai import OpenAI\n\n# Start with Groq — fastest, free, no card\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"YOUR_GROQ_KEY\"  # console.groq.com/keys\n)\n```\n\nSee the full list of 90+ providers at [freellm.site](https://www.freellm.site/)."
   },
   {
     "slug": "use-free-llm-api-cursor-claude-code",
     "title": "Use a Free LLM API in Cursor, Claude Code, or Any AI Tool",
-    "description": "Step-by-step guide to pointing Cursor, Claude Code, VS Code and other AI coding tools at a free LLM API provider.",
+    "description": "Point Cursor, Claude Code, VS Code, and other AI coding tools at a free LLM API. Working setup per tool — including the proxy Claude Code needs.",
     "date": "2026-06-10",
+    "lastUpdated": "2026-07-14",
     "author": "freellm.site",
-    "tags": ["cursor", "claude-code", "vscode", "tutorial", "free-llm"],
-    "content": "Most AI coding tools support custom LLM endpoints. Here's how to point them at a free provider.\n\n## Environment Variables (Universal)\n\nMost tools respect standard OpenAI env vars:\n\n```bash\nexport OPENAI_BASE_URL=\"https://api.groq.com/openai/v1\"\nexport OPENAI_API_KEY=\"your-groq-key\"\n```\n\nAdd these to your `~/.bashrc` or `~/.zshrc`.\n\n## Claude Code\n\n```bash\nexport ANTHROPIC_BASE_URL=\"https://api.groq.com/openai/v1\"\nexport ANTHROPIC_API_KEY=\"your-groq-key\"\n```\n\n## Cursor\n\n1. Open Cursor Settings (`Cmd/Ctrl + ,`)\n2. Go to **Models** → **Add Model**\n3. Set **API Base URL** to `https://api.groq.com/openai/v1`\n4. Set **API Key** to your Groq key\n5. Add model name: `llama-3.3-70b-versatile`\n\n## Python Scripts\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\"\n)\n\nresponse = client.chat.completions.create(\n    model=\"llama-3.3-70b-versatile\",\n    messages=[{\"role\": \"user\", \"content\": \"Write a Python function to sort a list\"}]\n)\nprint(response.choices[0].message.content)\n```\n\n## Get Your Free Key\n\nVisit [freellm.site](https://www.freellm.site/) to find the right free provider for your use case."
+    "tags": [
+      "cursor",
+      "claude-code",
+      "vscode",
+      "tutorial",
+      "free-llm"
+    ],
+    "content": "Most AI coding tools let you point them at a custom LLM endpoint, so you can swap in a free provider like Groq, Google Gemini, or GitHub Models instead of paying per token. The catch: some tools speak the OpenAI API format and some speak Anthropic's, so the setup differs per tool. This guide covers the working configuration for each.\n\n## The Short Answer\n\nIf your tool speaks the **OpenAI API** (Cursor, Continue, Cline, most others), you set two values — a base URL and an API key — and you're done. If your tool speaks the **Anthropic API** (Claude Code), a direct swap does **not** work; you need a small translation proxy in between. Both paths are covered below.\n\n## Before You Start\n\nYou need three things:\n\n- A **free API key** from a provider. Grab one from [console.groq.com/keys](https://console.groq.com/keys) (fastest to set up) or [aistudio.google.com](https://aistudio.google.com/app/apikey) for Gemini.\n- The provider's **base URL** — for Groq that's `https://api.groq.com/openai/v1`.\n- A **model name** the provider serves, such as `llama-3.3-70b-versatile` on Groq.\n\nRate limits and available models change often, so check the provider's own console for the current free-tier numbers rather than trusting a hardcoded value in a blog post.\n\n## Method 1: Environment Variables (Works for Most Tools)\n\nMost OpenAI-compatible tools respect the standard OpenAI environment variables. Set them once and any tool that reads them picks up the free endpoint:\n\n```bash\nexport OPENAI_BASE_URL=\"https://api.groq.com/openai/v1\"\nexport OPENAI_API_KEY=\"your-groq-key\"\n```\n\nAdd those lines to your `~/.bashrc` or `~/.zshrc` so they persist across terminal sessions. This is the cleanest approach because switching providers later means changing one line, not editing tool settings.\n\n## Cursor\n\nCursor supports OpenAI-compatible endpoints through its model settings, so a free provider drops straight in:\n\n1. Open **Cursor Settings** (`Cmd/Ctrl + ,`).\n2. Go to **Models**.\n3. Enable **Override OpenAI Base URL** and set it to `https://api.groq.com/openai/v1`.\n4. Paste your Groq key into the **OpenAI API Key** field.\n5. Add a custom model name — `llama-3.3-70b-versatile` — and select it.\n\nNote that Cursor's agent features are tuned for its own models; a third-party model powers chat and completions well but may behave differently in full agent mode.\n\n## Claude Code (Requires a Proxy)\n\nThis is the step most guides get wrong. Claude Code talks to the Anthropic **Messages API**, not the OpenAI **chat/completions** API. Pointing `ANTHROPIC_BASE_URL` directly at Groq's OpenAI endpoint fails because the request and response shapes don't match.\n\nThe fix is a translation proxy that accepts Anthropic-format requests and forwards them to an OpenAI-compatible backend. Two common options:\n\n- **claude-code-router** — a purpose-built router for exactly this. Install it, configure a provider, and it exposes a local Anthropic-compatible endpoint.\n- **LiteLLM** — a general proxy that also exposes an Anthropic-compatible `/v1/messages` route.\n\nA minimal LiteLLM setup looks like this:\n\n```bash\npip install 'litellm[proxy]'\nexport GROQ_API_KEY=\"your-groq-key\"\nlitellm --model groq/llama-3.3-70b-versatile\n```\n\nThen point Claude Code at the local proxy instead of Anthropic:\n\n```bash\nexport ANTHROPIC_BASE_URL=\"http://localhost:4000\"\nexport ANTHROPIC_API_KEY=\"anything\"   # the proxy holds the real key\n```\n\nNow Claude Code sends Anthropic-format requests to the proxy, which translates them to Groq and back.\n\n## VS Code (Continue or Cline)\n\nFor plain VS Code, use an extension that supports custom endpoints. **Continue** and **Cline** both accept an OpenAI-compatible provider. In the extension's config, set the provider to `openai`, the `apiBase` to your provider's base URL, and the `apiKey` to your free key. Because these extensions speak OpenAI natively, no proxy is needed.\n\n## Python Scripts\n\nIf you're wiring an AI tool of your own, the same base-URL swap works with the OpenAI SDK:\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\",\n)\n\nresponse = client.chat.completions.create(\n    model=\"llama-3.3-70b-versatile\",\n    messages=[{\"role\": \"user\", \"content\": \"Write a Python function to sort a list\"}],\n)\nprint(response.choices[0].message.content)\n```\n\n## Troubleshooting\n\nA few failures come up repeatedly:\n\n- **401 Unauthorized** — the key is wrong, or the tool is still sending its default key. Confirm the base URL override actually took effect.\n- **404 or \"model not found\"** — the model name isn't served by that provider. Copy the exact name from the provider's model list.\n- **Claude Code returns malformed errors** — you skipped the proxy. Anthropic-format tools cannot call OpenAI endpoints directly.\n- **Rate-limit (429) errors** — you've hit the free tier's per-minute cap. Slow down requests or switch providers.\n\n## Which Free Provider Should You Use?\n\nFor coding tools, **Groq** is the usual first pick because its speed keeps completions snappy, and it's OpenAI-compatible so it works with the widest set of tools. If you need a very large context window for whole-repo work, **Google Gemini** is the better fit. Both are free and require no credit card.\n\nSee the full list of 90+ free providers at [freellm.site](https://www.freellm.site/) and pick the one whose limits and models match your workflow.",
+    "faq": [
+      {
+        "q": "Can I use a free LLM API with Claude Code?",
+        "a": "Yes, but not directly. Claude Code speaks the Anthropic Messages API, so you need a translation proxy such as claude-code-router or LiteLLM between it and an OpenAI-compatible provider like Groq. Point ANTHROPIC_BASE_URL at the local proxy."
+      },
+      {
+        "q": "Why doesn't pointing ANTHROPIC_BASE_URL at Groq work?",
+        "a": "Because the request and response formats differ. Groq's free endpoint follows the OpenAI chat/completions schema, while Claude Code sends Anthropic Messages-format requests. Without a proxy that translates between the two, the calls fail with malformed-response errors."
+      },
+      {
+        "q": "Does Cursor support free LLM APIs?",
+        "a": "Yes. In Cursor's model settings you can override the OpenAI base URL and API key, then add a custom model name. Chat and completions work well with a free OpenAI-compatible provider, though Cursor's agent features are tuned for its own models."
+      },
+      {
+        "q": "Do I need a credit card to use these free APIs?",
+        "a": "No. Providers like Groq, Google Gemini, and GitHub Models offer free tiers with no card required. You sign up, generate an API key from the provider's console, and start making requests within the tier's rate limits."
+      },
+      {
+        "q": "How do I switch providers without editing every tool?",
+        "a": "Set the standard OPENAI_BASE_URL and OPENAI_API_KEY environment variables in your shell profile. Any tool that reads them picks up the change, so swapping providers is a one-line edit rather than reconfiguring each tool separately."
+      }
+    ]
+  },
+  {
+    "slug": "free-llm-api-customer-support-chatbot",
+    "title": "Best Free LLM APIs for a Customer Support Chatbot",
+    "description": "Which free LLM APIs work best for a customer support chatbot — compared on latency, context window, rate limits, and function calling. No credit card needed.",
+    "date": "2026-07-14",
+    "lastUpdated": "2026-07-14",
+    "author": "freellm.site",
+    "tags": [
+      "customer-support",
+      "chatbot",
+      "free-llm",
+      "api",
+      "groq",
+      "gemini"
+    ],
+    "content": "A customer support chatbot lives or dies on two things: how fast it replies and how well it grounds answers in your own help docs. You can prototype both on a free LLM API with no credit card. This guide compares the free tiers that actually hold up for support workloads.\n\n## What Matters for a Support Chatbot?\n\nFour things decide whether a free API is usable for support:\n\n- **Latency** — replies should feel instant, so tokens-per-second matters more than raw model size.\n- **Context window** — big enough to hold retrieved help-doc passages plus the conversation.\n- **Function calling** — so the bot can look up an order, open a ticket, or check a status.\n- **Rate limits** — the free tier has to survive your traffic without constant 429 errors.\n\nNot every free provider does all four. Pick based on which one your bot leans on hardest.\n\n## Which Free Providers Work Best?\n\nFor most support bots, **Groq** and **Google Gemini** cover the two ends of the spectrum — Groq for speed, Gemini for large-context grounding. GitHub Models, Mistral, and Cloudflare Workers AI round out the options.\n\n| Provider | Card? | Strength | Function calling |\n|---|---|---|---|\n| Groq | No | Very fast replies | Yes |\n| Google Gemini | No | Large context, multimodal | Yes |\n| GitHub Models | No | Many models, no signup friction | Yes (model-dependent) |\n| Mistral AI | No | EU-hosted, GDPR-friendly | Yes |\n| Cloudflare Workers AI | No | Edge latency | Limited |\n\nRate limits and model names change often — confirm the current numbers on each provider's console before you commit.\n\n## Why Groq for Speed?\n\nGroq runs open models like Llama 3.3 70B at very high token throughput, which keeps support replies snappy even for longer answers. Speed is what makes a chatbot feel responsive instead of sluggish, and it's the single biggest driver of a good support experience. Its free tier needs no credit card.\n\nBecause Groq exposes an OpenAI-compatible endpoint, you drop it into any existing chatbot framework by changing the base URL. See our [OpenAI-compatible API guide](/blog/openai-compatible-api-guide/) for the one-line swap.\n\n## Why Gemini for Knowledge-Base Grounding?\n\nGoogle Gemini Flash offers a very large free context window, which lets you stuff many retrieved help-doc passages into a single prompt without a complex retrieval pipeline. For a support bot answering from a big knowledge base, that headroom means fewer \"I don't know\" replies and more grounded, cite-able answers.\n\nGemini is also multimodal, so it can read a screenshot a customer pastes in — useful for troubleshooting flows.\n\n## How Do You Wire It Up?\n\nThe pattern is retrieval-augmented generation: fetch the most relevant help-doc chunks, then ask the model to answer using only those. Here's the minimal shape with an OpenAI-compatible free provider:\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\",\n)\n\ndocs = retrieve(user_question)  # your vector search over help articles\n\nresponse = client.chat.completions.create(\n    model=\"llama-3.3-70b-versatile\",\n    messages=[\n        {\"role\": \"system\", \"content\": \"Answer only from the provided help docs. If unsure, say so.\"},\n        {\"role\": \"user\", \"content\": f\"Docs:\\n{docs}\\n\\nQuestion: {user_question}\"},\n    ],\n)\nprint(response.choices[0].message.content)\n```\n\nSwap the `base_url` and model to move between providers.\n\n## Where Do Free Tiers Fall Short?\n\nFree tiers are built for prototyping, not production traffic. Per-minute rate limits will throttle a busy support queue, there's no uptime guarantee, and data-handling terms differ per provider. For a live customer-facing bot, start free to validate the flow, then move the hot path to a paid tier or self-hosted model once volume grows.\n\nFor a broader provider list, see our roundup of the [best free LLM APIs](/blog/best-free-llm-apis-2026/).",
+    "faq": [
+      {
+        "q": "Which free LLM API is best for a customer support chatbot?",
+        "a": "Groq is the usual pick for its fast replies, which keep a support bot responsive. If you need to ground answers in a large knowledge base, Google Gemini's bigger context window is the better fit. Both are free with no credit card."
+      },
+      {
+        "q": "Do free LLM APIs support function calling for support bots?",
+        "a": "Yes. Groq, Google Gemini, and Mistral all support function/tool calling on their free tiers, letting a bot look up an order or open a ticket. Availability can vary by model, so check the provider's docs for the specific model you choose."
+      },
+      {
+        "q": "Can I run a production support chatbot on a free tier?",
+        "a": "Free tiers suit prototyping, not production. Per-minute rate limits, no uptime guarantee, and varying data terms mean a busy support queue will hit throttling. Validate the flow for free, then move live traffic to a paid tier or self-hosted model."
+      },
+      {
+        "q": "How do I keep the chatbot answering only from my help docs?",
+        "a": "Use retrieval-augmented generation: search your help articles for the most relevant passages, pass them in the prompt, and instruct the model to answer only from those docs and say so when unsure. This grounds replies and cuts hallucinated answers."
+      },
+      {
+        "q": "Do I need a credit card to build a support chatbot with these APIs?",
+        "a": "No. Groq, Google Gemini, GitHub Models, Mistral, and Cloudflare Workers AI all offer free tiers with no card required. You generate an API key from the provider's console and start building within the tier's published rate limits."
+      }
+    ]
+  },
+  {
+    "slug": "sentiment-analysis-free-llm-api-python",
+    "title": "Sentiment Analysis With a Free LLM API in Python",
+    "description": "Run sentiment analysis in Python using a free LLM API — no model training, no credit card. Structured JSON output, batching, and accuracy tips included.",
+    "date": "2026-07-14",
+    "lastUpdated": "2026-07-14",
+    "author": "freellm.site",
+    "tags": [
+      "sentiment-analysis",
+      "python",
+      "tutorial",
+      "free-llm",
+      "api",
+      "groq"
+    ],
+    "content": "You can run sentiment analysis in Python without training a model, labeling data, or paying per request. A free LLM API classifies text out of the box and handles nuance — sarcasm, mixed feelings, domain slang — that older lexicon methods miss. Here's the full setup.\n\n## Why Use an LLM Instead of a Classic Classifier?\n\nTraditional sentiment tools score words against a fixed lexicon, so they stumble on sarcasm, negation, and context (\"not bad\" reads as negative). An LLM reads the whole sentence and infers intent, which makes it far more accurate on messy real-world text like reviews and support tickets — with zero training data.\n\nThe trade-off is latency and rate limits, but for most analysis jobs a free tier is plenty.\n\n## How Do You Set It Up?\n\nAny OpenAI-compatible free provider works. Grab a free key from [console.groq.com/keys](https://console.groq.com/keys), install the OpenAI SDK, and point it at the provider's base URL. If this pattern is new, our [OpenAI-compatible API guide](/blog/openai-compatible-api-guide/) explains the one-line swap.\n\n```bash\npip install openai\n```\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\",\n)\n```\n\n## How Do You Classify a Single Text?\n\nAsk the model to return a fixed label plus a confidence score, and force structured output so the result is easy to parse. JSON mode keeps replies machine-readable instead of chatty prose.\n\n```python\nimport json\n\ndef analyze(text):\n    resp = client.chat.completions.create(\n        model=\"llama-3.3-70b-versatile\",\n        response_format={\"type\": \"json_object\"},\n        messages=[\n            {\"role\": \"system\", \"content\":\n             \"Classify sentiment. Reply as JSON with keys \"\n             \"'sentiment' (positive|negative|neutral) and 'confidence' (0-1).\"},\n            {\"role\": \"user\", \"content\": text},\n        ],\n    )\n    return json.loads(resp.choices[0].message.content)\n\nprint(analyze(\"Honestly, not what I expected — but I kind of love it.\"))\n# {'sentiment': 'positive', 'confidence': 0.82}\n```\n\nNotice the model reads the mixed phrasing correctly, where a lexicon tool would likely flag \"not\" as negative.\n\n## How Do You Process a Batch?\n\nFor a spreadsheet of reviews, loop over rows and respect the free tier's per-minute rate limit. A short sleep between calls avoids 429 errors on most free plans.\n\n```python\nimport time\n\ndef analyze_batch(texts, delay=1.0):\n    results = []\n    for t in texts:\n        results.append(analyze(t))\n        time.sleep(delay)   # stay under the free-tier rate limit\n    return results\n```\n\nIf you have thousands of rows, spread the job across time or switch providers when you hit a cap. Check each provider's console for its current limits.\n\n## How Do You Improve Accuracy?\n\nTwo cheap tricks lift accuracy without any training:\n\n- **Few-shot examples** — add 2-3 labeled samples in the system prompt so the model matches your definition of \"neutral.\"\n- **Domain framing** — tell the model the text is product reviews, tweets, or support tickets, so it reads tone in the right context.\n\nBecause the model isn't fine-tuned, prompt wording is your main accuracy lever — small changes to the instruction meaningfully shift results.\n\n## What Does It Cost?\n\nOn a free tier, nothing — no credit card, just rate limits. That makes LLM sentiment analysis ideal for one-off studies, dashboards, and prototypes. For always-on, high-volume pipelines, benchmark a paid tier or a small self-hosted model once you know the free limits pinch. See our [list of free LLM APIs](/blog/best-free-llm-apis-2026/) to compare options.",
+    "faq": [
+      {
+        "q": "Can I do sentiment analysis for free with an LLM API?",
+        "a": "Yes. Providers like Groq and Google Gemini offer free tiers with no credit card, and an LLM classifies sentiment out of the box with no training data. You're limited only by per-minute rate caps, which are generous enough for most analysis jobs."
+      },
+      {
+        "q": "Is an LLM more accurate than a traditional sentiment classifier?",
+        "a": "Usually, on real-world text. Lexicon-based tools score fixed word lists and miss sarcasm, negation, and context. An LLM reads the whole sentence and infers intent, so it handles phrases like 'not bad' correctly — without any labeled training data."
+      },
+      {
+        "q": "How do I get structured output for sentiment analysis?",
+        "a": "Use JSON mode. Set response_format to a JSON object and instruct the model to reply with fixed keys like sentiment and confidence. This keeps results machine-readable and easy to parse into a dataframe instead of free-form prose."
+      },
+      {
+        "q": "How do I avoid rate-limit errors when analyzing many texts?",
+        "a": "Add a short delay between requests to stay under the free tier's per-minute cap, and batch large jobs over time. If you consistently hit limits, switch providers or move to a paid tier. Check each provider's console for its current limits."
+      },
+      {
+        "q": "How can I improve LLM sentiment accuracy without training?",
+        "a": "Add two or three labeled few-shot examples to the system prompt so the model matches your definition of each label, and tell it the text domain (reviews, tweets, tickets). Since the model isn't fine-tuned, prompt wording is your main accuracy lever."
+      }
+    ]
+  },
+  {
+    "slug": "what-is-llms-txt-llm-seo",
+    "title": "What Is llms.txt? A Guide to LLM SEO and GEO",
+    "description": "llms.txt is a proposed standard that helps AI assistants find your best content. Learn what it is, how to write one, and how it fits LLM SEO (GEO).",
+    "date": "2026-07-14",
+    "lastUpdated": "2026-07-14",
+    "author": "freellm.site",
+    "tags": [
+      "llms-txt",
+      "llm-seo",
+      "geo",
+      "tutorial",
+      "free-llm"
+    ],
+    "content": "AI assistants increasingly answer questions by reading websites, and `llms.txt` is a proposed standard that hands them a clean map of your best content. It's the LLM-era cousin of `robots.txt` and `sitemap.xml`. This guide covers what it is, how to write one, and where it fits in LLM SEO.\n\n## What Is llms.txt?\n\n`llms.txt` is a plain-Markdown file at the root of your site that lists your most important pages with short descriptions, so large language models can find and understand your content quickly. The format was proposed at [llmstxt.org](https://llmstxt.org/) and is designed to be read by AI assistants, not browsers.\n\nThink of it as a curated table of contents written for machines that answer questions.\n\n## Why Does It Matter for LLM SEO?\n\nSearch is shifting from ten blue links to AI-generated answers, a trend often called GEO (generative engine optimization) or AEO (answer engine optimization). When an assistant cites sources, being easy to parse improves your odds of being the cited one. A clean `llms.txt` reduces the guesswork an AI does when deciding which of your pages actually answers a query.\n\nIt won't outrank great content — it makes great content easier to surface.\n\n## What Does the Format Look Like?\n\nThe file is just Markdown with a title, an optional summary blockquote, and grouped link lists. Here's the shape:\n\n```\n# Your Site Name\n\n> One-line summary of what your site offers.\n\n## Guides\n- [Guide title](https://example.com/guide/): Short description of the page.\n- [Another guide](https://example.com/other/): What this page covers.\n\n## Reference\n- [API docs](https://example.com/docs/): Description.\n```\n\nKeep descriptions factual and specific. The goal is to tell an AI exactly what each page answers.\n\n## How Do You Create One?\n\nThree steps get you a working file:\n\n- **Pick your best pages** — the ones that answer real questions, not every URL.\n- **Write one-line descriptions** — say what each page helps a reader do.\n- **Save it as `/llms.txt`** — at your site root, alongside `robots.txt`.\n\nIf you run a static site generator, drop the file in your public assets folder so it publishes to the root. That's exactly how we ship ours — you can view [freellm.site/llms.txt](https://www.freellm.site/llms.txt) as a reference.\n\n## How Is It Different From robots.txt and Sitemaps?\n\nEach file speaks to a different reader, and they complement rather than replace each other.\n\n| File | Reader | Purpose |\n|---|---|---|\n| robots.txt | Crawlers | What they may or may not crawl |\n| sitemap.xml | Search engines | A full list of URLs to index |\n| llms.txt | AI assistants | A curated map of your best content |\n\nYou should keep all three. `llms.txt` adds the AI-facing layer the other two don't cover.\n\n## Does It Actually Work Yet?\n\nHonesty matters here: `llms.txt` is a proposal, not a universally adopted standard, and no major AI vendor has publicly committed to consuming it as a ranking input. Adoption is early. The upside is that the file is cheap to create and low-risk, so it's a reasonable bet while the standard matures — much like early sitemaps were. Treat it as one small part of a broader GEO strategy, not a magic switch.\n\nFor more on making content AI-friendly, see our [OpenAI-compatible API guide](/blog/openai-compatible-api-guide/) and the full [free LLM API directory](/blog/best-free-llm-apis-2026/).",
+    "faq": [
+      {
+        "q": "What is an llms.txt file?",
+        "a": "It's a plain-Markdown file at your site root that lists your most important pages with short descriptions, so AI assistants can find and understand your content quickly. The format was proposed at llmstxt.org and is written for machines, not browsers."
+      },
+      {
+        "q": "Where do I put llms.txt?",
+        "a": "At your site root, served as /llms.txt, alongside robots.txt. On a static site generator, place it in your public assets folder so it publishes to the root. Anyone — including an AI crawler — can then fetch it directly by URL."
+      },
+      {
+        "q": "Is llms.txt the same as robots.txt or a sitemap?",
+        "a": "No. robots.txt tells crawlers what they may access, sitemap.xml lists every URL for search engines, and llms.txt gives AI assistants a curated map of your best content. They serve different readers, so you should keep all three rather than swap one out."
+      },
+      {
+        "q": "Does llms.txt improve my AI search visibility?",
+        "a": "It can help by making your best pages easier for AI to parse, but it's a proposal, not a confirmed ranking input, and adoption is early. It won't outrank strong content. Treat it as one low-risk part of a broader GEO strategy."
+      },
+      {
+        "q": "What is GEO in LLM SEO?",
+        "a": "GEO stands for generative engine optimization — the practice of optimizing content so AI answer engines like ChatGPT, Perplexity, and Google AI Overviews surface and cite it. It focuses on clear, extractable answers and machine-readable structure such as llms.txt."
+      }
+    ]
+  },
+  {
+    "slug": "best-free-llm-apis-for-coding",
+    "title": "Best Free LLM APIs for Coding in 2026",
+    "description": "The best free LLM APIs for coding in 2026 — compared on model quality, speed, context window, and tool support. No credit card required.",
+    "date": "2026-07-14",
+    "lastUpdated": "2026-07-14",
+    "author": "freellm.site",
+    "tags": [
+      "coding",
+      "free-llm",
+      "api",
+      "groq",
+      "cursor",
+      "tutorial"
+    ],
+    "content": "Free LLM APIs are now good enough to power real coding work — completions, refactors, and whole-file edits — without a credit card. The trick is picking a provider whose model, speed, and context window match how you code. Here are the best free options for 2026 and when to reach for each.\n\n## What Makes an API Good for Coding?\n\nFour factors separate a usable coding API from a frustrating one:\n\n- **Model quality** — a strong code model writes correct, idiomatic code the first time.\n- **Speed** — fast completions keep you in flow; slow ones break concentration.\n- **Context window** — big enough to hold the files the model needs to reason over.\n- **Tool support** — works with your editor or agent through an OpenAI-compatible endpoint.\n\nNo single free tier wins on all four, so match the provider to your main bottleneck.\n\n## Which Free Providers Are Best?\n\nFor most developers, **Groq** and **Google Gemini** are the top two — Groq for raw speed, Gemini for large-context, whole-repo reasoning. Cerebras, GitHub Models, and Mistral fill in the rest.\n\n| Provider | Card? | Best for | Endpoint |\n|---|---|---|---|\n| Groq | No | Fast completions | OpenAI-compatible |\n| Google Gemini | No | Large context, whole-repo | OpenAI-compatible |\n| Cerebras | No | High-speed inference | OpenAI-compatible |\n| GitHub Models | No | Trying many models | OpenAI-compatible |\n| Mistral AI | No | Code-focused models | OpenAI-compatible |\n\nAll expose OpenAI-compatible endpoints, so switching between them is a one-line change. Model names and limits move fast — confirm on each console.\n\n## Why Groq for Speed?\n\nGroq runs open models like Llama 3.3 70B at very high throughput, so code completions land almost instantly. Speed is what keeps you in flow while pair-programming with an AI, and it's the reason Groq is a common first pick for coding. Its free tier needs no credit card.\n\nBecause it's OpenAI-compatible, Groq drops into most editors and agents by changing the base URL.\n\n## Why Gemini for Whole-Repo Work?\n\nGoogle Gemini Flash offers a very large free context window, which lets you feed it many files — or an entire small repo — in one prompt. For refactors that span modules or questions about how a codebase fits together, that headroom beats a fast model with a small window. Gemini is free and card-free.\n\n## How Do You Plug One Into Your Editor?\n\nMost AI coding tools accept a custom OpenAI-compatible endpoint: set the base URL and API key, add a model name, and you're done. Claude Code is the exception — it speaks the Anthropic API and needs a translation proxy. We cover the exact setup for Cursor, Claude Code, and VS Code in our guide to [using a free LLM API in your coding tools](/blog/use-free-llm-api-cursor-claude-code/).\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\",\n)\n```\n\n## Where Do Free Tiers Bite?\n\nFree coding tiers throttle on per-minute and per-day limits, which a heavy agent session can exhaust quickly. There's also no service-level guarantee. Use free tiers to learn what a model can do and to power light day-to-day coding, then weigh a paid tier once a model becomes part of your core workflow. Compare all options in our [free LLM API roundup](/blog/best-free-llm-apis-2026/).",
+    "faq": [
+      {
+        "q": "What is the best free LLM API for coding?",
+        "a": "Groq is a common first pick because its very fast completions keep you in flow. If you need to reason over many files at once, Google Gemini's large free context window is better. Both are free with no credit card and OpenAI-compatible."
+      },
+      {
+        "q": "Can I use free LLM APIs in Cursor or VS Code?",
+        "a": "Yes. Cursor, Continue, and Cline accept a custom OpenAI-compatible endpoint — set the base URL, API key, and model name. Claude Code is the exception: it uses the Anthropic API and needs a translation proxy such as claude-code-router or LiteLLM."
+      },
+      {
+        "q": "Are free LLM APIs good enough for real coding?",
+        "a": "For completions, refactors, and day-to-day help, yes — modern free-tier models handle these well. The limits are rate caps and no uptime guarantee, not model quality. Heavy agent workloads may exhaust free quotas, at which point a paid tier makes sense."
+      },
+      {
+        "q": "Do free coding APIs support large codebases?",
+        "a": "It depends on the context window. Google Gemini's large free context can hold many files or a small repo in one prompt, which suits whole-repo refactors. Faster providers like Groq have smaller windows better suited to single-file work."
+      },
+      {
+        "q": "Do I need a credit card for a free coding LLM API?",
+        "a": "No. Groq, Google Gemini, Cerebras, GitHub Models, and Mistral all offer free tiers with no card required. You generate an API key from the provider's console and connect it to your editor or script within the tier's published rate limits."
+      }
+    ]
+  },
+  {
+    "slug": "best-open-source-llm-apis",
+    "title": "Best Open Source LLM APIs in 2026 (Free & Hosted)",
+    "description": "The best open source LLM models you can call through a free API in 2026 — Llama, Mistral, Qwen, DeepSeek — with no GPU and no credit card required.",
+    "date": "2026-07-14",
+    "lastUpdated": "2026-07-14",
+    "author": "freellm.site",
+    "tags": [
+      "open-source",
+      "free-llm",
+      "api",
+      "coding",
+      "groq"
+    ],
+    "content": "You don't need a GPU to use the best open source LLM models. Providers now host open-weight models like Llama, Mistral, Qwen, and DeepSeek behind a free API, so you can call them the same way you'd call a closed model. This guide covers the best open source LLM APIs in 2026 and when to pick each.\n\n## What Counts as an Open Source LLM?\n\nAn open source LLM ships with open weights you're free to run, inspect, or fine-tune — Llama, Mistral, Qwen, DeepSeek, and Gemma are the common families. A hosted open source LLM API runs those weights for you and exposes them over HTTP, so you get open models without owning the hardware.\n\nThat distinction matters: \"open source\" is about the model; \"API\" is about who runs it.\n\n## Which Are the Best Open Source LLM APIs?\n\nFor most developers, **Groq**, **Together AI**, and **DeepInfra** are the top hosted options — all serve the best open source LLM models through a free, OpenAI-compatible API. Cerebras and OpenRouter round out the list.\n\n| Provider | Card? | Open models served | Best for |\n|---|---|---|---|\n| Groq | No | Llama, Qwen, Gemma | Fastest inference |\n| Together AI | No | Llama, Mistral, Qwen, DeepSeek | Widest model choice |\n| DeepInfra | No | Llama, Mistral, Qwen | Low-cost scale |\n| Cerebras | No | Llama, Qwen | High-speed inference |\n| OpenRouter | No | Many open + closed | One key, many models |\n\nModel availability shifts monthly — confirm the current lineup on each provider's console.\n\n## What Is the Best Open Source LLM for Coding?\n\nFor coding, the best open source LLM models in 2026 are large Llama and Qwen variants plus DeepSeek's code-focused models, which handle completions and multi-file refactors well. Run them through a fast host like Groq to keep completions snappy in your editor.\n\nBecause these are OpenAI-compatible, you plug them into Cursor or VS Code by changing the base URL. See our guide to [using a free LLM API in your coding tools](/blog/use-free-llm-api-cursor-claude-code/) and our [best free LLM APIs for coding](/blog/best-free-llm-apis-for-coding/) roundup.\n\n## Can You Get Open Source LLM API Keys for Free?\n\nYes. Every provider above issues a free API key with no credit card, and that key calls open source LLM models directly. So \"open source LLM API keys\" really means a free key at a host that serves open weights — you sign up, copy the key, and start making requests within the free tier's rate limits.\n\nThere's no separate key type for open versus closed models; the same key works for both.\n\n## Hosted API vs. Running It Yourself\n\nA hosted open source LLM API is the fastest path: no GPU, no setup, no ops. Self-hosting gives you full control and privacy but needs hardware and maintenance. For most projects — prototypes, coding, apps — start with a hosted free API, and self-host only when data residency or cost at scale demands it.\n\nCompare all your options in our [free LLM API directory](/blog/best-free-llm-apis-2026/).",
+    "faq": [
+      {
+        "q": "What is the best open source LLM in 2026?",
+        "a": "The best open source LLM depends on the task, but large Llama, Qwen, Mistral, and DeepSeek models lead in 2026. You can call all of them through a free, hosted API like Groq or Together AI without owning a GPU or paying upfront."
+      },
+      {
+        "q": "What is the best open source LLM for coding?",
+        "a": "For coding, large Llama and Qwen models plus DeepSeek's code-focused variants are the best open source LLM options in 2026. Run them through a fast host such as Groq and connect via an OpenAI-compatible endpoint in Cursor or VS Code."
+      },
+      {
+        "q": "Are there open source LLM API keys available for free?",
+        "a": "Yes. Providers like Groq, Together AI, and DeepInfra issue free API keys with no credit card, and those keys call open source LLM models directly. There's no separate key type for open models — the same free key works for open and closed models alike."
+      },
+      {
+        "q": "Can I run the best open source LLM models without a GPU?",
+        "a": "Yes. A hosted open source LLM API runs the model weights on the provider's hardware and exposes them over HTTP, so you call the best open source LLM models from any machine. You only need a GPU if you choose to self-host the weights."
+      },
+      {
+        "q": "Which provider has the most open source LLM models?",
+        "a": "Together AI and OpenRouter serve the widest range of open source LLM models, spanning Llama, Mistral, Qwen, and DeepSeek families. Groq and DeepInfra carry fewer models but focus on speed and low-cost scale respectively. Check each console for the current list."
+      }
+    ]
   }
 ]

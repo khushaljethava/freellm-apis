@@ -1,0 +1,18 @@
+# freellm.site
+
+> A curated, regularly-updated directory of 90+ free LLM API providers — including
+> which ones need no credit card, their rate limits, context windows, and OpenAI-compatible endpoints.
+
+## Guides
+- [Best Free LLM APIs in 2026](https://www.freellm.site/blog/best-free-llm-apis-2026/): No-credit-card picks (Groq, Gemini, GitHub Models, Mistral, Cloudflare).
+- [What Is an OpenAI-Compatible API](https://www.freellm.site/blog/openai-compatible-api-guide/): Swap any provider into existing code by changing base_url.
+- [Groq vs Google Gemini Free Tier](https://www.freellm.site/blog/groq-vs-google-gemini-free-tier/): Speed vs context-window comparison.
+- [Free LLM APIs for Indian Developers](https://www.freellm.site/blog/free-llm-api-india/): Regional (Sarvam, Krutrim, AI4Bharat) + global options.
+- [Use a Free LLM API in Cursor / Claude Code](https://www.freellm.site/blog/use-free-llm-api-cursor-claude-code/): Pointing AI coding tools at free providers.
+
+## Directory
+- [All providers](https://www.freellm.site/): Filterable list of free LLM API providers.
+- [Models](https://www.freellm.site/models/): Available models across providers.
+
+## Source
+- [GitHub repo](https://github.com/khushaljethava/freellm-apis): Data is open-source and community-maintained.
