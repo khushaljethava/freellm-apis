@@ -56,6 +56,18 @@ const guides = [
   { slug: 'best-free-llm-apis-for-coding', title: 'Best Free LLM APIs for Coding' },
 ];
 
+// Compare pages that involve this provider (must match the curated list in compare/[pair].astro).
+const COMPARE_PAIRS = [
+  ['groq', 'google_gemini'], ['groq', 'cerebras'], ['groq', 'sambanova'],
+  ['cerebras', 'sambanova'], ['mistral', 'groq'], ['google_gemini', 'mistral'],
+  ['github_models', 'groq'], ['together_ai', 'groq'], ['openrouter', 'groq'],
+  ['cohere', 'mistral'],
+];
+const nameOf = (id) => providers.find(p => p.id === id)?.name ?? id;
+const compareLinks = COMPARE_PAIRS
+  .filter(pair => pair.includes(provider.id))
+  .map(([a, b]) => ({ href: `/compare/${a}-vs-${b}/`, other: nameOf(a === provider.id ? b : a) }));
+
 const cardLabel = { no: '✅ No', registration: '📧 Email', phone: '📱 Phone', yes: '💳 Yes' };
 
 const fmtCtx = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
@@ -183,6 +195,17 @@ const schema = {
       <ul class="related-links">
         {related.map(p => (
           <li><a href={`/providers/${p.id}/`}>{p.name} free LLM API</a> — {modelCountOf(p.id)} free model{modelCountOf(p.id) !== 1 ? 's' : ''}</li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {compareLinks.length > 0 && (
+    <>
+      <h2 class="section-title">Compare {provider.name}</h2>
+      <ul class="related-links">
+        {compareLinks.map(c => (
+          <li><a href={c.href}>{provider.name} vs {c.other} — free tier compared</a></li>
         ))}
       </ul>
     </>
