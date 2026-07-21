@@ -4,5 +4,6 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://www.freellm.site',
   output: 'static',
+  trailingSlash: 'always',
   integrations: [sitemap()],
 });

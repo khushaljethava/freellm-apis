@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import posts from '../../../data/blog.json';
 import FilterBar from '../components/FilterBar.astro';
 import AdSlot from '../components/AdSlot.astro';
 import providers from '../../../data/providers.json';
@@ -67,6 +68,13 @@ const schema = {
       name: 'freellm.site',
       url: 'https://www.freellm.site/',
       description: `Directory of ${providers.length} free LLM API providers and ${totalModels} models.`,
+    },
+    {
+      '@type': 'Organization',
+      name: 'freellm.site',
+      url: 'https://www.freellm.site/',
+      logo: 'https://www.freellm.site/og-default.png',
+      sameAs: ['https://github.com/khushaljethava/freellm-apis'],
     },
     {
       '@type': 'FAQPage',
@@ -199,6 +207,13 @@ const schema = {
       <a href="/blog/best-open-source-llm-apis/">best open source LLM APIs</a>, and
       <a href="/blog/best-free-llm-apis-for-coding/">best free LLM APIs for coding</a>.
     </p>
+
+    <h2>Guides</h2>
+    <ul class="guide-list">
+      {posts.map(p => (
+        <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>
+      ))}
+    </ul>
 
     <h2>Free LLM API FAQ</h2>
     <div class="faq-list">
