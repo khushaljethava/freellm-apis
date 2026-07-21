@@ -290,5 +290,255 @@
         "a": "Together AI and OpenRouter serve the widest range of open source LLM models, spanning Llama, Mistral, Qwen, and DeepSeek families. Groq and DeepInfra carry fewer models but focus on speed and low-cost scale respectively. Check each console for the current list."
       }
     ]
+  },
+  {
+    "slug": "free-llm-api-rate-limits-compared",
+    "title": "Free LLM API Rate Limits Compared (2026)",
+    "description": "Compare verified free LLM API rate limits for 2026. Google Gemini leads at up to 2,000 RPM; see Groq, Cohere, Mistral and more, no credit card.",
+    "date": "2026-07-21",
+    "lastUpdated": "2026-07-21",
+    "author": "freellm.site",
+    "tags": [
+      "free-llm",
+      "api",
+      "rate-limits",
+      "gemini",
+      "groq"
+    ],
+    "content": "Rate limits decide whether a free LLM API can actually carry your app or just your weekend prototype. They cap how many requests and tokens you can send per minute and per day. This guide compares the real limits across the top free providers — using numbers verified from each provider's own console, not marketing pages.\n\nThe short version: **Google Gemini** has the most generous free throughput at up to **2,000 requests per minute**, while **Groq** trades lower volume for the fastest response times. Everything below links to the provider's live page so you can confirm the current figure before you build.\n\n## What do rate limits on a free LLM API actually mean?\n\nA free LLM API rate limit is the ceiling on how much you can call it, usually expressed as three numbers: RPM (requests per minute), RPD (requests per day), and TPM (tokens per minute). Hit any one and the API returns a `429 Too Many Requests` error until the window resets.\n\nRPM controls burst traffic — how many users can hit your app in the same second. RPD controls sustained load over a day. TPM matters most for long prompts, because a single request with a big document can burn your token budget faster than a hundred short chats. Most free tiers throttle on all three at once.\n\n## Which free LLM API has the highest rate limits?\n\n**Google Gemini** leads on raw throughput, allowing up to **2,000 requests per minute** on its free tier with no credit card — far above any other no-card provider in our directory. That headroom makes it the default pick when you expect real user traffic rather than occasional test calls.\n\nFor context, most free tiers sit in the 20–60 RPM range. Gemini's 2,000 RPM is an outlier, which is why it anchors so many production side-projects. The trade-off is that Gemini's limits vary by model, so check the [Google Gemini free LLM API](/providers/google_gemini/) page for the exact per-model figure before you commit.\n\n## Free LLM API rate limits compared\n\nHere are the verified limits for the top no-credit-card providers in our directory. A dash means the provider does not publish that specific number as a fixed free-tier cap — follow the provider link for the live detail.\n\n| Provider | Card required | Max RPM | Context window | Free models |\n| --- | --- | --- | --- | --- |\n| [Google Gemini](/providers/google_gemini/) | No | 2,000 | 2M | 2 |\n| [Groq](/providers/groq/) | No | 30 | 131K | 3 |\n| [Cohere](/providers/cohere/) | No | 20 | 128K | 1 |\n| [Mistral AI](/providers/mistral/) | No | See page | 128K | 2 |\n| [GitHub Models](/providers/github_models/) | No | See page | 131K | 3 |\n| [Cerebras](/providers/cerebras/) | No | See page | 131K | 2 |\n\nNumbers reflect the highest free-tier value across each provider's non-deprecated models. The full per-model breakdown — including daily caps and token limits — lives on each provider page and is re-verified regularly.\n\n## Why is Groq's rate limit lower but still worth it?\n\nGroq caps its free tier at around **30 requests per minute**, well below Gemini, yet it stays a top pick because of speed. Groq runs open models like Llama 3.3 70B on custom hardware that returns full responses in a fraction of a second, so each request clears fast.\n\nThat speed changes the math. A 30 RPM limit feels tighter on paper, but when every call finishes almost instantly, a single user rarely queues. For latency-sensitive work — chat UIs, autocomplete, voice — Groq's throughput is usually enough. See the [Groq free LLM API](/providers/groq/) page for its current per-model limits and the [Groq vs Google Gemini comparison](/blog/groq-vs-google-gemini-free-tier/) for a full speed-versus-volume breakdown.\n\n## How do you avoid hitting free LLM API rate limits?\n\nThe most reliable fix is to spread load across providers, because a `429` on one free tier does not stop another. Since almost every provider here exposes an [OpenAI-compatible endpoint](/blog/openai-compatible-api-guide/), you can rotate between them by swapping only the base URL and key.\n\nA few practical habits keep you under the ceiling:\n\n- **Retry with backoff.** On a `429`, wait and retry rather than hammering — most limits reset within a minute.\n- **Cache repeated prompts.** Identical requests should hit a local cache, not the API.\n- **Batch where you can.** Fewer, larger requests often beat many tiny ones against an RPM cap.\n- **Fall back across providers.** Route overflow traffic to a second free key when the first returns `429`.\n\nHere is a minimal fallback pattern using the OpenAI SDK against two free providers:\n\n```python\nfrom openai import OpenAI\n\nprimary = OpenAI(base_url=\"https://generativelanguage.googleapis.com/v1beta/openai\", api_key=\"GEMINI_KEY\")\nbackup  = OpenAI(base_url=\"https://api.groq.com/openai/v1\", api_key=\"GROQ_KEY\")\n\ndef ask(prompt):\n    for client, model in [(primary, \"gemini-2.0-flash\"), (backup, \"llama-3.3-70b-versatile\")]:\n        try:\n            return client.chat.completions.create(\n                model=model,\n                messages=[{\"role\": \"user\", \"content\": prompt}],\n            ).choices[0].message.content\n        except Exception:\n            continue\n    raise RuntimeError(\"all free providers rate-limited\")\n```\n\n## Do free LLM API rate limits change over time?\n\nYes — free-tier limits shift as providers adjust capacity, so any comparison is a snapshot. Providers routinely raise limits to attract developers or tighten them when demand spikes, and the figures in this guide are re-verified against each provider's console on a recurring basis.\n\nThat volatility is exactly why every number here links back to a provider page rather than sitting in a static list. Before you architect around a specific cap, open the [full provider directory](/) and confirm the live figure. Treat published limits as a floor you can rely on, not a fixed contract.\n\n## The bottom line\n\nFor the highest free throughput, start with Gemini's 2,000 RPM. For the fastest individual responses, use Groq and let its speed offset the lower cap. For resilience, put both behind an OpenAI-compatible fallback so a `429` on one never takes your app down. The verified per-provider limits — updated regularly — are one click away on each provider page.",
+    "faq": [
+      {
+        "q": "What is a good rate limit for a free LLM API?",
+        "a": "For prototypes, 20-60 requests per minute is plenty. For apps with real users, look for higher ceilings such as Google Gemini's free tier of up to 2,000 requests per minute, or spread traffic across several free providers with an OpenAI-compatible fallback."
+      },
+      {
+        "q": "Which free LLM API has the highest rate limit with no credit card?",
+        "a": "Google Gemini offers the highest verified free throughput in our directory at up to 2,000 requests per minute, with no credit card required. Most other no-card providers sit in the 20-60 RPM range, so Gemini is the default choice for higher-volume free usage."
+      },
+      {
+        "q": "What happens when you hit a free LLM API rate limit?",
+        "a": "The API returns an HTTP 429 'Too Many Requests' error and rejects further calls until the window resets, usually within a minute. Handle it with retry-and-backoff, request caching, or by falling back to a second free provider's API key."
+      },
+      {
+        "q": "Can you combine multiple free LLM APIs to get around rate limits?",
+        "a": "Yes. Because nearly every free provider exposes an OpenAI-compatible endpoint, you can rotate between them by changing only the base URL and key. Routing overflow traffic to a second free key when the first returns 429 effectively multiplies your available throughput."
+      }
+    ]
+  },
+  {
+    "slug": "how-to-get-free-llm-api-key-no-credit-card",
+    "title": "How to Get a Free LLM API Key (No Credit Card) in 2026",
+    "description": "Get a free LLM API key with no credit card in under 2 minutes. Step-by-step setup for 30+ no-card providers — Groq, Gemini, GitHub Models and more.",
+    "date": "2026-07-21",
+    "lastUpdated": "2026-07-21",
+    "author": "freellm.site",
+    "tags": [
+      "free-llm",
+      "api",
+      "api-key",
+      "no-credit-card",
+      "tutorial"
+    ],
+    "content": "Getting a free LLM API key without a credit card takes about two minutes: pick a no-card provider, sign in with an email or GitHub account, and copy the key from your console. This guide walks through the exact steps, then lists the fastest providers to start with — all verified as needing no payment details.\n\nOur directory currently tracks **30 providers that require no credit card**, so you have real choice. The three quickest to set up are **GitHub Models** (uses your existing GitHub login), **Groq**, and **Google Gemini**.\n\n## Can you really get a free LLM API key with no credit card?\n\nYes — of the providers in our directory, **30 issue a free LLM API key with no credit card required**, and 18 of those are permanent free tiers rather than expiring trials. You sign up with just an email or an existing account, and the key works immediately for OpenAI-compatible requests.\n\nThe catch is not payment — it is rate limits. Free keys cap how many [requests you can make per minute](/blog/free-llm-api-rate-limits-compared/), so they suit prototypes and light production, not unlimited scale. But for learning, side projects, and most apps, a no-card key is all you need.\n\n## How do you get a free LLM API key step by step?\n\nThe process is nearly identical across providers: create an account, open the API keys page, and generate a key. Most providers issue it instantly with no verification beyond an email, so you are calling the model within minutes.\n\nHere is the general flow:\n\n- **Pick a provider** from the [no-card directory](/) — start with one that needs no phone verification.\n- **Sign in** with email, Google, or GitHub. Many skip passwords entirely with social login.\n- **Open the API keys page** in the provider console.\n- **Generate a key** and copy it immediately — most show it only once.\n- **Store it as an environment variable**, never hard-coded in your source.\n\nOnce you have the key, every provider here works the same way through the OpenAI SDK — you just change the base URL. See [what an OpenAI-compatible API is](/blog/openai-compatible-api-guide/) for why that matters.\n\n## Which providers give a free LLM API key the fastest?\n\n**GitHub Models** is the fastest because it reuses your existing GitHub account — no new signup at all. If you already code, you likely have a key one click away. Groq and Google Gemini follow closely, each issuing a key from an email login in under two minutes.\n\n| Provider | Sign in with | Free models | Get key |\n| --- | --- | --- | --- |\n| [GitHub Models](/providers/github_models/) | GitHub account | 3 | Marketplace → Models |\n| [Groq](/providers/groq/) | Email / Google | 3 | console.groq.com/keys |\n| [Google Gemini](/providers/google_gemini/) | Google account | 2 | aistudio.google.com |\n| [Mistral AI](/providers/mistral/) | Email | 2 | console.mistral.ai |\n| [Cerebras](/providers/cerebras/) | Email | 2 | cloud.cerebras.ai |\n| [Cohere](/providers/cohere/) | Email | 1 | dashboard.cohere.com |\n\nEach provider link goes to its live page with the current base URL, models, and rate limits.\n\n## How do you use the key once you have it?\n\nSet the key as an environment variable, then point the OpenAI SDK at your provider's base URL. Because these APIs are OpenAI-compatible, the same few lines of code work for any of them — you swap only the base URL, key, and model name.\n\n```python\nimport os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=os.environ[\"GROQ_API_KEY\"],\n)\nresponse = client.chat.completions.create(\n    model=\"llama-3.3-70b-versatile\",\n    messages=[{\"role\": \"user\", \"content\": \"Explain rate limits in one sentence.\"}],\n)\nprint(response.choices[0].message.content)\n```\n\nReading the key from `os.environ` keeps it out of your code and out of version control. Never paste a live key into a public repo — providers scan for leaked keys and revoke them.\n\n## What should you avoid when using a free LLM API key?\n\nThe biggest mistake is committing a key to a public GitHub repo, which exposes it instantly. The second is hard-coding one key everywhere, so a single rate-limit error takes your whole app down. Both are easy to avoid.\n\nKeep these habits from day one:\n\n- **Store keys in environment variables or a secrets manager**, never in source.\n- **Add `.env` to `.gitignore`** before your first commit.\n- **Rotate a key immediately** if it ever appears in a log or screenshot.\n- **Keep a second provider's key ready** as a fallback when the first hits its limit.\n\n## Frequently overlooked: which key should a beginner start with?\n\nFor a first project, start with **GitHub Models** if you already have a GitHub account, or **Groq** if you want the fastest responses. Both are no-card, permanent, and OpenAI-compatible, so nothing you learn is wasted when you later switch providers.\n\nFrom there, browse the [full directory of free LLM APIs](/) to match a provider to your use case — largest context window, specific open models, or regional availability. The setup you just learned works identically across every one of them.",
+    "faq": [
+      {
+        "q": "Do any free LLM APIs really need no credit card?",
+        "a": "Yes. Our directory tracks 30 providers that issue a free LLM API key with no credit card, including Groq, Google Gemini, GitHub Models, Mistral, and Cohere. 18 of them are permanent free tiers rather than expiring trials, so you can use them indefinitely within the rate limits."
+      },
+      {
+        "q": "How long does it take to get a free LLM API key?",
+        "a": "Usually under two minutes. Most providers issue a key instantly after an email or social sign-in with no phone verification. GitHub Models is fastest because it reuses your existing GitHub account, so a key is one click away if you already code."
+      },
+      {
+        "q": "Is it safe to use a free LLM API key with no credit card?",
+        "a": "Yes, provided you keep the key private. Store it in an environment variable, add .env to .gitignore, and never commit it to a public repo. Providers actively scan for leaked keys and revoke them, so treat a free key with the same care as a paid one."
+      },
+      {
+        "q": "Can you use one free LLM API key across different tools?",
+        "a": "Yes. Because these keys work through OpenAI-compatible endpoints, the same key powers any tool that accepts a custom base URL — SDKs, coding assistants, and chat frontends. You change only the base URL and model name, not the request format."
+      }
+    ]
+  },
+  {
+    "slug": "free-llm-api-largest-context-window",
+    "title": "Free LLM APIs With the Largest Context Windows (2026)",
+    "description": "Which free LLM API has the biggest context window? Google Gemini leads at 2M tokens free; see how Groq, Cerebras and others compare, no credit card.",
+    "date": "2026-07-21",
+    "lastUpdated": "2026-07-21",
+    "author": "freellm.site",
+    "tags": [
+      "free-llm",
+      "api",
+      "context-window",
+      "gemini",
+      "long-context"
+    ],
+    "content": "The free LLM API with the largest context window is **Google Gemini**, which handles up to **2 million tokens** on its free tier — enough to fit a whole codebase or a small library of documents in a single prompt. Nothing else free comes close; most rivals top out around 128K–131K tokens.\n\nContext window size decides how much text a model can read at once. If you feed long documents, transcripts, or large code files, this number matters more than raw speed. Here is how the free tiers stack up.\n\n## What is the largest free LLM API context window?\n\n**Google Gemini's free tier reaches 2 million tokens**, roughly 15 times larger than the next tier of providers. That capacity lets you paste entire books, long meeting transcripts, or sprawling code repositories into one request without chunking.\n\nFor most other free providers, the ceiling is **131,072 tokens** (128K) — still large, covering maybe 300 pages of text. The gap only matters at the extremes: if your prompts fit in 128K, the common tier is plenty, and you can pick on speed instead. Check the [Google Gemini free LLM API](/providers/google_gemini/) page for the current per-model context limit.\n\n## How do free LLM API context windows compare?\n\nBelow the 2M outlier, the field clusters tightly at 128K–131K tokens. These are all verified from each provider's non-deprecated models in our directory.\n\n| Provider | Max free context | Card required |\n| --- | --- | --- |\n| [Google Gemini](/providers/google_gemini/) | 2,000K | No |\n| [Groq](/providers/groq/) | 131K | No |\n| [GitHub Models](/providers/github_models/) | 131K | No |\n| [Cerebras](/providers/cerebras/) | 131K | No |\n| [Together AI](/providers/together_ai/) | 131K | No |\n| [OpenRouter](/providers/openrouter/) | 131K | Email |\n\nBecause most sit at the same 131K ceiling, your real choice among them comes down to [rate limits](/blog/free-llm-api-rate-limits-compared/) and response speed, not context.\n\n## Do you actually need a huge context window?\n\nMost applications do not — a 128K window already holds far more than a typical chat or document Q&A needs. You only need Gemini's 2M capacity when a single prompt genuinely must contain hundreds of pages, such as analyzing a full contract set or an entire code repository at once.\n\nLarge contexts also cost more compute and can slow responses. When you can, retrieval — pulling only the relevant passages into the prompt — beats stuffing everything in. That pattern, retrieval-augmented generation, keeps prompts small even with big source material. See our guide on [using a free LLM API for RAG](/blog/free-llm-api-for-rag-embeddings/).\n\n## Which large-context free LLM API should you pick?\n\nPick **Gemini** if your prompts routinely exceed 128K tokens — it is the only free option that handles them. For everything else, choose a 131K provider based on speed and rate limits, since the context difference will not affect you.\n\nStart from the [full free LLM API directory](/) and filter by the context column. The setup is identical across providers thanks to their [OpenAI-compatible endpoints](/blog/openai-compatible-api-guide/), so you can test two and keep the one that fits.",
+    "faq": [
+      {
+        "q": "Which free LLM API has the biggest context window?",
+        "a": "Google Gemini, at up to 2 million tokens on its free tier with no credit card. That is roughly 15 times larger than the 128K-131K ceiling common to other free providers like Groq, Cerebras, and Together AI, making Gemini the clear choice for very long prompts."
+      },
+      {
+        "q": "How many pages fit in a 128K context window?",
+        "a": "Around 300 pages of plain text, since 128K tokens is roughly 96,000 words. That covers most document-analysis and long-chat use cases, which is why the 131K free tier is enough for the majority of applications without needing Gemini's 2M window."
+      },
+      {
+        "q": "Does a larger context window mean better answers?",
+        "a": "Not automatically. Beyond what your task needs, extra context adds compute cost and can slow responses without improving quality. Retrieval-augmented generation, which feeds only relevant passages into the prompt, often produces better results than filling a huge context window."
+      }
+    ]
+  },
+  {
+    "slug": "free-llm-api-for-rag-embeddings",
+    "title": "Best Free LLM API for RAG in 2026 (No Credit Card)",
+    "description": "Build retrieval-augmented generation on a free LLM API. Which providers suit RAG, how context windows and rate limits affect it, plus a Python starter.",
+    "date": "2026-07-21",
+    "lastUpdated": "2026-07-21",
+    "author": "freellm.site",
+    "tags": [
+      "free-llm",
+      "api",
+      "rag",
+      "embeddings",
+      "retrieval"
+    ],
+    "content": "For retrieval-augmented generation (RAG) on a budget, the best free LLM API is one with a **large context window and steady rate limits** — Google Gemini and the 131K-token providers both work well. RAG feeds your own documents into the model at query time, so the generation model matters as much as the retrieval step.\n\nOne honest note up front: RAG needs two pieces — an embedding model to index your documents and a chat model to answer. This guide covers the **generation** side, where the free LLM APIs in our directory apply directly. Embeddings often come from a separate service.\n\n## What makes a free LLM API good for RAG?\n\nA good RAG generation model has enough context to hold your retrieved passages plus the question, and rate limits that survive real query traffic. Gemini's large window and the common 131K tier both clear that bar, so the choice usually comes down to [rate limits](/blog/free-llm-api-rate-limits-compared/).\n\nRAG keeps prompts smaller than you might expect. Instead of stuffing whole documents in, you retrieve only the few passages relevant to each question. That means even a 128K free tier is comfortable for most RAG apps — you rarely fill it. See which providers offer the [largest context windows](/blog/free-llm-api-largest-context-window/) if your retrieved chunks run long.\n\n## How does RAG work on a free LLM API?\n\nRAG has three steps: index your documents, retrieve the relevant pieces for a question, then ask the model using those pieces as context. Only the last step calls the LLM API, so a free chat endpoint slots straight in.\n\nThe flow looks like this:\n\n- **Index once.** Split documents into chunks and store them, usually as embeddings in a vector store.\n- **Retrieve per query.** Find the chunks most relevant to the user's question.\n- **Generate.** Send the question plus retrieved chunks to a free LLM API and return the answer.\n\nBecause the generation call is a normal chat completion, any [OpenAI-compatible provider](/blog/openai-compatible-api-guide/) works with the same code.\n\n## A minimal RAG generation call\n\nHere is the generation step against a free provider. Retrieval is stubbed — swap in your own vector search — but the LLM call is exactly what you would ship.\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(base_url=\"https://api.groq.com/openai/v1\", api_key=\"YOUR_KEY\")\n\ndef answer(question, retrieved_chunks):\n    context = \"\\n\\n\".join(retrieved_chunks)\n    prompt = f\"Use only this context to answer.\\n\\nContext:\\n{context}\\n\\nQuestion: {question}\"\n    return client.chat.completions.create(\n        model=\"llama-3.3-70b-versatile\",\n        messages=[{\"role\": \"user\", \"content\": prompt}],\n    ).choices[0].message.content\n\nprint(answer(\"What is the refund window?\", [\"Refunds are accepted within 30 days.\"]))\n```\n\n## Which free provider should you use for RAG?\n\nUse [Groq](/providers/groq/) when answer speed matters — RAG apps feel snappy because retrieval is fast and Groq's generation is near-instant. Use [Google Gemini](/providers/google_gemini/) when retrieved context is very large, since its 2M window swallows even long passages.\n\nBoth are no-card and permanent, so you can prototype a full RAG pipeline for free. Browse the [directory](/) to compare, and put a second provider behind the first as a rate-limit fallback for production traffic.",
+    "faq": [
+      {
+        "q": "Can you build RAG with a free LLM API?",
+        "a": "Yes. RAG's generation step is a standard chat completion, so any free OpenAI-compatible provider like Groq or Google Gemini works. You only pay for embeddings and vector storage, and even those have free options, so a full RAG prototype can cost nothing to run."
+      },
+      {
+        "q": "Do free LLM APIs include embeddings for RAG?",
+        "a": "Not always. Many free tiers focus on chat generation rather than embeddings, so you often pair a free chat API with a separate embedding model or a local one. The generation providers in our directory handle the answering step, which is where their large context windows help most."
+      },
+      {
+        "q": "How big a context window does RAG need?",
+        "a": "Usually less than you would think. Because retrieval sends only the few relevant chunks into the prompt, a 128K free tier is comfortable for most RAG apps. You only need Gemini's 2M window when retrieved passages are unusually long or numerous."
+      }
+    ]
+  },
+  {
+    "slug": "groq-vs-cerebras-vs-sambanova-free-tier",
+    "title": "Groq vs Cerebras vs SambaNova: Fast Free LLM APIs Compared",
+    "description": "Groq, Cerebras and SambaNova all run open models on fast custom hardware for free. Compare their free tiers, models and signup — no credit card needed.",
+    "date": "2026-07-21",
+    "lastUpdated": "2026-07-21",
+    "author": "freellm.site",
+    "tags": [
+      "free-llm",
+      "api",
+      "groq",
+      "cerebras",
+      "sambanova",
+      "comparison"
+    ],
+    "content": "Groq, Cerebras, and SambaNova are the three free LLM APIs built around **fast, specialized inference hardware** for open models like Llama. All three offer a free tier and run the same class of models, so the real differences are signup friction, model lineup, and rate limits — not raw capability.\n\nThe quick answer: **Groq and Cerebras need no credit card and no account beyond an email**, while **SambaNova requires registration** but stays free. All three are OpenAI-compatible, so switching between them is a one-line change.\n\n## How are Groq, Cerebras, and SambaNova different?\n\nAll three specialize in low-latency inference, but they differ on access. Groq and Cerebras issue a free key from an email login with no card; SambaNova asks you to register first. Each runs open-weight models, so your code and prompts port directly between them.\n\nHere is the verified comparison from our directory:\n\n| Provider | Card / signup | Free models | Max context | Base URL |\n| --- | --- | --- | --- | --- |\n| [Groq](/providers/groq/) | No card | 3 | 131K | api.groq.com/openai/v1 |\n| [Cerebras](/providers/cerebras/) | No card | 2 | 131K | api.cerebras.ai/v1 |\n| [SambaNova](/providers/sambanova/) | Registration | Varies | 131K | api.sambanova.ai/v1 |\n\nBecause all three share the same 131K context ceiling, context window is not a deciding factor here — speed and access are.\n\n## Which one is the fastest free LLM API?\n\nAll three are built specifically for speed, running open models on custom silicon rather than general-purpose GPUs, so each returns responses far faster than a typical cloud endpoint. In practice they trade the top spot depending on model and load, and any of them feels near-instant next to a standard provider.\n\nFor latency-sensitive apps — chat interfaces, autocomplete, voice — this speed is the whole point. Rather than chase benchmark rankings that shift with every hardware update, pick on access and models, then confirm real latency for your own workload. Our [Groq vs Google Gemini comparison](/blog/groq-vs-google-gemini-free-tier/) covers the speed-versus-volume trade-off in more depth.\n\n## When should you pick each provider?\n\nChoose **Groq** as the default no-card starting point — most models and a large, active community. Choose **Cerebras** when you want a second no-card fast endpoint for fallback or to compare output. Choose **SambaNova** when you do not mind registering and want its specific model lineup.\n\nThe smart setup uses more than one. Since all three are [OpenAI-compatible](/blog/openai-compatible-api-guide/), you can route traffic across them by changing only the base URL, giving you extra headroom against [rate limits](/blog/free-llm-api-rate-limits-compared/).\n\n```python\nfrom openai import OpenAI\n\nendpoints = [\n    (\"https://api.groq.com/openai/v1\", \"GROQ_KEY\", \"llama-3.3-70b-versatile\"),\n    (\"https://api.cerebras.ai/v1\", \"CEREBRAS_KEY\", \"llama-3.3-70b\"),\n]\nfor base, key, model in endpoints:\n    try:\n        client = OpenAI(base_url=base, api_key=key)\n        print(client.chat.completions.create(\n            model=model, messages=[{\"role\": \"user\", \"content\": \"Hi\"}]\n        ).choices[0].message.content)\n        break\n    except Exception:\n        continue\n```\n\n## The verdict\n\nStart with Groq, add Cerebras as a no-card fallback, and reach for SambaNova if its models fit your task. All three are free, fast, and open-model focused — see the live details on each provider page and the [full directory](/) for alternatives.",
+    "faq": [
+      {
+        "q": "Is Groq or Cerebras faster?",
+        "a": "Both run open models on custom high-speed hardware, and which is fastest shifts by model and load. Either feels near-instant compared with a general-purpose cloud endpoint, so pick on access and model lineup rather than chasing benchmark rankings that change with each hardware update."
+      },
+      {
+        "q": "Does SambaNova need a credit card?",
+        "a": "No. SambaNova's free tier requires account registration but no credit card. That is one step more than Groq and Cerebras, which issue a key from an email login alone, but all three remain free to use within their rate limits."
+      },
+      {
+        "q": "Can you switch between Groq, Cerebras, and SambaNova easily?",
+        "a": "Yes. All three expose OpenAI-compatible endpoints, so moving between them means changing only the base URL, API key, and model name. This makes it easy to run them as fallbacks for one another and multiply your available throughput across free tiers."
+      }
+    ]
+  },
+  {
+    "slug": "cheapest-llm-api-after-free-tier",
+    "title": "Cheapest LLM API After the Free Tier: How to Compare (2026)",
+    "description": "The cheapest LLM API is a free one, but when you outgrow it, here is how to compare paid pricing the right way — per token, per model, with no surprises.",
+    "date": "2026-07-21",
+    "lastUpdated": "2026-07-21",
+    "author": "freellm.site",
+    "tags": [
+      "free-llm",
+      "api",
+      "pricing",
+      "cheapest",
+      "cost"
+    ],
+    "content": "The cheapest LLM API is a free one — and every provider in our directory has a free tier or free credits, so you pay nothing to start. When your usage outgrows the free limits, the cheapest paid option depends on your model and volume, so the goal is to compare correctly rather than chase a single headline price.\n\nThis guide skips fast-changing per-token numbers, which vary by model and shift often, and instead shows the method to find your own cheapest option reliably.\n\n## What is the cheapest LLM API?\n\nFor most developers, the cheapest LLM API is the free tier you already have. With [30 no-card providers](/blog/how-to-get-free-llm-api-key-no-credit-card/) offering free usage, you can run prototypes and light production without paying at all — the true floor on cost is zero.\n\nYou only enter paid territory when you exceed free [rate limits](/blog/free-llm-api-rate-limits-compared/) at sustained volume. At that point \"cheapest\" stops being a single number and becomes a function of which model you use and how many tokens you push, so compare on your actual workload.\n\n## How do you compare LLM API pricing fairly?\n\nCompare price per million tokens for the specific model you will use, and count input and output tokens separately, since output usually costs more. A provider that looks cheap on input can be expensive on output, so a blended estimate on your real traffic beats any single advertised rate.\n\nWork through these steps:\n\n- **Fix the model.** Pick the exact model that meets your quality bar, then price only that.\n- **Estimate your token mix.** Measure typical input and output lengths from real prompts.\n- **Price input and output separately**, then combine them at your ratio.\n- **Project monthly volume** and multiply — small per-token gaps compound at scale.\n- **Re-check free credits**, which can cover early paid months entirely.\n\n## Why does open-model hosting tend to be cheaper?\n\nProviders serving open-weight models like Llama and Mistral often undercut proprietary APIs, because the model itself is free to license and competition among hosts drives prices down. Several providers run the same open model, so you can price-shop identical output across endpoints.\n\nThat portability is the lever. Since these hosts are [OpenAI-compatible](/blog/openai-compatible-api-guide/), moving your traffic to a cheaper one is a base-URL change, not a rewrite. Providers like [Together AI](/providers/together_ai/), [DeepInfra](/providers/deepinfra/), and [Fireworks AI](/providers/fireworks/) all host overlapping open models, making them easy to compare head to head.\n\n## How do you keep costs low as you scale?\n\nStay on free tiers as long as possible by spreading load across providers, then move only the overflow to paid. Because every provider here uses the same request format, a fallback that shifts traffic to a second free key delays paid usage without any code change.\n\nWhen you do pay, favor open-model hosts, right-size your model to the task, and cache repeated prompts so you never pay twice for the same answer. Start from the [full directory](/) to see which providers offer free credits you have not used yet.",
+    "faq": [
+      {
+        "q": "What is the cheapest LLM API in 2026?",
+        "a": "A free one. Every provider in our directory has a free tier or free credits, so the cheapest option costs nothing to start. When you outgrow free limits, open-model hosts serving Llama and Mistral typically offer the lowest paid per-token rates, but the exact winner depends on your model and volume."
+      },
+      {
+        "q": "How should you compare LLM API pricing?",
+        "a": "Price the exact model you will use, and count input and output tokens separately since output usually costs more. Then multiply by your real monthly volume. A provider that looks cheap on one metric can be costly overall, so always estimate against your actual traffic mix."
+      },
+      {
+        "q": "Are open-model LLM APIs cheaper than proprietary ones?",
+        "a": "Often, yes. Open-weight models like Llama and Mistral are free to license, and multiple hosts serve them in competition, which drives paid prices down. Because these providers are OpenAI-compatible, you can price-shop the same model across endpoints and switch with a one-line change."
+      }
+    ]
+  },
+  {
+    "slug": "free-llm-api-discord-telegram-bot",
+    "title": "Build a Discord or Telegram Bot With a Free LLM API (2026)",
+    "description": "Power a Discord or Telegram bot with a free LLM API, no credit card. Why Groq's speed fits chat bots, plus a working Python example and rate-limit tips.",
+    "date": "2026-07-21",
+    "lastUpdated": "2026-07-21",
+    "author": "freellm.site",
+    "tags": [
+      "free-llm",
+      "api",
+      "discord",
+      "telegram",
+      "chatbot",
+      "tutorial"
+    ],
+    "content": "You can power a Discord or Telegram bot with a free LLM API and no credit card — the free tier of a fast provider like **Groq** handles a small-to-medium community comfortably. The bot receives a message, sends it to the LLM API, and posts the reply, all within the free rate limits.\n\nThe one thing that matters most for a chat bot is **response speed**, because users expect a reply in a second or two. That makes low-latency providers the natural fit.\n\n## Which free LLM API is best for a chat bot?\n\nFor bots, pick the fastest free provider — **Groq** is the common choice because its responses feel instant, so your bot replies without an awkward pause. Speed beats volume here, since a chat bot sends one request per message rather than a flood.\n\nA single active channel rarely approaches Groq's [rate limit](/blog/free-llm-api-rate-limits-compared/) of around 30 requests per minute, so the free tier is enough for most communities. If your server is large, spread traffic across a second free provider. See the [Groq free LLM API](/providers/groq/) page for current limits, or pick any [no-card provider](/blog/how-to-get-free-llm-api-key-no-credit-card/).\n\n## How does a bot call a free LLM API?\n\nThe pattern is the same for Discord and Telegram: your bot library gives you the incoming message, you pass it to the LLM API, and you send back the response. Because the API is [OpenAI-compatible](/blog/openai-compatible-api-guide/), the LLM part is a few lines regardless of chat platform.\n\nHere is the core of a Telegram bot using the free Groq API:\n\n```python\nimport os\nfrom openai import OpenAI\nfrom telegram.ext import ApplicationBuilder, MessageHandler, filters\n\nllm = OpenAI(base_url=\"https://api.groq.com/openai/v1\", api_key=os.environ[\"GROQ_API_KEY\"])\n\nasync def reply(update, context):\n    answer = llm.chat.completions.create(\n        model=\"llama-3.3-70b-versatile\",\n        messages=[{\"role\": \"user\", \"content\": update.message.text}],\n    ).choices[0].message.content\n    await update.message.reply_text(answer)\n\napp = ApplicationBuilder().token(os.environ[\"TELEGRAM_TOKEN\"]).build()\napp.add_handler(MessageHandler(filters.TEXT, reply))\napp.run_polling()\n```\n\nFor Discord, swap the Telegram library for `discord.py` — the `llm.chat.completions.create` call stays identical.\n\n## How do you keep a bot under the free rate limit?\n\nHandle the `429` error gracefully and avoid calling the API on every trivial message. A busy server can spike past the per-minute limit, so add a light queue or per-user cooldown and only respond when the bot is addressed directly.\n\nPractical safeguards:\n\n- **Only respond when mentioned** or to a command prefix, not every message.\n- **Add a short per-user cooldown** to smooth bursts.\n- **Catch `429` and retry** after a brief wait instead of crashing.\n- **Fall back to a second free provider** when the first is rate-limited.\n\n## Taking your bot further\n\nAdd conversation memory by passing recent messages in the `messages` list, and a system prompt to set the bot's personality. Both are just extra entries in the same request, so they cost no additional setup.\n\nWhen your community grows, route overflow to another free key — every provider in the [directory](/) uses the same request format, so scaling out is a base-URL change, not a rewrite.",
+    "faq": [
+      {
+        "q": "Can you run a Discord bot on a free LLM API?",
+        "a": "Yes. A free provider like Groq powers a Discord or Telegram bot at no cost, since a single channel rarely exceeds the free rate limit of around 30 requests per minute. The bot passes each message to the API and posts the reply, all within the free tier."
+      },
+      {
+        "q": "Which free LLM API is fastest for a chat bot?",
+        "a": "Groq is a common pick because its responses feel near-instant, which matters most for bots where users expect a reply within a second or two. Its 30 requests-per-minute free tier handles most single communities, and you can add a second provider for larger servers."
+      },
+      {
+        "q": "How do you stop a bot from hitting rate limits?",
+        "a": "Respond only when the bot is mentioned or a command is used, add a short per-user cooldown, and catch the HTTP 429 error to retry after a brief wait. For busy servers, route overflow traffic to a second free provider's key using the same OpenAI-compatible code."
+      }
+    ]
+  },
+  {
+    "slug": "openai-compatible-free-llm-apis-list",
+    "title": "OpenAI-Compatible Free LLM APIs: The Drop-In List (2026)",
+    "description": "A list of free LLM APIs that work as drop-in OpenAI replacements. Change one base URL and keep your existing code — Groq, Gemini, Mistral and more.",
+    "date": "2026-07-21",
+    "lastUpdated": "2026-07-21",
+    "author": "freellm.site",
+    "tags": [
+      "free-llm",
+      "api",
+      "openai-compatible",
+      "drop-in",
+      "list"
+    ],
+    "content": "Most free LLM APIs are **drop-in OpenAI replacements** — you change the base URL and API key, and your existing OpenAI code keeps working unchanged. More than half the providers in our directory expose an OpenAI-compatible endpoint, so you can swap in a free provider without rewriting a line of logic.\n\nThat compatibility is the single most useful fact about the free LLM landscape. It means the code you learn once runs everywhere, and switching providers to dodge a rate limit is trivial.\n\n## What does OpenAI-compatible mean?\n\nAn OpenAI-compatible API accepts the same request format as OpenAI's `chat/completions` endpoint, so the official OpenAI SDK works against it by pointing `base_url` elsewhere. Your messages, parameters, and response parsing stay identical — only the URL, key, and model name change.\n\nThis is why [switching providers](/blog/openai-compatible-api-guide/) is a one-line edit. You are not learning a new API each time; you are reusing one interface across dozens of free backends. For the deeper mechanics, see our full [OpenAI-compatible API guide](/blog/openai-compatible-api-guide/).\n\n## Which free LLM APIs are drop-in OpenAI replacements?\n\nHere are popular free providers whose endpoints slot straight into OpenAI SDK code. Each link goes to its live page with the exact base URL, models, and limits.\n\n| Provider | Base URL | Card required |\n| --- | --- | --- |\n| [Groq](/providers/groq/) | api.groq.com/openai/v1 | No |\n| [Google Gemini](/providers/google_gemini/) | generativelanguage.googleapis.com/v1beta | No |\n| [Mistral AI](/providers/mistral/) | api.mistral.ai/v1 | No |\n| [Cerebras](/providers/cerebras/) | api.cerebras.ai/v1 | No |\n| [Together AI](/providers/together_ai/) | api.together.xyz/v1 | No |\n| [OpenRouter](/providers/openrouter/) | openrouter.ai/api/v1 | Email |\n| [DeepInfra](/providers/deepinfra/) | api.deepinfra.com/v1/openai | No |\n| [Fireworks AI](/providers/fireworks/) | api.fireworks.ai/inference/v1 | No |\n\nThis is a sample — the [full directory](/) marks compatibility for every provider.\n\n## How do you swap OpenAI for a free provider?\n\nChange three things: the `base_url`, the `api_key`, and the `model` name. Everything else — your messages array, temperature, streaming, response handling — stays exactly as it was with OpenAI.\n\n```python\nfrom openai import OpenAI\n\n# Before: OpenAI\n# client = OpenAI(api_key=\"sk-...\")\n\n# After: free Groq, same code below\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"YOUR_GROQ_KEY\",\n)\n\nresponse = client.chat.completions.create(\n    model=\"llama-3.3-70b-versatile\",\n    messages=[{\"role\": \"user\", \"content\": \"Hello!\"}],\n)\nprint(response.choices[0].message.content)\n```\n\nThe same swap works in any language's OpenAI SDK and in tools that accept a custom base URL, including [AI coding assistants](/blog/use-free-llm-api-cursor-claude-code/).\n\n## Why does drop-in compatibility matter?\n\nIt removes lock-in. Because your code speaks one interface, you can chase the best free tier, dodge a [rate limit](/blog/free-llm-api-rate-limits-compared/), or drop in a faster provider whenever you like — all without touching application logic. A provider outage becomes a base-URL change, not an emergency.\n\nStart by picking one compatible provider from the [directory](/), get a [free key](/blog/how-to-get-free-llm-api-key-no-credit-card/), and build against the OpenAI SDK. Everything you write stays portable across every other provider on the list.",
+    "faq": [
+      {
+        "q": "Are free LLM APIs compatible with the OpenAI SDK?",
+        "a": "Most are. More than half the providers in our directory expose an OpenAI-compatible endpoint, so the official OpenAI SDK works by changing only the base URL, key, and model name. Groq, Gemini, Mistral, Cerebras, and Together AI all function as drop-in replacements."
+      },
+      {
+        "q": "How do you switch from OpenAI to a free provider?",
+        "a": "Change three values: the base URL, the API key, and the model name. Your messages array, parameters, streaming, and response handling stay identical. The swap works in any language's OpenAI SDK and in any tool that accepts a custom base URL."
+      },
+      {
+        "q": "Does using an OpenAI-compatible free API lock you in?",
+        "a": "No, it does the opposite. Because every compatible provider speaks the same interface, your code stays portable and you can move between free tiers with a one-line change. A rate limit or outage on one provider becomes a base-URL swap rather than a rewrite."
+      }
+    ]
   }
 ]

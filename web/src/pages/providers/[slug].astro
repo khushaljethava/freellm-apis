@@ -12,6 +12,62 @@ const { provider } = Astro.props;
 const providerModels = models.filter(m => m.provider_id === provider.id && !m.deprecated);
 const firstModel = providerModels[0];
 
+// --- Data-driven unique overview (raises per-page content uniqueness) ---
+const regionLabel = {
+  global: 'globally available', china: 'China-based', europe: 'Europe-based',
+  india: 'India-based', japan: 'Japan-based', korea: 'Korea-based',
+  middle_east: 'Middle East-based', sea: 'Southeast Asia-based',
+};
+const maxCtx = providerModels.length ? Math.max(...providerModels.map(m => m.context_window)) : 0;
+const maxRpm = providerModels.map(m => m.rpm).filter(Boolean);
+const modalities = [...new Set(providerModels.flatMap(m => m.modalities))];
+const fmtCtxOverview = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
+
+const freeClause = provider.free_type === 'credits' && provider.credit_amount_usd != null
+  ? `$${provider.credit_amount_usd} in free credits${provider.credit_expiry ? ` (${provider.credit_expiry})` : ''}`
+  : 'a permanent free tier';
+const cardClause = {
+  no: 'No credit card is required to start',
+  registration: 'Signup needs only an email — no credit card',
+  phone: 'Signup requires phone verification but no credit card',
+  yes: 'A credit card is required to activate the free tier',
+}[provider.credit_card_required];
+
+const overview = [
+  `${provider.name} is a ${regionLabel[provider.region] ?? 'available'} LLM API provider offering ${freeClause}.`,
+  providerModels.length
+    ? `You get ${providerModels.length} free model${providerModels.length !== 1 ? 's' : ''}${maxCtx ? ` with up to a ${fmtCtxOverview(maxCtx)}-token context window` : ''}${modalities.length ? `, supporting ${modalities.join(', ')}` : ''}.`
+    : `Model availability is listed below.`,
+  maxRpm.length ? `Free requests are rate-limited to around ${Math.max(...maxRpm)} per minute.` : '',
+  `${cardClause}, and the endpoint at ${provider.base_url} is OpenAI-compatible, so you can point existing OpenAI SDK code at ${provider.name} by changing only the base URL and API key.`,
+].filter(Boolean).join(' ');
+
+// --- Related providers (same region, else same free tier), top by model count ---
+const modelCountOf = (id) => models.filter(m => m.provider_id === id && !m.deprecated).length;
+const pool = providers.filter(p => p.id !== provider.id);
+const sameRegion = pool.filter(p => p.region === provider.region);
+const related = (sameRegion.length >= 3 ? sameRegion : pool.filter(p => p.free_type === provider.free_type))
+  .sort((a, b) => modelCountOf(b.id) - modelCountOf(a.id))
+  .slice(0, 4);
+
+const guides = [
+  { slug: 'best-free-llm-apis-2026', title: 'Best Free LLM APIs in 2026' },
+  { slug: 'openai-compatible-api-guide', title: 'What Is an OpenAI-Compatible API' },
+  { slug: 'best-free-llm-apis-for-coding', title: 'Best Free LLM APIs for Coding' },
+];
+
+// Compare pages that involve this provider (must match the curated list in compare/[pair].astro).
+const COMPARE_PAIRS = [
+  ['groq', 'google_gemini'], ['groq', 'cerebras'], ['groq', 'sambanova'],
+  ['cerebras', 'sambanova'], ['mistral', 'groq'], ['google_gemini', 'mistral'],
+  ['github_models', 'groq'], ['together_ai', 'groq'], ['openrouter', 'groq'],
+  ['cohere', 'mistral'],
+];
+const nameOf = (id) => providers.find(p => p.id === id)?.name ?? id;
+const compareLinks = COMPARE_PAIRS
+  .filter(pair => pair.includes(provider.id))
+  .map(([a, b]) => ({ href: `/compare/${a}-vs-${b}/`, other: nameOf(a === provider.id ? b : a) }));
+
 const cardLabel = { no: '✅ No', registration: '📧 Email', phone: '📱 Phone', yes: '💳 Yes' };
 
 const fmtCtx = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
@@ -35,16 +91,48 @@ const curlSnippet = `curl ${provider.base_url}/chat/completions \\
     "model": "${firstModel?.model_id ?? 'MODEL_ID'}",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'`;
+
+const pageUrl = `https://www.freellm.site/providers/${provider.id}/`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.freellm.site/' },
+        { '@type': 'ListItem', position: 2, name: `${provider.name} Free LLM API`, item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: `${provider.name} Free LLM API`,
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Any',
+      url: pageUrl,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description: provider.credit_card_required === 'no'
+          ? 'Free tier, no credit card required'
+          : 'Free tier available',
+      },
+    },
+  ],
+};
 ---
 <Base
   title={`${provider.name} Free LLM API — Rate Limits, Models & Setup | freellm.site`}
   description={`${provider.notes}. Base URL: ${provider.base_url}. ${providerModels.length} free model${providerModels.length !== 1 ? 's' : ''} available.`}
+  schema={schema}
 >
   <div class="breadcrumb">
     <a href="/">Home</a><span>›</span><span>{provider.name}</span>
   </div>
 
-  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">{provider.name}</h1>
+  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">{provider.name} Free LLM API</h1>
+
+  <p class="provider-overview" style="color:#374151;line-height:1.6;margin-bottom:1.25rem">{overview}</p>
 
   <div class="provider-meta">
     <div class="row">
@@ -100,6 +188,35 @@ const curlSnippet = `curl ${provider.base_url}/chat/completions \\
       <pre>{curlSnippet}</pre>
     </div>
   </div>
+
+  {related.length > 0 && (
+    <>
+      <h2 class="section-title">Related Free LLM API Providers</h2>
+      <ul class="related-links">
+        {related.map(p => (
+          <li><a href={`/providers/${p.id}/`}>{p.name} free LLM API</a> — {modelCountOf(p.id)} free model{modelCountOf(p.id) !== 1 ? 's' : ''}</li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {compareLinks.length > 0 && (
+    <>
+      <h2 class="section-title">Compare {provider.name}</h2>
+      <ul class="related-links">
+        {compareLinks.map(c => (
+          <li><a href={c.href}>{provider.name} vs {c.other} — free tier compared</a></li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <h2 class="section-title">Guides</h2>
+  <ul class="related-links">
+    {guides.map(g => (
+      <li><a href={`/blog/${g.slug}/`}>{g.title}</a></li>
+    ))}
+  </ul>
 
   <AdSlot variant="bottom" />
 </Base>

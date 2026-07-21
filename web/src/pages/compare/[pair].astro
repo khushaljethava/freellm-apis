@@ -1,0 +1,122 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import providers from '../../../../data/providers.json';
+import models from '../../../../data/models.json';
+
+const byId = Object.fromEntries(providers.map(p => [p.id, p]));
+
+export function getStaticPaths() {
+  // Curated high-demand pairs only (quality gate: no N×N thin pages).
+  const PAIRS = [
+    ['groq', 'google_gemini'], ['groq', 'cerebras'], ['groq', 'sambanova'],
+    ['cerebras', 'sambanova'], ['mistral', 'groq'], ['google_gemini', 'mistral'],
+    ['github_models', 'groq'], ['together_ai', 'groq'], ['openrouter', 'groq'],
+    ['cohere', 'mistral'],
+  ];
+  const ids = Object.fromEntries(providers.map(p => [p.id, p]));
+  return PAIRS
+    .filter(([a, b]) => ids[a] && ids[b])
+    .map(([a, b]) => ({ params: { pair: `${a}-vs-${b}` }, props: { a: ids[a], b: ids[b] } }));
+}
+
+const { a, b } = Astro.props;
+
+const modelsOf = id => models.filter(m => m.provider_id === id && !m.deprecated);
+const maxCtx = id => { const c = modelsOf(id).map(m => m.context_window); return c.length ? Math.max(...c) : 0; };
+const maxRpm = id => { const r = modelsOf(id).map(m => m.rpm).filter(Boolean); return r.length ? Math.max(...r) : null; };
+const fmtCtx = c => c >= 1_000_000 ? `${Math.round(c / 1_000_000)}M` : c ? `${Math.round(c / 1_000)}K` : '—';
+const cardLabel = { no: 'No card', registration: 'Email signup', phone: 'Phone verify', yes: 'Card required' };
+
+const rows = [
+  ['Credit card', cardLabel[a.credit_card_required], cardLabel[b.credit_card_required]],
+  ['Free tier type', a.free_type === 'permanent' ? 'Permanent' : 'Free credits', b.free_type === 'permanent' ? 'Permanent' : 'Free credits'],
+  ['Free models', String(modelsOf(a.id).length), String(modelsOf(b.id).length)],
+  ['Max context', fmtCtx(maxCtx(a.id)), fmtCtx(maxCtx(b.id))],
+  ['Max RPM (free)', maxRpm(a.id) != null ? String(maxRpm(a.id)) : 'See page', maxRpm(b.id) != null ? String(maxRpm(b.id)) : 'See page'],
+  ['Base URL', a.base_url, b.base_url],
+];
+
+const verdictBits = [];
+if (a.credit_card_required === 'no' && b.credit_card_required !== 'no') verdictBits.push(`${a.name} is easier to start with — no credit card, versus ${cardLabel[b.credit_card_required].toLowerCase()} for ${b.name}.`);
+else if (b.credit_card_required === 'no' && a.credit_card_required !== 'no') verdictBits.push(`${b.name} is easier to start with — no credit card, versus ${cardLabel[a.credit_card_required].toLowerCase()} for ${a.name}.`);
+if (maxCtx(a.id) > maxCtx(b.id) * 2) verdictBits.push(`${a.name} wins on context, handling up to ${fmtCtx(maxCtx(a.id))} tokens against ${fmtCtx(maxCtx(b.id))}.`);
+else if (maxCtx(b.id) > maxCtx(a.id) * 2) verdictBits.push(`${b.name} wins on context, handling up to ${fmtCtx(maxCtx(b.id))} tokens against ${fmtCtx(maxCtx(a.id))}.`);
+const verdict = verdictBits.length ? verdictBits.join(' ') : `${a.name} and ${b.name} are closely matched on the free tier — pick on response speed and which models you need.`;
+
+const pageUrl = `https://www.freellm.site/compare/${a.id}-vs-${b.id}/`;
+const title = `${a.name} vs ${b.name}: Free LLM API Comparison (2026)`;
+const description = `${a.name} vs ${b.name} free tier compared — credit card, models, context window and rate limits. See which free LLM API fits your project.`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.freellm.site/' },
+        { '@type': 'ListItem', position: 2, name: `${a.name} vs ${b.name}`, item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'WebPage',
+      name: title,
+      url: pageUrl,
+      description,
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: `${a.name} free LLM API`, url: `https://www.freellm.site/providers/${a.id}/` },
+          { '@type': 'ListItem', position: 2, name: `${b.name} free LLM API`, url: `https://www.freellm.site/providers/${b.id}/` },
+        ],
+      },
+    },
+  ],
+};
+---
+<Base title={`${title} | freellm.site`} description={description} schema={schema}>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span><span>{a.name} vs {b.name}</span>
+  </div>
+
+  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">{a.name} vs {b.name}: Free LLM API Comparison</h1>
+
+  <p style="color:#374151;line-height:1.6;margin-bottom:1.25rem">
+    Comparing the free tiers of <a href={`/providers/${a.id}/`}>{a.name}</a> and
+    <a href={`/providers/${b.id}/`}>{b.name}</a> on the things that decide which you
+    should use: credit-card requirement, free models, context window, and rate limits.
+    All figures are verified from each provider's own console.
+  </p>
+
+  <AdSlot variant="top" />
+
+  <h2 class="section-title">{a.name} vs {b.name} at a glance</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th></th><th>{a.name}</th><th>{b.name}</th></tr></thead>
+      <tbody>
+        {rows.map(([label, av, bv]) => (
+          <tr><td><strong>{label}</strong></td><td>{av}</td><td>{bv}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-title">Which should you pick?</h2>
+  <p style="color:#374151;line-height:1.6">{verdict}</p>
+  <p style="color:#374151;line-height:1.6">
+    Both are OpenAI-compatible, so trying each is a one-line change — see the
+    <a href="/blog/openai-compatible-free-llm-apis-list/">drop-in list</a> and our
+    <a href="/blog/free-llm-api-rate-limits-compared/">rate-limit comparison</a> for the full picture.
+    You can also run both behind a fallback so a rate limit on one never stops your app.
+  </p>
+
+  <h2 class="section-title">Full provider details</h2>
+  <ul class="related-links">
+    <li><a href={`/providers/${a.id}/`}>{a.name} free LLM API — models, limits & setup</a></li>
+    <li><a href={`/providers/${b.id}/`}>{b.name} free LLM API — models, limits & setup</a></li>
+    <li><a href="/">Browse all free LLM API providers</a></li>
+  </ul>
+
+  <AdSlot variant="bottom" />
+</Base>
