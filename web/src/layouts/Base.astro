@@ -102,7 +102,7 @@ const blogHref = postsFor(locale).length ? L('/blog/') : '/blog/';
         <nav>
           <a href={L('/models/')}>{t.nav.models}</a>
           <a href={blogHref}>{t.nav.blog}</a>
-          <a href="/about/">{t.nav.about}</a>
+          <a href={L('/about/')}>{t.nav.about}</a>
           <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">{t.nav.github}</a>
           <LanguageSwitcher locale={locale} available={altLocales} />
         </nav>
@@ -113,7 +113,7 @@ const blogHref = postsFor(locale).length ? L('/blog/') : '/blog/';
       <nav class="footer-nav" aria-label={t.footer.legalNav}>
         <a href="/privacy/">{t.footer.privacy}</a>
         <a href="/terms/">{t.footer.terms}</a>
-        <a href="/about/">{t.footer.about}</a>
+        <a href={L('/about/')}>{t.footer.about}</a>
         <a href="/contact/">{t.footer.contact}</a>
         <a href="/cookies/">{t.footer.cookies}</a>
       </nav>

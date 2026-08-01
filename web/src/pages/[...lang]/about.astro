@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import providers from '../../../../data/providers.json';
+import models from '../../../../data/models.json';
+import { localeOf, localePath } from '../../i18n/config';
+import { translatedPaths, useTranslations, TRANSLATED_LOCALES } from '../../i18n/ui';
+
+export const getStaticPaths = translatedPaths;
+
+const locale = localeOf(Astro.params.lang);
+const t = useTranslations(locale);
+const ta = t.about;
+
+const providerCount = providers.length;
+const modelCount = models.filter(m => !m.deprecated).length;
+---
+<Base
+  locale={locale}
+  altLocales={TRANSLATED_LOCALES}
+  title={ta.title}
+  description={ta.description}
+>
+  <article class="legal-page">
+    <h1>{ta.h1}</h1>
+    <p class="legal-lead">{ta.lead}</p>
+
+    <h2>{ta.whatTitle}</h2>
+    <p>{ta.what(providerCount, modelCount)}</p>
+
+    <h2>{ta.sourceTitle}</h2>
+    <p>{ta.sourceLead}<a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">freellm-apis</a>{ta.sourceLeadEnd}</p>
+    <ul>
+      {ta.sourceItems.map(item => <li>{item}</li>)}
+    </ul>
+    <p>{ta.sourceNote}</p>
+
+    <h2>{ta.whoTitle}</h2>
+    <p>{ta.whoA}<a href="https://github.com/khushaljethava" target="_blank" rel="noopener">Khushal Jethava</a>{ta.whoB}</p>
+
+    <h2>{ta.ossTitle}</h2>
+    <p>{ta.ossA}<a href="https://github.com/khushaljethava/freellm-apis/issues" target="_blank" rel="noopener">{ta.ossLink}</a>{ta.ossB}</p>
+
+    <h2>{ta.contactTitle}</h2>
+    <p>{ta.contactA}<a href="/contact/">{ta.contactLink}</a>{ta.contactB}</p>
+  </article>
+</Base>

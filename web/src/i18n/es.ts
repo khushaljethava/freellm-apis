@@ -103,6 +103,126 @@ const es: Strings = {
     h1: 'Blog',
     lede: 'Guías y tutoriales para usar API LLM gratis.',
   },
+  provider: {
+    home: 'Inicio',
+    title: name => `API LLM gratis de ${name} — Límites, modelos y configuración | freellm.site`,
+    description: (notes, baseUrl, n) =>
+      `${notes}. URL base: ${baseUrl}. ${n} modelo${n !== 1 ? 's' : ''} gratis disponible${n !== 1 ? 's' : ''}.`,
+    h1: name => `API LLM gratis de ${name}`,
+    region: {
+      global: 'disponible a nivel mundial',
+      china: 'con sede en China',
+      europe: 'con sede en Europa',
+      india: 'con sede en India',
+      japan: 'con sede en Japón',
+      korea: 'con sede en Corea',
+      middle_east: 'con sede en Oriente Medio',
+      sea: 'con sede en el Sudeste Asiático',
+      unknown: 'disponible',
+    },
+    freeCredits: (usd, expiry) =>
+      `${usd} USD en créditos gratis${expiry ? ` (${expiry})` : ''}`,
+    freeTierPermanent: 'un nivel gratuito permanente',
+    card: {
+      no: 'No se requiere tarjeta de crédito para empezar',
+      registration: 'El registro solo necesita un correo electrónico, sin tarjeta de crédito',
+      phone: 'El registro exige verificación por teléfono, pero no tarjeta de crédito',
+      yes: 'Se requiere una tarjeta de crédito para activar el nivel gratuito',
+    },
+    ovIntro: (name, region, free) =>
+      `${name} es un proveedor de API LLM ${region} que ofrece ${free}.`,
+    ovModels: (n, ctx, modalities) =>
+      `Obtienes ${n} modelo${n !== 1 ? 's' : ''} gratis${ctx ? ` con una ventana de contexto de hasta ${ctx} tokens` : ''}${modalities ? `, con soporte para ${modalities}` : ''}.`,
+    ovNoModels: 'La disponibilidad de modelos se detalla más abajo.',
+    ovRpm: rpm => `Las peticiones gratuitas están limitadas a unas ${rpm} por minuto.`,
+    ovEndpoint: (card, baseUrl, name) =>
+      `${card}, y el endpoint en ${baseUrl} es compatible con OpenAI, así que puedes apuntar tu código actual del SDK de OpenAI a ${name} cambiando solo la URL base y la clave de API.`,
+    baseUrlLabel: 'URL base',
+    cardRequiredLabel: 'Tarjeta requerida',
+    freeCreditsLabel: 'Créditos gratis',
+    notesLabel: 'Notas',
+    getKeyCta: 'Obtener clave de API gratis →',
+    freeModelsTitle: 'Modelos gratis',
+    quickStartTitle: 'Inicio rápido',
+    relatedTitle: 'Proveedores de API LLM gratis relacionados',
+    relatedItem: (name, n) =>
+      `API LLM gratis de ${name} — ${n} modelo${n !== 1 ? 's' : ''} gratis`,
+    compareTitle: name => `Comparar ${name}`,
+    compareItem: (a, b) => `${a} vs ${b} — comparativa del nivel gratuito`,
+    guidesTitle: 'Guías',
+    copied: '¡Copiado!',
+  },
+  about: {
+    title: 'Acerca de freellm.site — Directorio de API LLM gratis',
+    description:
+      'Conoce freellm.site: un directorio abierto y mantenido por la comunidad de proveedores de API LLM gratis, modelos y guías de configuración.',
+    h1: 'Acerca de freellm.site',
+    lead: 'freellm.site es un directorio libre y abierto que ayuda a los desarrolladores a encontrar proveedores de API LLM con niveles gratuitos permanentes y créditos de registro, sin rastrear decenas de sitios web.',
+    whatTitle: 'Qué hacemos',
+    what: (p, m) =>
+      `Seguimos ${p} proveedores y ${m} modelos, con sus límites de peticiones, ventanas de contexto, requisitos de tarjeta y enlaces de registro. Cada proveedor tiene una página propia con tablas de modelos y fragmentos de código listos para copiar, para que empieces en minutos.`,
+    sourceTitle: 'De dónde salen los datos',
+    sourceLead: 'La información de los proveedores se mantiene en el repositorio de código abierto ',
+    sourceLeadEnd: ' en GitHub. Los datos incluyen:',
+    sourceItems: [
+      'URL base, enlaces de registro y tipo de nivel gratuito de cada proveedor',
+      'IDs de modelos, ventanas de contexto, modalidades y límites de peticiones',
+      'Fecha de última verificación de cada entrada',
+    ],
+    sourceNote:
+      'Las entradas se verifican manualmente y se actualizan con regularidad. Como las condiciones de los proveedores cambian, confirma siempre los detalles en su propia web antes de usarlos en producción.',
+    whoTitle: 'Quién gestiona este sitio',
+    whoA: 'freellm.site está mantenido por ',
+    whoB: ' como parte del proyecto de código abierto freellm-apis. El sitio es de uso gratuito y cualquiera puede contribuir a los datos.',
+    ossTitle: 'Código abierto',
+    ossA: 'Tanto los datos como el código del sitio son públicos. Puedes informar de información desactualizada, sugerir nuevos proveedores o enviar correcciones mediante ',
+    ossLink: 'GitHub Issues',
+    ossB: ' o pull requests.',
+    contactTitle: 'Contacto',
+    contactA: '¿Tienes una pregunta, una corrección o un proveedor que añadir? Visita nuestra ',
+    contactLink: 'página de contacto',
+    contactB: '.',
+  },
+  compare: {
+    title: (a, b) => `${a} vs ${b}: comparativa de API LLM gratis (2026)`,
+    description: (a, b) =>
+      `${a} vs ${b}: comparamos el nivel gratuito — tarjeta, modelos, ventana de contexto y límites. Descubre qué API LLM gratis encaja con tu proyecto.`,
+    h1: (a, b) => `${a} vs ${b}: comparativa de API LLM gratis`,
+    crumb: (a, b) => `${a} vs ${b}`,
+    introA: 'Comparamos los niveles gratuitos de ',
+    introAnd: ' y ',
+    introEnd:
+      ' en lo que realmente decide cuál usar: si piden tarjeta, modelos gratuitos, ventana de contexto y límites de peticiones. Todas las cifras están verificadas en la consola de cada proveedor.',
+    glanceTitle: (a, b) => `${a} vs ${b} de un vistazo`,
+    rows: {
+      card: 'Tarjeta de crédito',
+      freeType: 'Tipo de nivel gratuito',
+      permanent: 'Permanente',
+      credits: 'Créditos gratis',
+      freeModels: 'Modelos gratis',
+      maxContext: 'Contexto máximo',
+      maxRpm: 'RPM máx. (gratis)',
+      seePage: 'Ver página',
+      baseUrl: 'URL base',
+    },
+    pickTitle: '¿Cuál deberías elegir?',
+    verdictCard: (winner, loser, loserCard) =>
+      `${winner} es más fácil para empezar: sin tarjeta de crédito, frente a ${loserCard} en ${loser}.`,
+    verdictCtx: (winner, win, lose) =>
+      `${winner} gana en contexto: admite hasta ${win} tokens frente a ${lose}.`,
+    verdictTie: (a, b) =>
+      `${a} y ${b} están muy igualados en el nivel gratuito: decide por la velocidad de respuesta y los modelos que necesites.`,
+    bothCompatA:
+      'Ambos son compatibles con OpenAI, así que probar cada uno es cambiar una línea. Consulta la ',
+    bothCompatLink1: 'lista de reemplazo directo',
+    bothCompatMid: ' y nuestra ',
+    bothCompatLink2: 'comparativa de límites',
+    bothCompatEnd:
+      ' para el panorama completo. También puedes usar ambos con un mecanismo de respaldo, para que un límite en uno no detenga tu aplicación.',
+    detailsTitle: 'Detalles completos del proveedor',
+    detailsItem: name => `API LLM gratis de ${name} — modelos, límites y configuración`,
+    browseAll: 'Ver todos los proveedores de API LLM gratis',
+  },
   modelsIndex: {
     title: (m, p) => `Modelos LLM gratis — Explora ${m} modelos de ${p} proveedores | freellm.site`,
     description: (m, p) =>

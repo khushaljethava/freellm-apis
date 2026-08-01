@@ -109,6 +109,125 @@ const en = {
     h1: 'Blog',
     lede: 'Guides and tutorials for using free LLM APIs.',
   },
+  provider: {
+    home: 'Home',
+    title: (name: string) => `${name} Free LLM API — Rate Limits, Models & Setup | freellm.site`,
+    description: (notes: string, baseUrl: string, n: number) =>
+      `${notes}. Base URL: ${baseUrl}. ${n} free model${n !== 1 ? 's' : ''} available.`,
+    h1: (name: string) => `${name} Free LLM API`,
+    region: {
+      global: 'globally available',
+      china: 'China-based',
+      europe: 'Europe-based',
+      india: 'India-based',
+      japan: 'Japan-based',
+      korea: 'Korea-based',
+      middle_east: 'Middle East-based',
+      sea: 'Southeast Asia-based',
+      unknown: 'available',
+    },
+    freeCredits: (usd: number, expiry?: string) =>
+      `$${usd} in free credits${expiry ? ` (${expiry})` : ''}`,
+    freeTierPermanent: 'a permanent free tier',
+    card: {
+      no: 'No credit card is required to start',
+      registration: 'Signup needs only an email — no credit card',
+      phone: 'Signup requires phone verification but no credit card',
+      yes: 'A credit card is required to activate the free tier',
+    },
+    ovIntro: (name: string, region: string, free: string) =>
+      `${name} is a ${region} LLM API provider offering ${free}.`,
+    ovModels: (n: number, ctx: string, modalities: string) =>
+      `You get ${n} free model${n !== 1 ? 's' : ''}${ctx ? ` with up to a ${ctx}-token context window` : ''}${modalities ? `, supporting ${modalities}` : ''}.`,
+    ovNoModels: 'Model availability is listed below.',
+    ovRpm: (rpm: number) => `Free requests are rate-limited to around ${rpm} per minute.`,
+    ovEndpoint: (card: string, baseUrl: string, name: string) =>
+      `${card}, and the endpoint at ${baseUrl} is OpenAI-compatible, so you can point existing OpenAI SDK code at ${name} by changing only the base URL and API key.`,
+    baseUrlLabel: 'Base URL',
+    cardRequiredLabel: 'Card required',
+    freeCreditsLabel: 'Free credits',
+    notesLabel: 'Notes',
+    getKeyCta: 'Get Free API Key →',
+    freeModelsTitle: 'Free Models',
+    quickStartTitle: 'Quick Start',
+    relatedTitle: 'Related Free LLM API Providers',
+    relatedItem: (name: string, n: number) =>
+      `${name} free LLM API — ${n} free model${n !== 1 ? 's' : ''}`,
+    compareTitle: (name: string) => `Compare ${name}`,
+    compareItem: (a: string, b: string) => `${a} vs ${b} — free tier compared`,
+    guidesTitle: 'Guides',
+    copied: 'Copied!',
+  },
+  about: {
+    title: 'About freellm.site — Free LLM API Directory',
+    description:
+      'Learn about freellm.site — an open, community-maintained directory of free LLM API providers, models, and setup guides.',
+    h1: 'About freellm.site',
+    lead: 'freellm.site is a free, open directory that helps developers find LLM API providers with permanent free tiers and signup credits — without hunting across dozens of websites.',
+    whatTitle: 'What we do',
+    what: (p: number, m: number) =>
+      `We track ${p} providers and ${m} models, covering rate limits, context windows, credit card requirements, and signup links. Each provider has a dedicated page with model tables and copy-paste code snippets so you can get started in minutes.`,
+    sourceTitle: 'How data is sourced',
+    sourceLead: 'Provider information is maintained in the open-source ',
+    sourceLeadEnd: ' repository on GitHub. Data includes:',
+    sourceItems: [
+      'Provider base URLs, signup links, and free tier type',
+      'Model IDs, context windows, modalities, and rate limits',
+      'Last verified dates for each provider entry',
+    ],
+    sourceNote:
+      'Entries are verified manually and updated regularly. Because provider terms change, always confirm details on the provider’s own website before relying on them for production use.',
+    whoTitle: 'Who runs this site',
+    whoA: 'freellm.site is maintained by ',
+    whoB: ' as part of the freellm-apis open-source project. The site is free to use and the underlying data is open for anyone to contribute.',
+    ossTitle: 'Open source',
+    ossA: 'Both the data and website code are public. You can report outdated information, suggest new providers, or submit corrections via ',
+    ossLink: 'GitHub Issues',
+    ossB: ' or pull requests.',
+    contactTitle: 'Contact',
+    contactA: 'Have a question, correction, or provider to add? Visit our ',
+    contactLink: 'Contact page',
+    contactB: '.',
+  },
+  compare: {
+    title: (a: string, b: string) => `${a} vs ${b}: Free LLM API Comparison (2026)`,
+    description: (a: string, b: string) =>
+      `${a} vs ${b} free tier compared — credit card, models, context window and rate limits. See which free LLM API fits your project.`,
+    h1: (a: string, b: string) => `${a} vs ${b}: Free LLM API Comparison`,
+    crumb: (a: string, b: string) => `${a} vs ${b}`,
+    introA: 'Comparing the free tiers of ',
+    introAnd: ' and ',
+    introEnd:
+      ' on the things that decide which you should use: credit-card requirement, free models, context window, and rate limits. All figures are verified from each provider’s own console.',
+    glanceTitle: (a: string, b: string) => `${a} vs ${b} at a glance`,
+    rows: {
+      card: 'Credit card',
+      freeType: 'Free tier type',
+      permanent: 'Permanent',
+      credits: 'Free credits',
+      freeModels: 'Free models',
+      maxContext: 'Max context',
+      maxRpm: 'Max RPM (free)',
+      seePage: 'See page',
+      baseUrl: 'Base URL',
+    },
+    pickTitle: 'Which should you pick?',
+    verdictCard: (winner: string, loser: string, loserCard: string) =>
+      `${winner} is easier to start with — no credit card, versus ${loserCard} for ${loser}.`,
+    verdictCtx: (winner: string, win: string, lose: string) =>
+      `${winner} wins on context, handling up to ${win} tokens against ${lose}.`,
+    verdictTie: (a: string, b: string) =>
+      `${a} and ${b} are closely matched on the free tier — pick on response speed and which models you need.`,
+    bothCompatA: 'Both are OpenAI-compatible, so trying each is a one-line change — see the ',
+    bothCompatLink1: 'drop-in list',
+    bothCompatMid: ' and our ',
+    bothCompatLink2: 'rate-limit comparison',
+    bothCompatEnd:
+      ' for the full picture. You can also run both behind a fallback so a rate limit on one never stops your app.',
+    detailsTitle: 'Full provider details',
+    detailsItem: (name: string) => `${name} free LLM API — models, limits & setup`,
+    browseAll: 'Browse all free LLM API providers',
+  },
   modelsIndex: {
     title: (m: number, p: number) =>
       `Free LLM Models — Browse ${m} Models from ${p} Providers | freellm.site`,
