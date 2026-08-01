@@ -1,0 +1,205 @@
+import type { Strings } from './en';
+
+const ko: Strings = {
+  nav: { models: '모델', blog: '블로그', about: '소개', github: 'GitHub', language: '언어' },
+  footer: {
+    privacy: '개인정보처리방침',
+    terms: '이용약관',
+    about: '소개',
+    contact: '문의',
+    cookies: '쿠키',
+    legalNav: '법적 고지 및 사이트 링크',
+    updated: '데이터는 정기적으로 업데이트됩니다',
+    contribute: 'GitHub에서 기여하기',
+  },
+  common: {
+    provider: '제공업체',
+    models: '모델',
+    card: '카드',
+    maxContext: '최대 컨텍스트',
+    lastVerified: '최종 확인',
+    getKey: '키 받기',
+    getKeyCta: '키 받기 →',
+    credits: '크레딧',
+    expiry: '만료',
+    freeTier: '무료 플랜',
+    readMore: '더 보기 →',
+    cardLabel: {
+      no: '카드 불필요',
+      registration: '이메일 가입',
+      phone: '전화 인증',
+      yes: '카드 필요',
+    },
+  },
+  home: {
+    title: '무료 LLM API — 30개 이상 제공업체의 무료 LLM API 키 | freellm.site',
+    description: (p, m) =>
+      `신용카드 없이 무료 LLM API를 찾아보세요. ${p}개 제공업체, ${m}개 모델 — Groq, Gemini, Mistral, GitHub Models. 무료 LLM API 키를 몇 초 만에 받으세요.`,
+    eyebrow: d => `무료 및 검증됨 · ${d} 업데이트`,
+    h1a: '모든 무료 LLM API를',
+    h1b: '한곳에서.',
+    lede: p =>
+      `${p}개 제공업체의 영구 무료 플랜과 무료 크레딧 플랜 — 검색할 필요도, 페이월도 없습니다. 몇 초 만에 키를 찾으세요.`,
+    statProviders: '제공업체',
+    statModels: '모델',
+    statAlwaysFree: '항상 무료',
+    quickPick: '빠른 추천',
+    quickPickMeta: (n, ctx) => `— ${n}개 모델 · 컨텍스트 ${ctx} · 카드 불필요 · 영구 무료`,
+    quickPickCta: '무료 키 받기 →',
+    permanentTitle: '영구 무료 플랜',
+    creditsTitle: '가입 시 무료 크레딧',
+    seoTitle: '모든 무료 LLM API를 한 디렉터리에',
+    seoP1: (p, m) =>
+      `실제로 동작하는 무료 LLM API를, 그것도 신용카드 없이 찾는 데 오후 내내 탭을 옮겨 다닐 필요는 없습니다. 이 디렉터리는 ${p}개 제공업체와 ${m}개 모델을 영구 무료 플랜부터 무료 크레딧 플랜까지 정리해, 무료 LLM API 키를 받아 몇 분 안에 개발을 시작할 수 있게 합니다. 여기 실린 모든 LLM API는 `,
+    seoP1Link: 'OpenAI 호환 엔드포인트',
+    seoP1End: '를 제공하므로 제공업체 전환은 한 줄만 바꾸면 됩니다.',
+    seoP2:
+      '사이드 프로젝트를 위한 가장 저렴한 LLM API든, Llama와 Mistral 같은 최고의 오픈소스 LLM 모델이든, 코딩용 빠른 무료 LLM API든 — 위 표에서 모델 수, 컨텍스트 윈도우, 카드 필요 여부로 비교할 수 있습니다. 나중에 유료로 확장해야 한다면 무료로 시작한 뒤 제공업체별 요금을 비교하세요. 실전 가이드는 다음을 참고하세요: ',
+    seoP2Link1: '최고의 무료 LLM API 모음',
+    seoP2Link2: '최고의 오픈소스 LLM API',
+    seoP2Link3: '코딩에 가장 좋은 무료 LLM API',
+    guidesTitle: '가이드',
+    faqTitle: '무료 LLM API 자주 묻는 질문',
+    faqs: p => [
+      {
+        q: '가장 좋은 무료 LLM API는 무엇인가요?',
+        a: `용도에 따라 다릅니다. Groq가 가장 빠르고, Google Gemini는 무료 컨텍스트 윈도우가 가장 크며, GitHub Models는 별도 가입이 필요 없습니다. 여기 나열된 ${p}개 제공업체 모두 초기 비용 없이 무료 LLM API를 제공합니다.`,
+      },
+      {
+        q: '무료 LLM API 키는 어떻게 받나요?',
+        a: '위 표에서 제공업체를 고르고 "키 받기"를 클릭한 뒤 해당 콘솔에서 가입하세요. 대부분 이메일만으로 무료 LLM API 키를 즉시 발급하며 신용카드는 필요 없습니다. 그다음 이를 API 키로 설정하면 바로 요청을 보낼 수 있습니다.',
+      },
+      {
+        q: '신용카드 없이 쓸 수 있는 무료 LLM API가 있나요?',
+        a: '있습니다. 여기 많은 제공업체가 신용카드 없이 무료 LLM API를 제공하며 "카드 불필요" 배지로 표시됩니다. Groq, Google Gemini, GitHub Models, Mistral 모두 결제 정보 없이 무료 API 키를 발급합니다.',
+      },
+      {
+        q: '가장 저렴한 LLM API는 무엇인가요?',
+        a: '가장 저렴한 LLM API는 무료입니다. 이 페이지의 모든 제공업체에 무료 플랜이나 무료 크레딧이 있어 시작 비용이 없습니다. 대용량이 필요하면 무료 호출을 모두 쓴 뒤 제공업체별 유료 요금을 비교하세요.',
+      },
+      {
+        q: '오픈소스 LLM API도 있나요?',
+        a: '있습니다. Groq, Together AI, DeepInfra 같은 제공업체가 Llama, Mistral 등 오픈소스 LLM 모델을 무료 LLM API로 서비스합니다. 자체 하드웨어를 운영하지 않고도 호스팅된 OpenAI 호환 엔드포인트로 최고의 오픈 모델을 사용할 수 있습니다.',
+      },
+      {
+        q: '오픈소스 LLM API 키를 무료로 받을 수 있나요?',
+        a: '가능합니다. 이 페이지의 아무 제공업체에서나 무료 API 키를 받아 오픈소스 LLM 모델을 호출할 수 있습니다. 신용카드 없이 오픈 모델용 키를 얻는 셈이며, Groq, Together AI, DeepInfra 모두 이런 방식으로 오픈웨이트 모델을 제공합니다.',
+      },
+      {
+        q: '가장 저렴한 LLM API 제공업체는 어디인가요?',
+        a: '무료 사용 기준으로는 여기 모든 제공업체가 가장 저렴합니다. 시작 비용이 없기 때문입니다. 유료로 확장할 때는 요금을 비교하세요. 토큰당 단가는 모델과 리전에 따라 크게 달라집니다.',
+      },
+      {
+        q: '무료 LLM API를 무제한으로 호출할 수 있나요?',
+        a: '무료 호출에는 분당·일일 요청 제한이 있으며 무제한이 아닙니다. 다만 프로토타이핑과 가벼운 프로덕션에는 충분합니다. 무료 플랜이 부족해지면 제공업체를 바꾸거나 유료 플랜으로 전환하세요.',
+      },
+    ],
+  },
+  blogIndex: {
+    title: '블로그 — 무료 LLM API 가이드 및 튜토리얼 | freellm.site',
+    description:
+      '무료 LLM API 가이드, 튜토리얼, 비교 자료. Groq, Gemini, GitHub Models 등 90개 이상 무료 AI 제공업체 사용법을 배워보세요.',
+    h1: '블로그',
+    lede: '무료 LLM API 활용을 위한 가이드와 튜토리얼.',
+  },
+  provider: {
+    home: '홈',
+    title: name => `${name} 무료 LLM API — 요청 제한, 모델, 설정 | freellm.site`,
+    description: (notes, baseUrl, n) =>
+      `${notes}. 베이스 URL: ${baseUrl}. 무료 모델 ${n}개 이용 가능.`,
+    h1: name => `${name} 무료 LLM API`,
+    region: {
+      global: '전 세계에서 이용 가능한',
+      china: '중국에 기반을 둔',
+      europe: '유럽에 기반을 둔',
+      india: '인도에 기반을 둔',
+      japan: '일본에 기반을 둔',
+      korea: '한국에 기반을 둔',
+      middle_east: '중동에 기반을 둔',
+      sea: '동남아시아에 기반을 둔',
+      unknown: '이용 가능한',
+    },
+    freeCredits: (usd, expiry) => `$${usd} 상당의 무료 크레딧${expiry ? ` (${expiry})` : ''}`,
+    freeTierPermanent: '영구 무료 플랜',
+    card: {
+      no: '시작하는 데 신용카드가 필요하지 않습니다',
+      registration: '가입에 이메일만 필요하며 신용카드는 필요 없습니다',
+      phone: '가입 시 전화 인증이 필요하지만 신용카드는 필요 없습니다',
+      yes: '무료 플랜을 활성화하려면 신용카드가 필요합니다',
+    },
+    ovIntro: (name, region, free) =>
+      `${name}은(는) ${region} LLM API 제공업체로 ${free}을(를) 제공합니다.`,
+    ovModels: (n, ctx, modalities) =>
+      `무료 모델 ${n}개를 사용할 수 있습니다${ctx ? `. 컨텍스트 윈도우는 최대 ${ctx} 토큰입니다` : ''}${modalities ? `. 지원 모달리티는 ${modalities}입니다` : ''}.`,
+    ovNoModels: '이용 가능한 모델은 아래에 정리되어 있습니다.',
+    ovRpm: rpm => `무료 요청은 분당 약 ${rpm}회로 제한됩니다.`,
+    ovEndpoint: (card, baseUrl, name) =>
+      `${card}. 또한 ${baseUrl}의 엔드포인트는 OpenAI 호환이므로, 기존 OpenAI SDK 코드에서 베이스 URL과 API 키만 바꾸면 ${name}으로 전환할 수 있습니다.`,
+    baseUrlLabel: '베이스 URL',
+    cardRequiredLabel: '카드 필요 여부',
+    freeCreditsLabel: '무료 크레딧',
+    notesLabel: '비고',
+    getKeyCta: '무료 API 키 받기 →',
+    freeModelsTitle: '무료 모델',
+    quickStartTitle: '빠른 시작',
+    relatedTitle: '관련 무료 LLM API 제공업체',
+    relatedItem: (name, n) => `${name} 무료 LLM API — 무료 모델 ${n}개`,
+    compareTitle: name => `${name} 비교하기`,
+    compareItem: (a, b) => `${a} vs ${b} — 무료 플랜 비교`,
+    guidesTitle: '가이드',
+    copied: '복사되었습니다!',
+  },
+  compare: {
+    title: (a, b) => `${a} vs ${b}: 무료 LLM API 비교 (2026)`,
+    description: (a, b) =>
+      `${a} vs ${b} 무료 플랜 비교 — 신용카드, 모델 수, 컨텍스트 윈도우, 요청 제한. 어떤 무료 LLM API가 프로젝트에 맞는지 확인하세요.`,
+    h1: (a, b) => `${a} vs ${b}: 무료 LLM API 비교`,
+    crumb: (a, b) => `${a} vs ${b}`,
+    introA: '',
+    introAnd: '와(과) ',
+    introEnd:
+      '의 무료 플랜을 선택을 좌우하는 기준으로 비교합니다: 신용카드 필요 여부, 무료 모델, 컨텍스트 윈도우, 요청 제한. 모든 수치는 각 제공업체 콘솔에서 확인한 값입니다.',
+    glanceTitle: (a, b) => `${a} vs ${b} 한눈에 보기`,
+    rows: {
+      card: '신용카드',
+      freeType: '무료 플랜 유형',
+      permanent: '영구',
+      credits: '무료 크레딧',
+      freeModels: '무료 모델',
+      maxContext: '최대 컨텍스트',
+      maxRpm: '최대 RPM (무료)',
+      seePage: '페이지 참조',
+      baseUrl: '베이스 URL',
+    },
+    pickTitle: '무엇을 선택해야 할까요?',
+    verdictCard: (winner, loser, loserCard) =>
+      `${winner}이(가) 시작하기 더 쉽습니다. 신용카드가 필요 없는 반면 ${loser}은(는) ${loserCard}입니다.`,
+    verdictCtx: (winner, win, lose) =>
+      `컨텍스트에서는 ${winner}이(가) 앞서며, ${lose} 대비 최대 ${win} 토큰을 처리합니다.`,
+    verdictTie: (a, b) =>
+      `${a}와(과) ${b}은(는) 무료 플랜에서 거의 대등합니다. 응답 속도와 필요한 모델을 기준으로 선택하세요.`,
+    bothCompatA: '둘 다 OpenAI 호환이므로 각각 시험해 보는 데 한 줄만 바꾸면 됩니다. ',
+    bothCompatLink1: '대체 가능한 제공업체 목록',
+    bothCompatMid: '과(와) ',
+    bothCompatLink2: '요청 제한 비교',
+    bothCompatEnd:
+      '에서 전체 그림을 확인하세요. 두 곳을 폴백 구성으로 함께 사용하면 한쪽이 제한에 걸려도 앱이 멈추지 않습니다.',
+    detailsTitle: '제공업체 상세 정보',
+    detailsItem: name => `${name} 무료 LLM API — 모델, 제한, 설정`,
+    browseAll: '모든 무료 LLM API 제공업체 보기',
+  },
+  modelsIndex: {
+    title: (m, p) => `무료 LLM 모델 — ${p}개 제공업체의 ${m}개 모델 살펴보기 | freellm.site`,
+    description: (m, p) =>
+      `${p}개 무료 LLM API 제공업체의 무료 LLM 모델 ${m}개를 살펴보세요. 오픈소스와 독점 모델을 제공업체와 모달리티별로 비교할 수 있습니다.`,
+    h1: '무료 LLM 모델',
+    lede: (m, p) => `${p}개 제공업체의 ${m}개 모델`,
+    allProviders: '모든 제공업체',
+    allModalities: '모든 모달리티',
+    modelId: '모델 ID',
+    context: '컨텍스트',
+    modalities: '모달리티',
+  },
+};
+
+export default ko;

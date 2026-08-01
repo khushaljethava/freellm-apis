@@ -103,6 +103,95 @@ const de: Strings = {
     h1: 'Blog',
     lede: 'Anleitungen und Tutorials zur Nutzung kostenloser LLM-APIs.',
   },
+  provider: {
+    home: 'Startseite',
+    title: name => `${name} kostenlose LLM-API — Limits, Modelle & Einrichtung | freellm.site`,
+    description: (notes, baseUrl, n) =>
+      `${notes}. Basis-URL: ${baseUrl}. ${n} kostenlose${n !== 1 ? '' : 's'} Modell${n !== 1 ? 'e' : ''} verfügbar.`,
+    h1: name => `${name} kostenlose LLM-API`,
+    region: {
+      global: 'weltweit verfügbarer',
+      china: 'in China ansässiger',
+      europe: 'in Europa ansässiger',
+      india: 'in Indien ansässiger',
+      japan: 'in Japan ansässiger',
+      korea: 'in Korea ansässiger',
+      middle_east: 'im Nahen Osten ansässiger',
+      sea: 'in Südostasien ansässiger',
+      unknown: 'verfügbarer',
+    },
+    freeCredits: (usd, expiry) =>
+      `${usd} USD Gratis-Guthaben${expiry ? ` (${expiry})` : ''}`,
+    freeTierPermanent: 'einen dauerhaft kostenlosen Tarif',
+    card: {
+      no: 'Zum Start ist keine Kreditkarte erforderlich',
+      registration: 'Für die Anmeldung genügt eine E-Mail — keine Kreditkarte',
+      phone: 'Die Anmeldung erfordert eine Telefonverifizierung, aber keine Kreditkarte',
+      yes: 'Zur Aktivierung des Gratis-Tarifs ist eine Kreditkarte erforderlich',
+    },
+    ovIntro: (name, region, free) =>
+      `${name} ist ein ${region} LLM-API-Anbieter und bietet ${free}.`,
+    ovModels: (n, ctx, modalities) =>
+      `Du erhältst ${n} kostenlose${n !== 1 ? '' : 's'} Modell${n !== 1 ? 'e' : ''}${ctx ? ` mit einem Kontextfenster von bis zu ${ctx} Token` : ''}${modalities ? `, unterstützt werden ${modalities}` : ''}.`,
+    ovNoModels: 'Die verfügbaren Modelle sind unten aufgeführt.',
+    ovRpm: rpm => `Kostenlose Anfragen sind auf rund ${rpm} pro Minute begrenzt.`,
+    ovEndpoint: (card, baseUrl, name) =>
+      `${card}, und der Endpoint unter ${baseUrl} ist OpenAI-kompatibel. Du kannst bestehenden OpenAI-SDK-Code auf ${name} umstellen, indem du nur Basis-URL und API-Key änderst.`,
+    baseUrlLabel: 'Basis-URL',
+    cardRequiredLabel: 'Karte erforderlich',
+    freeCreditsLabel: 'Gratis-Guthaben',
+    notesLabel: 'Hinweise',
+    getKeyCta: 'Kostenlosen API-Key holen →',
+    freeModelsTitle: 'Kostenlose Modelle',
+    quickStartTitle: 'Schnellstart',
+    relatedTitle: 'Ähnliche Anbieter kostenloser LLM-APIs',
+    relatedItem: (name, n) =>
+      `${name} kostenlose LLM-API — ${n} kostenlose${n !== 1 ? '' : 's'} Modell${n !== 1 ? 'e' : ''}`,
+    compareTitle: name => `${name} vergleichen`,
+    compareItem: (a, b) => `${a} vs. ${b} — Gratis-Tarife im Vergleich`,
+    guidesTitle: 'Anleitungen',
+    copied: 'Kopiert!',
+  },
+  compare: {
+    title: (a, b) => `${a} vs. ${b}: Vergleich kostenloser LLM-APIs (2026)`,
+    description: (a, b) =>
+      `${a} vs. ${b} im Gratis-Tarif-Vergleich — Kreditkarte, Modelle, Kontextfenster und Rate Limits. Finde heraus, welche kostenlose LLM-API zu deinem Projekt passt.`,
+    h1: (a, b) => `${a} vs. ${b}: Vergleich kostenloser LLM-APIs`,
+    crumb: (a, b) => `${a} vs. ${b}`,
+    introA: 'Wir vergleichen die Gratis-Tarife von ',
+    introAnd: ' und ',
+    introEnd:
+      ' anhand der Punkte, die wirklich entscheiden: Kreditkartenpflicht, kostenlose Modelle, Kontextfenster und Rate Limits. Alle Angaben stammen geprüft aus der Konsole des jeweiligen Anbieters.',
+    glanceTitle: (a, b) => `${a} vs. ${b} auf einen Blick`,
+    rows: {
+      card: 'Kreditkarte',
+      freeType: 'Art des Gratis-Tarifs',
+      permanent: 'Dauerhaft',
+      credits: 'Gratis-Guthaben',
+      freeModels: 'Kostenlose Modelle',
+      maxContext: 'Max. Kontext',
+      maxRpm: 'Max. RPM (gratis)',
+      seePage: 'Siehe Seite',
+      baseUrl: 'Basis-URL',
+    },
+    pickTitle: 'Welchen solltest du wählen?',
+    verdictCard: (winner, loser, loserCard) =>
+      `${winner} ist einfacher zu starten — ohne Kreditkarte, während bei ${loser} gilt: ${loserCard}.`,
+    verdictCtx: (winner, win, lose) =>
+      `${winner} gewinnt beim Kontext und verarbeitet bis zu ${win} Token gegenüber ${lose}.`,
+    verdictTie: (a, b) =>
+      `${a} und ${b} liegen im Gratis-Tarif dicht beieinander — entscheide nach Antwortgeschwindigkeit und den Modellen, die du brauchst.`,
+    bothCompatA:
+      'Beide sind OpenAI-kompatibel, ein Test kostet also nur eine Zeile. Sieh dir die ',
+    bothCompatLink1: 'Drop-in-Liste',
+    bothCompatMid: ' und unseren ',
+    bothCompatLink2: 'Rate-Limit-Vergleich',
+    bothCompatEnd:
+      ' für das vollständige Bild an. Du kannst auch beide mit einem Fallback betreiben, damit ein Limit bei einem Anbieter deine App nie stoppt.',
+    detailsTitle: 'Vollständige Anbieterdetails',
+    detailsItem: name => `${name} kostenlose LLM-API — Modelle, Limits & Einrichtung`,
+    browseAll: 'Alle Anbieter kostenloser LLM-APIs ansehen',
+  },
   modelsIndex: {
     title: (m, p) =>
       `Kostenlose LLM-Modelle — ${m} Modelle von ${p} Anbietern durchsuchen | freellm.site`,

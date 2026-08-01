@@ -1,0 +1,204 @@
+import type { Strings } from './en';
+
+const zh: Strings = {
+  nav: { models: '模型', blog: '博客', about: '关于', github: 'GitHub', language: '语言' },
+  footer: {
+    privacy: '隐私政策',
+    terms: '服务条款',
+    about: '关于',
+    contact: '联系我们',
+    cookies: 'Cookie',
+    legalNav: '法律信息与站点链接',
+    updated: '数据定期更新',
+    contribute: '在 GitHub 上贡献',
+  },
+  common: {
+    provider: '服务商',
+    models: '模型',
+    card: '需要银行卡?',
+    maxContext: '最大上下文',
+    lastVerified: '最后核验',
+    getKey: '获取密钥',
+    getKeyCta: '获取密钥 →',
+    credits: '额度',
+    expiry: '有效期',
+    freeTier: '免费套餐',
+    readMore: '阅读更多 →',
+    cardLabel: {
+      no: '无需银行卡',
+      registration: '邮箱注册',
+      phone: '手机验证',
+      yes: '需要银行卡',
+    },
+  },
+  home: {
+    title: '免费 LLM API — 30+ 服务商的免费 LLM API 密钥 | freellm.site',
+    description: (p, m) =>
+      `无需信用卡即可获取免费 LLM API。${p} 家服务商，${m} 个模型 — Groq、Gemini、Mistral、GitHub Models。几秒钟拿到你的免费 LLM API 密钥。`,
+    eyebrow: d => `免费且已核验 · 更新于 ${d}`,
+    h1a: '所有免费 LLM API，',
+    h1b: '尽在一处。',
+    lede: p =>
+      `${p} 家服务商的永久免费套餐与免费额度计划 —— 无需四处搜寻，没有付费墙。几秒钟找到你的密钥。`,
+    statProviders: '服务商',
+    statModels: '模型',
+    statAlwaysFree: '永久免费',
+    quickPick: '快速推荐',
+    quickPickMeta: (n, ctx) => `— ${n} 个模型 · ${ctx} 上下文 · 无需银行卡 · 永久免费`,
+    quickPickCta: '获取免费密钥 →',
+    permanentTitle: '永久免费套餐',
+    creditsTitle: '注册赠送免费额度',
+    seoTitle: '所有免费 LLM API 汇于一个目录',
+    seoP1: (p, m) =>
+      `想找一个真正能用、而且不需要信用卡的免费 LLM API，不该花上一整个下午在标签页之间来回切换。本目录收录了 ${p} 家服务商和 ${m} 个模型，从永久免费套餐到免费额度计划，让你拿到免费 LLM API 密钥后几分钟内就能开始开发。这里的每个 LLM API 都提供 `,
+    seoP1Link: '兼容 OpenAI 的接口',
+    seoP1End: '，因此切换服务商只需改动一行代码。',
+    seoP2:
+      '无论你需要的是副业项目里最便宜的 LLM API、Llama 和 Mistral 这类优秀的开源 LLM 模型，还是适合写代码的高速免费 LLM API，上面的表格都会按模型数量、上下文窗口以及是否需要银行卡进行对比。以后需要付费扩容？先免费起步，再横向比较各家价格。想看实操指南，请参阅我们的',
+    seoP2Link1: '最佳免费 LLM API 盘点',
+    seoP2Link2: '最佳开源 LLM API',
+    seoP2Link3: '最适合编程的免费 LLM API',
+    guidesTitle: '指南',
+    faqTitle: '免费 LLM API 常见问题',
+    faqs: p => [
+      {
+        q: '最好的免费 LLM API 是哪个？',
+        a: `这取决于你的使用场景。Groq 速度最快，Google Gemini 的免费上下文窗口最大，GitHub Models 无需单独注册。本页列出的 ${p} 家服务商都提供零预付成本的免费 LLM API。`,
+      },
+      {
+        q: '如何获取免费的 LLM API 密钥？',
+        a: '在上方表格中选择一家服务商，点击「获取密钥」，然后在其控制台注册。大多数只需一个邮箱就会立即签发免费 LLM API 密钥，无需信用卡。之后把它设置为你的 API 密钥即可开始发送请求。',
+      },
+      {
+        q: '有不需要信用卡的免费 LLM API 吗？',
+        a: '有。本页许多服务商提供无需信用卡的免费 LLM API，带有「无需银行卡」标记。Groq、Google Gemini、GitHub Models 和 Mistral 都能在不填写任何支付信息的情况下发放免费 API 密钥。',
+      },
+      {
+        q: '最便宜的 LLM API 是哪个？',
+        a: '最便宜的 LLM API 就是免费的那些。本页每家服务商都有免费套餐或免费额度，起步不花钱。如果用量很大，等免费调用额度用完后再比较各家的付费价格。',
+      },
+      {
+        q: '有开源的 LLM API 吗？',
+        a: '有。Groq、Together AI 和 DeepInfra 等服务商通过免费 LLM API 提供 Llama、Mistral 等开源 LLM 模型。你无需自建硬件，就能通过托管的、兼容 OpenAI 的接口使用这些优秀的开源模型。',
+      },
+      {
+        q: '能免费拿到开源 LLM API 密钥吗？',
+        a: '可以。你可以在本页任意一家服务商处获取免费 API 密钥，并用它调用开源 LLM 模型。这样就能在无需信用卡的情况下拿到开源模型的密钥 —— Groq、Together AI 和 DeepInfra 都以这种方式提供开放权重模型。',
+      },
+      {
+        q: '最便宜的 LLM API 服务商是哪家？',
+        a: '就免费使用而言，本页任意一家都是最便宜的 LLM API，起步零成本。当你需要付费扩容时再比较价格，因为不同模型和区域的每 token 单价差异很大。',
+      },
+      {
+        q: '免费 LLM API 调用有次数限制吗？',
+        a: '免费调用有每分钟和每天的速率限制，并非无限使用。这些额度足以支撑原型开发和轻量生产。当免费套餐不够用时，可以更换服务商或升级到付费方案。',
+      },
+    ],
+  },
+  blogIndex: {
+    title: '博客 — 免费 LLM API 指南与教程 | freellm.site',
+    description:
+      '免费 LLM API 的指南、教程与对比。学习如何使用 Groq、Gemini、GitHub Models 以及 90 多家免费 AI 服务商。',
+    h1: '博客',
+    lede: '使用免费 LLM API 的指南与教程。',
+  },
+  provider: {
+    home: '首页',
+    title: name => `${name} 免费 LLM API — 速率限制、模型与配置 | freellm.site`,
+    description: (notes, baseUrl, n) =>
+      `${notes}。基础 URL：${baseUrl}。提供 ${n} 个免费模型。`,
+    h1: name => `${name} 免费 LLM API`,
+    region: {
+      global: '面向全球提供服务的',
+      china: '位于中国的',
+      europe: '位于欧洲的',
+      india: '位于印度的',
+      japan: '位于日本的',
+      korea: '位于韩国的',
+      middle_east: '位于中东的',
+      sea: '位于东南亚的',
+      unknown: '可用的',
+    },
+    freeCredits: (usd, expiry) => `${usd} 美元免费额度${expiry ? `（${expiry}）` : ''}`,
+    freeTierPermanent: '永久免费套餐',
+    card: {
+      no: '开始使用无需信用卡',
+      registration: '注册只需邮箱，无需信用卡',
+      phone: '注册需要手机验证，但无需信用卡',
+      yes: '激活免费套餐需要信用卡',
+    },
+    ovIntro: (name, region, free) => `${name} 是一家${region} LLM API 服务商，提供${free}。`,
+    ovModels: (n, ctx, modalities) =>
+      `你可以免费使用 ${n} 个模型${ctx ? `，上下文窗口最高可达 ${ctx} tokens` : ''}${modalities ? `，支持 ${modalities}` : ''}。`,
+    ovNoModels: '可用模型如下所列。',
+    ovRpm: rpm => `免费请求的速率限制约为每分钟 ${rpm} 次。`,
+    ovEndpoint: (card, baseUrl, name) =>
+      `${card}，且 ${baseUrl} 的接口兼容 OpenAI，因此只需修改基础 URL 和 API 密钥，就能把现有的 OpenAI SDK 代码指向 ${name}。`,
+    baseUrlLabel: '基础 URL',
+    cardRequiredLabel: '是否需要银行卡',
+    freeCreditsLabel: '免费额度',
+    notesLabel: '备注',
+    getKeyCta: '获取免费 API 密钥 →',
+    freeModelsTitle: '免费模型',
+    quickStartTitle: '快速开始',
+    relatedTitle: '相关免费 LLM API 服务商',
+    relatedItem: (name, n) => `${name} 免费 LLM API — ${n} 个免费模型`,
+    compareTitle: name => `对比 ${name}`,
+    compareItem: (a, b) => `${a} 对比 ${b} — 免费套餐比较`,
+    guidesTitle: '指南',
+    copied: '已复制!',
+  },
+  compare: {
+    title: (a, b) => `${a} 对比 ${b}：免费 LLM API 横评（2026）`,
+    description: (a, b) =>
+      `${a} 对比 ${b} 的免费套餐 —— 银行卡要求、模型数量、上下文窗口与速率限制。看看哪个免费 LLM API 更适合你的项目。`,
+    h1: (a, b) => `${a} 对比 ${b}：免费 LLM API 横评`,
+    crumb: (a, b) => `${a} 对比 ${b}`,
+    introA: '我们从真正决定取舍的维度对比 ',
+    introAnd: ' 与 ',
+    introEnd:
+      ' 的免费套餐：是否需要银行卡、免费模型数量、上下文窗口以及速率限制。所有数据均在各服务商自己的控制台中核验。',
+    glanceTitle: (a, b) => `${a} 与 ${b} 速览`,
+    rows: {
+      card: '信用卡',
+      freeType: '免费套餐类型',
+      permanent: '永久',
+      credits: '免费额度',
+      freeModels: '免费模型',
+      maxContext: '最大上下文',
+      maxRpm: '最大 RPM（免费）',
+      seePage: '查看页面',
+      baseUrl: '基础 URL',
+    },
+    pickTitle: '该选哪一个？',
+    verdictCard: (winner, loser, loserCard) =>
+      `${winner} 上手更简单，无需信用卡；而 ${loser} 则是${loserCard}。`,
+    verdictCtx: (winner, win, lose) =>
+      `在上下文方面 ${winner} 更强，最高可处理 ${win} tokens，而对方为 ${lose}。`,
+    verdictTie: (a, b) =>
+      `在免费套餐上 ${a} 与 ${b} 势均力敌 —— 可根据响应速度和你需要的模型来决定。`,
+    bothCompatA: '两者都兼容 OpenAI，试用只需改动一行代码 —— 详见',
+    bothCompatLink1: '可直接替换的服务商清单',
+    bothCompatMid: '以及我们的',
+    bothCompatLink2: '速率限制对比',
+    bothCompatEnd:
+      '。你也可以把两者配置为主备方案，这样其中一个触发限流也不会中断你的应用。',
+    detailsTitle: '服务商完整信息',
+    detailsItem: name => `${name} 免费 LLM API — 模型、限制与配置`,
+    browseAll: '浏览全部免费 LLM API 服务商',
+  },
+  modelsIndex: {
+    title: (m, p) => `免费 LLM 模型 — 浏览 ${p} 家服务商的 ${m} 个模型 | freellm.site`,
+    description: (m, p) =>
+      `浏览 ${p} 家免费 LLM API 服务商提供的 ${m} 个免费 LLM 模型。按服务商与模态对比开源和闭源模型。`,
+    h1: '免费 LLM 模型',
+    lede: (m, p) => `${p} 家服务商，共 ${m} 个模型`,
+    allProviders: '全部服务商',
+    allModalities: '全部模态',
+    modelId: '模型 ID',
+    context: '上下文',
+    modalities: '模态',
+  },
+};
+
+export default zh;

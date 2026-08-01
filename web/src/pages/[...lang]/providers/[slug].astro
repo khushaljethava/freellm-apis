@@ -1,45 +1,54 @@
 ---
-import Base from '../../layouts/Base.astro';
-import providers from '../../../../data/providers.json';
-import AdSlot from '../../components/AdSlot.astro';
-import models from '../../../../data/models.json';
+import Base from '../../../layouts/Base.astro';
+import providers from '../../../../../data/providers.json';
+import AdSlot from '../../../components/AdSlot.astro';
+import models from '../../../../../data/models.json';
+import { DEFAULT_LOCALE, localePath } from '../../../i18n/config';
+import { TRANSLATED_LOCALES, useTranslations } from '../../../i18n/ui';
+import { postsFor } from '../../../i18n/posts';
 
 export function getStaticPaths() {
-  return providers.map(p => ({ params: { slug: p.id }, props: { provider: p } }));
+  return TRANSLATED_LOCALES.flatMap(locale =>
+    providers.map(p => ({
+      params: { lang: locale === DEFAULT_LOCALE ? undefined : locale, slug: p.id },
+      props: { provider: p, locale },
+    }))
+  );
 }
 
-const { provider } = Astro.props;
+const { provider, locale } = Astro.props;
+const t = useTranslations(locale);
+const tp = t.provider;
+const L = (p: string) => localePath(p, locale);
+// Blog links fall back to English until that language has posts.
+const G = (p: string) => localePath(p, postsFor(locale).length ? locale : DEFAULT_LOCALE);
+
 const providerModels = models.filter(m => m.provider_id === provider.id && !m.deprecated);
 const firstModel = providerModels[0];
 
 // --- Data-driven unique overview (raises per-page content uniqueness) ---
-const regionLabel = {
-  global: 'globally available', china: 'China-based', europe: 'Europe-based',
-  india: 'India-based', japan: 'Japan-based', korea: 'Korea-based',
-  middle_east: 'Middle East-based', sea: 'Southeast Asia-based',
-};
+const regionLabel = tp.region;
 const maxCtx = providerModels.length ? Math.max(...providerModels.map(m => m.context_window)) : 0;
 const maxRpm = providerModels.map(m => m.rpm).filter(Boolean);
 const modalities = [...new Set(providerModels.flatMap(m => m.modalities))];
 const fmtCtxOverview = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
 
 const freeClause = provider.free_type === 'credits' && provider.credit_amount_usd != null
-  ? `$${provider.credit_amount_usd} in free credits${provider.credit_expiry ? ` (${provider.credit_expiry})` : ''}`
-  : 'a permanent free tier';
-const cardClause = {
-  no: 'No credit card is required to start',
-  registration: 'Signup needs only an email — no credit card',
-  phone: 'Signup requires phone verification but no credit card',
-  yes: 'A credit card is required to activate the free tier',
-}[provider.credit_card_required];
+  ? tp.freeCredits(provider.credit_amount_usd, provider.credit_expiry)
+  : tp.freeTierPermanent;
+const cardClause = tp.card[provider.credit_card_required];
 
 const overview = [
-  `${provider.name} is a ${regionLabel[provider.region] ?? 'available'} LLM API provider offering ${freeClause}.`,
+  tp.ovIntro(provider.name, regionLabel[provider.region] ?? regionLabel.unknown, freeClause),
   providerModels.length
-    ? `You get ${providerModels.length} free model${providerModels.length !== 1 ? 's' : ''}${maxCtx ? ` with up to a ${fmtCtxOverview(maxCtx)}-token context window` : ''}${modalities.length ? `, supporting ${modalities.join(', ')}` : ''}.`
-    : `Model availability is listed below.`,
-  maxRpm.length ? `Free requests are rate-limited to around ${Math.max(...maxRpm)} per minute.` : '',
-  `${cardClause}, and the endpoint at ${provider.base_url} is OpenAI-compatible, so you can point existing OpenAI SDK code at ${provider.name} by changing only the base URL and API key.`,
+    ? tp.ovModels(
+        providerModels.length,
+        maxCtx ? fmtCtxOverview(maxCtx) : '',
+        modalities.join(', ')
+      )
+    : tp.ovNoModels,
+  maxRpm.length ? tp.ovRpm(Math.max(...maxRpm)) : '',
+  tp.ovEndpoint(cardClause, provider.base_url, provider.name),
 ].filter(Boolean).join(' ');
 
 // --- Related providers (same region, else same free tier), top by model count ---
@@ -50,11 +59,11 @@ const related = (sameRegion.length >= 3 ? sameRegion : pool.filter(p => p.free_t
   .sort((a, b) => modelCountOf(b.id) - modelCountOf(a.id))
   .slice(0, 4);
 
-const guides = [
-  { slug: 'best-free-llm-apis-2026', title: 'Best Free LLM APIs in 2026' },
-  { slug: 'openai-compatible-api-guide', title: 'What Is an OpenAI-Compatible API' },
-  { slug: 'best-free-llm-apis-for-coding', title: 'Best Free LLM APIs for Coding' },
-];
+// Titles come from the post data for whichever language the blog exists in.
+const guidePool = postsFor(locale).length ? postsFor(locale) : postsFor(DEFAULT_LOCALE);
+const guides = ['best-free-llm-apis-2026', 'openai-compatible-api-guide', 'best-free-llm-apis-for-coding']
+  .map(slug => guidePool.find(p => p.slug === slug))
+  .filter(Boolean);
 
 // Compare pages that involve this provider (must match the curated list in compare/[pair].astro).
 const COMPARE_PAIRS = [
@@ -66,7 +75,7 @@ const COMPARE_PAIRS = [
 const nameOf = (id) => providers.find(p => p.id === id)?.name ?? id;
 const compareLinks = COMPARE_PAIRS
   .filter(pair => pair.includes(provider.id))
-  .map(([a, b]) => ({ href: `/compare/${a}-vs-${b}/`, other: nameOf(a === provider.id ? b : a) }));
+  .map(([a, b]) => ({ href: L(`/compare/${a}-vs-${b}/`), other: nameOf(a === provider.id ? b : a) }));
 
 const cardLabel = { no: '✅ No', registration: '📧 Email', phone: '📱 Phone', yes: '💳 Yes' };
 
@@ -92,20 +101,21 @@ const curlSnippet = `curl ${provider.base_url}/chat/completions \\
     "messages": [{"role": "user", "content": "Hello!"}]
   }'`;
 
-const pageUrl = `https://www.freellm.site/providers/${provider.id}/`;
+const pageUrl = `https://www.freellm.site${L(`/providers/${provider.id}/`)}`;
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.freellm.site/' },
-        { '@type': 'ListItem', position: 2, name: `${provider.name} Free LLM API`, item: pageUrl },
+        { '@type': 'ListItem', position: 1, name: tp.home, item: `https://www.freellm.site${L('/')}` },
+        { '@type': 'ListItem', position: 2, name: tp.h1(provider.name), item: pageUrl },
       ],
     },
     {
       '@type': 'SoftwareApplication',
-      name: `${provider.name} Free LLM API`,
+      name: tp.h1(provider.name),
+      inLanguage: locale,
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Any',
       url: pageUrl,
@@ -122,33 +132,35 @@ const schema = {
 };
 ---
 <Base
-  title={`${provider.name} Free LLM API — Rate Limits, Models & Setup | freellm.site`}
-  description={`${provider.notes}. Base URL: ${provider.base_url}. ${providerModels.length} free model${providerModels.length !== 1 ? 's' : ''} available.`}
+  locale={locale}
+  altLocales={TRANSLATED_LOCALES}
+  title={tp.title(provider.name)}
+  description={tp.description(provider.notes, provider.base_url, providerModels.length)}
   schema={schema}
 >
   <div class="breadcrumb">
-    <a href="/">Home</a><span>›</span><span>{provider.name}</span>
+    <a href={L('/')}>{tp.home}</a><span>›</span><span>{provider.name}</span>
   </div>
 
-  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">{provider.name} Free LLM API</h1>
+  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">{tp.h1(provider.name)}</h1>
 
   <p class="provider-overview" style="color:#374151;line-height:1.6;margin-bottom:1.25rem">{overview}</p>
 
   <div class="provider-meta">
     <div class="row">
-      <span class="label">Base URL</span>
+      <span class="label">{tp.baseUrlLabel}</span>
       <button class="copy-url" id="copy-btn">{provider.base_url}</button>
     </div>
-    <div class="row"><span class="label">Card required</span><span>{cardLabel[provider.credit_card_required]}</span></div>
+    <div class="row"><span class="label">{tp.cardRequiredLabel}</span><span>{cardLabel[provider.credit_card_required]}</span></div>
     {provider.free_type === 'credits' && provider.credit_amount_usd != null && (
-      <div class="row"><span class="label">Free credits</span><span>${provider.credit_amount_usd} USD ({provider.credit_expiry})</span></div>
+      <div class="row"><span class="label">{tp.freeCreditsLabel}</span><span>${provider.credit_amount_usd} USD ({provider.credit_expiry})</span></div>
     )}
-    <div class="row"><span class="label">Notes</span><span>{provider.notes}</span></div>
-    <div class="row"><span class="label">Last verified</span><span>{provider.last_verified}</span></div>
+    <div class="row"><span class="label">{tp.notesLabel}</span><span>{provider.notes}</span></div>
+    <div class="row"><span class="label">{t.common.lastVerified}</span><span>{provider.last_verified}</span></div>
     <div class="row">
       <a href={provider.signup_url} target="_blank" rel="noopener"
          style="background:#0066cc;color:#fff;padding:0.5rem 1.25rem;border-radius:6px;font-weight:600;font-size:0.9rem;display:inline-block">
-        Get Free API Key →
+        {tp.getKeyCta}
       </a>
     </div>
   </div>
@@ -157,10 +169,10 @@ const schema = {
 
   {providerModels.length > 0 && (
     <>
-      <h2 class="section-title">Free Models</h2>
+      <h2 class="section-title">{tp.freeModelsTitle}</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Model ID</th><th>Context</th><th>Modalities</th><th>RPM</th><th>RPD</th></tr></thead>
+          <thead><tr><th>{t.modelsIndex.modelId}</th><th>{t.modelsIndex.context}</th><th>{t.modelsIndex.modalities}</th><th>RPM</th><th>RPD</th></tr></thead>
           <tbody>
             {providerModels.map(m => (
               <tr>
@@ -177,7 +189,7 @@ const schema = {
     </>
   )}
 
-  <h2 class="section-title">Quick Start</h2>
+  <h2 class="section-title">{tp.quickStartTitle}</h2>
   <div class="snippets">
     <div class="snippet-block">
       <div class="snippet-label">Python (OpenAI SDK)</div>
@@ -191,10 +203,10 @@ const schema = {
 
   {related.length > 0 && (
     <>
-      <h2 class="section-title">Related Free LLM API Providers</h2>
+      <h2 class="section-title">{tp.relatedTitle}</h2>
       <ul class="related-links">
         {related.map(p => (
-          <li><a href={`/providers/${p.id}/`}>{p.name} free LLM API</a> — {modelCountOf(p.id)} free model{modelCountOf(p.id) !== 1 ? 's' : ''}</li>
+          <li><a href={L(`/providers/${p.id}/`)}>{tp.relatedItem(p.name, modelCountOf(p.id))}</a></li>
         ))}
       </ul>
     </>
@@ -202,32 +214,32 @@ const schema = {
 
   {compareLinks.length > 0 && (
     <>
-      <h2 class="section-title">Compare {provider.name}</h2>
+      <h2 class="section-title">{tp.compareTitle(provider.name)}</h2>
       <ul class="related-links">
         {compareLinks.map(c => (
-          <li><a href={c.href}>{provider.name} vs {c.other} — free tier compared</a></li>
+          <li><a href={c.href}>{tp.compareItem(provider.name, c.other)}</a></li>
         ))}
       </ul>
     </>
   )}
 
-  <h2 class="section-title">Guides</h2>
+  <h2 class="section-title">{tp.guidesTitle}</h2>
   <ul class="related-links">
     {guides.map(g => (
-      <li><a href={`/blog/${g.slug}/`}>{g.title}</a></li>
+      <li><a href={G(`/blog/${g.slug}/`)}>{g.title}</a></li>
     ))}
   </ul>
 
   <AdSlot variant="bottom" />
 </Base>
 
-<script define:vars={{ baseUrl: provider.base_url }}>
+<script define:vars={{ baseUrl: provider.base_url, copiedLabel: tp.copied }}>
   const btn = document.getElementById('copy-btn');
   if (btn) {
     btn.addEventListener('click', () => {
       navigator.clipboard.writeText(baseUrl);
       const orig = btn.textContent;
-      btn.textContent = 'Copied!';
+      btn.textContent = copiedLabel;
       setTimeout(() => btn.textContent = orig, 1500);
     });
   }
