@@ -1,0 +1,128 @@
+// Shape reference for every other locale file. A locale is only routed for a page
+// if its catalogue provides that page's block (see hasPage() in ui.ts).
+const en = {
+  nav: {
+    models: 'Models',
+    blog: 'Blog',
+    about: 'About',
+    github: 'GitHub',
+    language: 'Language',
+  },
+  footer: {
+    privacy: 'Privacy',
+    terms: 'Terms',
+    about: 'About',
+    contact: 'Contact',
+    cookies: 'Cookies',
+    legalNav: 'Legal and site links',
+    updated: 'Data updated regularly',
+    contribute: 'Contribute on GitHub',
+  },
+  common: {
+    provider: 'Provider',
+    models: 'Models',
+    card: 'Card?',
+    maxContext: 'Max context',
+    lastVerified: 'Last verified',
+    getKey: 'Get key',
+    getKeyCta: 'Get key →',
+    credits: 'Credits',
+    expiry: 'Expiry',
+    freeTier: 'Free tier',
+    readMore: 'Read more →',
+    cardLabel: {
+      no: 'No card',
+      registration: 'Email signup',
+      phone: 'Phone verify',
+      yes: 'Card required',
+    },
+  },
+  home: {
+    title: 'Free LLM API — Free LLM API Keys from 30+ Providers | freellm.site',
+    description: (p: number, m: number) =>
+      `Find a free LLM API with no credit card. ${p} providers, ${m} models — Groq, Gemini, Mistral, GitHub Models. Get your free LLM API key in seconds.`,
+    eyebrow: (d: string) => `Free & verified · Updated ${d}`,
+    h1a: 'Every free LLM API.',
+    h1b: 'One place.',
+    lede: (p: number) =>
+      `Permanent free tiers and free-credit plans from ${p} providers — no hunting, no paywalls. Find your key in seconds.`,
+    statProviders: 'Providers',
+    statModels: 'Models',
+    statAlwaysFree: 'Always free',
+    quickPick: 'Quick pick',
+    quickPickMeta: (n: number, ctx: string) =>
+      `— ${n} models · ${ctx} context · no card required · free forever`,
+    quickPickCta: 'Get free key →',
+    permanentTitle: 'Permanent free tiers',
+    creditsTitle: 'Free credits on signup',
+    seoTitle: 'Every free LLM API in one directory',
+    seoP1: (p: number, m: number) =>
+      `Finding a free LLM API that works — without a credit card — shouldn't take an afternoon of tab-hopping. This directory tracks ${p} providers and ${m} models, from always-free tiers to free-credit plans, so you can grab a free LLM API key and start building in minutes. Every LLM API here exposes an `,
+    seoP1Link: 'OpenAI-compatible endpoint',
+    seoP1End: ', so switching providers is a one-line change.',
+    seoP2:
+      'Whether you need the cheapest LLM API for a side project, the best open source LLM models like Llama and Mistral, or a fast free LLM API for coding, the tables above compare them on models, context window, and whether a card is required. Need paid scale later? Start free, then run an LLM API pricing comparison across providers. For hands-on guides, see our ',
+    seoP2Link1: 'roundup of the best free LLM APIs',
+    seoP2Link2: 'best open source LLM APIs',
+    seoP2Link3: 'best free LLM APIs for coding',
+    guidesTitle: 'Guides',
+    faqTitle: 'Free LLM API FAQ',
+    faqs: (p: number, _m: number) => [
+      {
+        q: 'What is the best free LLM API?',
+        a: `The best free LLM API depends on your use case. Groq is the fastest, Google Gemini has the largest free context window, and GitHub Models needs no separate signup. All ${p} providers listed here offer a free LLM API with no upfront cost.`,
+      },
+      {
+        q: 'How do I get a free LLM API key?',
+        a: 'Pick a provider from the tables above, click Get key, and sign up on their console. Most issue a free LLM API key instantly with just an email — no credit card. Then set it as your API key and start making requests.',
+      },
+      {
+        q: 'Are there free LLM APIs with no credit card?',
+        a: 'Yes. Many providers here offer a free LLM API with no credit card required — the "No card" badge marks them. Groq, Google Gemini, GitHub Models, and Mistral all give free API keys without any payment details.',
+      },
+      {
+        q: 'What is the cheapest LLM API?',
+        a: 'The cheapest LLM API is a free one. Every provider on this page has a free tier or free credits, so you pay nothing to start. For high volume, compare paid pricing per provider once your free LLM API calls run out.',
+      },
+      {
+        q: 'Are there open source LLM APIs?',
+        a: 'Yes. Providers like Groq, Together AI, and DeepInfra serve open source LLM models such as Llama and Mistral through a free LLM API. You get the best open source LLM models via a hosted, OpenAI-compatible endpoint without running your own hardware.',
+      },
+      {
+        q: 'Are there open source LLM API keys available for free?',
+        a: 'Yes. You can get a free API key from any provider on this page and call open source LLM models through it. That gives you open source LLM API keys without a credit card — Groq, Together AI, and DeepInfra all serve open-weight models this way.',
+      },
+      {
+        q: 'What is the cheapest LLM API provider?',
+        a: 'For free usage, any provider here is the cheapest LLM API — you pay nothing to start. When you need paid scale, run an LLM API pricing comparison across providers, since per-token rates for a cheap LLM API vary widely by model and region.',
+      },
+      {
+        q: 'Can I make free LLM API calls without limits?',
+        a: 'Free LLM API calls come with per-minute and per-day rate limits, not unlimited use. The limits are generous enough for prototyping and light production. When you outgrow a free tier, switch providers or upgrade to a paid plan.',
+      },
+    ],
+  },
+  blogIndex: {
+    title: 'Blog — Free LLM API Guides & Tutorials | freellm.site',
+    description:
+      'Guides, tutorials, and comparisons for free LLM APIs. Learn how to use Groq, Gemini, GitHub Models and 90+ free AI providers.',
+    h1: 'Blog',
+    lede: 'Guides and tutorials for using free LLM APIs.',
+  },
+  modelsIndex: {
+    title: (m: number, p: number) =>
+      `Free LLM Models — Browse ${m} Models from ${p} Providers | freellm.site`,
+    description: (m: number, p: number) =>
+      `Browse ${m} free LLM models across ${p} free LLM API providers. Compare open-source and proprietary LLM models by provider and modality.`,
+    h1: 'Free LLM Models',
+    lede: (m: number, p: number) => `${m} models across ${p} providers`,
+    allProviders: 'All Providers',
+    allModalities: 'All Modalities',
+    modelId: 'Model ID',
+    context: 'Context',
+    modalities: 'Modalities',
+  },
+};
+
+export type Strings = typeof en;
+export default en;
