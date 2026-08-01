@@ -149,6 +149,37 @@ const ko: Strings = {
     guidesTitle: '가이드',
     copied: '복사되었습니다!',
   },
+  about: {
+    title: 'freellm.site 소개 — 무료 LLM API 디렉터리',
+    description:
+      'freellm.site를 소개합니다 — 무료 LLM API 제공업체, 모델, 설정 가이드를 모은 개방형 커뮤니티 디렉터리입니다.',
+    h1: 'freellm.site 소개',
+    lead: 'freellm.site는 개발자가 영구 무료 플랜과 가입 크레딧을 제공하는 LLM API 제공업체를 찾을 수 있도록 돕는 무료 개방형 디렉터리입니다. 수십 개 웹사이트를 뒤질 필요가 없습니다.',
+    whatTitle: '하는 일',
+    what: (p, m) =>
+      `제공업체 ${p}곳과 모델 ${m}개를 추적하며 요청 제한, 컨텍스트 윈도우, 신용카드 요구 여부, 가입 링크를 정리합니다. 각 제공업체마다 전용 페이지가 있어 모델 표와 복사해 쓸 수 있는 코드 예제를 제공하므로 몇 분이면 시작할 수 있습니다.`,
+    sourceTitle: '데이터 출처',
+    sourceLead: '제공업체 정보는 GitHub의 오픈소스 저장소 ',
+    sourceLeadEnd: '에서 관리됩니다. 데이터에는 다음이 포함됩니다:',
+    sourceItems: [
+      '제공업체 베이스 URL, 가입 링크, 무료 플랜 유형',
+      '모델 ID, 컨텍스트 윈도우, 모달리티, 요청 제한',
+      '각 제공업체 항목의 최종 확인 날짜',
+    ],
+    sourceNote:
+      '항목은 수동으로 검증하고 정기적으로 업데이트합니다. 제공업체 약관은 변경될 수 있으므로, 프로덕션에 적용하기 전에 반드시 해당 제공업체 웹사이트에서 세부 사항을 확인하세요.',
+    whoTitle: '운영자',
+    whoA: 'freellm.site는 ',
+    whoB: '이(가) 오픈소스 프로젝트 freellm-apis의 일부로 운영합니다. 사이트는 무료이며 데이터는 누구나 기여할 수 있도록 공개되어 있습니다.',
+    ossTitle: '오픈소스',
+    ossA: '데이터와 웹사이트 코드 모두 공개되어 있습니다. 오래된 정보 신고, 새 제공업체 제안, 수정 제출은 ',
+    ossLink: 'GitHub Issues',
+    ossB: ' 또는 풀 리퀘스트로 해주세요.',
+    contactTitle: '문의',
+    contactA: '질문이나 정정 사항, 추가할 제공업체가 있으신가요? ',
+    contactLink: '문의 페이지',
+    contactB: '를 방문해 주세요.',
+  },
   compare: {
     title: (a, b) => `${a} vs ${b}: 무료 LLM API 비교 (2026)`,
     description: (a, b) =>

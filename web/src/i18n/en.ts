@@ -158,6 +158,37 @@ const en = {
     guidesTitle: 'Guides',
     copied: 'Copied!',
   },
+  about: {
+    title: 'About freellm.site — Free LLM API Directory',
+    description:
+      'Learn about freellm.site — an open, community-maintained directory of free LLM API providers, models, and setup guides.',
+    h1: 'About freellm.site',
+    lead: 'freellm.site is a free, open directory that helps developers find LLM API providers with permanent free tiers and signup credits — without hunting across dozens of websites.',
+    whatTitle: 'What we do',
+    what: (p: number, m: number) =>
+      `We track ${p} providers and ${m} models, covering rate limits, context windows, credit card requirements, and signup links. Each provider has a dedicated page with model tables and copy-paste code snippets so you can get started in minutes.`,
+    sourceTitle: 'How data is sourced',
+    sourceLead: 'Provider information is maintained in the open-source ',
+    sourceLeadEnd: ' repository on GitHub. Data includes:',
+    sourceItems: [
+      'Provider base URLs, signup links, and free tier type',
+      'Model IDs, context windows, modalities, and rate limits',
+      'Last verified dates for each provider entry',
+    ],
+    sourceNote:
+      'Entries are verified manually and updated regularly. Because provider terms change, always confirm details on the provider’s own website before relying on them for production use.',
+    whoTitle: 'Who runs this site',
+    whoA: 'freellm.site is maintained by ',
+    whoB: ' as part of the freellm-apis open-source project. The site is free to use and the underlying data is open for anyone to contribute.',
+    ossTitle: 'Open source',
+    ossA: 'Both the data and website code are public. You can report outdated information, suggest new providers, or submit corrections via ',
+    ossLink: 'GitHub Issues',
+    ossB: ' or pull requests.',
+    contactTitle: 'Contact',
+    contactA: 'Have a question, correction, or provider to add? Visit our ',
+    contactLink: 'Contact page',
+    contactB: '.',
+  },
   compare: {
     title: (a: string, b: string) => `${a} vs ${b}: Free LLM API Comparison (2026)`,
     description: (a: string, b: string) =>

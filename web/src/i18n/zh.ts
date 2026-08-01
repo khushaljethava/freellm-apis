@@ -148,6 +148,37 @@ const zh: Strings = {
     guidesTitle: '指南',
     copied: '已复制!',
   },
+  about: {
+    title: '关于 freellm.site — 免费 LLM API 目录',
+    description:
+      '了解 freellm.site —— 一个开放、由社区维护的免费 LLM API 服务商、模型与配置指南目录。',
+    h1: '关于 freellm.site',
+    lead: 'freellm.site 是一个免费开放的目录，帮助开发者找到提供永久免费套餐和注册额度的 LLM API 服务商，无需在几十个网站之间来回翻找。',
+    whatTitle: '我们做什么',
+    what: (p, m) =>
+      `我们收录了 ${p} 家服务商和 ${m} 个模型，涵盖速率限制、上下文窗口、是否需要信用卡以及注册链接。每家服务商都有独立页面，附带模型表格和可直接复制的代码片段，让你几分钟内就能上手。`,
+    sourceTitle: '数据来源',
+    sourceLead: '服务商信息维护在 GitHub 上的开源仓库 ',
+    sourceLeadEnd: ' 中。数据包括：',
+    sourceItems: [
+      '服务商的基础 URL、注册链接和免费套餐类型',
+      '模型 ID、上下文窗口、模态与速率限制',
+      '每条服务商记录的最后核验日期',
+    ],
+    sourceNote:
+      '所有条目均经人工核验并定期更新。由于服务商条款会变动，在用于生产环境之前，请务必在服务商自己的网站上确认细节。',
+    whoTitle: '谁在维护本站',
+    whoA: 'freellm.site 由 ',
+    whoB: ' 作为开源项目 freellm-apis 的一部分进行维护。本站免费使用，底层数据欢迎任何人贡献。',
+    ossTitle: '开源',
+    ossA: '数据和网站代码均已公开。你可以通过 ',
+    ossLink: 'GitHub Issues',
+    ossB: ' 或 pull request 报告过时信息、推荐新服务商或提交更正。',
+    contactTitle: '联系我们',
+    contactA: '有疑问、需要更正，或想推荐服务商？请访问我们的',
+    contactLink: '联系页面',
+    contactB: '。',
+  },
   compare: {
     title: (a, b) => `${a} 对比 ${b}：免费 LLM API 横评（2026）`,
     description: (a, b) =>

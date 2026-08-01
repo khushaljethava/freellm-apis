@@ -152,6 +152,37 @@ const es: Strings = {
     guidesTitle: 'Guías',
     copied: '¡Copiado!',
   },
+  about: {
+    title: 'Acerca de freellm.site — Directorio de API LLM gratis',
+    description:
+      'Conoce freellm.site: un directorio abierto y mantenido por la comunidad de proveedores de API LLM gratis, modelos y guías de configuración.',
+    h1: 'Acerca de freellm.site',
+    lead: 'freellm.site es un directorio libre y abierto que ayuda a los desarrolladores a encontrar proveedores de API LLM con niveles gratuitos permanentes y créditos de registro, sin rastrear decenas de sitios web.',
+    whatTitle: 'Qué hacemos',
+    what: (p, m) =>
+      `Seguimos ${p} proveedores y ${m} modelos, con sus límites de peticiones, ventanas de contexto, requisitos de tarjeta y enlaces de registro. Cada proveedor tiene una página propia con tablas de modelos y fragmentos de código listos para copiar, para que empieces en minutos.`,
+    sourceTitle: 'De dónde salen los datos',
+    sourceLead: 'La información de los proveedores se mantiene en el repositorio de código abierto ',
+    sourceLeadEnd: ' en GitHub. Los datos incluyen:',
+    sourceItems: [
+      'URL base, enlaces de registro y tipo de nivel gratuito de cada proveedor',
+      'IDs de modelos, ventanas de contexto, modalidades y límites de peticiones',
+      'Fecha de última verificación de cada entrada',
+    ],
+    sourceNote:
+      'Las entradas se verifican manualmente y se actualizan con regularidad. Como las condiciones de los proveedores cambian, confirma siempre los detalles en su propia web antes de usarlos en producción.',
+    whoTitle: 'Quién gestiona este sitio',
+    whoA: 'freellm.site está mantenido por ',
+    whoB: ' como parte del proyecto de código abierto freellm-apis. El sitio es de uso gratuito y cualquiera puede contribuir a los datos.',
+    ossTitle: 'Código abierto',
+    ossA: 'Tanto los datos como el código del sitio son públicos. Puedes informar de información desactualizada, sugerir nuevos proveedores o enviar correcciones mediante ',
+    ossLink: 'GitHub Issues',
+    ossB: ' o pull requests.',
+    contactTitle: 'Contacto',
+    contactA: '¿Tienes una pregunta, una corrección o un proveedor que añadir? Visita nuestra ',
+    contactLink: 'página de contacto',
+    contactB: '.',
+  },
   compare: {
     title: (a, b) => `${a} vs ${b}: comparativa de API LLM gratis (2026)`,
     description: (a, b) =>

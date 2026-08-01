@@ -152,6 +152,37 @@ const de: Strings = {
     guidesTitle: 'Anleitungen',
     copied: 'Kopiert!',
   },
+  about: {
+    title: 'Über freellm.site — Verzeichnis kostenloser LLM-APIs',
+    description:
+      'Erfahre mehr über freellm.site — ein offenes, von der Community gepflegtes Verzeichnis kostenloser LLM-API-Anbieter, Modelle und Einrichtungsanleitungen.',
+    h1: 'Über freellm.site',
+    lead: 'freellm.site ist ein freies, offenes Verzeichnis, das Entwicklern hilft, LLM-API-Anbieter mit dauerhaft kostenlosen Tarifen und Startguthaben zu finden — ohne Dutzende Websites durchsuchen zu müssen.',
+    whatTitle: 'Was wir tun',
+    what: (p, m) =>
+      `Wir erfassen ${p} Anbieter und ${m} Modelle samt Rate Limits, Kontextfenstern, Kreditkartenpflicht und Anmeldelinks. Jeder Anbieter hat eine eigene Seite mit Modelltabellen und Code-Snippets zum Kopieren, damit du in Minuten startest.`,
+    sourceTitle: 'Woher die Daten stammen',
+    sourceLead: 'Die Anbieterinformationen werden im Open-Source-Repository ',
+    sourceLeadEnd: ' auf GitHub gepflegt. Die Daten umfassen:',
+    sourceItems: [
+      'Basis-URLs, Anmeldelinks und Art des Gratis-Tarifs je Anbieter',
+      'Modell-IDs, Kontextfenster, Modalitäten und Rate Limits',
+      'Datum der letzten Prüfung für jeden Anbietereintrag',
+    ],
+    sourceNote:
+      'Einträge werden manuell geprüft und regelmäßig aktualisiert. Da sich Anbieterbedingungen ändern, solltest du Details vor dem Produktiveinsatz immer auf der Website des Anbieters bestätigen.',
+    whoTitle: 'Wer die Seite betreibt',
+    whoA: 'freellm.site wird von ',
+    whoB: ' im Rahmen des Open-Source-Projekts freellm-apis betreut. Die Nutzung ist kostenlos und jeder kann zu den Daten beitragen.',
+    ossTitle: 'Open Source',
+    ossA: 'Sowohl die Daten als auch der Website-Code sind öffentlich. Du kannst veraltete Angaben melden, neue Anbieter vorschlagen oder Korrekturen einreichen — über ',
+    ossLink: 'GitHub Issues',
+    ossB: ' oder Pull Requests.',
+    contactTitle: 'Kontakt',
+    contactA: 'Eine Frage, eine Korrektur oder ein Anbieter, der fehlt? Besuche unsere ',
+    contactLink: 'Kontaktseite',
+    contactB: '.',
+  },
   compare: {
     title: (a, b) => `${a} vs. ${b}: Vergleich kostenloser LLM-APIs (2026)`,
     description: (a, b) =>

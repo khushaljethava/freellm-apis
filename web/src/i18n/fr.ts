@@ -151,6 +151,37 @@ const fr: Strings = {
     guidesTitle: 'Guides',
     copied: 'Copié !',
   },
+  about: {
+    title: 'À propos de freellm.site — Annuaire d’API LLM gratuites',
+    description:
+      'Découvrez freellm.site — un annuaire ouvert et maintenu par la communauté des fournisseurs d’API LLM gratuites, des modèles et des guides de configuration.',
+    h1: 'À propos de freellm.site',
+    lead: 'freellm.site est un annuaire libre et ouvert qui aide les développeurs à trouver des fournisseurs d’API LLM proposant des offres gratuites permanentes et des crédits à l’inscription, sans écumer des dizaines de sites.',
+    whatTitle: 'Ce que nous faisons',
+    what: (p, m) =>
+      `Nous suivons ${p} fournisseurs et ${m} modèles, avec leurs limites de requêtes, fenêtres de contexte, exigences de carte bancaire et liens d’inscription. Chaque fournisseur dispose d’une page dédiée avec tableaux de modèles et extraits de code à copier-coller, pour démarrer en quelques minutes.`,
+    sourceTitle: 'D’où viennent les données',
+    sourceLead: 'Les informations sur les fournisseurs sont maintenues dans le dépôt open source ',
+    sourceLeadEnd: ' sur GitHub. Les données comprennent :',
+    sourceItems: [
+      'URL de base, liens d’inscription et type d’offre gratuite par fournisseur',
+      'Identifiants de modèles, fenêtres de contexte, modalités et limites de requêtes',
+      'Date de dernière vérification pour chaque entrée',
+    ],
+    sourceNote:
+      'Les entrées sont vérifiées manuellement et mises à jour régulièrement. Les conditions des fournisseurs évoluant, confirmez toujours les détails sur leur propre site avant tout usage en production.',
+    whoTitle: 'Qui gère ce site',
+    whoA: 'freellm.site est maintenu par ',
+    whoB: ' dans le cadre du projet open source freellm-apis. Le site est gratuit et les données sont ouvertes à toutes les contributions.',
+    ossTitle: 'Open source',
+    ossA: 'Les données comme le code du site sont publics. Vous pouvez signaler une information obsolète, proposer de nouveaux fournisseurs ou soumettre des corrections via ',
+    ossLink: 'les issues GitHub',
+    ossB: ' ou des pull requests.',
+    contactTitle: 'Contact',
+    contactA: 'Une question, une correction ou un fournisseur à ajouter ? Consultez notre ',
+    contactLink: 'page de contact',
+    contactB: '.',
+  },
   compare: {
     title: (a, b) => `${a} vs ${b} : comparatif des API LLM gratuites (2026)`,
     description: (a, b) =>
