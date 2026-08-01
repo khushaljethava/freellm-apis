@@ -1,0 +1,71 @@
+---
+import { LOCALES, localePath, stripLocale, type Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  /** Locales this page exists in — the switcher must never link to a page that 404s. */
+  available: Locale[];
+}
+const { locale, available } = Astro.props;
+const t = useTranslations(locale);
+
+// The same page in another language, e.g. /es/blog/ -> /de/blog/
+const basePath = stripLocale(Astro.url.pathname);
+---
+{available.length > 1 && (
+  <details class="lang-switch">
+    <summary aria-label={t.nav.language}>
+      <span aria-hidden="true">🌐</span> {LOCALES[locale].name}
+    </summary>
+    <ul>
+      {available.map(code => (
+        <li>
+          <a
+            href={localePath(basePath, code)}
+            hreflang={code}
+            lang={code}
+            aria-current={code === locale ? 'true' : undefined}
+          >{LOCALES[code].name}</a>
+        </li>
+      ))}
+    </ul>
+  </details>
+)}
+
+<style>
+  /* ponytail: <details> instead of a JS dropdown — works without JS, links stay crawlable */
+  .lang-switch { position: relative; display: inline-block; font-size: 0.875rem; }
+  .lang-switch summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .lang-switch summary::-webkit-details-marker { display: none; }
+  .lang-switch ul {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 0.35rem);
+    z-index: 50;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    min-width: 9rem;
+    background: #fff;
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+  .lang-switch a {
+    display: block;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .lang-switch a:hover { background: var(--tag-bg, #f3f4f6); }
+  .lang-switch a[aria-current='true'] { font-weight: 600; color: var(--accent, #6366f1); }
+</style>

@@ -1,24 +1,34 @@
 ---
-import Base from '../../layouts/Base.astro';
-import AdSlot from '../../components/AdSlot.astro';
-import posts from '../../../../data/blog.json';
+import Base from '../../../layouts/Base.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import { localeOf, localePath } from '../../../i18n/config';
+import { useTranslations } from '../../../i18n/ui';
+import { postsFor, blogIndexPaths } from '../../../i18n/posts';
 
-const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+export const getStaticPaths = blogIndexPaths;
+
+const locale = localeOf(Astro.params.lang);
+const { blogLocales } = Astro.props;
+const t = useTranslations(locale);
+// Only list posts that actually exist in this language.
+const sorted = [...postsFor(locale)].sort((a, b) => b.date.localeCompare(a.date));
 ---
 <Base
-  title="Blog — Free LLM API Guides & Tutorials | freellm.site"
-  description="Guides, tutorials, and comparisons for free LLM APIs. Learn how to use Groq, Gemini, GitHub Models and 90+ free AI providers."
+  locale={locale}
+  altLocales={blogLocales}
+  title={t.blogIndex.title}
+  description={t.blogIndex.description}
 >
   <div class="blog-hero">
-    <h1>Blog</h1>
-    <p>Guides and tutorials for using free LLM APIs.</p>
+    <h1>{t.blogIndex.h1}</h1>
+    <p>{t.blogIndex.lede}</p>
   </div>
 
   <AdSlot variant="top" />
 
   <div class="blog-list">
     {sorted.map(post => (
-      <a href={`/blog/${post.slug}/`} class="blog-card">
+      <a href={localePath(`/blog/${post.slug}/`, locale)} class="blog-card">
         <div class="blog-card-meta">
           <time datetime={post.date}>{post.date}</time>
           <div class="blog-tags">
@@ -29,7 +39,7 @@ const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
         </div>
         <h2>{post.title}</h2>
         <p>{post.description}</p>
-        <span class="read-more">Read more →</span>
+        <span class="read-more">{t.common.readMore}</span>
       </a>
     ))}
   </div>

@@ -1,0 +1,233 @@
+---
+import Base from '../../layouts/Base.astro';
+import enPosts from '../../../../data/blog.json';
+import FilterBar from '../../components/FilterBar.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import providers from '../../../../data/providers.json';
+import models from '../../../../data/models.json';
+import { localeOf, localePath } from '../../i18n/config';
+import { translatedPaths, useTranslations, TRANSLATED_LOCALES } from '../../i18n/ui';
+import { postsFor } from '../../i18n/posts';
+import { DEFAULT_LOCALE } from '../../i18n/config';
+
+export const getStaticPaths = translatedPaths;
+
+const locale = localeOf(Astro.params.lang);
+const t = useTranslations(locale);
+const L = (p: string) => localePath(p, locale);
+
+// Guides in this language if any exist, otherwise the English originals.
+const localPosts = postsFor(locale);
+const guides = localPosts.length ? localPosts : enPosts;
+const guideLocale = localPosts.length ? locale : DEFAULT_LOCALE;
+// Blog links resolve to the guide locale, so they never point at a page that wasn't built.
+const G = (p: string) => localePath(p, guideLocale);
+
+const modelCount = (id) => models.filter(m => m.provider_id === id && !m.deprecated).length;
+const maxContext = (id) => {
+  const ctxs = models.filter(m => m.provider_id === id && !m.deprecated).map(m => m.context_window);
+  if (!ctxs.length) return '—';
+  const c = Math.max(...ctxs);
+  return c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
+};
+const cardLabel = t.common.cardLabel;
+const cardBadge = { no: 'badge-green', registration: 'badge-blue', phone: 'badge-orange', yes: 'badge-red' };
+
+const permanent = providers.filter(p => p.free_type === 'permanent').sort((a,b) => modelCount(b.id) - modelCount(a.id));
+const credits = providers.filter(p => p.free_type === 'credits').sort((a,b) => (b.credit_amount_usd||0) - (a.credit_amount_usd||0));
+const totalModels = models.filter(m => !m.deprecated).length;
+const lastVerified = providers[0]?.last_verified ?? '';
+
+const quickPick = permanent.find(p => p.credit_card_required === 'no');
+const quickPickCtx = quickPick ? maxContext(quickPick.id) : null;
+const quickPickModels = quickPick ? modelCount(quickPick.id) : 0;
+
+const faqs = t.home.faqs(providers.length, totalModels);
+const homeUrl = new URL(L('/'), Astro.site ?? Astro.url).href;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'freellm.site',
+      url: homeUrl,
+      inLanguage: locale,
+      description: `Directory of ${providers.length} free LLM API providers and ${totalModels} models.`,
+    },
+    {
+      '@type': 'Organization',
+      name: 'freellm.site',
+      url: 'https://www.freellm.site/',
+      logo: 'https://www.freellm.site/og-default.png',
+      sameAs: ['https://github.com/khushaljethava/freellm-apis'],
+    },
+    {
+      '@type': 'FAQPage',
+      inLanguage: locale,
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+<Base
+  locale={locale}
+  altLocales={TRANSLATED_LOCALES}
+  title={t.home.title}
+  description={t.home.description(providers.length, totalModels)}
+  schema={schema}
+>
+  <div class="hero">
+    <div class="hero-eyebrow">{t.home.eyebrow(lastVerified)}</div>
+    <h1>{t.home.h1a}<br/><em>{t.home.h1b}</em></h1>
+    <p>{t.home.lede(providers.length)}</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">{providers.length}</span>
+        <span class="stat-label">{t.home.statProviders}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{totalModels}</span>
+        <span class="stat-label">{t.home.statModels}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{permanent.length}</span>
+        <span class="stat-label">{t.home.statAlwaysFree}</span>
+      </div>
+    </div>
+  </div>
+
+  {quickPick && (
+    <div class="quick-pick">
+      <span class="quick-pick-label">{t.home.quickPick}</span>
+      <div class="quick-pick-sep"></div>
+      <div class="quick-pick-content">
+        <span class="quick-pick-name">{quickPick.name}</span>
+        <span class="quick-pick-meta">{t.home.quickPickMeta(quickPickModels, quickPickCtx)}</span>
+      </div>
+      <a href={quickPick.signup_url} target="_blank" rel="noopener" class="quick-pick-cta">{t.home.quickPickCta}</a>
+    </div>
+  )}
+
+  <AdSlot variant="top" />
+
+  <FilterBar />
+
+  <h2 class="section-title">{t.home.permanentTitle}</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>{t.common.provider}</th>
+          <th>{t.common.models}</th>
+          <th>{t.common.card}</th>
+          <th>{t.common.maxContext}</th>
+          <th>{t.common.lastVerified}</th>
+          <th>{t.common.getKey}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {permanent.map(p => (
+          <tr data-free-type="permanent" data-card-required={p.credit_card_required}>
+            <td><a href={`/providers/${p.id}/`}>{p.name}</a></td>
+            <td>{modelCount(p.id)}</td>
+            <td><span class={`badge ${cardBadge[p.credit_card_required]}`}>{cardLabel[p.credit_card_required]}</span></td>
+            <td>{maxContext(p.id)}</td>
+            <td>{p.last_verified}</td>
+            <td><a href={p.signup_url} target="_blank" rel="noopener">{t.common.getKeyCta}</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-title">{t.home.creditsTitle}</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>{t.common.provider}</th>
+          <th>{t.common.credits}</th>
+          <th>{t.common.expiry}</th>
+          <th>{t.common.card}</th>
+          <th>{t.common.models}</th>
+          <th>{t.common.lastVerified}</th>
+          <th>{t.common.getKey}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {credits.map(p => (
+          <tr data-free-type="credits" data-card-required={p.credit_card_required}>
+            <td><a href={`/providers/${p.id}/`}>{p.name}</a></td>
+            <td>{p.credit_amount_usd ? `$${p.credit_amount_usd}` : t.common.freeTier}</td>
+            <td>{p.credit_expiry ?? '—'}</td>
+            <td><span class={`badge ${cardBadge[p.credit_card_required]}`}>{cardLabel[p.credit_card_required]}</span></td>
+            <td>{modelCount(p.id)}</td>
+            <td>{p.last_verified}</td>
+            <td><a href={p.signup_url} target="_blank" rel="noopener">{t.common.getKeyCta}</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <AdSlot variant="bottom" />
+
+  <section class="seo-content">
+    <h2>{t.home.seoTitle}</h2>
+    <p>
+      {t.home.seoP1(providers.length, totalModels)}
+      <a href={G('/blog/openai-compatible-api-guide/')}>{t.home.seoP1Link}</a>{t.home.seoP1End}
+    </p>
+    <p>
+      {t.home.seoP2}
+      <a href={G('/blog/best-free-llm-apis-2026/')}>{t.home.seoP2Link1}</a>,{' '}
+      <a href={G('/blog/best-open-source-llm-apis/')}>{t.home.seoP2Link2}</a>,{' '}
+      <a href={G('/blog/best-free-llm-apis-for-coding/')}>{t.home.seoP2Link3}</a>.
+    </p>
+
+    <h2>{t.home.guidesTitle}</h2>
+    <ul class="guide-list">
+      {guides.map(p => (
+        <li><a href={localePath(`/blog/${p.slug}/`, guideLocale)}>{p.title}</a></li>
+      ))}
+    </ul>
+
+    <h2>{t.home.faqTitle}</h2>
+    <div class="faq-list">
+      {faqs.map(f => (
+        <div class="faq-item">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .seo-content {
+    max-width: 760px;
+    margin: 3rem auto 0;
+    padding: 0 1rem 2rem;
+  }
+  .seo-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 0.75rem;
+  }
+  .seo-content > p {
+    line-height: 1.7;
+    color: var(--text-muted, #6b7280);
+    margin: 0 0 1rem;
+  }
+  .seo-content a { color: var(--accent, #6366f1); }
+  .faq-list { margin-top: 0.5rem; }
+  .faq-item { margin-bottom: 1.25rem; }
+  .faq-item h3 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.35rem; }
+  .faq-item p { margin: 0; line-height: 1.7; color: var(--text-muted, #6b7280); }
+</style>

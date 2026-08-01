@@ -1,5 +1,9 @@
 ---
 import CookieConsent from '../components/CookieConsent.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import { LOCALES, DEFAULT_LOCALE, localePath, stripLocale, type Locale } from '../i18n/config';
+import { TRANSLATED_LOCALES, useTranslations } from '../i18n/ui';
+import { postsFor } from '../i18n/posts';
 
 interface Props {
   title: string;
@@ -7,13 +11,41 @@ interface Props {
   ogType?: string;
   ogImage?: string;
   schema?: object;
+  locale?: Locale;
+  /**
+   * Locales this specific page actually exists in. Defaults to English-only, because
+   * claiming an alternate that 404s is worse for SEO than claiming none. Translated
+   * pages must pass this explicitly.
+   */
+  altLocales?: Locale[];
 }
-const { title, description, ogType = 'website', ogImage = '/og-default.png', schema } = Astro.props;
+const {
+  title,
+  description,
+  ogType = 'website',
+  ogImage = '/og-default.png',
+  schema,
+  locale = DEFAULT_LOCALE,
+  altLocales = [DEFAULT_LOCALE],
+} = Astro.props;
+const t = useTranslations(locale);
 const canonical = Astro.url.href;
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).href;
+
+// hreflang: only emit alternates for locales this page actually exists in.
+const basePath = stripLocale(Astro.url.pathname);
+const site = Astro.site ?? new URL('/', Astro.url);
+const alternates = altLocales.map(code => ({
+  code,
+  href: new URL(localePath(basePath, code), site).href,
+}));
+const xDefault = new URL(localePath(basePath, DEFAULT_LOCALE), site).href;
+const L = (path: string) => localePath(path, locale);
+// /xx/blog/ only exists once that language has posts; /about/ is English-only for now.
+const blogHref = postsFor(locale).length ? L('/blog/') : '/blog/';
 ---
 <!doctype html>
-<html lang="en">
+<html lang={locale} dir={LOCALES[locale].dir}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,6 +56,10 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).href;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <!-- hreflang: every language version of this page, plus the x-default fallback -->
+    {alternates.map(a => <link rel="alternate" hreflang={a.code} href={a.href} />)}
+    {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={xDefault} />}
+
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
@@ -31,6 +67,8 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:site_name" content="freellm.site" />
+    <meta property="og:locale" content={locale} />
+    {alternates.filter(a => a.code !== locale).map(a => <meta property="og:locale:alternate" content={a.code} />)}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -60,25 +98,26 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).href;
   <body>
     <header class="site-header">
       <div class="inner">
-        <a href="/" class="wordmark">freellm.site</a>
+        <a href={L('/')} class="wordmark">freellm.site</a>
         <nav>
-          <a href="/models/">Models</a>
-          <a href="/blog/">Blog</a>
-          <a href="/about/">About</a>
-          <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">GitHub</a>
+          <a href={L('/models/')}>{t.nav.models}</a>
+          <a href={blogHref}>{t.nav.blog}</a>
+          <a href="/about/">{t.nav.about}</a>
+          <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">{t.nav.github}</a>
+          <LanguageSwitcher locale={locale} available={altLocales} />
         </nav>
       </div>
     </header>
     <main><slot /></main>
     <footer>
-      <nav class="footer-nav" aria-label="Legal and site links">
-        <a href="/privacy/">Privacy</a>
-        <a href="/terms/">Terms</a>
-        <a href="/about/">About</a>
-        <a href="/contact/">Contact</a>
-        <a href="/cookies/">Cookies</a>
+      <nav class="footer-nav" aria-label={t.footer.legalNav}>
+        <a href="/privacy/">{t.footer.privacy}</a>
+        <a href="/terms/">{t.footer.terms}</a>
+        <a href="/about/">{t.footer.about}</a>
+        <a href="/contact/">{t.footer.contact}</a>
+        <a href="/cookies/">{t.footer.cookies}</a>
       </nav>
-      <p>Data updated regularly · <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">Contribute on GitHub</a></p>
+      <p>{t.footer.updated} · <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">{t.footer.contribute}</a></p>
       <p style="margin-top:0.25rem">© {new Date().getFullYear()} freellm.site</p>
     </footer>
     <CookieConsent />

@@ -1,13 +1,19 @@
 ---
-import Base from '../../layouts/Base.astro';
-import AdSlot from '../../components/AdSlot.astro';
-import posts from '../../../../data/blog.json';
+import Base from '../../../layouts/Base.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import { localePath } from '../../../i18n/config';
+import { useTranslations } from '../../../i18n/ui';
+import { postPaths, postsFor, localesForPost } from '../../../i18n/posts';
 
-export function getStaticPaths() {
-  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
-}
+export const getStaticPaths = postPaths;
 
-const { post } = Astro.props;
+const { post, locale } = Astro.props;
+const t = useTranslations(locale);
+const L = (p: string) => localePath(p, locale);
+// Posts in this language only — related links must never cross languages.
+const posts = postsFor(locale);
+// hreflang for this post covers only the languages it was actually translated into.
+const altLocales = localesForPost(post.slug);
 
 function renderContent(text: string): string {
   return text
@@ -49,7 +55,11 @@ const blogPosting = {
   author: { '@type': 'Organization', name: post.author, url: 'https://www.freellm.site/' },
   publisher: { '@type': 'Organization', name: 'freellm.site', url: 'https://www.freellm.site/' },
   keywords: post.tags.join(', '),
-  mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.freellm.site/blog/${post.slug}/` },
+  inLanguage: locale,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://www.freellm.site${L(`/blog/${post.slug}/`)}`,
+  },
 };
 const graph: object[] = [blogPosting];
 if (post.faq?.length) {
@@ -72,11 +82,18 @@ const related = posts
   .slice(0, 3)
   .map(x => x.p);
 ---
-<Base title={`${post.title} | freellm.site`} description={post.description} ogType="article" schema={schema}>
+<Base
+  locale={locale}
+  altLocales={altLocales}
+  title={`${post.title} | freellm.site`}
+  description={post.description}
+  ogType="article"
+  schema={schema}
+>
   <article class="post">
     <div class="post-header">
       <div class="post-meta">
-        <a href="/blog/" class="back-link">← Blog</a>
+        <a href={L('/blog/')} class="back-link">← {t.nav.blog}</a>
         <time datetime={post.date}>{post.date}</time>
       </div>
       <h1>{post.title}</h1>
@@ -104,7 +121,7 @@ const related = posts
         <h2>Related guides</h2>
         <ul>
           {related.map(r => (
-            <li><a href={`/blog/${r.slug}/`}>{r.title}</a></li>
+            <li><a href={L(`/blog/${r.slug}/`)}>{r.title}</a></li>
           ))}
         </ul>
       </aside>
