@@ -9,8 +9,8 @@
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "30 RPM free tier",
-    "last_verified": "2026-06-28"
+    "notes": "Free plan: 30 RPM / 1,000 RPD / 8K TPM on GPT-OSS and Qwen models",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "mistral",
@@ -22,34 +22,21 @@
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "Free tier with rate limits",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "github_models",
-    "name": "GitHub Models",
-    "region": "global",
-    "base_url": "https://models.github.ai/inference",
-    "signup_url": "https://github.com/marketplace/models",
-    "credit_card_required": "no",
-    "free_type": "permanent",
-    "credit_amount_usd": null,
-    "credit_expiry": null,
-    "notes": "Requires GitHub account",
-    "last_verified": "2026-06-28"
+    "notes": "Free mode: no credit card, included monthly usage with low rate limits",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "google_gemini",
     "name": "Google Gemini",
     "region": "global",
-    "base_url": "https://generativelanguage.googleapis.com/v1beta",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
     "signup_url": "https://aistudio.google.com/app/apikey",
     "credit_card_required": "no",
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "2M context on Gemini 1.5 Flash",
-    "last_verified": "2026-06-28"
+    "notes": "Free tier on Gemini Flash / Flash-Lite models, 1M context; limits shown in AI Studio",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "cerebras",
@@ -57,25 +44,25 @@
     "region": "global",
     "base_url": "https://api.cerebras.ai/v1",
     "signup_url": "https://cloud.cerebras.ai/",
-    "credit_card_required": "no",
-    "free_type": "permanent",
-    "credit_amount_usd": null,
-    "credit_expiry": null,
-    "notes": "Very fast inference",
-    "last_verified": "2026-06-28"
+    "credit_card_required": "yes",
+    "free_type": "credits",
+    "credit_amount_usd": 5,
+    "credit_expiry": "30 days",
+    "notes": "$5 trial credits after adding payment method, expire in 30 days; 5 RPM, 1M tokens/day",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "cohere",
     "name": "Cohere",
     "region": "global",
-    "base_url": "https://api.cohere.com/v2",
+    "base_url": "https://api.cohere.ai/compatibility/v1",
     "signup_url": "https://dashboard.cohere.com/api-keys",
     "credit_card_required": "no",
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "Trial key, 20 calls/min",
-    "last_verified": "2026-06-28"
+    "notes": "Trial key: 20 RPM chat, 1,000 API calls/month",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "huggingface",
@@ -84,11 +71,11 @@
     "base_url": "https://router.huggingface.co/v1",
     "signup_url": "https://huggingface.co/settings/tokens",
     "credit_card_required": "no",
-    "free_type": "permanent",
-    "credit_amount_usd": null,
-    "credit_expiry": null,
-    "notes": "Free inference API, rate limited",
-    "last_verified": "2026-06-28"
+    "free_type": "credits",
+    "credit_amount_usd": 0.1,
+    "credit_expiry": "monthly",
+    "notes": "$0.10/month free Inference Providers credits (subject to change); OpenAI-compatible router",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "nvidia_nim",
@@ -100,21 +87,21 @@
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "Phone verification required, 75+ models",
-    "last_verified": "2026-06-28"
+    "notes": "Free NIM API access for prototyping via NVIDIA Developer Program; ~80 hosted models",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "cloudflare",
     "name": "Cloudflare Workers AI",
     "region": "global",
-    "base_url": "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run",
+    "base_url": "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1",
     "signup_url": "https://dash.cloudflare.com/profile/api-tokens",
     "credit_card_required": "no",
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "10,000 neurons/day free",
-    "last_verified": "2026-06-28"
+    "notes": "10,000 neurons/day free (Free and Paid plans); OpenAI-compatible /ai/v1 endpoint",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "sambanova",
@@ -126,21 +113,21 @@
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "Fast Llama inference",
-    "last_verified": "2026-06-28"
+    "notes": "Free tier (no payment method): 20 RPM / 20 RPD / 200K tokens/day per model",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "llm7",
     "name": "LLM7.io",
     "region": "global",
     "base_url": "https://api.llm7.io/v1",
-    "signup_url": "https://token.llm7.io",
+    "signup_url": "https://dash.llm7.io",
     "credit_card_required": "no",
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "No signup required for basic use",
-    "last_verified": "2026-06-28"
+    "notes": "Anonymous: 10 RPM, 60/hr, 500K tokens/day; free token: 40 RPM, 100/hr, 1M tokens/day (turbo models only)",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "openrouter",
@@ -152,21 +139,8 @@
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "Permanent free models available; aggregates 100+ providers",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "chutes_ai",
-    "name": "Chutes AI",
-    "region": "global",
-    "base_url": "https://llm.chutes.ai/v1",
-    "signup_url": "https://chutes.ai",
-    "credit_card_required": "no",
-    "free_type": "permanent",
-    "credit_amount_usd": null,
-    "credit_expiry": null,
-    "notes": "Community free tier, open-source models",
-    "last_verified": "2026-06-28"
+    "notes": "Free (:free) models: 20 RPM / 50 RPD (1,000 RPD after buying $10 credits)",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "xai",
@@ -178,47 +152,8 @@
     "free_type": "credits",
     "credit_amount_usd": 25,
     "credit_expiry": "monthly",
-    "notes": "$25 free credits/month",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "hyperbolic",
-    "name": "Hyperbolic",
-    "region": "global",
-    "base_url": "https://api.hyperbolic.xyz/v1",
-    "signup_url": "https://app.hyperbolic.xyz/settings",
-    "credit_card_required": "no",
-    "free_type": "credits",
-    "credit_amount_usd": 10,
-    "credit_expiry": "never",
-    "notes": "$10 free credits on signup",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "modal",
-    "name": "Modal",
-    "region": "global",
-    "base_url": "https://api.modal.com/v1",
-    "signup_url": "https://modal.com",
-    "credit_card_required": "no",
-    "free_type": "credits",
-    "credit_amount_usd": 30,
-    "credit_expiry": "monthly",
-    "notes": "$30 free compute credits/month",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "lambda_ai",
-    "name": "Lambda AI Inference",
-    "region": "global",
-    "base_url": "https://api.lambdalabs.com/v1",
-    "signup_url": "https://lambda.ai",
-    "credit_card_required": "no",
-    "free_type": "credits",
-    "credit_amount_usd": 10,
-    "credit_expiry": "never",
-    "notes": "$10 free credits on signup",
-    "last_verified": "2026-06-28"
+    "notes": "Free-credit program not documented in current official docs; verify in console",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "ai21",
@@ -229,9 +164,9 @@
     "credit_card_required": "no",
     "free_type": "credits",
     "credit_amount_usd": 10,
-    "credit_expiry": "never",
-    "notes": "Free trial credits on signup",
-    "last_verified": "2026-06-28"
+    "credit_expiry": "3 months",
+    "notes": "$10 trial credit valid 3 months; 200 RPM / 10 RPS",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "deepseek",
@@ -243,34 +178,8 @@
     "free_type": "credits",
     "credit_amount_usd": 5,
     "credit_expiry": "on signup",
-    "notes": "$5 free credits on signup",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "perplexity",
-    "name": "Perplexity AI",
-    "region": "global",
-    "base_url": "https://api.perplexity.ai",
-    "signup_url": "https://www.perplexity.ai/settings/api",
-    "credit_card_required": "yes",
-    "free_type": "credits",
-    "credit_amount_usd": 5,
-    "credit_expiry": "never",
-    "notes": "$5 free credits; card required to activate",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "together_ai",
-    "name": "Together AI",
-    "region": "global",
-    "base_url": "https://api.together.xyz/v1",
-    "signup_url": "https://api.together.ai/settings/api-keys",
-    "credit_card_required": "no",
-    "free_type": "credits",
-    "credit_amount_usd": 1,
-    "credit_expiry": "never",
-    "notes": "$1 free credit on signup, 100+ models",
-    "last_verified": "2026-06-28"
+    "notes": "Signup granted balance not confirmed in current docs; models deepseek-flash / deepseek-v4-pro (1M ctx)",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "fireworks",
@@ -282,8 +191,8 @@
     "free_type": "credits",
     "credit_amount_usd": 1,
     "credit_expiry": "never",
-    "notes": "$1 free credit on signup",
-    "last_verified": "2026-06-28"
+    "notes": "$1 free credit on signup; account suspended after depletion until card added",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "nscale",
@@ -293,75 +202,49 @@
     "signup_url": "https://console.nscale.com/",
     "credit_card_required": "registration",
     "free_type": "credits",
-    "credit_amount_usd": 1,
-    "credit_expiry": "never",
-    "notes": "$1 free credits on signup",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "deepinfra",
-    "name": "DeepInfra",
-    "region": "global",
-    "base_url": "https://api.deepinfra.com/v1/openai",
-    "signup_url": "https://deepinfra.com",
-    "credit_card_required": "no",
-    "free_type": "credits",
-    "credit_amount_usd": 1,
-    "credit_expiry": "never",
-    "notes": "Free credits on signup, 100+ models",
-    "last_verified": "2026-06-28"
+    "credit_amount_usd": 5,
+    "credit_expiry": "on signup",
+    "notes": "$5 free credit on signup, no enforced serverless rate limits",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "nebius",
-    "name": "Nebius AI Studio",
+    "name": "Nebius Token Factory",
     "region": "global",
-    "base_url": "https://api.studio.nebius.ai/v1",
-    "signup_url": "https://studio.nebius.ai",
-    "credit_card_required": "registration",
+    "base_url": "https://api.tokenfactory.nebius.com/v1",
+    "signup_url": "https://tokenfactory.nebius.com",
+    "credit_card_required": "yes",
     "free_type": "credits",
     "credit_amount_usd": 1,
-    "credit_expiry": "never",
-    "notes": "Free credits on signup",
-    "last_verified": "2026-06-28"
+    "credit_expiry": "30 days",
+    "notes": "Rebranded from Nebius AI Studio; $1 trial credit on signup valid 30 days; bank card required for mandatory billing setup",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "novita_ai",
     "name": "Novita AI",
     "region": "global",
-    "base_url": "https://api.novita.ai/v3/openai",
+    "base_url": "https://api.novita.ai/openai",
     "signup_url": "https://novita.ai",
     "credit_card_required": "no",
     "free_type": "credits",
-    "credit_amount_usd": 1,
-    "credit_expiry": "never",
-    "notes": "Free credits on signup",
-    "last_verified": "2026-06-28"
+    "credit_amount_usd": 10,
+    "credit_expiry": "90 days",
+    "notes": "No automatic signup credit; $10 LLM API credit when signing up via referral (expires 90 days); a few $0-priced models",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "siliconflow",
     "name": "SiliconFlow",
     "region": "global",
-    "base_url": "https://api.siliconflow.cn/v1",
-    "signup_url": "https://cloud.siliconflow.cn/account/ak",
+    "base_url": "https://api.siliconflow.com/v1",
+    "signup_url": "https://cloud.siliconflow.com",
     "credit_card_required": "registration",
     "free_type": "credits",
-    "credit_amount_usd": 2,
+    "credit_amount_usd": 1,
     "credit_expiry": "never",
-    "notes": "~14 CNY (~$2) free credits",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "anthropic",
-    "name": "Anthropic",
-    "region": "global",
-    "base_url": "https://api.anthropic.com/v1",
-    "signup_url": "https://console.anthropic.com",
-    "credit_card_required": "yes",
-    "free_type": "credits",
-    "credit_amount_usd": 5,
-    "credit_expiry": "never",
-    "notes": "Trial credits on signup; card required after trial",
-    "last_verified": "2026-06-28"
+    "notes": "$1 free credits on signup (international platform); L0 tier 1,000 RPM / 40,000 TPM",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "replicate",
@@ -372,9 +255,9 @@
     "credit_card_required": "no",
     "free_type": "credits",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Free credits on signup for open-source models",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "Limited free runs on select image/video/audio models (no LLMs); billing setup required after",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "fal_ai",
@@ -385,100 +268,48 @@
     "credit_card_required": "no",
     "free_type": "credits",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Free credits on signup",
-    "last_verified": "2026-06-28"
+    "credit_expiry": "varies (1 week to 1 year)",
+    "notes": "Promotional free credits vary by grant; generative media models (not LLM-focused)",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "vercel_ai_gateway",
     "name": "Vercel AI Gateway",
     "region": "global",
     "base_url": "https://ai-gateway.vercel.sh/v1",
-    "signup_url": "https://vercel.com/ai",
+    "signup_url": "https://vercel.com/ai-gateway",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "monthly",
-    "notes": "Monthly free credits via Vercel account",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "parasail",
-    "name": "Parasail",
-    "region": "global",
-    "base_url": "https://api.parasail.io/v1",
-    "signup_url": "https://parasail.io",
-    "credit_card_required": "registration",
-    "free_type": "permanent",
-    "credit_amount_usd": null,
-    "credit_expiry": null,
-    "notes": "Free tier available",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "lepton_ai",
-    "name": "Lepton AI",
-    "region": "global",
-    "base_url": "https://llm.lepton.run/api/v1",
-    "signup_url": "https://www.lepton.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Trial credits on signup",
-    "last_verified": "2026-06-28"
+    "notes": "Monthly included free credit on a subset of models with lower per-model rate limits; lost after purchasing credits; some teams must add a payment method for verification",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "baseten",
     "name": "Baseten",
     "region": "global",
-    "base_url": "https://model-{model_id}.api.baseten.co/production/predict",
-    "signup_url": "https://www.baseten.co",
-    "credit_card_required": "registration",
+    "base_url": "https://inference.baseten.co/v1",
+    "signup_url": "https://app.baseten.co/signup",
+    "credit_card_required": "no",
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "Trial credits on signup",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "friendli_ai",
-    "name": "FriendliAI",
-    "region": "global",
-    "base_url": "https://inference.friendli.ai/v1",
-    "signup_url": "https://friendli.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Free credits on signup",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "infermatic_ai",
-    "name": "Infermatic AI",
-    "region": "global",
-    "base_url": "https://api.infermatic.ai/v1",
-    "signup_url": "https://infermatic.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Trial access on signup",
-    "last_verified": "2026-06-28"
+    "notes": "New workspaces receive starter credits (amount not published); no perpetual free tier. Basic (unverified) tier: 15 RPM / 100K TPM",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "sarvam_ai",
     "name": "Sarvam AI",
     "region": "india",
-    "base_url": "https://api.sarvam.ai",
-    "signup_url": "https://sarvam.ai",
+    "base_url": "https://api.sarvam.ai/v1",
+    "signup_url": "https://dashboard.sarvam.ai",
     "credit_card_required": "registration",
     "free_type": "credits",
-    "credit_amount_usd": null,
+    "credit_amount_usd": 1.1,
     "credit_expiry": "never",
-    "notes": "Indian language models; free API access",
-    "last_verified": "2026-06-28"
+    "notes": "₹100 (~$1.1) free credits on signup, never expire; Starter plan: sarvam-105b 40 RPM",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "krutrim",
@@ -504,19 +335,6 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Research APIs for Indian languages; IIT Madras",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "hanooman",
-    "name": "Hanooman AI",
-    "region": "india",
-    "base_url": "https://www.hanooman.ai",
-    "signup_url": "https://www.hanooman.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Trial access; multilingual Indian LLM",
     "last_verified": "2026-06-28"
   },
   {
@@ -589,26 +407,26 @@
     "name": "Alibaba DashScope",
     "region": "china",
     "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-    "signup_url": "https://dashscope.aliyun.com",
-    "credit_card_required": "registration",
+    "signup_url": "https://bailian.console.aliyun.com",
+    "credit_card_required": "no",
     "free_type": "credits",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Qwen models; free trial tokens on signup",
-    "last_verified": "2026-06-28"
+    "credit_expiry": "90 days",
+    "notes": "New users get ~1M free tokens per model (Beijing region), valid 90 days; no real-name verification needed to use free quota",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "alibaba_model_studio",
     "name": "Alibaba Model Studio",
     "region": "china",
     "base_url": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
-    "signup_url": "https://www.alibabacloud.com/product/modelstudio",
+    "signup_url": "https://modelstudio.console.alibabacloud.com",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "International version of DashScope",
-    "last_verified": "2026-06-28"
+    "credit_expiry": "90 days",
+    "notes": "New users get ~1M free tokens per model (Singapore region), valid 90 days",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "siliconflow_cn",
@@ -617,44 +435,31 @@
     "base_url": "https://api.siliconflow.cn/v1",
     "signup_url": "https://siliconflow.cn",
     "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": 2,
-    "credit_expiry": "never",
-    "notes": "~14 CNY (~$2) free credits; Chinese market",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "moonshot_kimi",
-    "name": "Moonshot AI (Kimi)",
-    "region": "china",
-    "base_url": "https://api.moonshot.cn/v1",
-    "signup_url": "https://platform.moonshot.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
+    "free_type": "permanent",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Long-context model; free trial tokens",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "Permanently free models (e.g. XingChenAGI/Xing4.0-29B, embeddings); signup gift credits not confirmed on current official pages",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "zhipu_ai",
     "name": "Zhipu AI",
     "region": "china",
     "base_url": "https://open.bigmodel.cn/api/paas/v4",
-    "signup_url": "https://open.bigmodel.cn",
+    "signup_url": "https://bigmodel.cn",
     "credit_card_required": "no",
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "GLM-4.7-Flash & GLM-4.5-Flash free, no card; 1 concurrent request, ~1000 req/day",
-    "last_verified": "2026-07-01"
+    "notes": "Free models: GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash, GLM-4.6V-Flash, GLM-4.1V-Thinking-Flash; per-model concurrency limits by account tier",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "minimax",
     "name": "MiniMax",
     "region": "china",
-    "base_url": "https://api.minimax.chat/v1",
-    "signup_url": "https://www.minimax.io",
+    "base_url": "https://api.minimax.io/v1",
+    "signup_url": "https://platform.minimax.io",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
@@ -666,40 +471,40 @@
     "id": "tencent_hunyuan",
     "name": "Tencent Hunyuan",
     "region": "china",
-    "base_url": "https://hunyuan.tencentcloudapi.com",
-    "signup_url": "https://cloud.tencent.com/product/hunyuan",
+    "base_url": "https://api.hunyuan.cloud.tencent.com/v1",
+    "signup_url": "https://console.cloud.tencent.com/hunyuan",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Free trial tokens via Tencent Cloud",
-    "last_verified": "2026-06-28"
+    "credit_expiry": "1 year",
+    "notes": "1M free tokens (shared across hunyuan-a13b, role, translation models) + 1M embedding tokens; valid 1 year from activation",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "baidu_ernie",
     "name": "Baidu ERNIE",
     "region": "china",
-    "base_url": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop",
-    "signup_url": "https://cloud.baidu.com/product/wenxinworkshop",
+    "base_url": "https://qianfan.baidubce.com/v2",
+    "signup_url": "https://console.bce.baidu.com/qianfan",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "ERNIE Bot; free trial tokens",
-    "last_verified": "2026-06-28"
+    "credit_expiry": "3 months",
+    "notes": "New users: 1M free tokens per model for ERNIE-4.5-Turbo, ERNIE-X1-Turbo, DeepSeek, Kimi-K2, Qwen3 models; valid 3 months",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "sensenova",
     "name": "SenseNova",
     "region": "china",
-    "base_url": "https://api.sensenova.cn/v1",
-    "signup_url": "https://platform.sensenova.cn",
-    "credit_card_required": "registration",
-    "free_type": "credits",
+    "base_url": "https://token.sensenova.cn/v1",
+    "signup_url": "https://platform.sensenova.cn/login",
+    "credit_card_required": "phone",
+    "free_type": "permanent",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "SenseTime's LLM; free trial tokens",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "Token Plan free public beta (¥0/mo): 60,000 points per rolling 5h, 600,000 per week; phone verification",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "stepfun",
@@ -711,47 +516,34 @@
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "Step-1 models; free trial tokens",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "01_ai",
-    "name": "01.AI (Yi)",
-    "region": "china",
-    "base_url": "https://api.lingyiwanwu.com/v1",
-    "signup_url": "https://platform.lingyiwanwu.com",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Yi series models; free trial tokens",
-    "last_verified": "2026-06-28"
+    "notes": "Gift balance (赠送金额, amount unpublished, expires) deducted before paid balance; no free text models (only StepAudio 3 previews limited-time free)",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "modelscope",
     "name": "ModelScope",
     "region": "china",
     "base_url": "https://api-inference.modelscope.cn/v1",
-    "signup_url": "https://modelscope.cn",
+    "signup_url": "https://modelscope.cn/my/myaccesstoken",
     "credit_card_required": "registration",
-    "free_type": "credits",
+    "free_type": "permanent",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Alibaba's open-source model hub",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "Free API-Inference paid with daily Magicubes (200/day login + 50/day with linked Alibaba Cloud; ~0.5-2 per call); requires real-name verified Alibaba Cloud account",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "volcengine_ark",
     "name": "Volcengine Ark",
     "region": "china",
     "base_url": "https://ark.cn-beijing.volces.com/api/v3",
-    "signup_url": "https://www.volcengine.com/product/ark",
+    "signup_url": "https://console.volcengine.com/ark",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "ByteDance's LLM platform; free tokens",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "New users get a free inference token quota per model (amount varies per model, shown in console); real-name verification needed after quota is used",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "huawei_pangu",
@@ -771,13 +563,13 @@
     "name": "iFlytek Spark",
     "region": "china",
     "base_url": "https://spark-api-open.xf-yun.com/v1",
-    "signup_url": "https://xinghuo.xfyun.cn",
+    "signup_url": "https://console.xfyun.cn/services/cbm",
     "credit_card_required": "registration",
-    "free_type": "credits",
+    "free_type": "permanent",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Free tokens on signup",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "Spark Lite free to use (8K input); free trial quotas for Pro/Ultra via product page",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "baichuan",
@@ -787,36 +579,36 @@
     "signup_url": "https://platform.baichuan-ai.com",
     "credit_card_required": "registration",
     "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Free trial tokens on signup",
-    "last_verified": "2026-06-28"
+    "credit_amount_usd": 11,
+    "credit_expiry": "3 months",
+    "notes": "¥80 (~$11) free gift balance for new users, valid 3 months",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "naver_hyperclova",
     "name": "Naver HyperCLOVA X",
     "region": "korea",
-    "base_url": "https://clovastudio.stream.ntruss.com/testapp/v1",
-    "signup_url": "https://clovastudio.naver.com",
+    "base_url": "https://clovastudio.stream.ntruss.com/v1/openai",
+    "signup_url": "https://clovastudio.ncloud.com",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "Korean LLM; free trial credits",
-    "last_verified": "2026-06-28"
+    "notes": "HyperCLOVA X (HCX-007/005/DASH-002); OpenAI-compatible endpoint; test API keys via CLOVA Studio (NAVER Cloud account)",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "upstage_ai",
     "name": "Upstage AI",
     "region": "korea",
     "base_url": "https://api.upstage.ai/v1",
-    "signup_url": "https://www.upstage.ai",
+    "signup_url": "https://console.upstage.ai",
     "credit_card_required": "no",
     "free_type": "credits",
-    "credit_amount_usd": null,
+    "credit_amount_usd": 10,
     "credit_expiry": "never",
-    "notes": "Solar LLM; free credits on signup",
-    "last_verified": "2026-06-28"
+    "notes": "$10 free credit on signup; Solar Pro 4 / Solar Mini 4 (512K ctx); Tier 0: 100 RPM / 250K TPM",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "lg_exaone",
@@ -828,8 +620,8 @@
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "LG's AI research lab; contact for API",
-    "last_verified": "2026-06-28"
+    "notes": "EXAONE 4.x / K-EXAONE open weights on Hugging Face; hosted API only via partners (FriendliAI); no LG-hosted free API",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "sk_telecom_ax",
@@ -841,8 +633,8 @@
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "Telco AI platform; enterprise access",
-    "last_verified": "2026-06-28"
+    "notes": "A.X K1 / A.X 4.0 open weights (Apache 2.0) on Hugging Face; no public hosted API",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "wrtn",
@@ -861,40 +653,27 @@
     "id": "lighton",
     "name": "LightOn",
     "region": "europe",
-    "base_url": "https://api.lighton.ai/v1",
-    "signup_url": "https://lighton.ai",
+    "base_url": "https://api.lighton.ai/v3",
+    "signup_url": "https://lighton.ai/pricing",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "French AI; Alfred models",
-    "last_verified": "2026-06-28"
+    "notes": "Pivoted to document RAG API (parse/extract/search), no chat LLM API; Starter plan free + pay-as-you-go",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "h_company",
     "name": "H Company",
     "region": "europe",
-    "base_url": "https://hcompany.ai",
-    "signup_url": "https://hcompany.ai",
+    "base_url": "https://api.hcompany.ai/v1",
+    "signup_url": "https://portal.hcompany.ai",
     "credit_card_required": "registration",
-    "free_type": "credits",
+    "free_type": "permanent",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "French AI startup; contact for API",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "aleph_alpha",
-    "name": "Aleph Alpha",
-    "region": "europe",
-    "base_url": "https://api.aleph-alpha.com",
-    "signup_url": "https://aleph-alpha.com",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "German AI; Luminous models; trial tokens",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "Holo4 computer-use models; Free plan $0/mo: ~60 agent sessions/month, 3 concurrent agents",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "deepl",
@@ -906,86 +685,60 @@
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "Translation API; 500K chars/month free",
-    "last_verified": "2026-06-28"
+    "notes": "Translation API; API Free: 500,000 chars/month, no credit card",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "stability_ai",
     "name": "Stability AI",
     "region": "europe",
     "base_url": "https://api.stability.ai",
-    "signup_url": "https://stability.ai",
+    "signup_url": "https://platform.stability.ai",
     "credit_card_required": "no",
     "free_type": "credits",
-    "credit_amount_usd": null,
+    "credit_amount_usd": 0.25,
     "credit_expiry": "never",
-    "notes": "Image/audio/video models; free credits on signup",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "poly_ai",
-    "name": "PolyAI",
-    "region": "europe",
-    "base_url": "https://poly.ai",
-    "signup_url": "https://poly.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Conversational AI; enterprise-focused",
-    "last_verified": "2026-06-28"
+    "notes": "Image/audio/3D models; 25 free credits on signup (1 credit = $0.01)",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "elevenlabs",
     "name": "ElevenLabs",
     "region": "europe",
     "base_url": "https://api.elevenlabs.io/v1",
-    "signup_url": "https://elevenlabs.io",
+    "signup_url": "https://elevenlabs.io/app/sign-up",
     "credit_card_required": "no",
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "Voice synthesis; 10K chars/month free",
-    "last_verified": "2026-06-28"
+    "notes": "Voice/TTS API; Free plan 10,000 credits/month (~10K TTS chars), non-commercial with attribution",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "scaleway_ai",
     "name": "Scaleway AI",
     "region": "europe",
     "base_url": "https://api.scaleway.ai/v1",
-    "signup_url": "https://www.scaleway.com",
-    "credit_card_required": "registration",
+    "signup_url": "https://console.scaleway.com/generative-api/models",
+    "credit_card_required": "yes",
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "French cloud; Llama & Mistral hosting",
-    "last_verified": "2026-06-28"
+    "notes": "Generative APIs free tier: first 1M tokens + 60 audio min; payment method required; 300 RPM / 200K TPM",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "ovhcloud_ai",
     "name": "OVHcloud AI Endpoints",
     "region": "europe",
     "base_url": "https://oai.endpoints.kepler.ai.cloud.ovh.net/v1",
-    "signup_url": "https://www.ovhcloud.com",
-    "credit_card_required": "registration",
-    "free_type": "credits",
+    "signup_url": "https://endpoints.ai.cloud.ovh.net",
+    "credit_card_required": "no",
+    "free_type": "permanent",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "European cloud; open-source model hosting",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "silo_ai",
-    "name": "Silo AI",
-    "region": "europe",
-    "base_url": "https://www.silo.ai",
-    "signup_url": "https://www.silo.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "Finnish AI; Poro models; contact for API",
-    "last_verified": "2026-06-28"
+    "credit_expiry": null,
+    "notes": "Anonymous free use without key: 2 RPM per IP per model; with key 400 RPM (paid)",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "falcon_tii",
@@ -997,21 +750,8 @@
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "UAE open-source Falcon models; free via HuggingFace",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "ai71",
-    "name": "AI71",
-    "region": "middle_east",
-    "base_url": "https://api.ai71.ai/v1",
-    "signup_url": "https://ai71.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "UAE; Falcon-based models; free trial",
-    "last_verified": "2026-06-28"
+    "notes": "Open-weight Falcon-H1 / H1R / Falcon-E models on Hugging Face; free Falcon Chat web demo; no hosted API",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "inception_ai",
@@ -1027,43 +767,30 @@
     "last_verified": "2026-06-28"
   },
   {
-    "id": "core42",
-    "name": "Core42",
-    "region": "middle_east",
-    "base_url": "https://core42.ai",
-    "signup_url": "https://core42.ai",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "UAE; JAIS Arabic LLM; enterprise focus",
-    "last_verified": "2026-06-28"
-  },
-  {
     "id": "ai_singapore",
     "name": "AI Singapore (SEA-LION)",
     "region": "sea",
-    "base_url": "https://aisingapore.org",
-    "signup_url": "https://aisingapore.org",
-    "credit_card_required": "no",
+    "base_url": "https://api.sea-lion.ai/v1",
+    "signup_url": "https://playground.sea-lion.ai",
+    "credit_card_required": "registration",
     "free_type": "permanent",
     "credit_amount_usd": null,
     "credit_expiry": null,
-    "notes": "SEA multilingual models; open-source via HuggingFace",
-    "last_verified": "2026-06-28"
+    "notes": "SEA-LION API: free trial key via Playground (Google sign-in), 10 RPM per user",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "gmi_cloud",
     "name": "GMI Cloud",
     "region": "sea",
-    "base_url": "https://api.gmicloud.ai/v1",
-    "signup_url": "https://www.gmicloud.ai",
+    "base_url": "https://api.gmi-serving.com/v1",
+    "signup_url": "https://console.gmicloud.ai",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "Singapore GPU cloud; free trial credits",
-    "last_verified": "2026-06-28"
+    "notes": "Singapore GPU cloud; serverless OpenAI-compatible inference; Tier 1 by default",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "ncs_ai",
@@ -1082,27 +809,27 @@
     "id": "sakana_ai",
     "name": "Sakana AI",
     "region": "japan",
-    "base_url": "https://sakana.ai",
-    "signup_url": "https://sakana.ai",
+    "base_url": "https://api.sakana.ai/v1",
+    "signup_url": "https://console.sakana.ai",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "Japanese AI research lab",
-    "last_verified": "2026-06-28"
+    "notes": "Fugu (multi-agent) & Namazu APIs; paid plans from $20/mo + PAYG; no published free tier",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "preferred_networks",
     "name": "Preferred Networks",
     "region": "japan",
-    "base_url": "https://www.preferred.jp",
-    "signup_url": "https://www.preferred.jp",
+    "base_url": "https://api.platform.preferredai.jp/v1",
+    "signup_url": "https://plamo.preferredai.jp/api",
     "credit_card_required": "registration",
     "free_type": "credits",
     "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "PLaMo models; contact for API access",
-    "last_verified": "2026-06-28"
+    "credit_expiry": "1 month",
+    "notes": "PLaMo API: free credit worth ~10M tokens on signup, valid 1 month; plamo-3.0-prime 100 RPM",
+    "last_verified": "2026-09-29"
   },
   {
     "id": "fujitsu_kozuchi",
@@ -1153,20 +880,7 @@
     "free_type": "credits",
     "credit_amount_usd": null,
     "credit_expiry": "never",
-    "notes": "RakutenAI-7B; contact for access",
-    "last_verified": "2026-06-28"
-  },
-  {
-    "id": "sb_intuitions",
-    "name": "SB Intuitions",
-    "region": "japan",
-    "base_url": "https://www.sbintuitions.co.jp",
-    "signup_url": "https://www.sbintuitions.co.jp",
-    "credit_card_required": "registration",
-    "free_type": "credits",
-    "credit_amount_usd": null,
-    "credit_expiry": "never",
-    "notes": "SoftBank's AI lab; Japanese LLMs",
-    "last_verified": "2026-06-28"
+    "notes": "RakutenAI-3.0 / 2.0-mini open weights on Hugging Face; no public hosted API",
+    "last_verified": "2026-09-29"
   }
 ]

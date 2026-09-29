@@ -1,32 +1,32 @@
 [
   {
     "provider_id": "groq",
-    "model_id": "llama-3.1-70b-versatile",
+    "model_id": "openai/gpt-oss-120b",
     "context_window": 131072,
-    "modalities": ["text"],
+    "modalities": ["text", "code"],
     "rpm": 30,
-    "rpd": null,
-    "tpm": 6000,
+    "rpd": 1000,
+    "tpm": 8000,
     "deprecated": false
   },
   {
     "provider_id": "groq",
-    "model_id": "llama-3.1-405b-reasoning",
+    "model_id": "openai/gpt-oss-20b",
     "context_window": 131072,
-    "modalities": ["text"],
+    "modalities": ["text", "code"],
     "rpm": 30,
-    "rpd": null,
-    "tpm": 3000,
+    "rpd": 1000,
+    "tpm": 8000,
     "deprecated": false
   },
   {
     "provider_id": "groq",
-    "model_id": "mixtral-8x7b-32768",
-    "context_window": 32768,
-    "modalities": ["text"],
+    "model_id": "qwen/qwen3.8-27b",
+    "context_window": 131072,
+    "modalities": ["text", "image", "code"],
     "rpm": 30,
-    "rpd": null,
-    "tpm": 9000,
+    "rpd": 1000,
+    "tpm": 8000,
     "deprecated": false
   },
   {
@@ -50,29 +50,9 @@
     "deprecated": false
   },
   {
-    "provider_id": "google_gemini",
-    "model_id": "gemini-1.5-flash",
-    "context_window": 1000000,
-    "modalities": ["text", "image", "code", "audio"],
-    "rpm": 2000,
-    "rpd": null,
-    "tpm": 1000000,
-    "deprecated": false
-  },
-  {
-    "provider_id": "google_gemini",
-    "model_id": "gemini-1.5-pro",
-    "context_window": 2000000,
-    "modalities": ["text", "image", "code", "audio"],
-    "rpm": 1000,
-    "rpd": null,
-    "tpm": 32000,
-    "deprecated": false
-  },
-  {
-    "provider_id": "github_models",
-    "model_id": "gpt-4o",
-    "context_window": 128000,
+    "provider_id": "mistral",
+    "model_id": "mistral-large-2512",
+    "context_window": 256000,
     "modalities": ["text", "image"],
     "rpm": null,
     "rpd": null,
@@ -80,20 +60,40 @@
     "deprecated": false
   },
   {
-    "provider_id": "github_models",
-    "model_id": "Phi-4",
-    "context_window": 16000,
-    "modalities": ["text"],
+    "provider_id": "mistral",
+    "model_id": "mistral-small-2603",
+    "context_window": 256000,
+    "modalities": ["text", "code"],
     "rpm": null,
     "rpd": null,
     "tpm": null,
     "deprecated": false
   },
   {
-    "provider_id": "github_models",
-    "model_id": "Llama-3.1-70b-Instruct",
-    "context_window": 131072,
-    "modalities": ["text"],
+    "provider_id": "google_gemini",
+    "model_id": "gemini-3.8-flash",
+    "context_window": 1048576,
+    "modalities": ["text", "image", "audio", "video", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "google_gemini",
+    "model_id": "gemini-3.7-flash",
+    "context_window": 1048576,
+    "modalities": ["text", "image", "audio", "video", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "google_gemini",
+    "model_id": "gemini-3.5-flash-lite",
+    "context_window": 1048576,
+    "modalities": ["text", "image", "audio", "video", "code"],
     "rpm": null,
     "rpd": null,
     "tpm": null,
@@ -101,27 +101,67 @@
   },
   {
     "provider_id": "cerebras",
-    "model_id": "llama-3.1-70b",
-    "context_window": 131072,
-    "modalities": ["text"],
-    "rpm": null,
+    "model_id": "gpt-oss-120b",
+    "context_window": 65000,
+    "modalities": ["text", "code"],
+    "rpm": 5,
     "rpd": null,
-    "tpm": null,
+    "tpm": 30000,
     "deprecated": false
   },
   {
     "provider_id": "cerebras",
-    "model_id": "llama-3.2-90b",
-    "context_window": 131072,
+    "model_id": "qwen-3.8-27b",
+    "context_window": 64000,
+    "modalities": ["text", "image"],
+    "rpm": 5,
+    "rpd": null,
+    "tpm": 30000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cohere",
+    "model_id": "command-a-03-2025",
+    "context_window": 256000,
     "modalities": ["text"],
-    "rpm": null,
+    "rpm": 20,
     "rpd": null,
     "tpm": null,
     "deprecated": false
   },
   {
     "provider_id": "cohere",
-    "model_id": "command-r-plus",
+    "model_id": "command-a-plus-05-2026",
+    "context_window": 128000,
+    "modalities": ["text", "image"],
+    "rpm": 20,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cohere",
+    "model_id": "command-a-reasoning-08-2025",
+    "context_window": 256000,
+    "modalities": ["text"],
+    "rpm": 20,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cohere",
+    "model_id": "command-a-vision-07-2025",
+    "context_window": 128000,
+    "modalities": ["text", "image"],
+    "rpm": 20,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cohere",
+    "model_id": "command-r-plus-08-2024",
     "context_window": 128000,
     "modalities": ["text"],
     "rpm": 20,
@@ -130,18 +170,88 @@
     "deprecated": false
   },
   {
+    "provider_id": "openrouter",
+    "model_id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "context_window": 1000000,
+    "modalities": ["text"],
+    "rpm": 20,
+    "rpd": 50,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "nvidia/nemotron-3-super-120b-a12b:free",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": 20,
+    "rpd": 50,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "qwen/qwen3.8-27b:free",
+    "context_window": 262144,
+    "modalities": ["text", "image", "video"],
+    "rpm": 20,
+    "rpd": 50,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "google/gemma-4-31b-it:free",
+    "context_window": 262144,
+    "modalities": ["text", "image", "video"],
+    "rpm": 20,
+    "rpd": 50,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "thinkingmachines/inkling:free",
+    "context_window": 1048576,
+    "modalities": ["text", "image", "audio"],
+    "rpm": 20,
+    "rpd": 50,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "poolside/laguna-s-2.1:free",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": 20,
+    "rpd": 50,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "cohere/north-mini-code:free",
+    "context_window": 256000,
+    "modalities": ["text", "code"],
+    "rpm": 20,
+    "rpd": 50,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "openrouter",
+    "model_id": "dots-studio/dots-3-note-preview:free",
+    "context_window": 512000,
+    "modalities": ["text", "image"],
+    "rpm": 20,
+    "rpd": 50,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
     "provider_id": "huggingface",
-    "model_id": "mistralai/Mistral-7B-Instruct-v0.2",
-    "context_window": 32768,
-    "modalities": ["text"],
-    "rpm": null,
-    "rpd": null,
-    "tpm": null,
-    "deprecated": false
-  },
-  {
-    "provider_id": "together_ai",
-    "model_id": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+    "model_id": "openai/gpt-oss-120b",
     "context_window": 131072,
     "modalities": ["text"],
     "rpm": null,
@@ -150,9 +260,9 @@
     "deprecated": false
   },
   {
-    "provider_id": "fireworks",
-    "model_id": "accounts/fireworks/models/llama-v2-70b-chat",
-    "context_window": 4096,
+    "provider_id": "huggingface",
+    "model_id": "deepseek-ai/DeepSeek-V4-Flash",
+    "context_window": 1048576,
     "modalities": ["text"],
     "rpm": null,
     "rpd": null,
@@ -160,9 +270,49 @@
     "deprecated": false
   },
   {
-    "provider_id": "deepseek",
-    "model_id": "deepseek-chat",
-    "context_window": 4000,
+    "provider_id": "huggingface",
+    "model_id": "Qwen/Qwen3.8-27B",
+    "context_window": 262144,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "huggingface",
+    "model_id": "google/gemma-4-31B-it",
+    "context_window": 262144,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "huggingface",
+    "model_id": "moonshotai/Kimi-K2.6",
+    "context_window": 262144,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "huggingface",
+    "model_id": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+    "context_window": 131072,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "nvidia_nim",
+    "model_id": "deepseek-ai/deepseek-v4.1-flash",
+    "context_window": 1048576,
     "modalities": ["text"],
     "rpm": null,
     "rpd": null,
@@ -170,19 +320,239 @@
     "deprecated": false
   },
   {
-    "provider_id": "openrouter",
-    "model_id": "meta-llama/llama-3.1-70b-instruct:free",
+    "provider_id": "nvidia_nim",
+    "model_id": "moonshotai/kimi-k3",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "nvidia_nim",
+    "model_id": "nvidia/nemotron-3-super-120b-a12b",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "nvidia_nim",
+    "model_id": "openai/gpt-oss-20b",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "nvidia_nim",
+    "model_id": "google/gemma-4-31b-it",
+    "context_window": 262144,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cloudflare",
+    "model_id": "@cf/openai/gpt-oss-120b",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cloudflare",
+    "model_id": "@cf/meta/llama-4-scout-17b-16e-instruct",
+    "context_window": 131000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cloudflare",
+    "model_id": "@cf/qwen/qwen3.8-27b",
+    "context_window": 262144,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cloudflare",
+    "model_id": "@cf/google/gemma-4-26b-a4b-it",
+    "context_window": 256000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cloudflare",
+    "model_id": "@cf/moonshotai/kimi-k2.6",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cloudflare",
+    "model_id": "@cf/zai-org/glm-5.3-flash",
+    "context_window": 1310720,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cloudflare",
+    "model_id": "@cf/deepseek-ai/deepseek-v4-pro-0813",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "cloudflare",
+    "model_id": "@cf/nvidia/nemotron-3-120b-a12b",
+    "context_window": 256000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "sambanova",
+    "model_id": "DeepSeek-V3.1",
     "context_window": 131072,
     "modalities": ["text"],
-    "rpm": null,
+    "rpm": 20,
+    "rpd": 20,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "sambanova",
+    "model_id": "DeepSeek-V3.2",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": 20,
+    "rpd": 20,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "sambanova",
+    "model_id": "Meta-Llama-3.3-70B-Instruct",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": 20,
+    "rpd": 20,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "sambanova",
+    "model_id": "gpt-oss-120b",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": 20,
+    "rpd": 20,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "sambanova",
+    "model_id": "gemma-4-31B-it",
+    "context_window": 131072,
+    "modalities": ["text", "image", "video"],
+    "rpm": 20,
+    "rpd": 20,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "llm7",
+    "model_id": "DeepSeek-V4-Flash-0731",
+    "context_window": 400000,
+    "modalities": ["text"],
+    "rpm": 40,
     "rpd": null,
     "tpm": null,
     "deprecated": false
   },
   {
-    "provider_id": "openrouter",
-    "model_id": "mistralai/mistral-7b-instruct:free",
-    "context_window": 32768,
+    "provider_id": "llm7",
+    "model_id": "minimax-m2.7",
+    "context_window": 180000,
+    "modalities": ["text"],
+    "rpm": 40,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "llm7",
+    "model_id": "mistral-Nemo-Instruct-2407",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": 40,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "llm7",
+    "model_id": "codestral-latest",
+    "context_window": 32000,
+    "modalities": ["text", "code"],
+    "rpm": 40,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "xai",
+    "model_id": "grok-4.7",
+    "context_window": 500000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": 50000000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "xai",
+    "model_id": "grok-4.3",
+    "context_window": 1000000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": 10000000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "xai",
+    "model_id": "grok-4.20-0309-reasoning",
+    "context_window": 1000000,
     "modalities": ["text"],
     "rpm": null,
     "rpd": null,
@@ -191,7 +561,427 @@
   },
   {
     "provider_id": "xai",
-    "model_id": "grok-2",
+    "model_id": "grok-4.20-0309-non-reasoning",
+    "context_window": 1000000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "xai",
+    "model_id": "grok-build-0.1",
+    "context_window": 256000,
+    "modalities": ["text", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ai21",
+    "model_id": "jamba-large",
+    "context_window": 256000,
+    "modalities": ["text"],
+    "rpm": 200,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ai21",
+    "model_id": "jamba-mini",
+    "context_window": 256000,
+    "modalities": ["text"],
+    "rpm": 200,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "deepseek",
+    "model_id": "deepseek-flash",
+    "context_window": 1000000,
+    "modalities": ["text", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "deepseek",
+    "model_id": "deepseek-v4-pro",
+    "context_window": 1000000,
+    "modalities": ["text", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "fireworks",
+    "model_id": "accounts/fireworks/models/kimi-k3",
+    "context_window": 1048576,
+    "modalities": ["text", "image", "video", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "fireworks",
+    "model_id": "accounts/fireworks/models/glm-5p3",
+    "context_window": 1040000,
+    "modalities": ["text", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "fireworks",
+    "model_id": "accounts/fireworks/models/gpt-oss-120b",
+    "context_window": 131072,
+    "modalities": ["text", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "nebius",
+    "model_id": "openai/gpt-oss-120b",
+    "context_window": 131072,
+    "modalities": ["text", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "nebius",
+    "model_id": "openai/gpt-oss-20b",
+    "context_window": 131072,
+    "modalities": ["text", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "novita_ai",
+    "model_id": "inclusionai/ling-3.1-flash",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "novita_ai",
+    "model_id": "inclusionai/ling-3.0-flash-sante",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "novita_ai",
+    "model_id": "deepseek/deepseek-v4.1-flash",
+    "context_window": 1048576,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "novita_ai",
+    "model_id": "zai-org/glm-5.3",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "novita_ai",
+    "model_id": "qwen/qwen3.8-flash",
+    "context_window": 1000000,
+    "modalities": ["text", "image", "video"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "siliconflow",
+    "model_id": "Qwen/Qwen3.6-35B-A3B",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": 1000,
+    "rpd": null,
+    "tpm": 40000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "siliconflow",
+    "model_id": "deepseek-ai/DeepSeek-V4-Flash",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": 1000,
+    "rpd": null,
+    "tpm": 40000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "vercel_ai_gateway",
+    "model_id": "poolside/laguna-s-2.1-free",
+    "context_window": 256000,
+    "modalities": ["text", "code"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "vercel_ai_gateway",
+    "model_id": "inclusionai/ling-3.0-flash-sante",
+    "context_window": 256000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "vercel_ai_gateway",
+    "model_id": "stealth/pixel-canary",
+    "context_window": 262144,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baseten",
+    "model_id": "zai-org/GLM-5.3",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": 15,
+    "rpd": null,
+    "tpm": 100000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baseten",
+    "model_id": "zai-org/GLM-5.3-Fast",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": 15,
+    "rpd": null,
+    "tpm": 100000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baseten",
+    "model_id": "moonshotai/Kimi-K3",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": 15,
+    "rpd": null,
+    "tpm": 100000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baseten",
+    "model_id": "deepseek-ai/DeepSeek-V4-Pro-0813",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": 15,
+    "rpd": null,
+    "tpm": 100000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baseten",
+    "model_id": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B",
+    "context_window": 202000,
+    "modalities": ["text"],
+    "rpm": 15,
+    "rpd": null,
+    "tpm": 100000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "sarvam_ai",
+    "model_id": "sarvam-105b",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": 40,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "sarvam_ai",
+    "model_id": "sarvam-105b-conversations",
+    "context_window": 32000,
+    "modalities": ["text"],
+    "rpm": 40,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "alibaba_dashscope",
+    "model_id": "qwen3.8-max",
+    "context_window": 1000000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "alibaba_dashscope",
+    "model_id": "qwen3.7-plus",
+    "context_window": 1000000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "alibaba_dashscope",
+    "model_id": "qwen3.8-flash",
+    "context_window": 1000000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "alibaba_model_studio",
+    "model_id": "qwen3.8-max",
+    "context_window": 1000000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "alibaba_model_studio",
+    "model_id": "qwen3.7-plus",
+    "context_window": 1000000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "alibaba_model_studio",
+    "model_id": "qwen3.8-flash",
+    "context_window": 1000000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "siliconflow_cn",
+    "model_id": "XingChenAGI/Xing4.0-29B",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "zhipu_ai",
+    "model_id": "glm-4.7-flash",
+    "context_window": 200000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "zhipu_ai",
+    "model_id": "glm-4-flash-250414",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "zhipu_ai",
+    "model_id": "glm-z1-flash",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "zhipu_ai",
+    "model_id": "glm-4.1v-thinking-flash",
+    "context_window": 64000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "tencent_hunyuan",
+    "model_id": "hunyuan-a13b",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "tencent_hunyuan",
+    "model_id": "hunyuan-role-latest",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "tencent_hunyuan",
+    "model_id": "hunyuan-translation",
+    "context_window": 8192,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baidu_ernie",
+    "model_id": "ernie-4.5-turbo-128k",
     "context_window": 131072,
     "modalities": ["text"],
     "rpm": null,
@@ -200,11 +990,501 @@
     "deprecated": false
   },
   {
-    "provider_id": "hyperbolic",
-    "model_id": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+    "provider_id": "baidu_ernie",
+    "model_id": "ernie-4.5-turbo-32k",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baidu_ernie",
+    "model_id": "ernie-x1-turbo-32k",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "sensenova",
+    "model_id": "sensenova-6.8-flash-lite",
+    "context_window": null,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "stepfun",
+    "model_id": "step-3.7-flash",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "modelscope",
+    "model_id": "ZhipuAI/GLM-5.2",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "modelscope",
+    "model_id": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "context_window": 1048576,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "modelscope",
+    "model_id": "Qwen/Qwen3.5-397B-A17B",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "modelscope",
+    "model_id": "MiniMax/MiniMax-M3",
+    "context_window": 1000000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "modelscope",
+    "model_id": "ZhipuAI/GLM-4.7-Flash",
+    "context_window": 200000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "iflytek_spark",
+    "model_id": "lite",
+    "context_window": 8192,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baichuan",
+    "model_id": "Baichuan4-Turbo",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baichuan",
+    "model_id": "Baichuan4-Air",
+    "context_window": 32768,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "baichuan",
+    "model_id": "Baichuan3-Turbo-128k",
     "context_window": 131072,
     "modalities": ["text"],
     "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "naver_hyperclova",
+    "model_id": "HCX-007",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "naver_hyperclova",
+    "model_id": "HCX-005",
+    "context_window": 128000,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "naver_hyperclova",
+    "model_id": "HCX-DASH-002",
+    "context_window": 32000,
+    "modalities": ["text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "upstage_ai",
+    "model_id": "solar-pro4",
+    "context_window": 524288,
+    "modalities": ["text"],
+    "rpm": 100,
+    "rpd": null,
+    "tpm": 250000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "upstage_ai",
+    "model_id": "solar-mini4",
+    "context_window": 524288,
+    "modalities": ["text"],
+    "rpm": 100,
+    "rpd": null,
+    "tpm": 250000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "upstage_ai",
+    "model_id": "solar-embedding-2-query",
+    "context_window": 8192,
+    "modalities": ["embedding"],
+    "rpm": 100,
+    "rpd": null,
+    "tpm": 300000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "upstage_ai",
+    "model_id": "solar-embedding-2-passage",
+    "context_window": 8192,
+    "modalities": ["embedding"],
+    "rpm": 100,
+    "rpd": null,
+    "tpm": 300000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "scaleway_ai",
+    "model_id": "glm-5.2",
+    "context_window": 256000,
+    "modalities": ["text"],
+    "rpm": 300,
+    "rpd": null,
+    "tpm": 200000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "scaleway_ai",
+    "model_id": "qwen3.5-397b-a17b",
+    "context_window": 250000,
+    "modalities": ["text", "image"],
+    "rpm": 300,
+    "rpd": null,
+    "tpm": 200000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "scaleway_ai",
+    "model_id": "mistral-medium-3.5-128b",
+    "context_window": 180000,
+    "modalities": ["text", "image"],
+    "rpm": 300,
+    "rpd": null,
+    "tpm": 200000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "scaleway_ai",
+    "model_id": "gpt-oss-120b",
+    "context_window": 128000,
+    "modalities": ["text"],
+    "rpm": 300,
+    "rpd": null,
+    "tpm": 200000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "scaleway_ai",
+    "model_id": "llama-3.3-70b-instruct",
+    "context_window": 100000,
+    "modalities": ["text"],
+    "rpm": 300,
+    "rpd": null,
+    "tpm": 200000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "scaleway_ai",
+    "model_id": "mistral-small-3.2-24b-instruct-2506",
+    "context_window": 128000,
+    "modalities": ["text", "image"],
+    "rpm": 300,
+    "rpd": null,
+    "tpm": 200000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "scaleway_ai",
+    "model_id": "gemma-4-26b-a4b-it",
+    "context_window": 256000,
+    "modalities": ["text", "image"],
+    "rpm": 300,
+    "rpd": null,
+    "tpm": 200000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "scaleway_ai",
+    "model_id": "qwen3-embedding-8b",
+    "context_window": 32000,
+    "modalities": ["embedding"],
+    "rpm": 300,
+    "rpd": null,
+    "tpm": 200000,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ovhcloud_ai",
+    "model_id": "Qwen3.5-397B-A17B",
+    "context_window": 262144,
+    "modalities": ["text", "image"],
+    "rpm": 2,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ovhcloud_ai",
+    "model_id": "gpt-oss-120b",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": 2,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ovhcloud_ai",
+    "model_id": "Meta-Llama-3_3-70B-Instruct",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": 2,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ovhcloud_ai",
+    "model_id": "Mistral-Small-3.2-24B-Instruct-2506",
+    "context_window": 131072,
+    "modalities": ["text", "image"],
+    "rpm": 2,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ovhcloud_ai",
+    "model_id": "Qwen3-Coder-30B-A3B-Instruct",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": 2,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ovhcloud_ai",
+    "model_id": "Qwen3.8-27B",
+    "context_window": 262144,
+    "modalities": ["text", "image"],
+    "rpm": 2,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ovhcloud_ai",
+    "model_id": "Qwen2.5-VL-72B-Instruct",
+    "context_window": 32768,
+    "modalities": ["text", "image"],
+    "rpm": 2,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ovhcloud_ai",
+    "model_id": "bge-m3",
+    "context_window": 8192,
+    "modalities": ["embedding"],
+    "rpm": 2,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "elevenlabs",
+    "model_id": "eleven_v4",
+    "context_window": null,
+    "modalities": ["text", "audio"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "elevenlabs",
+    "model_id": "eleven_v4_turbo",
+    "context_window": null,
+    "modalities": ["text", "audio"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "elevenlabs",
+    "model_id": "eleven_v3",
+    "context_window": null,
+    "modalities": ["text", "audio"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "elevenlabs",
+    "model_id": "eleven_multilingual_v2",
+    "context_window": null,
+    "modalities": ["text", "audio"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "elevenlabs",
+    "model_id": "eleven_flash_v2_5",
+    "context_window": null,
+    "modalities": ["text", "audio"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "elevenlabs",
+    "model_id": "scribe_v2",
+    "context_window": null,
+    "modalities": ["audio", "text"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "stability_ai",
+    "model_id": "sd3.5-large",
+    "context_window": null,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "stability_ai",
+    "model_id": "sd3.5-large-turbo",
+    "context_window": null,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "stability_ai",
+    "model_id": "sd3.5-medium",
+    "context_window": null,
+    "modalities": ["text", "image"],
+    "rpm": null,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ai_singapore",
+    "model_id": "aisingapore/Qwen-SEA-LION-v4.5-27B-IT",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": 10,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ai_singapore",
+    "model_id": "aisingapore/Llama-SEA-LION-v3.5-70B-R",
+    "context_window": 131072,
+    "modalities": ["text"],
+    "rpm": 10,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ai_singapore",
+    "model_id": "aisingapore/SEA-Guard",
+    "context_window": null,
+    "modalities": ["text"],
+    "rpm": 10,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "ai_singapore",
+    "model_id": "aisingapore/SEA-LION-ModernBERT-Embedding-600M",
+    "context_window": 8192,
+    "modalities": ["embedding"],
+    "rpm": 10,
+    "rpd": null,
+    "tpm": null,
+    "deprecated": false
+  },
+  {
+    "provider_id": "preferred_networks",
+    "model_id": "plamo-3.0-prime",
+    "context_window": 262144,
+    "modalities": ["text"],
+    "rpm": 100,
     "rpd": null,
     "tpm": null,
     "deprecated": false
