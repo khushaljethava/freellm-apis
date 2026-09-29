@@ -4,6 +4,7 @@ import providers from '../../../../data/providers.json';
 import models from '../../../../data/models.json';
 import { localeOf, localePath } from '../../i18n/config';
 import { translatedPaths, useTranslations, TRANSLATED_LOCALES } from '../../i18n/ui';
+import { SITE_LAST_MODIFIED } from '../../lib/seo.mjs';
 
 export const getStaticPaths = translatedPaths;
 
@@ -13,16 +14,54 @@ const ta = t.about;
 
 const providerCount = providers.length;
 const modelCount = models.filter(m => !m.deprecated).length;
+
+const L = (path: string) => localePath(path, locale);
+const pageUrl = `https://www.freellm.site${L('/about/')}`;
+
+// Who stands behind the claims — the E-E-A-T signal the page already makes in prose,
+// stated in a form a machine can read.
+const MAINTAINER = {
+  '@type': 'Person',
+  '@id': 'https://www.freellm.site/#maintainer',
+  name: 'Khushal Jethava',
+  url: 'https://github.com/khushaljethava',
+  sameAs: ['https://github.com/khushaljethava'],
+};
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'AboutPage',
+      name: ta.h1,
+      description: ta.description,
+      url: pageUrl,
+      inLanguage: locale,
+      dateModified: SITE_LAST_MODIFIED,
+      mainEntity: { '@id': 'https://www.freellm.site/#organization' },
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.freellm.site/#organization',
+      name: 'freellm.site',
+      url: 'https://www.freellm.site/',
+      logo: 'https://www.freellm.site/logo.png',
+      founder: MAINTAINER,
+      sameAs: ['https://github.com/khushaljethava/freellm-apis'],
+    },
+    MAINTAINER,
+  ],
+};
 ---
 <Base
   locale={locale}
   altLocales={TRANSLATED_LOCALES}
   title={ta.title}
   description={ta.description}
+  schema={schema}
 >
-  <article class="legal-page">
+  <article class="prose mx-auto max-w-3xl py-4 dark:prose-invert prose-headings:tracking-tight prose-a:text-primary">
     <h1>{ta.h1}</h1>
-    <p class="legal-lead">{ta.lead}</p>
+    <p class="lead">{ta.lead}</p>
 
     <h2>{ta.whatTitle}</h2>
     <p>{ta.what(providerCount, modelCount)}</p>

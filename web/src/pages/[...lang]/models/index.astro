@@ -5,6 +5,9 @@ import AdSlot from '../../../components/AdSlot.astro';
 import models from '../../../../../data/models.json';
 import { localeOf, localePath } from '../../../i18n/config';
 import { translatedPaths, useTranslations, TRANSLATED_LOCALES } from '../../../i18n/ui';
+import { DATA_LAST_VERIFIED } from '../../../lib/seo.mjs';
+import Badge from '../../../components/ui/Badge.astro';
+import { fmtCtx } from '../../../lib/format';
 
 export const getStaticPaths = translatedPaths;
 
@@ -15,70 +18,135 @@ const activeModels = models.filter(m => !m.deprecated);
 const providerMap = Object.fromEntries(providers.map(p => [p.id, p]));
 const providerIds = [...new Set(activeModels.map(m => m.provider_id))].sort();
 const allModalities = [...new Set(activeModels.flatMap(m => m.modalities))].sort();
-const fmtCtx = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
+// Grouped by provider, one H2 each: a flat 21-row table gives search engines no structure.
+const groups = providerIds
+  .map(id => ({ id, name: providerMap[id]?.name ?? id, models: activeModels.filter(m => m.provider_id === id) }))
+  .sort((a, b) => b.models.length - a.models.length || a.name.localeCompare(b.name));
+
+const L = (path: string) => localePath(path, locale);
+const providerNameOf = (id: string) => providerMap[id]?.name ?? id;
+const pageUrl = `https://www.freellm.site${L('/models/')}`;
+
+// A 21-row table with no structured data is a listing Google has to infer. Say what it is.
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: t.provider.home, item: `https://www.freellm.site${L('/')}` },
+        { '@type': 'ListItem', position: 2, name: t.modelsIndex.h1, item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'ItemList',
+      name: t.modelsIndex.h1,
+      inLanguage: locale,
+      url: pageUrl,
+      numberOfItems: activeModels.length,
+      itemListOrder: 'https://schema.org/ItemListUnordered',
+      itemListElement: activeModels.map((m, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'SoftwareApplication',
+          name: m.model_id,
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Any',
+          url: `https://www.freellm.site${L(`/providers/${m.provider_id}/`)}`,
+          provider: { '@type': 'Organization', name: providerNameOf(m.provider_id) },
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        },
+      })),
+    },
+    {
+      '@type': 'Dataset',
+      name: t.modelsIndex.h1,
+      description: t.modelsIndex.description(activeModels.length, providers.length),
+      url: pageUrl,
+      inLanguage: locale,
+      dateModified: DATA_LAST_VERIFIED,
+      isAccessibleForFree: true,
+      license: 'https://github.com/khushaljethava/freellm-apis/blob/main/LICENSE',
+      creator: { '@type': 'Organization', name: 'freellm.site', url: 'https://www.freellm.site/' },
+    },
+  ],
+};
 ---
 <Base
   locale={locale}
   altLocales={TRANSLATED_LOCALES}
   title={t.modelsIndex.title(activeModels.length, providers.length)}
   description={t.modelsIndex.description(activeModels.length, providers.length)}
+  schema={schema}
 >
-  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:0.5rem">{t.modelsIndex.h1}</h1>
-  <p style="color:#555;margin-bottom:1.5rem">{t.modelsIndex.lede(activeModels.length, providers.length)}</p>
+  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">
+    <ol class="flex items-center gap-1.5">
+      <li><a class="text-muted-foreground hover:text-foreground" href={L('/')}>{t.provider.home}</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-foreground">{t.modelsIndex.h1}</li>
+    </ol>
+  </nav>
+
+  <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{t.modelsIndex.h1}</h1>
+  <p class="mt-3 text-lg text-muted-foreground">{t.modelsIndex.lede(activeModels.length, providers.length)} · <time datetime={DATA_LAST_VERIFIED}>{DATA_LAST_VERIFIED}</time></p>
 
   <AdSlot variant="top" />
 
-  <div class="filter-bar">
-    <select id="filter-provider" style="padding:0.4rem 0.75rem;border:1px solid #ddd;border-radius:20px;font-size:0.875rem;background:#fff;cursor:pointer">
-      <option value="">{t.modelsIndex.allProviders}</option>
-      {providerIds.map(id => (
-        <option value={id}>{providerMap[id]?.name ?? id}</option>
-      ))}
-    </select>
-    <select id="filter-modality" style="padding:0.4rem 0.75rem;border:1px solid #ddd;border-radius:20px;font-size:0.875rem;background:#fff;cursor:pointer">
+  <div class="mb-2 flex flex-wrap items-center gap-2 border-b pb-4">
+    <label class="sr-only" for="filter-modality">{t.modelsIndex.modalities}</label>
+    <select id="filter-modality" class="h-8 cursor-pointer rounded-md border bg-background px-2.5 text-sm">
       <option value="">{t.modelsIndex.allModalities}</option>
       {allModalities.map(m => <option value={m}>{m}</option>)}
     </select>
+    <nav aria-label={t.common.provider} class="flex flex-wrap gap-1.5">
+      {groups.map(g => <a href={`#${g.id}`} class="rounded-full border px-2.5 py-0.5 text-xs text-muted-foreground no-underline hover:bg-accent hover:text-accent-foreground hover:no-underline">{g.name}</a>)}
+    </nav>
   </div>
 
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>{t.modelsIndex.modelId}</th><th>{t.common.provider}</th><th>{t.modelsIndex.context}</th><th>{t.modelsIndex.modalities}</th><th>RPM</th><th>RPD</th></tr>
-      </thead>
-      <tbody id="models-tbody">
-        {activeModels.map(m => (
-          <tr data-provider={m.provider_id} data-modalities={m.modalities.join(',')}>
-            <td><code>{m.model_id}</code></td>
-            <td><a href={`/providers/${m.provider_id}/`}>{providerMap[m.provider_id]?.name ?? m.provider_id}</a></td>
-            <td>{fmtCtx(m.context_window)}</td>
-            <td>{m.modalities.join(', ')}</td>
-            <td>{m.rpm ?? '—'}</td>
-            <td>{m.rpd ?? '—'}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  {groups.map(g => (
+    <section id={g.id} class="model-group scroll-mt-20">
+      <h2 class="section-title">
+        <a class="text-foreground hover:text-primary" href={L(`/providers/${g.id}/`)}>{t.provider.h1(g.name)}</a>
+        <span class="ms-2 text-sm font-normal text-muted-foreground tabular-nums">{g.models.length}</span>
+      </h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">{t.modelsIndex.modelId}</th><th scope="col">{t.modelsIndex.context}</th><th scope="col">{t.modelsIndex.modalities}</th><th scope="col">RPM</th><th scope="col">RPD</th></tr>
+          </thead>
+          <tbody>
+            {g.models.map(m => (
+              <tr data-modalities={m.modalities.join(',')}>
+                <td><code class="font-mono text-xs">{m.model_id}</code></td>
+                <td class="tabular-nums">{fmtCtx(m.context_window)}</td>
+                <td><div class="flex flex-wrap gap-1">{m.modalities.map(x => <Badge>{x}</Badge>)}</div></td>
+                <td class="tabular-nums">{m.rpm ?? '—'}</td>
+                <td class="tabular-nums">{m.rpd ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))}
 
   <AdSlot variant="bottom" />
 </Base>
 
 <script>
-  const provSel = document.getElementById('filter-provider');
-  const modSel = document.getElementById('filter-modality');
-
-  function applyFilters() {
-    const prov = (provSel as HTMLSelectElement).value;
-    const mod = (modSel as HTMLSelectElement).value;
-    document.querySelectorAll('#models-tbody tr').forEach(row => {
-      const r = row as HTMLTableRowElement;
-      const matchProv = !prov || r.dataset.provider === prov;
-      const matchMod = !mod || (r.dataset.modalities || '').split(',').includes(mod);
-      r.classList.toggle('hidden', !(matchProv && matchMod));
+  // Hide rows that don't match, and whole provider sections left empty.
+  const modSel = document.getElementById('filter-modality') as HTMLSelectElement | null;
+  modSel?.addEventListener('change', () => {
+    const mod = modSel.value;
+    document.querySelectorAll<HTMLElement>('.model-group').forEach(sec => {
+      let any = false;
+      sec.querySelectorAll<HTMLTableRowElement>('tbody tr').forEach(r => {
+        const show = !mod || (r.dataset.modalities || '').split(',').includes(mod);
+        r.classList.toggle('hidden', !show);
+        any ||= show;
+      });
+      sec.hidden = !any;
     });
-  }
-
-  provSel?.addEventListener('change', applyFilters);
-  modSel?.addEventListener('change', applyFilters);
+  });
 </script>

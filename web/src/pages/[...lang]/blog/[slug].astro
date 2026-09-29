@@ -4,6 +4,8 @@ import AdSlot from '../../../components/AdSlot.astro';
 import { localePath } from '../../../i18n/config';
 import { useTranslations } from '../../../i18n/ui';
 import { postPaths, postsFor, localesForPost } from '../../../i18n/posts';
+import { renderPost } from '../../../lib/markdown';
+import Badge from '../../../components/ui/Badge.astro';
 
 export const getStaticPaths = postPaths;
 
@@ -15,35 +17,7 @@ const posts = postsFor(locale);
 // hreflang for this post covers only the languages it was actually translated into.
 const altLocales = localesForPost(post.slug);
 
-function renderContent(text: string): string {
-  return text
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
-    // Mark the header/body separator so we can promote the header row to <th>.
-    .replace(/^\| *-+ *\|.*$/gm, '__THEAD__')
-    .replace(/^\|(.+)\|$/gm, (line) => {
-      const cells = line.split('|').filter(c => c.trim());
-      return '<tr>' + cells.map(c => `<td>${c.trim()}</td>`).join('') + '</tr>';
-    })
-    // Group a header row + __THEAD__ separator + one-or-more body rows into ONE table.
-    .replace(/(<tr>.*?<\/tr>)\s*__THEAD__\s*((?:<tr>.*?<\/tr>\s*)+)/g, (_m, head, body) => {
-      const thead = '<thead>' + head.replace(/<td>/g, '<th>').replace(/<\/td>/g, '</th>') + '</thead>';
-      return `<table class="prose-table">${thead}<tbody>${body.trim()}</tbody></table>`;
-    })
-    .replace(/__THEAD__/g, '')
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    // Group consecutive <li> lines into a single <ul> (was: one <ul> per item).
-    .replace(/(?:^<li>.*<\/li>\n?)+/gm, (m) => `<ul>${m.replace(/\n/g, '')}</ul>`)
-    .replace(/\n\n(?!<)/g, '</p><p>')
-    .replace(/^(?!<)(.)/m, '<p>$1')
-    + '</p>';
-}
-
-const htmlContent = renderContent(post.content);
+const { html: htmlContent, headings } = await renderPost(post.content, locale);
 
 const modified = post.lastUpdated ?? post.date;
 const blogPosting = {
@@ -52,8 +26,21 @@ const blogPosting = {
   description: post.description,
   datePublished: post.date,
   dateModified: modified,
-  author: { '@type': 'Organization', name: post.author, url: 'https://www.freellm.site/' },
-  publisher: { '@type': 'Organization', name: 'freellm.site', url: 'https://www.freellm.site/' },
+  // A named person is the E-E-A-T signal; an org byline is not.
+  author: {
+    '@type': 'Person',
+    '@id': 'https://www.freellm.site/#maintainer',
+    name: 'Khushal Jethava',
+    url: 'https://github.com/khushaljethava',
+  },
+  publisher: {
+    '@type': 'Organization',
+    '@id': 'https://www.freellm.site/#organization',
+    name: 'freellm.site',
+    url: 'https://www.freellm.site/',
+    logo: 'https://www.freellm.site/logo.png',
+  },
+  image: 'https://www.freellm.site/og-default.png',
   keywords: post.tags.join(', '),
   inLanguage: locale,
   mainEntityOfPage: {
@@ -90,154 +77,77 @@ const related = posts
   ogType="article"
   schema={schema}
 >
-  <article class="post">
-    <div class="post-header">
-      <div class="post-meta">
-        <a href={L('/blog/')} class="back-link">← {t.nav.blog}</a>
-        <time datetime={post.date}>{post.date}</time>
-      </div>
-      <h1>{post.title}</h1>
-      <p class="post-description">{post.description}</p>
-      <div class="post-tags">
-        {post.tags.map(tag => <span class="tag">{tag}</span>)}
-      </div>
-    </div>
-    <AdSlot variant="top" />
-    <div class="post-body" set:html={htmlContent} />
-    {post.faq?.length > 0 && (
-      <section class="faq">
-        <h2>Frequently asked questions</h2>
-        {post.faq.map((f) => (
-          <div class="faq-item">
-            <h3>{f.q}</h3>
-            <p>{f.a}</p>
+  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">
+    <ol class="flex items-center gap-1.5">
+      <li><a class="text-muted-foreground hover:text-foreground" href={L('/')}>{t.provider.home}</a></li>
+      <li aria-hidden="true">/</li>
+      <li><a class="text-muted-foreground hover:text-foreground" href={L('/blog/')}>{t.nav.blog}</a></li>
+    </ol>
+  </nav>
+
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_14rem]">
+    <article class="min-w-0">
+      <header class="mb-8 border-b pb-8">
+        <h1 class="text-3xl font-bold tracking-tight text-balance sm:text-4xl">{post.title}</h1>
+        <p class="mt-4 text-lg text-muted-foreground">{post.description}</p>
+        <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+          <span>By <a href="https://github.com/khushaljethava" rel="author">Khushal Jethava</a></span>
+          <time datetime={post.date}>{post.date}</time>
+          {modified !== post.date && <span>{t.post.updated} <time datetime={modified}>{modified}</time></span>}
+          <div class="flex flex-wrap gap-1.5">{post.tags.map(tag => <Badge>{tag}</Badge>)}</div>
+        </div>
+      </header>
+
+      <AdSlot variant="top" />
+
+      <div class="prose max-w-none dark:prose-invert prose-headings:scroll-mt-20 prose-headings:tracking-tight prose-a:text-primary prose-code:before:content-none prose-code:after:content-none prose-pre:border prose-table:text-sm" set:html={htmlContent} />
+
+      {post.faq?.length > 0 && (
+        <section class="mt-12">
+          <h2 class="mb-4 text-2xl font-semibold tracking-tight">{t.post.faqTitle}</h2>
+          <div class="divide-y rounded-lg border bg-card">
+            {post.faq.map((f) => (
+              <details class="group px-4">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium [&::-webkit-details-marker]:hidden">
+                  <h3 class="text-base">{f.q}</h3>
+                  <span class="text-muted-foreground transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="pb-4 text-muted-foreground">{f.a}</p>
+              </details>
+            ))}
           </div>
-        ))}
-      </section>
-    )}
-    <AdSlot variant="bottom" />
-    {related.length > 0 && (
-      <aside class="related">
-        <h2>Related guides</h2>
-        <ul>
-          {related.map(r => (
-            <li><a href={L(`/blog/${r.slug}/`)}>{r.title}</a></li>
-          ))}
-        </ul>
+        </section>
+      )}
+
+      <AdSlot variant="bottom" />
+
+      {related.length > 0 && (
+        <aside class="mt-12 border-t pt-8">
+          <h2 class="mb-4 text-xl font-semibold tracking-tight">{t.post.relatedTitle}</h2>
+          <ul class="link-list">
+            {related.map(r => (
+              <li><a href={L(`/blog/${r.slug}/`)}>{r.title}</a></li>
+            ))}
+          </ul>
+        </aside>
+      )}
+
+      <div class="mt-10 flex flex-wrap items-center justify-between gap-4 border-t pt-6">
+        <a href={L('/blog/')} class="btn btn-outline">{t.post.backToBlog}</a>
+        <a href={L('/')} class="btn btn-primary">{t.post.browseCta}</a>
+      </div>
+    </article>
+
+    {headings.length >= 3 && (
+      <aside class="hidden lg:block">
+        <nav class="sticky top-20 text-sm" aria-label="Table of contents">
+          <ul class="space-y-2 border-s ps-4">
+            {headings.map(h => (
+              <li><a class="text-muted-foreground no-underline hover:text-foreground" href={`#${h.slug}`}>{h.text}</a></li>
+            ))}
+          </ul>
+        </nav>
       </aside>
     )}
-    <div class="post-footer">
-      <a href="/blog/" class="back-link">← Back to Blog</a>
-      <a href="/" class="cta-link">Browse free LLM APIs →</a>
-    </div>
-  </article>
+  </div>
 </Base>
-
-<style>
-  .post {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 2rem 1rem 4rem;
-  }
-  .post-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border, #e5e7eb);
-  }
-  .post-meta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    font-size: 0.85rem;
-    color: var(--text-muted, #6b7280);
-  }
-  .back-link { color: var(--accent, #6366f1); text-decoration: none; font-weight: 500; }
-  .back-link:hover { text-decoration: underline; }
-  .post-header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.3;
-    margin: 0 0 0.75rem;
-  }
-  .post-description {
-    color: var(--text-muted, #6b7280);
-    font-size: 1.05rem;
-    margin: 0 0 1rem;
-    line-height: 1.6;
-  }
-  .post-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-  .tag {
-    font-size: 0.72rem;
-    padding: 0.15rem 0.5rem;
-    background: var(--tag-bg, #f3f4f6);
-    border-radius: 999px;
-    color: var(--text-muted, #6b7280);
-  }
-  .post-body { line-height: 1.75; font-size: 1rem; }
-  .post-body :global(h2) { font-size: 1.4rem; font-weight: 600; margin: 2rem 0 0.75rem; }
-  .post-body :global(h3) { font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
-  .post-body :global(p) { margin: 0 0 1rem; }
-  .post-body :global(ul) { padding-left: 1.5rem; margin: 0 0 1rem; }
-  .post-body :global(li) { margin-bottom: 0.3rem; }
-  .post-body :global(code) {
-    font-family: monospace;
-    font-size: 0.88em;
-    background: var(--code-bg, #f3f4f6);
-    padding: 0.15em 0.35em;
-    border-radius: 4px;
-  }
-  .post-body :global(pre) {
-    background: #1e1e2e;
-    color: #cdd6f4;
-    padding: 1.25rem;
-    border-radius: 8px;
-    overflow-x: auto;
-    margin: 1rem 0;
-  }
-  .post-body :global(pre code) { background: none; padding: 0; font-size: 0.88rem; }
-  .post-body :global(.prose-table) {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
-    font-size: 0.9rem;
-  }
-  .post-body :global(.prose-table td) {
-    border: 1px solid var(--border, #e5e7eb);
-    padding: 0.5rem 0.75rem;
-  }
-  .post-body :global(a) { color: var(--accent, #6366f1); text-decoration: underline; }
-  .related {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border, #e5e7eb);
-  }
-  .related h2 { font-size: 1.2rem; font-weight: 600; margin: 0 0 0.75rem; }
-  .faq { margin-top: 2.5rem; }
-  .faq > h2 { font-size: 1.4rem; font-weight: 600; margin: 0 0 1rem; }
-  .faq-item { margin-bottom: 1.25rem; }
-  .faq-item h3 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.35rem; }
-  .faq-item p { margin: 0; line-height: 1.7; color: var(--text, inherit); }
-  .related ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-  .related a { color: var(--accent, #6366f1); text-decoration: none; font-weight: 500; }
-  .related a:hover { text-decoration: underline; }
-  .post-body :global(thead th) {
-    background: var(--tag-bg, #f3f4f6);
-    font-weight: 600;
-    text-align: left;
-    border: 1px solid var(--border, #e5e7eb);
-    padding: 0.5rem 0.75rem;
-  }
-  .post-footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border, #e5e7eb);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .cta-link { color: var(--accent, #6366f1); font-weight: 600; text-decoration: none; }
-  .cta-link:hover { text-decoration: underline; }
-</style>

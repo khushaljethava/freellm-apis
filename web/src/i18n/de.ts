@@ -18,6 +18,7 @@ const de: Strings = {
     card: 'Karte?',
     maxContext: 'Max. Kontext',
     lastVerified: 'Zuletzt geprüft',
+    sourceLink: name => `${name}-Dokumentation`,
     getKey: 'Key holen',
     getKeyCta: 'Key holen →',
     credits: 'Guthaben',
@@ -32,9 +33,9 @@ const de: Strings = {
     },
   },
   home: {
-    title: 'Kostenlose LLM-API — Gratis LLM-API-Keys von über 30 Anbietern | freellm.site',
+    title: (p) => `Kostenlose LLM-API — Gratis LLM-API-Keys von ${p} Anbietern | freellm.site`,
     description: (p, m) =>
-      `Finde eine kostenlose LLM-API ohne Kreditkarte. ${p} Anbieter, ${m} Modelle — Groq, Gemini, Mistral, GitHub Models. Hol dir deinen gratis LLM-API-Key in Sekunden.`,
+      `Finde eine kostenlose LLM-API ohne Kreditkarte. ${p} Anbieter, ${m} Modelle — Groq, Gemini, Mistral, OpenRouter. Hol dir deinen gratis LLM-API-Key in Sekunden.`,
     eyebrow: d => `Kostenlos & geprüft · Aktualisiert ${d}`,
     h1a: 'Jede kostenlose LLM-API.',
     h1b: 'An einem Ort.',
@@ -64,7 +65,7 @@ const de: Strings = {
     faqs: p => [
       {
         q: 'Was ist die beste kostenlose LLM-API?',
-        a: `Die beste kostenlose LLM-API hängt vom Anwendungsfall ab. Groq ist am schnellsten, Google Gemini hat das größte kostenlose Kontextfenster und GitHub Models braucht keine separate Anmeldung. Alle ${p} hier gelisteten Anbieter bieten eine kostenlose LLM-API ohne Vorabkosten.`,
+        a: `Die beste kostenlose LLM-API hängt vom Anwendungsfall ab. Groq ist am schnellsten, Google Gemini bietet kostenlos 1M Token Kontext und OpenRouter bündelt viele kostenlose Modelle hinter einem Key. Alle ${p} hier gelisteten Anbieter bieten eine kostenlose LLM-API ohne Vorabkosten.`,
       },
       {
         q: 'Wie bekomme ich einen kostenlosen LLM-API-Key?',
@@ -72,7 +73,7 @@ const de: Strings = {
       },
       {
         q: 'Gibt es kostenlose LLM-APIs ohne Kreditkarte?',
-        a: 'Ja. Viele Anbieter hier bieten eine kostenlose LLM-API ohne Kreditkarte — erkennbar am Badge „Keine Karte". Groq, Google Gemini, GitHub Models und Mistral geben gratis API-Keys ohne jegliche Zahlungsdaten aus.',
+        a: 'Ja. Viele Anbieter hier bieten eine kostenlose LLM-API ohne Kreditkarte — erkennbar am Badge „Keine Karte". Groq, Google Gemini, Cloudflare Workers AI und Mistral geben gratis API-Keys ohne jegliche Zahlungsdaten aus.',
       },
       {
         q: 'Was ist die günstigste LLM-API?',
@@ -80,11 +81,11 @@ const de: Strings = {
       },
       {
         q: 'Gibt es Open-Source-LLM-APIs?',
-        a: 'Ja. Anbieter wie Groq, Together AI und DeepInfra stellen Open-Source-Modelle wie Llama und Mistral über eine kostenlose LLM-API bereit. Du bekommst die besten offenen Modelle über einen gehosteten, OpenAI-kompatiblen Endpoint, ohne eigene Hardware zu betreiben.',
+        a: 'Ja. Anbieter wie Groq, OpenRouter und Cloudflare Workers AI stellen Open-Source-Modelle wie Llama und Mistral über eine kostenlose LLM-API bereit. Du bekommst die besten offenen Modelle über einen gehosteten, OpenAI-kompatiblen Endpoint, ohne eigene Hardware zu betreiben.',
       },
       {
         q: 'Gibt es Open-Source-LLM-API-Keys kostenlos?',
-        a: 'Ja. Du kannst bei jedem Anbieter auf dieser Seite einen kostenlosen API-Key holen und damit Open-Source-LLM-Modelle ansprechen. So bekommst du Keys für offene Modelle ohne Kreditkarte — Groq, Together AI und DeepInfra liefern Open-Weight-Modelle genau so aus.',
+        a: 'Ja. Du kannst bei jedem Anbieter auf dieser Seite einen kostenlosen API-Key holen und damit Open-Source-LLM-Modelle ansprechen. So bekommst du Keys für offene Modelle ohne Kreditkarte — Groq, OpenRouter und Cloudflare Workers AI liefern Open-Weight-Modelle genau so aus.',
       },
       {
         q: 'Welcher LLM-API-Anbieter ist am günstigsten?',
@@ -99,9 +100,16 @@ const de: Strings = {
   blogIndex: {
     title: 'Blog — Anleitungen & Tutorials für kostenlose LLM-APIs | freellm.site',
     description:
-      'Anleitungen, Tutorials und Vergleiche zu kostenlosen LLM-APIs. Lerne, wie du Groq, Gemini, GitHub Models und über 90 kostenlose KI-Anbieter nutzt.',
+      'Anleitungen, Tutorials und Vergleiche zu kostenlosen LLM-APIs. Lerne, wie du Groq, Gemini, OpenRouter und über 60 kostenlose KI-Anbieter nutzt.',
     h1: 'Blog',
     lede: 'Anleitungen und Tutorials zur Nutzung kostenloser LLM-APIs.',
+  },
+  post: {
+    faqTitle: 'Häufige Fragen',
+    relatedTitle: 'Verwandte Anleitungen',
+    backToBlog: '← Zurück zum Blog',
+    browseCta: 'Kostenlose LLM-APIs ansehen →',
+    updated: 'Aktualisiert',
   },
   provider: {
     home: 'Startseite',

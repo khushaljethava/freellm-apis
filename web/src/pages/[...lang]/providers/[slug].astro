@@ -5,7 +5,10 @@ import AdSlot from '../../../components/AdSlot.astro';
 import models from '../../../../../data/models.json';
 import { DEFAULT_LOCALE, localePath } from '../../../i18n/config';
 import { TRANSLATED_LOCALES, useTranslations } from '../../../i18n/ui';
-import { postsFor } from '../../../i18n/posts';
+import { postsFor, postIn, postHref } from '../../../i18n/posts';
+import { isProviderIndexable } from '../../../lib/seo.mjs';
+import Badge from '../../../components/ui/Badge.astro';
+import { fmtCtx, CARD_VARIANT, COMPARE_PAIRS } from '../../../lib/format';
 
 export function getStaticPaths() {
   return TRANSLATED_LOCALES.flatMap(locale =>
@@ -20,18 +23,20 @@ const { provider, locale } = Astro.props;
 const t = useTranslations(locale);
 const tp = t.provider;
 const L = (p: string) => localePath(p, locale);
-// Blog links fall back to English until that language has posts.
-const G = (p: string) => localePath(p, postsFor(locale).length ? locale : DEFAULT_LOCALE);
+// Blog links fall back to English per post, not per locale.
+const G = (slug: string) => postHref(locale, slug);
 
 const providerModels = models.filter(m => m.provider_id === provider.id && !m.deprecated);
 const firstModel = providerModels[0];
+// Providers we cannot yet list a single free model for are a base URL plus boilerplate.
+// Keep them reachable and crawlable, keep them out of the index until the data exists.
+const indexable = isProviderIndexable(provider.id);
 
 // --- Data-driven unique overview (raises per-page content uniqueness) ---
 const regionLabel = tp.region;
 const maxCtx = providerModels.length ? Math.max(...providerModels.map(m => m.context_window)) : 0;
 const maxRpm = providerModels.map(m => m.rpm).filter(Boolean);
 const modalities = [...new Set(providerModels.flatMap(m => m.modalities))];
-const fmtCtxOverview = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
 
 const freeClause = provider.free_type === 'credits' && provider.credit_amount_usd != null
   ? tp.freeCredits(provider.credit_amount_usd, provider.credit_expiry)
@@ -43,7 +48,7 @@ const overview = [
   providerModels.length
     ? tp.ovModels(
         providerModels.length,
-        maxCtx ? fmtCtxOverview(maxCtx) : '',
+        maxCtx ? fmtCtx(maxCtx) : '',
         modalities.join(', ')
       )
     : tp.ovNoModels,
@@ -60,26 +65,21 @@ const related = (sameRegion.length >= 3 ? sameRegion : pool.filter(p => p.free_t
   .slice(0, 4);
 
 // Titles come from the post data for whichever language the blog exists in.
-const guidePool = postsFor(locale).length ? postsFor(locale) : postsFor(DEFAULT_LOCALE);
 const guides = ['best-free-llm-apis-2026', 'openai-compatible-api-guide', 'best-free-llm-apis-for-coding']
-  .map(slug => guidePool.find(p => p.slug === slug))
+  .map(slug => postIn(locale, slug) ?? postIn(DEFAULT_LOCALE, slug))
   .filter(Boolean);
 
-// Compare pages that involve this provider (must match the curated list in compare/[pair].astro).
-const COMPARE_PAIRS = [
-  ['groq', 'google_gemini'], ['groq', 'cerebras'], ['groq', 'sambanova'],
-  ['cerebras', 'sambanova'], ['mistral', 'groq'], ['google_gemini', 'mistral'],
-  ['github_models', 'groq'], ['together_ai', 'groq'], ['openrouter', 'groq'],
-  ['cohere', 'mistral'],
-];
+// Compare pages that involve this provider.
 const nameOf = (id) => providers.find(p => p.id === id)?.name ?? id;
 const compareLinks = COMPARE_PAIRS
   .filter(pair => pair.includes(provider.id))
   .map(([a, b]) => ({ href: L(`/compare/${a}-vs-${b}/`), other: nameOf(a === provider.id ? b : a) }));
 
-const cardLabel = { no: '✅ No', registration: '📧 Email', phone: '📱 Phone', yes: '💳 Yes' };
+// provider.notes is untranslated source data. Only English may render it verbatim;
+// every other locale uses the fully-translated card clause instead.
+const descLead = locale === DEFAULT_LOCALE ? provider.notes : cardClause;
 
-const fmtCtx = (c) => c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
+const cardLabel = t.common.cardLabel;
 
 const pythonSnippet = `from openai import OpenAI
 
@@ -126,7 +126,11 @@ const schema = {
         description: provider.credit_card_required === 'no'
           ? 'Free tier, no credit card required'
           : 'Free tier available',
+        url: provider.signup_url,
       },
+      dateModified: provider.last_verified,
+      isBasedOn: provider.signup_url,
+      publisher: { '@type': 'Organization', name: 'freellm.site', url: 'https://www.freellm.site/' },
     },
   ],
 };
@@ -135,34 +139,58 @@ const schema = {
   locale={locale}
   altLocales={TRANSLATED_LOCALES}
   title={tp.title(provider.name)}
-  description={tp.description(provider.notes, provider.base_url, providerModels.length)}
+  description={tp.description(descLead, provider.base_url, providerModels.length)}
   schema={schema}
+  noindex={!indexable}
 >
-  <div class="breadcrumb">
-    <a href={L('/')}>{tp.home}</a><span>›</span><span>{provider.name}</span>
-  </div>
+  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">
+    <ol class="flex items-center gap-1.5">
+      <li><a class="text-muted-foreground hover:text-foreground" href={L('/')}>{tp.home}</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-foreground">{provider.name}</li>
+    </ol>
+  </nav>
 
-  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">{tp.h1(provider.name)}</h1>
-
-  <p class="provider-overview" style="color:#374151;line-height:1.6;margin-bottom:1.25rem">{overview}</p>
-
-  <div class="provider-meta">
-    <div class="row">
-      <span class="label">{tp.baseUrlLabel}</span>
-      <button class="copy-url" id="copy-btn">{provider.base_url}</button>
+  <div class="grid gap-8 lg:grid-cols-[1fr_20rem]">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{tp.h1(provider.name)}</h1>
+      <p class="mt-4 text-lg leading-relaxed text-muted-foreground">{overview}</p>
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <a href={provider.signup_url} target="_blank" rel="noopener" class="btn btn-primary">{tp.getKeyCta}</a>
+        <Badge variant={CARD_VARIANT[provider.credit_card_required]}>{cardLabel[provider.credit_card_required]}</Badge>
+      </div>
     </div>
-    <div class="row"><span class="label">{tp.cardRequiredLabel}</span><span>{cardLabel[provider.credit_card_required]}</span></div>
-    {provider.free_type === 'credits' && provider.credit_amount_usd != null && (
-      <div class="row"><span class="label">{tp.freeCreditsLabel}</span><span>${provider.credit_amount_usd} USD ({provider.credit_expiry})</span></div>
-    )}
-    <div class="row"><span class="label">{tp.notesLabel}</span><span>{provider.notes}</span></div>
-    <div class="row"><span class="label">{t.common.lastVerified}</span><span>{provider.last_verified}</span></div>
-    <div class="row">
-      <a href={provider.signup_url} target="_blank" rel="noopener"
-         style="background:#0066cc;color:#fff;padding:0.5rem 1.25rem;border-radius:6px;font-weight:600;font-size:0.9rem;display:inline-block">
-        {tp.getKeyCta}
-      </a>
-    </div>
+
+    <aside class="h-fit rounded-xl border bg-card p-5 text-sm">
+      <dl class="grid gap-4">
+        <div>
+          <dt class="mb-1.5 text-xs font-medium text-muted-foreground">{tp.baseUrlLabel}</dt>
+          <dd><button type="button" id="copy-btn" class="w-full cursor-pointer truncate rounded-md border bg-muted/50 px-3 py-2 text-start font-mono text-xs hover:bg-muted" title={provider.base_url}>{provider.base_url}</button></dd>
+        </div>
+        <div>
+          <dt class="mb-1 text-xs font-medium text-muted-foreground">{tp.cardRequiredLabel}</dt>
+          <dd>{cardLabel[provider.credit_card_required]}</dd>
+        </div>
+        {provider.free_type === 'credits' && provider.credit_amount_usd != null && (
+          <div>
+            <dt class="mb-1 text-xs font-medium text-muted-foreground">{tp.freeCreditsLabel}</dt>
+            <dd>${provider.credit_amount_usd} USD ({provider.credit_expiry})</dd>
+          </div>
+        )}
+        <div>
+          <dt class="mb-1 text-xs font-medium text-muted-foreground">{tp.notesLabel}</dt>
+          <dd>{provider.notes}</dd>
+        </div>
+        <div>
+          <dt class="mb-1 text-xs font-medium text-muted-foreground">{t.common.lastVerified}</dt>
+          <dd>
+            <time datetime={provider.last_verified}>{provider.last_verified}</time>
+            {' · '}
+            <a href={provider.signup_url} target="_blank" rel="noopener nofollow">{t.common.sourceLink(provider.name)}</a>
+          </dd>
+        </div>
+      </dl>
+    </aside>
   </div>
 
   <AdSlot variant="top" />
@@ -172,15 +200,15 @@ const schema = {
       <h2 class="section-title">{tp.freeModelsTitle}</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>{t.modelsIndex.modelId}</th><th>{t.modelsIndex.context}</th><th>{t.modelsIndex.modalities}</th><th>RPM</th><th>RPD</th></tr></thead>
+          <thead><tr><th scope="col">{t.modelsIndex.modelId}</th><th scope="col">{t.modelsIndex.context}</th><th scope="col">{t.modelsIndex.modalities}</th><th scope="col">RPM</th><th scope="col">RPD</th></tr></thead>
           <tbody>
             {providerModels.map(m => (
               <tr>
-                <td><code>{m.model_id}</code></td>
-                <td>{fmtCtx(m.context_window)}</td>
-                <td>{m.modalities.join(', ')}</td>
-                <td>{m.rpm ?? '—'}</td>
-                <td>{m.rpd ?? '—'}</td>
+                <td><code class="font-mono text-xs">{m.model_id}</code></td>
+                <td class="tabular-nums">{fmtCtx(m.context_window)}</td>
+                <td><div class="flex flex-wrap gap-1">{m.modalities.map(x => <Badge>{x}</Badge>)}</div></td>
+                <td class="tabular-nums">{m.rpm ?? '—'}</td>
+                <td class="tabular-nums">{m.rpd ?? '—'}</td>
               </tr>
             ))}
           </tbody>
@@ -190,21 +218,21 @@ const schema = {
   )}
 
   <h2 class="section-title">{tp.quickStartTitle}</h2>
-  <div class="snippets">
-    <div class="snippet-block">
+  <div class="grid gap-4 lg:grid-cols-2">
+    <div class="snippet">
       <div class="snippet-label">Python (OpenAI SDK)</div>
-      <pre>{pythonSnippet}</pre>
+      <pre><code>{pythonSnippet}</code></pre>
     </div>
-    <div class="snippet-block">
+    <div class="snippet">
       <div class="snippet-label">curl</div>
-      <pre>{curlSnippet}</pre>
+      <pre><code>{curlSnippet}</code></pre>
     </div>
   </div>
 
   {related.length > 0 && (
     <>
       <h2 class="section-title">{tp.relatedTitle}</h2>
-      <ul class="related-links">
+      <ul class="link-list">
         {related.map(p => (
           <li><a href={L(`/providers/${p.id}/`)}>{tp.relatedItem(p.name, modelCountOf(p.id))}</a></li>
         ))}
@@ -215,7 +243,7 @@ const schema = {
   {compareLinks.length > 0 && (
     <>
       <h2 class="section-title">{tp.compareTitle(provider.name)}</h2>
-      <ul class="related-links">
+      <ul class="link-list">
         {compareLinks.map(c => (
           <li><a href={c.href}>{tp.compareItem(provider.name, c.other)}</a></li>
         ))}
@@ -224,9 +252,9 @@ const schema = {
   )}
 
   <h2 class="section-title">{tp.guidesTitle}</h2>
-  <ul class="related-links">
+  <ul class="link-list">
     {guides.map(g => (
-      <li><a href={G(`/blog/${g.slug}/`)}>{g.title}</a></li>
+      <li><a href={G(g.slug)}>{g.title}</a></li>
     ))}
   </ul>
 

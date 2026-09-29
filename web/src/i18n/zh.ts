@@ -18,6 +18,7 @@ const zh: Strings = {
     card: '需要银行卡?',
     maxContext: '最大上下文',
     lastVerified: '最后核验',
+    sourceLink: name => `${name} 文档`,
     getKey: '获取密钥',
     getKeyCta: '获取密钥 →',
     credits: '额度',
@@ -32,9 +33,9 @@ const zh: Strings = {
     },
   },
   home: {
-    title: '免费 LLM API — 30+ 服务商的免费 LLM API 密钥 | freellm.site',
+    title: (p) => `免费 LLM API — ${p} 家服务商的免费 LLM API 密钥 | freellm.site`,
     description: (p, m) =>
-      `无需信用卡即可获取免费 LLM API。${p} 家服务商，${m} 个模型 — Groq、Gemini、Mistral、GitHub Models。几秒钟拿到你的免费 LLM API 密钥。`,
+      `无需信用卡即可获取免费 LLM API。${p} 家服务商，${m} 个模型 — Groq、Gemini、Mistral、OpenRouter。几秒钟拿到你的免费 LLM API 密钥。`,
     eyebrow: d => `免费且已核验 · 更新于 ${d}`,
     h1a: '所有免费 LLM API，',
     h1b: '尽在一处。',
@@ -63,7 +64,7 @@ const zh: Strings = {
     faqs: p => [
       {
         q: '最好的免费 LLM API 是哪个？',
-        a: `这取决于你的使用场景。Groq 速度最快，Google Gemini 的免费上下文窗口最大，GitHub Models 无需单独注册。本页列出的 ${p} 家服务商都提供零预付成本的免费 LLM API。`,
+        a: `这取决于你的使用场景。Groq 速度最快，Google Gemini 免费提供 1M token 上下文窗口，OpenRouter 用一个密钥即可调用多个免费模型。本页列出的 ${p} 家服务商都提供零预付成本的免费 LLM API。`,
       },
       {
         q: '如何获取免费的 LLM API 密钥？',
@@ -71,7 +72,7 @@ const zh: Strings = {
       },
       {
         q: '有不需要信用卡的免费 LLM API 吗？',
-        a: '有。本页许多服务商提供无需信用卡的免费 LLM API，带有「无需银行卡」标记。Groq、Google Gemini、GitHub Models 和 Mistral 都能在不填写任何支付信息的情况下发放免费 API 密钥。',
+        a: '有。本页许多服务商提供无需信用卡的免费 LLM API，带有「无需银行卡」标记。Groq、Google Gemini、Cloudflare Workers AI 和 Mistral 都能在不填写任何支付信息的情况下发放免费 API 密钥。',
       },
       {
         q: '最便宜的 LLM API 是哪个？',
@@ -79,11 +80,11 @@ const zh: Strings = {
       },
       {
         q: '有开源的 LLM API 吗？',
-        a: '有。Groq、Together AI 和 DeepInfra 等服务商通过免费 LLM API 提供 Llama、Mistral 等开源 LLM 模型。你无需自建硬件，就能通过托管的、兼容 OpenAI 的接口使用这些优秀的开源模型。',
+        a: '有。Groq、OpenRouter 和 Cloudflare Workers AI 等服务商通过免费 LLM API 提供 Llama、Mistral 等开源 LLM 模型。你无需自建硬件，就能通过托管的、兼容 OpenAI 的接口使用这些优秀的开源模型。',
       },
       {
         q: '能免费拿到开源 LLM API 密钥吗？',
-        a: '可以。你可以在本页任意一家服务商处获取免费 API 密钥，并用它调用开源 LLM 模型。这样就能在无需信用卡的情况下拿到开源模型的密钥 —— Groq、Together AI 和 DeepInfra 都以这种方式提供开放权重模型。',
+        a: '可以。你可以在本页任意一家服务商处获取免费 API 密钥，并用它调用开源 LLM 模型。这样就能在无需信用卡的情况下拿到开源模型的密钥 —— Groq、OpenRouter 和 Cloudflare Workers AI 都以这种方式提供开放权重模型。',
       },
       {
         q: '最便宜的 LLM API 服务商是哪家？',
@@ -98,9 +99,16 @@ const zh: Strings = {
   blogIndex: {
     title: '博客 — 免费 LLM API 指南与教程 | freellm.site',
     description:
-      '免费 LLM API 的指南、教程与对比。学习如何使用 Groq、Gemini、GitHub Models 以及 90 多家免费 AI 服务商。',
+      '免费 LLM API 的指南、教程与对比。学习如何使用 Groq、Gemini、OpenRouter 以及 60 多家免费 AI 服务商。',
     h1: '博客',
     lede: '使用免费 LLM API 的指南与教程。',
+  },
+  post: {
+    faqTitle: '常见问题',
+    relatedTitle: '相关指南',
+    backToBlog: '← 返回博客',
+    browseCta: '浏览免费 LLM API →',
+    updated: '更新于',
   },
   provider: {
     home: '首页',

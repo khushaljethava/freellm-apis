@@ -1,0 +1,18 @@
+---
+// shadcn/ui Badge, as a zero-JS Astro component.
+interface Props {
+  variant?: 'default' | 'secondary' | 'outline' | 'success' | 'info' | 'warning' | 'danger';
+  class?: string;
+}
+const { variant = 'secondary', class: cls = '' } = Astro.props;
+const variants = {
+  default: 'bg-primary text-primary-foreground',
+  secondary: 'bg-secondary text-secondary-foreground',
+  outline: 'border text-foreground',
+  success: 'bg-success-bg text-success',
+  info: 'bg-info-bg text-info',
+  warning: 'bg-warning-bg text-warning',
+  danger: 'bg-danger-bg text-danger',
+};
+---
+<span class={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium whitespace-nowrap ${variants[variant]} ${cls}`}><slot /></span>

@@ -18,6 +18,7 @@ const pt: Strings = {
     card: 'Cartão?',
     maxContext: 'Contexto máx.',
     lastVerified: 'Última verificação',
+    sourceLink: name => `documentação da ${name}`,
     getKey: 'Obter chave',
     getKeyCta: 'Obter chave →',
     credits: 'Créditos',
@@ -32,9 +33,9 @@ const pt: Strings = {
     },
   },
   home: {
-    title: 'API LLM grátis — Chaves de API LLM gratuitas de mais de 30 provedores | freellm.site',
+    title: (p) => `API LLM grátis — Chaves de API LLM gratuitas de ${p} provedores | freellm.site`,
     description: (p, m) =>
-      `Encontre uma API LLM grátis sem cartão de crédito. ${p} provedores, ${m} modelos — Groq, Gemini, Mistral, GitHub Models. Consiga sua chave de API LLM grátis em segundos.`,
+      `Encontre uma API LLM grátis sem cartão de crédito. ${p} provedores, ${m} modelos — Groq, Gemini, Mistral, OpenRouter. Consiga sua chave de API LLM grátis em segundos.`,
     eyebrow: d => `Grátis e verificado · Atualizado em ${d}`,
     h1a: 'Todas as APIs LLM grátis.',
     h1b: 'Em um só lugar.',
@@ -64,7 +65,7 @@ const pt: Strings = {
     faqs: p => [
       {
         q: 'Qual é a melhor API LLM grátis?',
-        a: `A melhor API LLM grátis depende do seu caso de uso. A Groq é a mais rápida, o Google Gemini tem a maior janela de contexto gratuita e o GitHub Models dispensa cadastro separado. Todos os ${p} provedores listados aqui oferecem uma API LLM grátis sem custo inicial.`,
+        a: `A melhor API LLM grátis depende do seu caso de uso. A Groq é a mais rápida, o Google Gemini oferece 1M de tokens de contexto grátis e o OpenRouter reúne muitos modelos gratuitos em uma única chave. Todos os ${p} provedores listados aqui oferecem uma API LLM grátis sem custo inicial.`,
       },
       {
         q: 'Como consigo uma chave de API LLM grátis?',
@@ -72,7 +73,7 @@ const pt: Strings = {
       },
       {
         q: 'Existem APIs LLM grátis sem cartão de crédito?',
-        a: 'Sim. Muitos provedores aqui oferecem uma API LLM grátis sem cartão de crédito — o selo "Sem cartão" os identifica. Groq, Google Gemini, GitHub Models e Mistral entregam chaves gratuitas sem pedir dados de pagamento.',
+        a: 'Sim. Muitos provedores aqui oferecem uma API LLM grátis sem cartão de crédito — o selo "Sem cartão" os identifica. Groq, Google Gemini, Cloudflare Workers AI e Mistral entregam chaves gratuitas sem pedir dados de pagamento.',
       },
       {
         q: 'Qual é a API LLM mais barata?',
@@ -80,11 +81,11 @@ const pt: Strings = {
       },
       {
         q: 'Existem APIs LLM de código aberto?',
-        a: 'Sim. Provedores como Groq, Together AI e DeepInfra servem modelos de código aberto como Llama e Mistral por meio de uma API LLM grátis. Você acessa os melhores modelos abertos por um endpoint hospedado e compatível com OpenAI, sem manter hardware próprio.',
+        a: 'Sim. Provedores como Groq, OpenRouter e Cloudflare Workers AI servem modelos de código aberto como Llama e Mistral por meio de uma API LLM grátis. Você acessa os melhores modelos abertos por um endpoint hospedado e compatível com OpenAI, sem manter hardware próprio.',
       },
       {
         q: 'Há chaves de API LLM de código aberto disponíveis de graça?',
-        a: 'Sim. Você pode obter uma chave de API grátis em qualquer provedor desta página e chamar modelos LLM de código aberto com ela. Isso dá acesso a modelos abertos sem cartão de crédito — Groq, Together AI e DeepInfra servem modelos de pesos abertos exatamente assim.',
+        a: 'Sim. Você pode obter uma chave de API grátis em qualquer provedor desta página e chamar modelos LLM de código aberto com ela. Isso dá acesso a modelos abertos sem cartão de crédito — Groq, OpenRouter e Cloudflare Workers AI servem modelos de pesos abertos exatamente assim.',
       },
       {
         q: 'Qual é o provedor de API LLM mais barato?',
@@ -99,9 +100,16 @@ const pt: Strings = {
   blogIndex: {
     title: 'Blog — Guias e tutoriais de APIs LLM grátis | freellm.site',
     description:
-      'Guias, tutoriais e comparativos de APIs LLM grátis. Aprenda a usar Groq, Gemini, GitHub Models e mais de 90 provedores de IA gratuitos.',
+      'Guias, tutoriais e comparativos de APIs LLM grátis. Aprenda a usar Groq, Gemini, OpenRouter e mais de 60 provedores de IA gratuitos.',
     h1: 'Blog',
     lede: 'Guias e tutoriais para usar APIs LLM grátis.',
+  },
+  post: {
+    faqTitle: 'Perguntas frequentes',
+    relatedTitle: 'Guias relacionados',
+    backToBlog: '← Voltar ao blog',
+    browseCta: 'Ver APIs LLM grátis →',
+    updated: 'Atualizado',
   },
   provider: {
     home: 'Início',

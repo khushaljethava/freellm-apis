@@ -7,8 +7,9 @@ import providers from '../../../../data/providers.json';
 import models from '../../../../data/models.json';
 import { localeOf, localePath } from '../../i18n/config';
 import { translatedPaths, useTranslations, TRANSLATED_LOCALES } from '../../i18n/ui';
-import { postsFor } from '../../i18n/posts';
-import { DEFAULT_LOCALE } from '../../i18n/config';
+import { postIn, postHref } from '../../i18n/posts';
+import Badge from '../../components/ui/Badge.astro';
+import { fmtCtx, CARD_VARIANT } from '../../lib/format';
 
 export const getStaticPaths = translatedPaths;
 
@@ -16,22 +17,17 @@ const locale = localeOf(Astro.params.lang);
 const t = useTranslations(locale);
 const L = (p: string) => localePath(p, locale);
 
-// Guides in this language if any exist, otherwise the English originals.
-const localPosts = postsFor(locale);
-const guides = localPosts.length ? localPosts : enPosts;
-const guideLocale = localPosts.length ? locale : DEFAULT_LOCALE;
-// Blog links resolve to the guide locale, so they never point at a page that wasn't built.
-const G = (p: string) => localePath(p, guideLocale);
+// Guides: prefer this language's version of each post, fall back to English per post.
+const guides = enPosts.map(p => postIn(locale, p.slug) ?? p);
+// Blog links resolve per post, so they never point at a page that wasn't built.
+const G = (slug: string) => postHref(locale, slug);
 
 const modelCount = (id) => models.filter(m => m.provider_id === id && !m.deprecated).length;
 const maxContext = (id) => {
   const ctxs = models.filter(m => m.provider_id === id && !m.deprecated).map(m => m.context_window);
-  if (!ctxs.length) return '—';
-  const c = Math.max(...ctxs);
-  return c >= 1_000_000 ? `${Math.round(c/1_000_000)}M` : `${Math.round(c/1_000)}K`;
+  return fmtCtx(ctxs.length ? Math.max(...ctxs) : 0);
 };
 const cardLabel = t.common.cardLabel;
-const cardBadge = { no: 'badge-green', registration: 'badge-blue', phone: 'badge-orange', yes: 'badge-red' };
 
 const permanent = providers.filter(p => p.free_type === 'permanent').sort((a,b) => modelCount(b.id) - modelCount(a.id));
 const credits = providers.filter(p => p.free_type === 'credits').sort((a,b) => (b.credit_amount_usd||0) - (a.credit_amount_usd||0));
@@ -59,7 +55,7 @@ const schema = {
       '@type': 'Organization',
       name: 'freellm.site',
       url: 'https://www.freellm.site/',
-      logo: 'https://www.freellm.site/og-default.png',
+      logo: 'https://www.freellm.site/logo.png',
       sameAs: ['https://github.com/khushaljethava/freellm-apis'],
     },
     {
@@ -77,39 +73,30 @@ const schema = {
 <Base
   locale={locale}
   altLocales={TRANSLATED_LOCALES}
-  title={t.home.title}
+  title={t.home.title(providers.length)}
   description={t.home.description(providers.length, totalModels)}
   schema={schema}
 >
-  <div class="hero">
-    <div class="hero-eyebrow">{t.home.eyebrow(lastVerified)}</div>
-    <h1>{t.home.h1a}<br/><em>{t.home.h1b}</em></h1>
-    <p>{t.home.lede(providers.length)}</p>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-number">{providers.length}</span>
-        <span class="stat-label">{t.home.statProviders}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">{totalModels}</span>
-        <span class="stat-label">{t.home.statModels}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">{permanent.length}</span>
-        <span class="stat-label">{t.home.statAlwaysFree}</span>
-      </div>
-    </div>
-  </div>
+  <section class="relative pt-6 pb-10 sm:pt-12">
+    <div class="pointer-events-none absolute inset-x-0 -top-10 -z-10 h-64 bg-[radial-gradient(ellipse_at_top,var(--accent),transparent_70%)]" aria-hidden="true"></div>
+    <Badge variant="outline" class="mb-5 gap-1.5 rounded-full bg-background px-3 py-1"><span class="size-1.5 rounded-full bg-success"></span>{t.home.eyebrow(lastVerified)}</Badge>
+    <h1 class="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">{t.home.h1a} <span class="text-primary">{t.home.h1b}</span></h1>
+    <p class="mt-4 max-w-2xl text-lg text-muted-foreground">{t.home.lede(providers.length)}</p>
+    <dl class="mt-8 grid max-w-lg grid-cols-3 gap-3">
+      <div class="rounded-lg border bg-card p-4"><dt class="text-xs text-muted-foreground">{t.home.statProviders}</dt><dd class="text-2xl font-bold tracking-tight">{providers.length}</dd></div>
+      <div class="rounded-lg border bg-card p-4"><dt class="text-xs text-muted-foreground">{t.home.statModels}</dt><dd class="text-2xl font-bold tracking-tight">{totalModels}</dd></div>
+      <div class="rounded-lg border bg-card p-4"><dt class="text-xs text-muted-foreground">{t.home.statAlwaysFree}</dt><dd class="text-2xl font-bold tracking-tight">{permanent.length}</dd></div>
+    </dl>
+  </section>
 
   {quickPick && (
-    <div class="quick-pick">
-      <span class="quick-pick-label">{t.home.quickPick}</span>
-      <div class="quick-pick-sep"></div>
-      <div class="quick-pick-content">
-        <span class="quick-pick-name">{quickPick.name}</span>
-        <span class="quick-pick-meta">{t.home.quickPickMeta(quickPickModels, quickPickCtx)}</span>
-      </div>
-      <a href={quickPick.signup_url} target="_blank" rel="noopener" class="quick-pick-cta">{t.home.quickPickCta}</a>
+    <div class="mb-8 flex flex-col gap-3 rounded-xl border border-primary/30 bg-accent/50 p-4 sm:flex-row sm:items-center">
+      <Badge variant="default" class="w-fit">{t.home.quickPick}</Badge>
+      <p class="flex-1 text-sm">
+        <a class="font-semibold" href={L(`/providers/${quickPick.id}/`)}>{quickPick.name}</a>
+        <span class="text-muted-foreground"> {t.home.quickPickMeta(quickPickModels, quickPickCtx)}</span>
+      </p>
+      <a href={quickPick.signup_url} target="_blank" rel="noopener" class="btn btn-primary btn-sm w-fit">{t.home.quickPickCta}</a>
     </div>
   )}
 
@@ -122,23 +109,23 @@ const schema = {
     <table>
       <thead>
         <tr>
-          <th>{t.common.provider}</th>
-          <th>{t.common.models}</th>
-          <th>{t.common.card}</th>
-          <th>{t.common.maxContext}</th>
-          <th>{t.common.lastVerified}</th>
-          <th>{t.common.getKey}</th>
+          <th scope="col">{t.common.provider}</th>
+          <th scope="col">{t.common.models}</th>
+          <th scope="col">{t.common.card}</th>
+          <th scope="col">{t.common.maxContext}</th>
+          <th scope="col">{t.common.lastVerified}</th>
+          <th scope="col"><span class="sr-only">{t.common.getKey}</span></th>
         </tr>
       </thead>
       <tbody>
         {permanent.map(p => (
           <tr data-free-type="permanent" data-card-required={p.credit_card_required}>
-            <td><a href={`/providers/${p.id}/`}>{p.name}</a></td>
-            <td>{modelCount(p.id)}</td>
-            <td><span class={`badge ${cardBadge[p.credit_card_required]}`}>{cardLabel[p.credit_card_required]}</span></td>
-            <td>{maxContext(p.id)}</td>
-            <td>{p.last_verified}</td>
-            <td><a href={p.signup_url} target="_blank" rel="noopener">{t.common.getKeyCta}</a></td>
+            <td><a class="font-medium" href={L(`/providers/${p.id}/`)}>{p.name}</a></td>
+            <td class="tabular-nums">{modelCount(p.id)}</td>
+            <td><Badge variant={CARD_VARIANT[p.credit_card_required]}>{cardLabel[p.credit_card_required]}</Badge></td>
+            <td class="tabular-nums">{maxContext(p.id)}</td>
+            <td class="text-muted-foreground tabular-nums"><time datetime={p.last_verified}>{p.last_verified}</time></td>
+            <td class="text-end"><a class="btn btn-outline btn-sm" href={p.signup_url} target="_blank" rel="noopener">{t.common.getKeyCta}</a></td>
           </tr>
         ))}
       </tbody>
@@ -150,25 +137,25 @@ const schema = {
     <table>
       <thead>
         <tr>
-          <th>{t.common.provider}</th>
-          <th>{t.common.credits}</th>
-          <th>{t.common.expiry}</th>
-          <th>{t.common.card}</th>
-          <th>{t.common.models}</th>
-          <th>{t.common.lastVerified}</th>
-          <th>{t.common.getKey}</th>
+          <th scope="col">{t.common.provider}</th>
+          <th scope="col">{t.common.credits}</th>
+          <th scope="col">{t.common.expiry}</th>
+          <th scope="col">{t.common.card}</th>
+          <th scope="col">{t.common.models}</th>
+          <th scope="col">{t.common.lastVerified}</th>
+          <th scope="col"><span class="sr-only">{t.common.getKey}</span></th>
         </tr>
       </thead>
       <tbody>
         {credits.map(p => (
           <tr data-free-type="credits" data-card-required={p.credit_card_required}>
-            <td><a href={`/providers/${p.id}/`}>{p.name}</a></td>
-            <td>{p.credit_amount_usd ? `$${p.credit_amount_usd}` : t.common.freeTier}</td>
-            <td>{p.credit_expiry ?? '—'}</td>
-            <td><span class={`badge ${cardBadge[p.credit_card_required]}`}>{cardLabel[p.credit_card_required]}</span></td>
-            <td>{modelCount(p.id)}</td>
-            <td>{p.last_verified}</td>
-            <td><a href={p.signup_url} target="_blank" rel="noopener">{t.common.getKeyCta}</a></td>
+            <td><a class="font-medium" href={L(`/providers/${p.id}/`)}>{p.name}</a></td>
+            <td class="tabular-nums">{p.credit_amount_usd ? `$${p.credit_amount_usd}` : t.common.freeTier}</td>
+            <td class="text-muted-foreground">{p.credit_expiry ?? '—'}</td>
+            <td><Badge variant={CARD_VARIANT[p.credit_card_required]}>{cardLabel[p.credit_card_required]}</Badge></td>
+            <td class="tabular-nums">{modelCount(p.id)}</td>
+            <td class="text-muted-foreground tabular-nums"><time datetime={p.last_verified}>{p.last_verified}</time></td>
+            <td class="text-end"><a class="btn btn-outline btn-sm" href={p.signup_url} target="_blank" rel="noopener">{t.common.getKeyCta}</a></td>
           </tr>
         ))}
       </tbody>
@@ -177,57 +164,37 @@ const schema = {
 
   <AdSlot variant="bottom" />
 
-  <section class="seo-content">
+  <section class="prose mx-auto mt-16 max-w-3xl dark:prose-invert prose-headings:tracking-tight prose-a:text-primary">
     <h2>{t.home.seoTitle}</h2>
     <p>
       {t.home.seoP1(providers.length, totalModels)}
-      <a href={G('/blog/openai-compatible-api-guide/')}>{t.home.seoP1Link}</a>{t.home.seoP1End}
+      <a href={G('openai-compatible-api-guide')}>{t.home.seoP1Link}</a>{t.home.seoP1End}
     </p>
     <p>
       {t.home.seoP2}
-      <a href={G('/blog/best-free-llm-apis-2026/')}>{t.home.seoP2Link1}</a>,{' '}
-      <a href={G('/blog/best-open-source-llm-apis/')}>{t.home.seoP2Link2}</a>,{' '}
-      <a href={G('/blog/best-free-llm-apis-for-coding/')}>{t.home.seoP2Link3}</a>.
+      <a href={G('best-free-llm-apis-2026')}>{t.home.seoP2Link1}</a>,{' '}
+      <a href={G('best-open-source-llm-apis')}>{t.home.seoP2Link2}</a>,{' '}
+      <a href={G('best-free-llm-apis-for-coding')}>{t.home.seoP2Link3}</a>.
     </p>
 
     <h2>{t.home.guidesTitle}</h2>
-    <ul class="guide-list">
+    <ul class="not-prose link-list">
       {guides.map(p => (
-        <li><a href={localePath(`/blog/${p.slug}/`, guideLocale)}>{p.title}</a></li>
+        <li><a href={G(p.slug)}>{p.title}</a></li>
       ))}
     </ul>
 
     <h2>{t.home.faqTitle}</h2>
-    <div class="faq-list">
+    <div class="not-prose divide-y rounded-lg border bg-card">
       {faqs.map(f => (
-        <div class="faq-item">
-          <h3>{f.q}</h3>
-          <p>{f.a}</p>
-        </div>
+        <details class="group px-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium [&::-webkit-details-marker]:hidden">
+            <h3 class="text-base">{f.q}</h3>
+            <span class="text-muted-foreground transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-4 text-muted-foreground">{f.a}</p>
+        </details>
       ))}
     </div>
   </section>
 </Base>
-
-<style>
-  .seo-content {
-    max-width: 760px;
-    margin: 3rem auto 0;
-    padding: 0 1rem 2rem;
-  }
-  .seo-content h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 2rem 0 0.75rem;
-  }
-  .seo-content > p {
-    line-height: 1.7;
-    color: var(--text-muted, #6b7280);
-    margin: 0 0 1rem;
-  }
-  .seo-content a { color: var(--accent, #6366f1); }
-  .faq-list { margin-top: 0.5rem; }
-  .faq-item { margin-bottom: 1.25rem; }
-  .faq-item h3 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.35rem; }
-  .faq-item p { margin: 0; line-height: 1.7; color: var(--text-muted, #6b7280); }
-</style>

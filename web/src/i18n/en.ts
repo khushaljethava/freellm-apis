@@ -24,6 +24,7 @@ const en = {
     card: 'Card?',
     maxContext: 'Max context',
     lastVerified: 'Last verified',
+    sourceLink: (name: string) => `${name} docs`,
     getKey: 'Get key',
     getKeyCta: 'Get key →',
     credits: 'Credits',
@@ -38,9 +39,9 @@ const en = {
     },
   },
   home: {
-    title: 'Free LLM API — Free LLM API Keys from 30+ Providers | freellm.site',
+    title: (p: number) => `Free LLM API — Free LLM API Keys from ${p} Providers | freellm.site`,
     description: (p: number, m: number) =>
-      `Find a free LLM API with no credit card. ${p} providers, ${m} models — Groq, Gemini, Mistral, GitHub Models. Get your free LLM API key in seconds.`,
+      `Find a free LLM API with no credit card. ${p} providers, ${m} models — Groq, Gemini, Mistral, OpenRouter. Get your free LLM API key in seconds.`,
     eyebrow: (d: string) => `Free & verified · Updated ${d}`,
     h1a: 'Every free LLM API.',
     h1b: 'One place.',
@@ -70,7 +71,7 @@ const en = {
     faqs: (p: number, _m: number) => [
       {
         q: 'What is the best free LLM API?',
-        a: `The best free LLM API depends on your use case. Groq is the fastest, Google Gemini has the largest free context window, and GitHub Models needs no separate signup. All ${p} providers listed here offer a free LLM API with no upfront cost.`,
+        a: `The best free LLM API depends on your use case. Groq is the fastest, Google Gemini gives a 1M-token free context window, and OpenRouter puts many free models behind one key. All ${p} providers listed here offer a free LLM API with no upfront cost.`,
       },
       {
         q: 'How do I get a free LLM API key?',
@@ -78,7 +79,7 @@ const en = {
       },
       {
         q: 'Are there free LLM APIs with no credit card?',
-        a: 'Yes. Many providers here offer a free LLM API with no credit card required — the "No card" badge marks them. Groq, Google Gemini, GitHub Models, and Mistral all give free API keys without any payment details.',
+        a: 'Yes. Many providers here offer a free LLM API with no credit card required — the "No card" badge marks them. Groq, Google Gemini, Cloudflare Workers AI, and Mistral all give free API keys without any payment details.',
       },
       {
         q: 'What is the cheapest LLM API?',
@@ -86,11 +87,11 @@ const en = {
       },
       {
         q: 'Are there open source LLM APIs?',
-        a: 'Yes. Providers like Groq, Together AI, and DeepInfra serve open source LLM models such as Llama and Mistral through a free LLM API. You get the best open source LLM models via a hosted, OpenAI-compatible endpoint without running your own hardware.',
+        a: 'Yes. Providers like Groq, OpenRouter, and Cloudflare Workers AI serve open source LLM models such as Llama and Mistral through a free LLM API. You get the best open source LLM models via a hosted, OpenAI-compatible endpoint without running your own hardware.',
       },
       {
         q: 'Are there open source LLM API keys available for free?',
-        a: 'Yes. You can get a free API key from any provider on this page and call open source LLM models through it. That gives you open source LLM API keys without a credit card — Groq, Together AI, and DeepInfra all serve open-weight models this way.',
+        a: 'Yes. You can get a free API key from any provider on this page and call open source LLM models through it. That gives you open source LLM API keys without a credit card — Groq, OpenRouter, and Cloudflare Workers AI all serve open-weight models this way.',
       },
       {
         q: 'What is the cheapest LLM API provider?',
@@ -105,9 +106,16 @@ const en = {
   blogIndex: {
     title: 'Blog — Free LLM API Guides & Tutorials | freellm.site',
     description:
-      'Guides, tutorials, and comparisons for free LLM APIs. Learn how to use Groq, Gemini, GitHub Models and 90+ free AI providers.',
+      'Guides, tutorials, and comparisons for free LLM APIs. Learn how to use Groq, Gemini, OpenRouter and 60+ free AI providers.',
     h1: 'Blog',
     lede: 'Guides and tutorials for using free LLM APIs.',
+  },
+  post: {
+    faqTitle: 'Frequently asked questions',
+    relatedTitle: 'Related guides',
+    backToBlog: '← Back to blog',
+    browseCta: 'Browse free LLM APIs →',
+    updated: 'Updated',
   },
   provider: {
     home: 'Home',
