@@ -1,11 +1,11 @@
 ---
 // No props — JS wires it up at runtime
 ---
-<div class="filter-bar" id="filter-bar">
-  <button class="filter-btn active" data-filter="all">All</button>
-  <button class="filter-btn" data-filter="permanent">Permanent Free</button>
-  <button class="filter-btn" data-filter="credits">Free Credits</button>
-  <button class="filter-btn" data-filter="no-card">No Card Required</button>
+<div class="mb-6 flex flex-wrap gap-2" id="filter-bar" role="group" aria-label="Filter providers">
+  <button type="button" class="filter-btn inline-flex h-8 cursor-pointer items-center rounded-full border bg-background px-3.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground [&.active]:border-primary [&.active]:bg-primary [&.active]:text-primary-foreground active" data-filter="all">All</button>
+  <button type="button" class="filter-btn inline-flex h-8 cursor-pointer items-center rounded-full border bg-background px-3.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground [&.active]:border-primary [&.active]:bg-primary [&.active]:text-primary-foreground" data-filter="permanent">Permanent Free</button>
+  <button type="button" class="filter-btn inline-flex h-8 cursor-pointer items-center rounded-full border bg-background px-3.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground [&.active]:border-primary [&.active]:bg-primary [&.active]:text-primary-foreground" data-filter="credits">Free Credits</button>
+  <button type="button" class="filter-btn inline-flex h-8 cursor-pointer items-center rounded-full border bg-background px-3.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground [&.active]:border-primary [&.active]:bg-primary [&.active]:text-primary-foreground" data-filter="no-card">No Card Required</button>
 </div>
 
 <script>

@@ -18,6 +18,7 @@ const ko: Strings = {
     card: '카드',
     maxContext: '최대 컨텍스트',
     lastVerified: '최종 확인',
+    sourceLink: name => `${name} 문서`,
     getKey: '키 받기',
     getKeyCta: '키 받기 →',
     credits: '크레딧',
@@ -32,9 +33,9 @@ const ko: Strings = {
     },
   },
   home: {
-    title: '무료 LLM API — 30개 이상 제공업체의 무료 LLM API 키 | freellm.site',
+    title: (p) => `무료 LLM API — ${p}개 제공업체의 무료 LLM API 키 | freellm.site`,
     description: (p, m) =>
-      `신용카드 없이 무료 LLM API를 찾아보세요. ${p}개 제공업체, ${m}개 모델 — Groq, Gemini, Mistral, GitHub Models. 무료 LLM API 키를 몇 초 만에 받으세요.`,
+      `신용카드 없이 무료 LLM API를 찾아보세요. ${p}개 제공업체, ${m}개 모델 — Groq, Gemini, Mistral, OpenRouter. 무료 LLM API 키를 몇 초 만에 받으세요.`,
     eyebrow: d => `무료 및 검증됨 · ${d} 업데이트`,
     h1a: '모든 무료 LLM API를',
     h1b: '한곳에서.',
@@ -63,7 +64,7 @@ const ko: Strings = {
     faqs: p => [
       {
         q: '가장 좋은 무료 LLM API는 무엇인가요?',
-        a: `용도에 따라 다릅니다. Groq가 가장 빠르고, Google Gemini는 무료 컨텍스트 윈도우가 가장 크며, GitHub Models는 별도 가입이 필요 없습니다. 여기 나열된 ${p}개 제공업체 모두 초기 비용 없이 무료 LLM API를 제공합니다.`,
+        a: `용도에 따라 다릅니다. Groq가 가장 빠르고, Google Gemini는 1M 토큰 컨텍스트 윈도우를 무료로 제공하며, OpenRouter는 키 하나로 여러 무료 모델을 쓸 수 있습니다. 여기 나열된 ${p}개 제공업체 모두 초기 비용 없이 무료 LLM API를 제공합니다.`,
       },
       {
         q: '무료 LLM API 키는 어떻게 받나요?',
@@ -71,7 +72,7 @@ const ko: Strings = {
       },
       {
         q: '신용카드 없이 쓸 수 있는 무료 LLM API가 있나요?',
-        a: '있습니다. 여기 많은 제공업체가 신용카드 없이 무료 LLM API를 제공하며 "카드 불필요" 배지로 표시됩니다. Groq, Google Gemini, GitHub Models, Mistral 모두 결제 정보 없이 무료 API 키를 발급합니다.',
+        a: '있습니다. 여기 많은 제공업체가 신용카드 없이 무료 LLM API를 제공하며 "카드 불필요" 배지로 표시됩니다. Groq, Google Gemini, Cloudflare Workers AI, Mistral 모두 결제 정보 없이 무료 API 키를 발급합니다.',
       },
       {
         q: '가장 저렴한 LLM API는 무엇인가요?',
@@ -79,11 +80,11 @@ const ko: Strings = {
       },
       {
         q: '오픈소스 LLM API도 있나요?',
-        a: '있습니다. Groq, Together AI, DeepInfra 같은 제공업체가 Llama, Mistral 등 오픈소스 LLM 모델을 무료 LLM API로 서비스합니다. 자체 하드웨어를 운영하지 않고도 호스팅된 OpenAI 호환 엔드포인트로 최고의 오픈 모델을 사용할 수 있습니다.',
+        a: '있습니다. Groq, OpenRouter, Cloudflare Workers AI 같은 제공업체가 Llama, Mistral 등 오픈소스 LLM 모델을 무료 LLM API로 서비스합니다. 자체 하드웨어를 운영하지 않고도 호스팅된 OpenAI 호환 엔드포인트로 최고의 오픈 모델을 사용할 수 있습니다.',
       },
       {
         q: '오픈소스 LLM API 키를 무료로 받을 수 있나요?',
-        a: '가능합니다. 이 페이지의 아무 제공업체에서나 무료 API 키를 받아 오픈소스 LLM 모델을 호출할 수 있습니다. 신용카드 없이 오픈 모델용 키를 얻는 셈이며, Groq, Together AI, DeepInfra 모두 이런 방식으로 오픈웨이트 모델을 제공합니다.',
+        a: '가능합니다. 이 페이지의 아무 제공업체에서나 무료 API 키를 받아 오픈소스 LLM 모델을 호출할 수 있습니다. 신용카드 없이 오픈 모델용 키를 얻는 셈이며, Groq, OpenRouter, Cloudflare Workers AI 모두 이런 방식으로 오픈웨이트 모델을 제공합니다.',
       },
       {
         q: '가장 저렴한 LLM API 제공업체는 어디인가요?',
@@ -98,9 +99,16 @@ const ko: Strings = {
   blogIndex: {
     title: '블로그 — 무료 LLM API 가이드 및 튜토리얼 | freellm.site',
     description:
-      '무료 LLM API 가이드, 튜토리얼, 비교 자료. Groq, Gemini, GitHub Models 등 90개 이상 무료 AI 제공업체 사용법을 배워보세요.',
+      '무료 LLM API 가이드, 튜토리얼, 비교 자료. Groq, Gemini, OpenRouter 등 60개 이상 무료 AI 제공업체 사용법을 배워보세요.',
     h1: '블로그',
     lede: '무료 LLM API 활용을 위한 가이드와 튜토리얼.',
+  },
+  post: {
+    faqTitle: '자주 묻는 질문',
+    relatedTitle: '관련 가이드',
+    backToBlog: '← 블로그로 돌아가기',
+    browseCta: '무료 LLM API 보기 →',
+    updated: '업데이트',
   },
   provider: {
     home: '홈',

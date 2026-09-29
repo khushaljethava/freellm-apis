@@ -5,16 +5,11 @@ import providers from '../../../../../data/providers.json';
 import models from '../../../../../data/models.json';
 import { DEFAULT_LOCALE, localePath } from '../../../i18n/config';
 import { TRANSLATED_LOCALES, useTranslations } from '../../../i18n/ui';
-import { postsFor } from '../../../i18n/posts';
+import { postHref } from '../../../i18n/posts';
+import { fmtCtx, COMPARE_PAIRS } from '../../../lib/format';
 
 export function getStaticPaths() {
-  // Curated high-demand pairs only (quality gate: no N×N thin pages).
-  const PAIRS = [
-    ['groq', 'google_gemini'], ['groq', 'cerebras'], ['groq', 'sambanova'],
-    ['cerebras', 'sambanova'], ['mistral', 'groq'], ['google_gemini', 'mistral'],
-    ['github_models', 'groq'], ['together_ai', 'groq'], ['openrouter', 'groq'],
-    ['cohere', 'mistral'],
-  ];
+  const PAIRS = COMPARE_PAIRS;
   const ids = Object.fromEntries(providers.map(p => [p.id, p]));
   return TRANSLATED_LOCALES.flatMap(locale =>
     PAIRS
@@ -30,12 +25,11 @@ const { a, b, locale } = Astro.props;
 const t = useTranslations(locale);
 const tc = t.compare;
 const L = (p: string) => localePath(p, locale);
-const G = (p: string) => localePath(p, postsFor(locale).length ? locale : DEFAULT_LOCALE);
+const G = (slug: string) => postHref(locale, slug);
 
 const modelsOf = id => models.filter(m => m.provider_id === id && !m.deprecated);
 const maxCtx = id => { const c = modelsOf(id).map(m => m.context_window); return c.length ? Math.max(...c) : 0; };
 const maxRpm = id => { const r = modelsOf(id).map(m => m.rpm).filter(Boolean); return r.length ? Math.max(...r) : null; };
-const fmtCtx = c => c >= 1_000_000 ? `${Math.round(c / 1_000_000)}M` : c ? `${Math.round(c / 1_000)}K` : '—';
 const cardLabel = t.common.cardLabel;
 
 const freeTypeLabel = p => p.free_type === 'permanent' ? tc.rows.permanent : tc.rows.credits;
@@ -94,13 +88,16 @@ const schema = {
   description={description}
   schema={schema}
 >
-  <div class="breadcrumb">
-    <a href={L('/')}>{t.provider.home}</a><span>›</span><span>{tc.crumb(a.name, b.name)}</span>
-  </div>
+  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">
+    <ol class="flex items-center gap-1.5">
+      <li><a class="text-muted-foreground hover:text-foreground" href={L('/')}>{t.provider.home}</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-foreground">{tc.crumb(a.name, b.name)}</li>
+    </ol>
+  </nav>
 
-  <h1 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">{tc.h1(a.name, b.name)}</h1>
-
-  <p style="color:#374151;line-height:1.6;margin-bottom:1.25rem">
+  <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{tc.h1(a.name, b.name)}</h1>
+  <p class="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
     {tc.introA}<a href={L(`/providers/${a.id}/`)}>{a.name}</a>{tc.introAnd}<a
       href={L(`/providers/${b.id}/`)}>{b.name}</a>{tc.introEnd}
   </p>
@@ -110,25 +107,27 @@ const schema = {
   <h2 class="section-title">{tc.glanceTitle(a.name, b.name)}</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th></th><th>{a.name}</th><th>{b.name}</th></tr></thead>
+      <thead><tr><th scope="col"><span class="sr-only">—</span></th><th scope="col">{a.name}</th><th scope="col">{b.name}</th></tr></thead>
       <tbody>
         {rows.map(([label, av, bv]) => (
-          <tr><td><strong>{label}</strong></td><td>{av}</td><td>{bv}</td></tr>
+          <tr><th scope="row" class="font-medium text-foreground">{label}</th><td class="break-all">{av}</td><td class="break-all">{bv}</td></tr>
         ))}
       </tbody>
     </table>
   </div>
 
   <h2 class="section-title">{tc.pickTitle}</h2>
-  <p style="color:#374151;line-height:1.6">{verdict}</p>
-  <p style="color:#374151;line-height:1.6">
-    {tc.bothCompatA}<a href={G('/blog/openai-compatible-free-llm-apis-list/')}>{tc.bothCompatLink1}</a
-    >{tc.bothCompatMid}<a href={G('/blog/free-llm-api-rate-limits-compared/')}>{tc.bothCompatLink2}</a
-    >{tc.bothCompatEnd}
-  </p>
+  <div class="max-w-3xl space-y-4 rounded-xl border border-primary/30 bg-accent/40 p-5 leading-relaxed">
+    <p class="font-medium">{verdict}</p>
+    <p class="text-muted-foreground">
+      {tc.bothCompatA}<a href={G('openai-compatible-free-llm-apis-list')}>{tc.bothCompatLink1}</a
+      >{tc.bothCompatMid}<a href={G('free-llm-api-rate-limits-compared')}>{tc.bothCompatLink2}</a
+      >{tc.bothCompatEnd}
+    </p>
+  </div>
 
   <h2 class="section-title">{tc.detailsTitle}</h2>
-  <ul class="related-links">
+  <ul class="link-list">
     <li><a href={L(`/providers/${a.id}/`)}>{tc.detailsItem(a.name)}</a></li>
     <li><a href={L(`/providers/${b.id}/`)}>{tc.detailsItem(b.name)}</a></li>
     <li><a href={L('/')}>{tc.browseAll}</a></li>

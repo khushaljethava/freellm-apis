@@ -4,6 +4,8 @@ import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import { LOCALES, DEFAULT_LOCALE, localePath, stripLocale, type Locale } from '../i18n/config';
 import { TRANSLATED_LOCALES, useTranslations } from '../i18n/ui';
 import { postsFor } from '../i18n/posts';
+import { seoTitle } from '../lib/format';
+import '../styles/global.css';
 
 interface Props {
   title: string;
@@ -18,16 +20,19 @@ interface Props {
    * pages must pass this explicitly.
    */
   altLocales?: Locale[];
+  /** Keep the page out of the index but still crawl its links (thin/duplicate pages). */
+  noindex?: boolean;
 }
 const {
-  title,
   description,
   ogType = 'website',
   ogImage = '/og-default.png',
   schema,
   locale = DEFAULT_LOCALE,
   altLocales = [DEFAULT_LOCALE],
+  noindex = false,
 } = Astro.props;
+const title = seoTitle(Astro.props.title);
 const t = useTranslations(locale);
 const canonical = Astro.url.href;
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).href;
@@ -40,6 +45,11 @@ const alternates = altLocales.map(code => ({
   href: new URL(localePath(basePath, code), site).href,
 }));
 const xDefault = new URL(localePath(basePath, DEFAULT_LOCALE), site).href;
+// Open Graph wants language_TERRITORY, not a bare language code.
+const OG_LOCALE: Record<Locale, string> = {
+  en: 'en_US', es: 'es_ES', de: 'de_DE', fr: 'fr_FR', pt: 'pt_BR', hi: 'hi_IN',
+  ru: 'ru_RU', ja: 'ja_JP', ko: 'ko_KR', zh: 'zh_CN', ar: 'ar_AR',
+};
 const L = (path: string) => localePath(path, locale);
 // /xx/blog/ only exists once that language has posts; /about/ is English-only for now.
 const blogHref = postsFor(locale).length ? L('/blog/') : '/blog/';
@@ -49,11 +59,13 @@ const blogHref = postsFor(locale).length ? L('/blog/') : '/blog/';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#5b21b6" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- hreflang: every language version of this page, plus the x-default fallback -->
@@ -67,8 +79,8 @@ const blogHref = postsFor(locale).length ? L('/blog/') : '/blog/';
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:site_name" content="freellm.site" />
-    <meta property="og:locale" content={locale} />
-    {alternates.filter(a => a.code !== locale).map(a => <meta property="og:locale:alternate" content={a.code} />)}
+    <meta property="og:locale" content={OG_LOCALE[locale]} />
+    {alternates.filter(a => a.code !== locale).map(a => <meta property="og:locale:alternate" content={OG_LOCALE[a.code]} />)}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -93,32 +105,52 @@ const blogHref = postsFor(locale).length ? L('/blog/') : '/blog/';
       gtag('js', new Date());
       gtag('config', 'G-23KHWSDYBD');
     </script>
-    <link rel="stylesheet" href="/styles/global.css" />
   </head>
-  <body>
-    <header class="site-header">
-      <div class="inner">
-        <a href={L('/')} class="wordmark">freellm.site</a>
-        <nav>
-          <a href={L('/models/')}>{t.nav.models}</a>
-          <a href={blogHref}>{t.nav.blog}</a>
-          <a href={L('/about/')}>{t.nav.about}</a>
-          <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">{t.nav.github}</a>
-          <LanguageSwitcher locale={locale} available={altLocales} />
+  <body class="flex min-h-dvh flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-background focus:px-3 focus:py-2">Skip to content</a>
+    <header class="sticky top-0 z-40 border-b bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      <div class="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:px-6">
+        <a href={L('/')} class="flex items-center gap-2 font-semibold tracking-tight text-foreground no-underline hover:no-underline">
+          <img src="/favicon.svg" alt="" width="24" height="24" class="size-6" />
+          <span>freellm<span class="text-muted-foreground">.site</span></span>
+        </a>
+        <nav class="ms-auto hidden items-center gap-1 text-sm sm:flex" aria-label="Main">
+          <a class="rounded-md px-3 py-1.5 text-muted-foreground no-underline hover:bg-accent hover:text-accent-foreground hover:no-underline" href={L('/models/')}>{t.nav.models}</a>
+          <a class="rounded-md px-3 py-1.5 text-muted-foreground no-underline hover:bg-accent hover:text-accent-foreground hover:no-underline" href={blogHref}>{t.nav.blog}</a>
+          <a class="rounded-md px-3 py-1.5 text-muted-foreground no-underline hover:bg-accent hover:text-accent-foreground hover:no-underline" href={L('/about/')}>{t.nav.about}</a>
+          <a class="rounded-md px-3 py-1.5 text-muted-foreground no-underline hover:bg-accent hover:text-accent-foreground hover:no-underline" href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">{t.nav.github}</a>
         </nav>
+        <div class="ms-auto sm:ms-0"><LanguageSwitcher locale={locale} available={altLocales} /></div>
+        <!-- ponytail: <details> menu, no JS; links stay crawlable -->
+        <details class="group relative sm:hidden">
+          <summary class="flex size-9 cursor-pointer list-none items-center justify-center rounded-md border [&::-webkit-details-marker]:hidden" aria-label="Menu">
+            <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </summary>
+          <nav class="absolute end-0 top-11 w-48 rounded-lg border bg-popover p-1 shadow-lg" aria-label="Main">
+            <a class="block rounded-md px-3 py-2 text-sm text-foreground no-underline hover:bg-accent hover:no-underline" href={L('/models/')}>{t.nav.models}</a>
+            <a class="block rounded-md px-3 py-2 text-sm text-foreground no-underline hover:bg-accent hover:no-underline" href={blogHref}>{t.nav.blog}</a>
+            <a class="block rounded-md px-3 py-2 text-sm text-foreground no-underline hover:bg-accent hover:no-underline" href={L('/about/')}>{t.nav.about}</a>
+            <a class="block rounded-md px-3 py-2 text-sm text-foreground no-underline hover:bg-accent hover:no-underline" href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">{t.nav.github}</a>
+          </nav>
+        </details>
       </div>
     </header>
-    <main><slot /></main>
-    <footer>
-      <nav class="footer-nav" aria-label={t.footer.legalNav}>
-        <a href="/privacy/">{t.footer.privacy}</a>
-        <a href="/terms/">{t.footer.terms}</a>
-        <a href={L('/about/')}>{t.footer.about}</a>
-        <a href="/contact/">{t.footer.contact}</a>
-        <a href="/cookies/">{t.footer.cookies}</a>
-      </nav>
-      <p>{t.footer.updated} · <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">{t.footer.contribute}</a></p>
-      <p style="margin-top:0.25rem">© {new Date().getFullYear()} freellm.site</p>
+    <main id="main" class="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10"><slot /></main>
+    <footer class="border-t bg-muted/30">
+      <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div>
+          <p class="font-medium text-foreground">freellm.site</p>
+          <p>{t.footer.updated} · <a href="https://github.com/khushaljethava/freellm-apis" target="_blank" rel="noopener">{t.footer.contribute}</a></p>
+          <p class="mt-1">© {new Date().getFullYear()} freellm.site</p>
+        </div>
+        <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label={t.footer.legalNav}>
+          <a class="text-muted-foreground hover:text-foreground" href="/privacy/">{t.footer.privacy}</a>
+          <a class="text-muted-foreground hover:text-foreground" href="/terms/">{t.footer.terms}</a>
+          <a class="text-muted-foreground hover:text-foreground" href={L('/about/')}>{t.footer.about}</a>
+          <a class="text-muted-foreground hover:text-foreground" href="/contact/">{t.footer.contact}</a>
+          <a class="text-muted-foreground hover:text-foreground" href="/cookies/">{t.footer.cookies}</a>
+        </nav>
+      </div>
     </footer>
     <CookieConsent />
   </body>

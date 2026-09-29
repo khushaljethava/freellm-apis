@@ -42,6 +42,17 @@ export const blogIndexPaths = () =>
     props: { blogLocales: TRANSLATED_LOCALES.filter(l => postsFor(l).length > 0) },
   }));
 
+/**
+ * Href for a post in a locale, falling back to English PER POST.
+ * A locale-level fallback ("this language has some posts, so link everything under /xx/")
+ * breaks the moment a language is partially translated: it links to slugs that were
+ * never built. Resolve each slug on its own.
+ */
+export function postHref(locale: Locale, slug: string): string {
+  const lang = postIn(locale, slug) ? locale : DEFAULT_LOCALE;
+  return lang === DEFAULT_LOCALE ? `/blog/${slug}/` : `/${lang}/blog/${slug}/`;
+}
+
 /** Locales a given post is translated into — drives that page's hreflang set. */
 export function localesForPost(slug: string): Locale[] {
   return TRANSLATED_LOCALES.filter(l => postIn(l, slug));

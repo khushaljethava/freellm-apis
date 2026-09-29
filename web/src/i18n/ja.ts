@@ -18,6 +18,7 @@ const ja: Strings = {
     card: 'カード',
     maxContext: '最大コンテキスト',
     lastVerified: '最終確認',
+    sourceLink: name => `${name} のドキュメント`,
     getKey: 'キーを取得',
     getKeyCta: 'キーを取得 →',
     credits: 'クレジット',
@@ -32,9 +33,9 @@ const ja: Strings = {
     },
   },
   home: {
-    title: '無料 LLM API — 30社以上のプロバイダーの無料 LLM API キー | freellm.site',
+    title: (p) => `無料 LLM API — ${p}社のプロバイダーの無料 LLM API キー | freellm.site`,
     description: (p, m) =>
-      `クレジットカード不要の無料 LLM API を見つけましょう。${p} プロバイダー、${m} モデル — Groq、Gemini、Mistral、GitHub Models。無料の LLM API キーを数秒で取得できます。`,
+      `クレジットカード不要の無料 LLM API を見つけましょう。${p} プロバイダー、${m} モデル — Groq、Gemini、Mistral、OpenRouter。無料の LLM API キーを数秒で取得できます。`,
     eyebrow: d => `無料・確認済み · 更新日 ${d}`,
     h1a: 'すべての無料 LLM API を、',
     h1b: 'ひとつの場所に。',
@@ -64,7 +65,7 @@ const ja: Strings = {
     faqs: p => [
       {
         q: '最も優れた無料 LLM API は?',
-        a: `最適な無料 LLM API は用途によって異なります。Groq は最速、Google Gemini は無料枠のコンテキストウィンドウが最大、GitHub Models は個別の登録が不要です。ここに掲載している ${p} プロバイダーはすべて、初期費用なしの無料 LLM API を提供しています。`,
+        a: `最適な無料 LLM API は用途によって異なります。Groq は最速、Google Gemini は無料で 1M トークンのコンテキストウィンドウを使え、OpenRouter は 1 つのキーで多数の無料モデルを利用できます。ここに掲載している ${p} プロバイダーはすべて、初期費用なしの無料 LLM API を提供しています。`,
       },
       {
         q: '無料の LLM API キーはどう取得しますか?',
@@ -72,7 +73,7 @@ const ja: Strings = {
       },
       {
         q: 'クレジットカード不要の無料 LLM API はありますか?',
-        a: 'あります。ここに掲載する多くのプロバイダーがクレジットカード不要の無料 LLM API を提供しており、「カード不要」バッジが目印です。Groq、Google Gemini、GitHub Models、Mistral はいずれも支払い情報なしで無料 API キーを発行します。',
+        a: 'あります。ここに掲載する多くのプロバイダーがクレジットカード不要の無料 LLM API を提供しており、「カード不要」バッジが目印です。Groq、Google Gemini、Cloudflare Workers AI、Mistral はいずれも支払い情報なしで無料 API キーを発行します。',
       },
       {
         q: '最も安い LLM API は?',
@@ -80,11 +81,11 @@ const ja: Strings = {
       },
       {
         q: 'オープンソースの LLM API はありますか?',
-        a: 'あります。Groq、Together AI、DeepInfra などのプロバイダーが、Llama や Mistral といったオープンソース LLM モデルを無料 LLM API 経由で提供しています。自前のハードウェアを運用せずに、ホスト型の OpenAI 互換エンドポイントから主要なオープンモデルを利用できます。',
+        a: 'あります。Groq、OpenRouter、Cloudflare Workers AI などのプロバイダーが、Llama や Mistral といったオープンソース LLM モデルを無料 LLM API 経由で提供しています。自前のハードウェアを運用せずに、ホスト型の OpenAI 互換エンドポイントから主要なオープンモデルを利用できます。',
       },
       {
         q: 'オープンソース LLM API のキーを無料で入手できますか?',
-        a: 'できます。このページのどのプロバイダーからでも無料 API キーを取得し、それでオープンソース LLM モデルを呼び出せます。クレジットカードなしでオープンモデル用のキーが手に入ります — Groq、Together AI、DeepInfra はいずれもこの形でオープンウェイトモデルを提供しています。',
+        a: 'できます。このページのどのプロバイダーからでも無料 API キーを取得し、それでオープンソース LLM モデルを呼び出せます。クレジットカードなしでオープンモデル用のキーが手に入ります — Groq、OpenRouter、Cloudflare Workers AI はいずれもこの形でオープンウェイトモデルを提供しています。',
       },
       {
         q: '最も安い LLM API プロバイダーは?',
@@ -99,9 +100,16 @@ const ja: Strings = {
   blogIndex: {
     title: 'ブログ — 無料 LLM API のガイドとチュートリアル | freellm.site',
     description:
-      '無料 LLM API のガイド、チュートリアル、比較記事。Groq、Gemini、GitHub Models など 90 以上の無料 AI プロバイダーの使い方を学べます。',
+      '無料 LLM API のガイド、チュートリアル、比較記事。Groq、Gemini、OpenRouter など 60 以上の無料 AI プロバイダーの使い方を学べます。',
     h1: 'ブログ',
     lede: '無料 LLM API を使いこなすためのガイドとチュートリアル。',
+  },
+  post: {
+    faqTitle: 'よくある質問',
+    relatedTitle: '関連ガイド',
+    backToBlog: '← ブログに戻る',
+    browseCta: '無料 LLM API を見る →',
+    updated: '更新日',
   },
   provider: {
     home: 'ホーム',

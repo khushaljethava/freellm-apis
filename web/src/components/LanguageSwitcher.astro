@@ -14,11 +14,13 @@ const t = useTranslations(locale);
 const basePath = stripLocale(Astro.url.pathname);
 ---
 {available.length > 1 && (
-  <details class="lang-switch">
-    <summary aria-label={t.nav.language}>
-      <span aria-hidden="true">🌐</span> {LOCALES[locale].name}
+  <!-- ponytail: <details> instead of a JS dropdown — works without JS, links stay crawlable -->
+  <details class="relative text-sm">
+    <summary aria-label={t.nav.language} class="flex h-9 cursor-pointer list-none items-center gap-1.5 rounded-md border px-3 whitespace-nowrap hover:bg-accent [&::-webkit-details-marker]:hidden">
+      <svg aria-hidden="true" class="size-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+      {LOCALES[locale].name}
     </summary>
-    <ul>
+    <ul class="absolute end-0 top-11 z-50 m-0 min-w-40 list-none rounded-lg border bg-popover p-1 shadow-lg">
       {available.map(code => (
         <li>
           <a
@@ -26,46 +28,10 @@ const basePath = stripLocale(Astro.url.pathname);
             hreflang={code}
             lang={code}
             aria-current={code === locale ? 'true' : undefined}
+            class="block rounded-md px-3 py-1.5 text-popover-foreground no-underline hover:bg-accent hover:no-underline aria-[current=true]:font-semibold aria-[current=true]:text-primary"
           >{LOCALES[code].name}</a>
         </li>
       ))}
     </ul>
   </details>
 )}
-
-<style>
-  /* ponytail: <details> instead of a JS dropdown — works without JS, links stay crawlable */
-  .lang-switch { position: relative; display: inline-block; font-size: 0.875rem; }
-  .lang-switch summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid var(--border, #e5e7eb);
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-  .lang-switch summary::-webkit-details-marker { display: none; }
-  .lang-switch ul {
-    position: absolute;
-    inset-inline-end: 0;
-    top: calc(100% + 0.35rem);
-    z-index: 50;
-    margin: 0;
-    padding: 0.35rem;
-    list-style: none;
-    min-width: 9rem;
-    background: #fff;
-    border: 1px solid var(--border, #e5e7eb);
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  }
-  .lang-switch a {
-    display: block;
-    padding: 0.35rem 0.6rem;
-    border-radius: 6px;
-    text-decoration: none;
-    color: inherit;
-  }
-  .lang-switch a:hover { background: var(--tag-bg, #f3f4f6); }
-  .lang-switch a[aria-current='true'] { font-weight: 600; color: var(--accent, #6366f1); }
-</style>

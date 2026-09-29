@@ -1,15 +1,15 @@
 ---
 const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-XXXXXXXXXX';
 ---
-<div id="cookie-banner" class="cookie-banner" hidden>
-  <div class="cookie-banner-inner">
-    <p>
+<div id="cookie-banner" class="fixed inset-x-0 bottom-0 z-50 p-3 sm:p-4" hidden>
+  <div class="mx-auto flex max-w-3xl flex-col gap-3 rounded-xl border bg-popover p-4 shadow-2xl sm:flex-row sm:items-center sm:justify-between">
+    <p class="text-sm text-muted-foreground">
       We use cookies for analytics (Google Analytics) and advertising (Google AdSense).
       See our <a href="/cookies/">Cookie Policy</a> and <a href="/privacy/">Privacy Policy</a>.
     </p>
-    <div class="cookie-banner-actions">
-      <button type="button" id="cookie-reject" class="cookie-btn cookie-btn--secondary">Essential only</button>
-      <button type="button" id="cookie-accept" class="cookie-btn cookie-btn--primary">Accept all</button>
+    <div class="flex shrink-0 gap-2">
+      <button type="button" id="cookie-reject" class="btn btn-outline cursor-pointer">Essential only</button>
+      <button type="button" id="cookie-accept" class="btn btn-primary cursor-pointer">Accept all</button>
     </div>
   </div>
 </div>

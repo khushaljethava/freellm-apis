@@ -1,3 +1,265 @@
 {
-  "trailingSlash": true
+  "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/providers/github_models/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/github_models/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/lambda_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/lambda_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/hyperbolic/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/hyperbolic/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/chutes_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/chutes_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/modal/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/modal/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/together_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/together_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/perplexity/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/perplexity/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/deepinfra/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/deepinfra/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/anthropic/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/anthropic/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/lepton_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/lepton_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/hanooman/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/hanooman/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/01_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/01_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/moonshot_kimi/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/moonshot_kimi/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/friendli_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/friendli_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/infermatic_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/infermatic_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/parasail/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/parasail/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/ai71/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/ai71/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/aleph_alpha/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/aleph_alpha/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/core42/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/core42/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/poly_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/poly_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/silo_ai/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/silo_ai/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/providers/sb_intuitions/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/providers/sb_intuitions/",
+      "destination": "/:lang/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/github_models-vs-groq/",
+      "destination": "/providers/groq/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/compare/github_models-vs-groq/",
+      "destination": "/:lang/providers/groq/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/together_ai-vs-groq/",
+      "destination": "/providers/groq/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|de|fr|pt|hi|ru|ja|ko|zh|ar)/compare/together_ai-vs-groq/",
+      "destination": "/:lang/providers/groq/",
+      "permanent": true
+    }
+  ]
 }
