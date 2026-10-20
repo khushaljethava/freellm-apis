@@ -3,6 +3,7 @@
 const en = {
   nav: {
     models: 'Models',
+    imageApis: 'Image APIs',
     blog: 'Blog',
     about: 'About',
     github: 'GitHub',

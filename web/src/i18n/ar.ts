@@ -2,7 +2,7 @@ import type { Strings } from './en';
 
 // Arabic renders RTL — dir="rtl" comes from LOCALES.ar in config.ts.
 const ar: Strings = {
-  nav: { models: 'النماذج', blog: 'المدونة', about: 'حول', github: 'GitHub', language: 'اللغة' },
+  nav: { models: 'النماذج', imageApis: 'واجهات الصور', blog: 'المدونة', about: 'حول', github: 'GitHub', language: 'اللغة' },
   footer: {
     privacy: 'الخصوصية',
     terms: 'الشروط',

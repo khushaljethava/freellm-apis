@@ -6,6 +6,7 @@ from datetime import date
 ROOT = Path(__file__).parent.parent
 PROVIDERS_FILE = ROOT / "data" / "providers.json"
 MODELS_FILE = ROOT / "data" / "models.json"
+IMAGE_FILE = ROOT / "data" / "image_apis.json"
 README_FILE = ROOT / "README.md"
 
 
@@ -20,7 +21,7 @@ def model_count(pid, models):
 
 
 def max_context(pid, models):
-    ctxs = [m["context_window"] for m in models if m["provider_id"] == pid and not m["deprecated"]]
+    ctxs = [m["context_window"] for m in models if m["provider_id"] == pid and not m["deprecated"] and m["context_window"]]
     if not ctxs:
         return "—"
     c = max(ctxs)
@@ -40,6 +41,9 @@ CARD = {"no": "✅ No", "registration": "📧 Email", "phone": "📱 Phone", "ye
 
 def inject(content, marker, table):
     s, e = f"<!-- BEGIN_{marker} -->", f"<!-- END_{marker} -->"
+    if s not in content or e not in content:
+        print(f"warning: README has no {marker} markers, skipped")
+        return content
     return content.split(s)[0] + s + "\n" + table + "\n" + e + content.split(e)[1]
 
 
@@ -76,6 +80,19 @@ def base_urls_table(providers):
     return out
 
 
+def image_table(apis):
+    out = "| Provider | Free allowance | Card? | Recurring? | OpenAI-compatible | Get Key |\n"
+    out += "|---|---|---|---|---|---|\n"
+    for a in apis:
+        if a["free_type"] == "none":
+            continue
+        out += (f"| {a['name']} | {a['free_allowance']} | {CARD.get(a['credit_card_required'], a['credit_card_required'])} "
+                f"| {'Yes' if a['free_type'] == 'permanent' else 'No'} | {'Yes' if a['openai_compatible'] else 'No'} "
+                f"| [Get Key →]({a['signup_url']}) |\n")
+    gone = ", ".join(a["name"] for a in apis if a["free_type"] == "none")
+    return out + f"\n**No longer free:** {gone}.\n" if gone else out
+
+
 def stats_block(providers, models):
     total_p = len(providers)
     total_m = sum(1 for m in models if not m["deprecated"])
@@ -90,6 +107,7 @@ def main():
     content = inject(content, "PERMANENT", permanent_table(providers, models))
     content = inject(content, "CREDITS", credits_table(providers, models))
     content = inject(content, "BASE_URLS", base_urls_table(providers))
+    content = inject(content, "IMAGE_APIS", image_table(json.loads(IMAGE_FILE.read_text())))
     README_FILE.write_text(content)
     total_m = sum(1 for m in models if not m["deprecated"])
     print(f"README.md updated — {len(providers)} providers, {total_m} models.")

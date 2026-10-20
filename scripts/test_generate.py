@@ -14,6 +14,7 @@ def test_generates_tables():
     assert "2026-06-28" in readme
     assert "<!-- BEGIN_PERMANENT -->" in readme
     assert "<!-- BEGIN_CREDITS -->" in readme
+    assert "Cloudflare Workers AI" in readme.split("<!-- BEGIN_IMAGE_APIS -->")[1]
 
 def test_stats_injected():
     readme = (ROOT / "README.md").read_text()

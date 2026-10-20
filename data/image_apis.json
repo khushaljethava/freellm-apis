@@ -1,0 +1,193 @@
+[
+  {
+    "id": "cloudflare",
+    "name": "Cloudflare Workers AI",
+    "provider_id": "cloudflare",
+    "region": "global",
+    "endpoint": "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/black-forest-labs/flux-1-schnell",
+    "openai_compatible": false,
+    "signup_url": "https://dash.cloudflare.com/profile/api-tokens",
+    "credit_card_required": "no",
+    "free_type": "permanent",
+    "free_allowance": "10,000 neurons/day, resets 00:00 UTC",
+    "models": [
+      "@cf/black-forest-labs/flux-1-schnell",
+      "@cf/black-forest-labs/flux-2-klein-4b",
+      "@cf/black-forest-labs/flux-2-dev",
+      "@cf/leonardo/phoenix-1.0",
+      "@cf/leonardo/lucid-origin"
+    ],
+    "notes": "FLUX.1 schnell costs 4.8 neurons per 512x512 tile + 9.6 per step, so a 512x512 image at 4 steps is ~43 neurons (~230 images/day). Leonardo models cost 10x+ more per tile.",
+    "source_url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "zhipu_cogview",
+    "name": "Zhipu AI (CogView-3-Flash)",
+    "provider_id": "zhipu_ai",
+    "region": "china",
+    "endpoint": "https://open.bigmodel.cn/api/paas/v4/images/generations",
+    "openai_compatible": true,
+    "signup_url": "https://bigmodel.cn",
+    "credit_card_required": "no",
+    "free_type": "permanent",
+    "free_allowance": "Free model; concurrency limited by account tier",
+    "models": [
+      "cogview-3-flash"
+    ],
+    "notes": "Officially listed as a free image model. Sizes include 1024x1024, 768x1344, 1344x768, 1440x720. Returned image URLs are temporary, so download results.",
+    "source_url": "https://docs.bigmodel.cn/cn/guide/models/free/cogview-3-flash",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "nvidia_nim",
+    "name": "NVIDIA NIM",
+    "provider_id": "nvidia_nim",
+    "region": "global",
+    "endpoint": "https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-schnell",
+    "openai_compatible": false,
+    "signup_url": "https://build.nvidia.com/settings/api-keys",
+    "credit_card_required": "phone",
+    "free_type": "credits",
+    "free_allowance": "Trial credits on signup (prototyping only)",
+    "models": [
+      "black-forest-labs/flux.1-schnell",
+      "black-forest-labs/flux.1-dev"
+    ],
+    "notes": "Hosted under the NVIDIA API Trial terms. FLUX.1 schnell runs in 1-4 steps at up to 1344x768. Credit amounts are not published on the model page; check your account.",
+    "source_url": "https://build.nvidia.com/black-forest-labs/flux_1-schnell",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "pollinations",
+    "name": "Pollinations.ai",
+    "provider_id": null,
+    "region": "global",
+    "endpoint": "https://gen.pollinations.ai/v1/images/generations",
+    "openai_compatible": true,
+    "signup_url": "https://enter.pollinations.ai/keys",
+    "credit_card_required": "registration",
+    "free_type": "credits",
+    "free_allowance": "Free \"Quest Pollen\" balance; amount not published",
+    "models": [
+      "black-forest-labs/flux.1-schnell",
+      "tongyi-mai/z-image-turbo",
+      "qwen/qwen-image",
+      "krea/krea-2-medium"
+    ],
+    "notes": "A secret key (sk_) is now required to generate. Free Quest Pollen only covers models not marked paid_only; premium models (GPT Image, Nano Banana, Seedream) need paid Pollen. Also offers a simple GET endpoint: /image/{prompt}.",
+    "source_url": "https://github.com/pollinations/pollinations/blob/main/APIDOCS.md",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "modelscope",
+    "name": "ModelScope API-Inference",
+    "provider_id": "modelscope",
+    "region": "china",
+    "endpoint": "https://api-inference.modelscope.cn/v1/images/generations",
+    "openai_compatible": true,
+    "signup_url": "https://modelscope.cn/my/myaccesstoken",
+    "credit_card_required": "registration",
+    "free_type": "permanent",
+    "free_allowance": "Daily free Magicube balance (shared with LLM calls)",
+    "models": [
+      "Qwen/Qwen-Image",
+      "Qwen/Qwen-Image-2.1"
+    ],
+    "notes": "Async: send header X-ModelScope-Async-Mode: true, then poll /v1/tasks/{task_id}. Requires a real-name-verified Alibaba Cloud account linked to ModelScope; aimed at non-commercial experimentation with limited concurrency.",
+    "source_url": "https://modelscope.cn/models/Qwen/Qwen-Image",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "siliconflow",
+    "name": "SiliconFlow",
+    "provider_id": "siliconflow",
+    "region": "global",
+    "endpoint": "https://api.siliconflow.com/v1/images/generations",
+    "openai_compatible": true,
+    "signup_url": "https://cloud.siliconflow.com",
+    "credit_card_required": "registration",
+    "free_type": "credits",
+    "free_allowance": "$1 signup credit (international platform)",
+    "models": [
+      "black-forest-labs/FLUX.1-schnell",
+      "Tongyi-MAI/Z-Image-Turbo",
+      "Qwen/Qwen-Image"
+    ],
+    "notes": "No permanently free image model confirmed; the signup credit covers hundreds of FLUX.1 schnell images at list price. Image URLs expire after 1 hour.",
+    "source_url": "https://docs.siliconflow.com/en/api-reference/images/images-generations",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "stability_ai",
+    "name": "Stability AI",
+    "provider_id": "stability_ai",
+    "region": "europe",
+    "endpoint": "https://api.stability.ai/v2beta/stable-image/generate/core",
+    "openai_compatible": false,
+    "signup_url": "https://platform.stability.ai",
+    "credit_card_required": "no",
+    "free_type": "credits",
+    "free_allowance": "25 credits on signup (1 credit = $0.01)",
+    "models": [
+      "stable-image-core",
+      "sd3.5-flash",
+      "sd3.5-large"
+    ],
+    "notes": "One-time trial, not a recurring quota. Stable Image Core costs 3 credits, so ~8 images; SD 3.5 Flash costs 2.5.",
+    "source_url": "https://docs.stability.ai/pricing",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "google_gemini_image",
+    "name": "Google Gemini (Nano Banana)",
+    "provider_id": null,
+    "region": "global",
+    "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
+    "openai_compatible": false,
+    "signup_url": "https://aistudio.google.com/apikey",
+    "credit_card_required": "yes",
+    "free_type": "none",
+    "free_allowance": "None: image models are \"Not available\" on the API free tier",
+    "models": [
+      "gemini-2.5-flash-image",
+      "gemini-3.1-flash-image",
+      "gemini-3-pro-image"
+    ],
+    "notes": "Older guides still cite ~500 free images/day; that ended with the December 2025 free-tier cuts. Free-tier keys return 429 with a quota of 0.",
+    "source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "together_ai",
+    "name": "Together AI",
+    "provider_id": null,
+    "region": "global",
+    "endpoint": "https://api.together.xyz/v1/images/generations",
+    "openai_compatible": true,
+    "signup_url": "https://api.together.ai",
+    "credit_card_required": "yes",
+    "free_type": "none",
+    "free_allowance": "None: the FLUX.1-schnell-Free endpoint is gone",
+    "models": [],
+    "notes": "The free FLUX.1 schnell endpoint was a 3-month promotion from October 2024. Current pricing lists no free image model.",
+    "source_url": "https://www.together.ai/pricing",
+    "last_verified": "2026-10-20"
+  },
+  {
+    "id": "huggingface",
+    "name": "Hugging Face Inference Providers",
+    "provider_id": null,
+    "region": "global",
+    "endpoint": "https://router.huggingface.co",
+    "openai_compatible": false,
+    "signup_url": "https://huggingface.co/settings/tokens",
+    "credit_card_required": "yes",
+    "free_type": "none",
+    "free_allowance": "None for free accounts; PRO ($9/mo) includes $2/month",
+    "models": [],
+    "notes": "Free users must now purchase credits to use Inference Providers, including text-to-image.",
+    "source_url": "https://huggingface.co/docs/inference-providers/pricing",
+    "last_verified": "2026-10-20"
+  }
+]

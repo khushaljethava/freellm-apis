@@ -9,6 +9,7 @@ const read = (name) =>
 const providers = read('providers');
 const models = read('models');
 const posts = read('blog');
+const imageApis = read('image_apis');
 
 /**
  * A provider page only earns an index slot once we can list at least one free model on it.
@@ -22,6 +23,7 @@ export const isProviderIndexable = (id) => PROVIDERS_WITH_MODELS.has(id);
 /** Most recent verification date across the dataset — the freshness floor for hub pages. */
 const latest = (dates) => dates.filter(Boolean).sort().at(-1);
 export const DATA_LAST_VERIFIED = latest(providers.map(p => p.last_verified));
+export const IMAGE_LAST_VERIFIED = latest(imageApis.map(a => a.last_verified));
 export const SITE_LAST_MODIFIED = latest([DATA_LAST_VERIFIED, ...posts.map(p => p.lastUpdated || p.date)]);
 
 const PROVIDER_VERIFIED = Object.fromEntries(providers.map(p => [p.id, p.last_verified]));
@@ -34,6 +36,7 @@ export function lastmodFor(pathname) {
   if (provider) return PROVIDER_VERIFIED[provider[1]] ?? DATA_LAST_VERIFIED;
   const post = path.match(/^\/blog\/([^/]+)\//);
   if (post) return POST_UPDATED[post[1]] ?? SITE_LAST_MODIFIED;
+  if (path === '/free-image-generation-apis/') return IMAGE_LAST_VERIFIED;
   if (path.startsWith('/compare/') || path === '/models/' || path === '/') return DATA_LAST_VERIFIED;
   return SITE_LAST_MODIFIED;
 }

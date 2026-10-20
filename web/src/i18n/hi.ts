@@ -1,7 +1,7 @@
 import type { Strings } from './en';
 
 const hi: Strings = {
-  nav: { models: 'मॉडल', blog: 'ब्लॉग', about: 'परिचय', github: 'GitHub', language: 'भाषा' },
+  nav: { models: 'मॉडल', imageApis: 'इमेज API', blog: 'ब्लॉग', about: 'परिचय', github: 'GitHub', language: 'भाषा' },
   footer: {
     privacy: 'गोपनीयता',
     terms: 'शर्तें',

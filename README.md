@@ -199,6 +199,27 @@ Providers that give **trial credits** at registration — no monthly renewal nee
 
 ---
 
+## 🎨 Free Image Generation APIs
+
+Text-to-image APIs you can call for free, with the limits that actually apply. Full details: [freellm.site/free-image-generation-apis](https://www.freellm.site/free-image-generation-apis/) · data: [image_apis.json](data/image_apis.json)
+
+<!-- BEGIN_IMAGE_APIS -->
+| Provider | Free allowance | Card? | Recurring? | OpenAI-compatible | Get Key |
+|---|---|---|---|---|---|
+| Cloudflare Workers AI | 10,000 neurons/day, resets 00:00 UTC | ✅ No | Yes | No | [Get Key →](https://dash.cloudflare.com/profile/api-tokens) |
+| Zhipu AI (CogView-3-Flash) | Free model; concurrency limited by account tier | ✅ No | Yes | Yes | [Get Key →](https://bigmodel.cn) |
+| NVIDIA NIM | Trial credits on signup (prototyping only) | 📱 Phone | No | No | [Get Key →](https://build.nvidia.com/settings/api-keys) |
+| Pollinations.ai | Free "Quest Pollen" balance; amount not published | 📧 Email | No | Yes | [Get Key →](https://enter.pollinations.ai/keys) |
+| ModelScope API-Inference | Daily free Magicube balance (shared with LLM calls) | 📧 Email | Yes | Yes | [Get Key →](https://modelscope.cn/my/myaccesstoken) |
+| SiliconFlow | $1 signup credit (international platform) | 📧 Email | No | Yes | [Get Key →](https://cloud.siliconflow.com) |
+| Stability AI | 25 credits on signup (1 credit = $0.01) | ✅ No | No | No | [Get Key →](https://platform.stability.ai) |
+
+**No longer free:** Google Gemini (Nano Banana), Together AI, Hugging Face Inference Providers.
+
+<!-- END_IMAGE_APIS -->
+
+---
+
 ## 🌍 Regional Providers
 
 <details>
