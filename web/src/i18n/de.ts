@@ -1,7 +1,7 @@
 import type { Strings } from './en';
 
 const de: Strings = {
-  nav: { models: 'Modelle', blog: 'Blog', about: 'Über uns', github: 'GitHub', language: 'Sprache' },
+  nav: { models: 'Modelle', imageApis: 'Bild-APIs', blog: 'Blog', about: 'Über uns', github: 'GitHub', language: 'Sprache' },
   footer: {
     privacy: 'Datenschutz',
     terms: 'AGB',

@@ -1,7 +1,7 @@
 import type { Strings } from './en';
 
 const ja: Strings = {
-  nav: { models: 'モデル', blog: 'ブログ', about: '概要', github: 'GitHub', language: '言語' },
+  nav: { models: 'モデル', imageApis: '画像API', blog: 'ブログ', about: '概要', github: 'GitHub', language: '言語' },
   footer: {
     privacy: 'プライバシー',
     terms: '利用規約',

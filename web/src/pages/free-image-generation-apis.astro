@@ -1,0 +1,177 @@
+---
+// ponytail: English-only for now; localize via [...lang] once the catalogues carry the copy.
+import Base from '../layouts/Base.astro';
+import AdSlot from '../components/AdSlot.astro';
+import Badge from '../components/ui/Badge.astro';
+import apis from '../../../data/image_apis.json';
+import { CARD_VARIANT } from '../lib/format';
+import { IMAGE_LAST_VERIFIED } from '../lib/seo.mjs';
+
+const CARD_LABEL = { no: 'No card', registration: 'Email only', phone: 'Phone', yes: 'Card / paid' };
+const free = apis.filter(a => a.free_type !== 'none');
+const notFree = apis.filter(a => a.free_type === 'none');
+const pageUrl = 'https://www.freellm.site/free-image-generation-apis/';
+const title = `${free.length} Free Image Generation APIs (Verified ${IMAGE_LAST_VERIFIED.slice(0, 7)})`;
+const description = `Free text-to-image APIs that still work: Cloudflare Workers AI, Zhipu CogView-3-Flash, NVIDIA NIM, Pollinations and more. Free limits, endpoints, models and code, checked ${IMAGE_LAST_VERIFIED}.`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.freellm.site/' },
+        { '@type': 'ListItem', position: 2, name: 'Free Image Generation APIs', item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'ItemList',
+      name: 'Free image generation APIs',
+      url: pageUrl,
+      numberOfItems: free.length,
+      itemListElement: free.map((a, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'SoftwareApplication',
+          name: a.name,
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Any',
+          url: a.signup_url,
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: a.free_allowance },
+        },
+      })),
+    },
+    {
+      '@type': 'Dataset',
+      name: 'Free image generation APIs',
+      description,
+      url: pageUrl,
+      dateModified: IMAGE_LAST_VERIFIED,
+      isAccessibleForFree: true,
+      license: 'https://github.com/khushaljethava/freellm-apis/blob/main/LICENSE',
+      distribution: {
+        '@type': 'DataDownload',
+        encodingFormat: 'application/json',
+        contentUrl: 'https://github.com/khushaljethava/freellm-apis/blob/main/data/image_apis.json',
+      },
+      creator: { '@type': 'Organization', name: 'freellm.site', url: 'https://www.freellm.site/' },
+    },
+  ],
+};
+
+const openaiSample = `from openai import OpenAI
+
+# Any OpenAI-compatible entry below: swap base_url, key and model.
+client = OpenAI(base_url="https://open.bigmodel.cn/api/paas/v4", api_key="YOUR_ZHIPU_KEY")
+
+img = client.images.generate(model="cogview-3-flash", prompt="a red fox in fresh snow, golden hour", size="1024x1024")
+print(img.data[0].url)  # temporary URL: download it`;
+
+const cloudflareSample = `curl https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell \\
+  -H "Authorization: Bearer $CF_API_TOKEN" \\
+  -d '{"prompt": "a red fox in fresh snow, golden hour", "steps": 4}'
+# -> {"result": {"image": "<base64 JPEG>"}}`;
+---
+<Base title={title} description={description} schema={schema}>
+  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">
+    <ol class="flex items-center gap-1.5">
+      <li><a class="text-muted-foreground hover:text-foreground" href="/">Home</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="text-foreground">Free Image Generation APIs</li>
+    </ol>
+  </nav>
+
+  <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Free Image Generation APIs</h1>
+  <p class="mt-3 text-lg text-muted-foreground">
+    {free.length} text-to-image APIs you can call for free today, with the limits that actually apply ·
+    <time datetime={IMAGE_LAST_VERIFIED}>verified {IMAGE_LAST_VERIFIED}</time>
+  </p>
+
+  <div class="prose mt-6 max-w-3xl dark:prose-invert prose-a:text-primary">
+    <p>
+      <strong>Short answer:</strong> the only recurring, no-card image API with a published daily quota is
+      <strong>Cloudflare Workers AI</strong>: 10,000 neurons a day, which is roughly 230 FLUX.1 schnell images at 512×512.
+      <strong>Zhipu's CogView-3-Flash</strong> is free outright but runs in China. Everything else is either a one-time signup
+      credit or a free balance whose size the provider doesn't publish. Several APIs that older guides call free (Gemini's Nano Banana,
+      Together's FLUX schnell, Hugging Face) <a href="#no-longer-free">no longer are</a>.
+    </p>
+  </div>
+
+  <AdSlot variant="top" />
+
+  <h2 class="section-title">Comparison</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Provider</th><th scope="col">Free allowance</th><th scope="col">Sign-up</th><th scope="col">Recurring?</th><th scope="col">OpenAI-compatible</th><th scope="col">Get key</th></tr>
+      </thead>
+      <tbody>
+        {free.map(a => (
+          <tr>
+            <td><a href={`#${a.id}`} class="font-medium">{a.name}</a></td>
+            <td>{a.free_allowance}</td>
+            <td><Badge variant={CARD_VARIANT[a.credit_card_required]}>{CARD_LABEL[a.credit_card_required]}</Badge></td>
+            <td>{a.free_type === 'permanent' ? 'Yes' : 'One-time / unpublished'}</td>
+            <td>{a.openai_compatible ? 'Yes' : 'No'}</td>
+            <td><a href={a.signup_url} target="_blank" rel="noopener">Get key →</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {free.map(a => (
+    <section id={a.id} class="scroll-mt-20">
+      <h2 class="section-title">{a.name}</h2>
+      <dl class="grid gap-x-6 gap-y-2 text-sm sm:grid-cols-[10rem_1fr]">
+        <dt class="text-muted-foreground">Free allowance</dt><dd>{a.free_allowance}</dd>
+        <dt class="text-muted-foreground">Endpoint</dt><dd><code class="font-mono text-xs break-all">{a.endpoint}</code></dd>
+        <dt class="text-muted-foreground">Models</dt>
+        <dd class="flex flex-wrap gap-1">{a.models.map(m => <Badge variant="outline"><code class="font-mono">{m}</code></Badge>)}</dd>
+        <dt class="text-muted-foreground">Notes</dt><dd>{a.notes}</dd>
+        <dt class="text-muted-foreground">Source</dt>
+        <dd>
+          <a href={a.source_url} target="_blank" rel="noopener">Official docs</a>
+          {a.provider_id && <> · <a href={`/providers/${a.provider_id}/`}>{a.name.split(' (')[0]} LLM free tier</a></>}
+        </dd>
+      </dl>
+    </section>
+  ))}
+
+  <h2 class="section-title">Code: OpenAI-compatible providers</h2>
+  <p class="mb-3 text-sm text-muted-foreground">Zhipu, SiliconFlow, ModelScope and Pollinations accept the standard <code>/v1/images/generations</code> request, so the OpenAI SDK works. ModelScope additionally needs async mode and task polling.</p>
+  <pre class="mb-8 overflow-x-auto rounded-lg border bg-muted/40 p-4 text-xs"><code>{openaiSample}</code></pre>
+
+  <h2 class="section-title">Code: Cloudflare Workers AI</h2>
+  <pre class="mb-8 overflow-x-auto rounded-lg border bg-muted/40 p-4 text-xs"><code>{cloudflareSample}</code></pre>
+
+  <h2 id="no-longer-free" class="section-title scroll-mt-20">No longer free</h2>
+  <p class="mb-3 text-sm text-muted-foreground">These still show up in "free image API" lists, but the official pricing says otherwise.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Provider</th><th scope="col">Status</th><th scope="col">What changed</th></tr></thead>
+      <tbody>
+        {notFree.map(a => (
+          <tr>
+            <td class="font-medium">{a.name}</td>
+            <td>{a.free_allowance}</td>
+            <td>{a.notes} <a href={a.source_url} target="_blank" rel="noopener">Source</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose max-w-3xl dark:prose-invert prose-a:text-primary">
+    <h2>How we verify</h2>
+    <p>
+      Every allowance above comes from the provider's own pricing or docs page, linked in each entry. Free tiers for image
+      models change faster than for text models, so treat the date at the top as the freshness of this page. Spotted a change?
+      <a href="https://github.com/khushaljethava/freellm-apis/blob/main/data/image_apis.json" target="_blank" rel="noopener">Edit image_apis.json on GitHub</a>.
+      Looking for text models instead? See the <a href="/">free LLM API directory</a>.
+    </p>
+  </div>
+
+  <AdSlot variant="bottom" />
+</Base>
