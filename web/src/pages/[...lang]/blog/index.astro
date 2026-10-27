@@ -3,7 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import AdSlot from '../../../components/AdSlot.astro';
 import { localeOf, localePath } from '../../../i18n/config';
 import { useTranslations } from '../../../i18n/ui';
-import { postsFor, blogIndexPaths } from '../../../i18n/posts';
+import { postsFor, blogIndexPaths, isPostIndexable } from '../../../i18n/posts';
 import Badge from '../../../components/ui/Badge.astro';
 
 export const getStaticPaths = blogIndexPaths;
@@ -12,7 +12,7 @@ const locale = localeOf(Astro.params.lang);
 const { blogLocales } = Astro.props;
 const t = useTranslations(locale);
 // Only list posts that actually exist in this language.
-const sorted = [...postsFor(locale)].sort((a, b) => b.date.localeCompare(a.date));
+const sorted = postsFor(locale).filter(p => isPostIndexable(p.slug)).sort((a, b) => b.date.localeCompare(a.date));
 ---
 <Base
   locale={locale}

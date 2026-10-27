@@ -11,7 +11,13 @@ export interface Post {
   author?: string;
   tags: string[];
   content: string;
+  image?: string;
+  noindex?: boolean;
+  faq?: { q: string; a: string }[];
 }
+
+// Single source of truth shared with the sitemap filter (English post's flag, all locales).
+export { isPostIndexable } from '../lib/seo.mjs';
 
 // Translated posts live in data/blog.<locale>.json, same shape and same slugs as
 // data/blog.json. Vite resolves this glob at build time; a locale with no file simply

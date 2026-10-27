@@ -16,6 +16,12 @@ for (const loc of ['', '/ar', '/zh', '/pt']) {
   assert.equal(shouldBeInSitemap(U(`${loc}/models/`)), true, loc);
 }
 
+// Off-topic posts are noindexed by the English post's flag, in every locale.
+for (const loc of ['', '/de', '/hi']) {
+  assert.equal(shouldBeInSitemap(U(`${loc}/blog/antonelli-russell-career-wins-head-to-head/`)), false, loc);
+  assert.equal(shouldBeInSitemap(U(`${loc}/blog/best-free-llm-apis-2026/`)), true, loc);
+}
+
 // lastmod tracks the data, not the build, and survives the locale prefix.
 assert.equal(lastmodFor('/providers/groq/'), lastmodFor('/ar/providers/groq/'));
 assert.equal(lastmodFor('/models/'), DATA_LAST_VERIFIED);

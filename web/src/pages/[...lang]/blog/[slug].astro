@@ -3,7 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import AdSlot from '../../../components/AdSlot.astro';
 import { localePath } from '../../../i18n/config';
 import { useTranslations } from '../../../i18n/ui';
-import { postPaths, postsFor, localesForPost } from '../../../i18n/posts';
+import { postPaths, postsFor, localesForPost, isPostIndexable } from '../../../i18n/posts';
 import { renderPost } from '../../../lib/markdown';
 import Badge from '../../../components/ui/Badge.astro';
 
@@ -19,6 +19,7 @@ const altLocales = localesForPost(post.slug);
 
 const { html: htmlContent, headings } = await renderPost(post.content, locale);
 
+const ogImage = post.image ?? '/og-default.png';
 const modified = post.lastUpdated ?? post.date;
 const blogPosting = {
   '@type': 'BlogPosting',
@@ -40,7 +41,7 @@ const blogPosting = {
     url: 'https://www.freellm.site/',
     logo: 'https://www.freellm.site/logo.png',
   },
-  image: 'https://www.freellm.site/og-default.png',
+  image: `https://www.freellm.site${ogImage}`,
   keywords: post.tags.join(', '),
   inLanguage: locale,
   mainEntityOfPage: {
@@ -63,7 +64,7 @@ const schema = { '@context': 'https://schema.org', '@graph': graph };
 
 // Related posts: most tag overlap first, then newest. Top 3.
 const related = posts
-  .filter(p => p.slug !== post.slug)
+  .filter(p => p.slug !== post.slug && isPostIndexable(p.slug))
   .map(p => ({ p, overlap: p.tags.filter(t => post.tags.includes(t)).length }))
   .sort((a, b) => b.overlap - a.overlap || b.p.date.localeCompare(a.p.date))
   .slice(0, 3)
@@ -75,6 +76,8 @@ const related = posts
   title={`${post.title} | freellm.site`}
   description={post.description}
   ogType="article"
+  ogImage={ogImage}
+  noindex={!isPostIndexable(post.slug)}
   schema={schema}
 >
   <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">

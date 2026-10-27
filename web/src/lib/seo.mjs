@@ -20,6 +20,14 @@ const imageApis = read('image_apis');
 const PROVIDERS_WITH_MODELS = new Set(models.filter(m => !m.deprecated).map(m => m.provider_id));
 export const isProviderIndexable = (id) => PROVIDERS_WITH_MODELS.has(id);
 
+/**
+ * Posts flagged `noindex: true` in the English dataset (off-topic content kept live for readers).
+ * The flag is read from English only and applies to every locale's translation of that slug,
+ * so the robots tag (posts.ts re-exports this) and the sitemap filter share one source.
+ */
+const NOINDEX_POSTS = new Set(posts.filter(p => p.noindex).map(p => p.slug));
+export const isPostIndexable = (slug) => !NOINDEX_POSTS.has(slug);
+
 /** Most recent verification date across the dataset — the freshness floor for hub pages. */
 const latest = (dates) => dates.filter(Boolean).sort().at(-1);
 export const DATA_LAST_VERIFIED = latest(providers.map(p => p.last_verified));
@@ -46,5 +54,7 @@ export function shouldBeInSitemap(url) {
   const path = new URL(url).pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '') || '/';
   const provider = path.match(/^\/providers\/([^/]+)\//);
   if (provider) return isProviderIndexable(provider[1]);
+  const post = path.match(/^\/blog\/([^/]+)\/$/);
+  if (post) return isPostIndexable(post[1]);
   return true;
 }

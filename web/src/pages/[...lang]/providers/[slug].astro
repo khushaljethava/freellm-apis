@@ -5,7 +5,7 @@ import AdSlot from '../../../components/AdSlot.astro';
 import models from '../../../../../data/models.json';
 import { DEFAULT_LOCALE, localePath } from '../../../i18n/config';
 import { TRANSLATED_LOCALES, useTranslations } from '../../../i18n/ui';
-import { postsFor, postIn, postHref } from '../../../i18n/posts';
+import { postsFor, postIn, postHref, isPostIndexable } from '../../../i18n/posts';
 import { isProviderIndexable } from '../../../lib/seo.mjs';
 import Badge from '../../../components/ui/Badge.astro';
 import { fmtCtx, CARD_VARIANT, COMPARE_PAIRS } from '../../../lib/format';
@@ -68,6 +68,15 @@ const related = (sameRegion.length >= 3 ? sameRegion : pool.filter(p => p.free_t
 const guides = ['best-free-llm-apis-2026', 'openai-compatible-api-guide', 'best-free-llm-apis-for-coding']
   .map(slug => postIn(locale, slug) ?? postIn(DEFAULT_LOCALE, slug))
   .filter(Boolean);
+
+// Optional per-provider SEO overrides (set by the SEO autopilot); absent => template output.
+const seo = provider.seo ?? {};
+// Posts in this locale only (links never cross languages), gated by the English indexability flag.
+const relatedGuides = postsFor(locale)
+  .filter(p => isPostIndexable(p.slug)
+    && (p.tags.includes(provider.id) || p.content.includes(`/providers/${provider.id}/`)))
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 5);
 
 // Compare pages that involve this provider.
 const nameOf = (id) => providers.find(p => p.id === id)?.name ?? id;
@@ -134,12 +143,22 @@ const schema = {
     },
   ],
 };
+if (seo.faq?.length) {
+  schema['@graph'].push({
+    '@type': 'FAQPage',
+    mainEntity: seo.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
 ---
 <Base
   locale={locale}
   altLocales={TRANSLATED_LOCALES}
-  title={tp.title(provider.name)}
-  description={tp.description(descLead, provider.base_url, providerModels.length)}
+  title={seo.title ?? tp.title(provider.name)}
+  description={seo.description ?? tp.description(descLead, provider.base_url, providerModels.length)}
   schema={schema}
   noindex={!indexable}
 >
@@ -155,6 +174,7 @@ const schema = {
     <div>
       <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{tp.h1(provider.name)}</h1>
       <p class="mt-4 text-lg leading-relaxed text-muted-foreground">{overview}</p>
+      {seo.intro && <p class="mt-3 leading-relaxed text-muted-foreground">{seo.intro}</p>}
       <div class="mt-6 flex flex-wrap items-center gap-3">
         <a href={provider.signup_url} target="_blank" rel="noopener" class="btn btn-primary">{tp.getKeyCta}</a>
         <Badge variant={CARD_VARIANT[provider.credit_card_required]}>{cardLabel[provider.credit_card_required]}</Badge>
@@ -257,6 +277,34 @@ const schema = {
       <li><a href={G(g.slug)}>{g.title}</a></li>
     ))}
   </ul>
+
+  {relatedGuides.length > 0 && (
+    <>
+      <h2 class="section-title">Related guides</h2>
+      <ul class="link-list">
+        {relatedGuides.map(g => (
+          <li><a href={G(g.slug)}>{g.title}</a></li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {seo.faq?.length > 0 && (
+    <>
+      <h2 class="section-title">FAQ</h2>
+      <div class="divide-y rounded-lg border bg-card">
+        {seo.faq.map((f) => (
+          <details class="group px-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium [&::-webkit-details-marker]:hidden">
+              <h3 class="text-base">{f.q}</h3>
+              <span class="text-muted-foreground transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="pb-4 text-muted-foreground">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </>
+  )}
 
   <AdSlot variant="bottom" />
 </Base>
