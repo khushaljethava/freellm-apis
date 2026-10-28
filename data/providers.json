@@ -478,7 +478,34 @@
     "credit_amount_usd": null,
     "credit_expiry": "1 year",
     "notes": "1M free tokens (shared across hunyuan-a13b, role, translation models) + 1M embedding tokens; valid 1 year from activation",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Tencent Hunyuan Free API: 1M Free Tokens Tier",
+      "description": "Tencent's Hunyuan large language model offers 1M free tokens plus 1M embedding tokens, valid 1 year. Card required at signup. Verified Sep 2026.",
+      "intro": "Tencent Hunyuan is Tencent's family of large language models, available through an OpenAI-compatible API hosted in China at https://api.hunyuan.cloud.tencent.com/v1. New accounts get 1M free tokens shared across the hunyuan-a13b, role and translation models, plus a separate 1M embedding tokens, valid for 1 year from activation. A credit card is required at registration, but the free tier itself is credit-based rather than pay-as-you-go. Sign up through the Tencent Cloud console. Last verified 2026-09-29.",
+      "faq": [
+        {
+          "q": "Is Tencent's large language model free to use?",
+          "a": "There is a free credits tier: 1M free tokens shared across the hunyuan-a13b, role and translation models, plus 1M embedding tokens. The credits are valid 1 year from activation. For anything beyond that allowance, check the official docs."
+        },
+        {
+          "q": "Do I need a credit card to use the Tencent Hunyuan API?",
+          "a": "Yes. A credit card is required at registration, before you can use the free token allowance. Register at https://console.cloud.tencent.com/hunyuan."
+        },
+        {
+          "q": "What is the Tencent Hunyuan API base URL?",
+          "a": "https://api.hunyuan.cloud.tencent.com/v1. The service is hosted in China, so factor in regional latency and access requirements."
+        },
+        {
+          "q": "Which Tencent Hunyuan models are covered by the free tokens?",
+          "a": "The 1M free tokens are shared across hunyuan-a13b, the role models and the translation models. Embedding usage draws on a separate 1M embedding token allowance. For the full model list, check the official docs."
+        },
+        {
+          "q": "Do the Tencent Hunyuan free credits expire?",
+          "a": "Yes, they are valid for 1 year from activation. The exact dollar value of the credits is not published here, so check the official docs for current pricing details."
+        }
+      ]
+    }
   },
   {
     "id": "baidu_ernie",
