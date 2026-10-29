@@ -309,7 +309,34 @@
     "credit_amount_usd": 1.1,
     "credit_expiry": "never",
     "notes": "₹100 (~$1.1) free credits on signup, never expire; Starter plan: sarvam-105b 40 RPM",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Sarvam AI Free API Key: ₹100 Credits, No Expiry",
+      "description": "Get a Sarvam AI API key free: ₹100 (~$1.1) signup credits that never expire. India-based endpoint at api.sarvam.ai/v1. Card needed at registration.",
+      "intro": "Sarvam AI is an India-based model provider that gives you ₹100 (about $1.1) in free credits when you sign up, and those credits never expire. You create your API key from the Sarvam dashboard at https://dashboard.sarvam.ai, then point your client at the base URL https://api.sarvam.ai/v1. A credit card is required at registration. The Starter plan includes sarvam-105b at 40 RPM. Provider details last verified 2026-09-29.",
+      "faq": [
+        {
+          "q": "How do I get a Sarvam AI API key?",
+          "a": "Sign up at https://dashboard.sarvam.ai and create your key there. A credit card is required at registration. Once you have the key, use https://api.sarvam.ai/v1 as the base URL for your requests."
+        },
+        {
+          "q": "Is the Sarvam AI API key free?",
+          "a": "Yes, to start. New accounts receive ₹100 (~$1.1) in free credits on signup, and those credits never expire. Usage beyond the free credits follows Sarvam's paid pricing — check the official docs for current rates."
+        },
+        {
+          "q": "Do the free Sarvam AI credits expire?",
+          "a": "No. The ₹100 (~$1.1) signup credits never expire, so you can use them at your own pace."
+        },
+        {
+          "q": "What is the Sarvam AI API base URL?",
+          "a": "https://api.sarvam.ai/v1. Use it with the API key you generate in the Sarvam dashboard."
+        },
+        {
+          "q": "What rate limit do I get with a Sarvam AI free API key?",
+          "a": "The Starter plan lists sarvam-105b at 40 RPM. For limits on other models or plans, check the official docs."
+        }
+      ]
+    }
   },
   {
     "id": "krutrim",
