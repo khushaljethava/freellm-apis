@@ -636,7 +636,34 @@
     "credit_amount_usd": 11,
     "credit_expiry": "3 months",
     "notes": "¥80 (~$11) free gift balance for new users, valid 3 months",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Baichuan AI Free Credits: ¥80 (~$11) for New Users",
+      "description": "Baichuan AI gives new users a ¥80 (~$11) free gift balance valid for 3 months. Registration requires a card. API base URL and signup details inside.",
+      "intro": "Baichuan AI is a China-based LLM provider offering a free gift balance to new accounts. Signing up at platform.baichuan-ai.com gets you ¥80 (roughly $11) in credits, valid for 3 months from issue. A credit card is required at registration. The API is served from https://api.baichuan-ai.com/v1, so it works with standard OpenAI-style client setups that let you override the base URL. Details last verified 2026-09-29.",
+      "faq": [
+        {
+          "q": "Is Baichuan AI free to use?",
+          "a": "There is no permanent free tier, but new users get a ¥80 (~$11) free gift balance. It is valid for 3 months, after which any remaining balance expires. For paid rates after the credits run out, check the official docs."
+        },
+        {
+          "q": "How much free credit does Baichuan AI give?",
+          "a": "¥80, approximately $11 USD, as a one-time gift balance for new users. The credit is valid for 3 months from the date it is granted."
+        },
+        {
+          "q": "Does Baichuan AI require a credit card?",
+          "a": "Yes. A credit card is required at registration, before you can claim the free gift balance. Sign up at https://platform.baichuan-ai.com."
+        },
+        {
+          "q": "What is the Baichuan AI API base URL?",
+          "a": "https://api.baichuan-ai.com/v1. For the available model names, endpoints and request formats, check the official docs."
+        },
+        {
+          "q": "How do I get a Baichuan AI API key?",
+          "a": "Register an account at https://platform.baichuan-ai.com, complete the card-required registration step, and generate a key from the platform console. For the exact console steps, check the official docs."
+        }
+      ]
+    }
   },
   {
     "id": "naver_hyperclova",
