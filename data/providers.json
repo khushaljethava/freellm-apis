@@ -928,7 +928,34 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Voice/TTS API; Free plan 10,000 credits/month (~10K TTS chars), non-commercial with attribution",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "ElevenLabs Free TTS API: 10,000 Credits/Month, No Card",
+      "description": "ElevenLabs free tier gives 10,000 credits/month (~10K TTS characters), no credit card needed. Non-commercial use with attribution. Verified 2026-09-29.",
+      "intro": "ElevenLabs offers a voice/text-to-speech API with a permanent free plan: 10,000 credits per month, roughly 10,000 TTS characters. No credit card is required to sign up. The free plan is for non-commercial use and requires attribution. The API base URL is https://api.elevenlabs.io/v1, and the service is operated from Europe. Free-tier details last verified 2026-09-29.",
+      "faq": [
+        {
+          "q": "Is the ElevenLabs API free?",
+          "a": "Yes. ElevenLabs has a permanent free plan with 10,000 credits per month (about 10,000 TTS characters). It is limited to non-commercial use with attribution."
+        },
+        {
+          "q": "Does ElevenLabs require a credit card?",
+          "a": "No. You can sign up at https://elevenlabs.io/app/sign-up without entering a credit card."
+        },
+        {
+          "q": "How many characters can I convert for free with ElevenLabs?",
+          "a": "The free plan includes 10,000 credits per month, which is approximately 10,000 TTS characters. For how credits map to specific models or features, check the official docs."
+        },
+        {
+          "q": "Can I use the ElevenLabs free tier commercially?",
+          "a": "No. The free plan is non-commercial and requires attribution. For commercial licensing terms, check the official docs."
+        },
+        {
+          "q": "What is the ElevenLabs API base URL?",
+          "a": "https://api.elevenlabs.io/v1. For endpoint paths, authentication headers and voice IDs, check the official docs."
+        }
+      ]
+    }
   },
   {
     "id": "scaleway_ai",
