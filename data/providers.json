@@ -195,7 +195,34 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Free tier (no payment method): 20 RPM / 20 RPD / 200K tokens/day per model",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "SambaNova Cloud Free API Tier: Limits & Setup",
+      "description": "SambaNova Cloud offers a permanent free API tier with no payment method: 20 RPM, 20 RPD and 200K tokens/day per model. Sign up and start building.",
+      "intro": "SambaNova Cloud provides a permanent free tier for its OpenAI-compatible API, with no payment method required to use it. Registration does ask for a credit card, but the free tier itself runs without one. Each model allows 20 requests per minute, 20 requests per day and 200K tokens per day. The API base URL is https://api.sambanova.ai/v1, and keys are created at https://cloud.sambanova.ai/apis. Limits and model availability last verified 2026-09-29.",
+      "faq": [
+        {
+          "q": "Is SambaNova Cloud free to use?",
+          "a": "Yes. SambaNova Cloud has a permanent free tier that works without adding a payment method. The free allowance is 20 requests per minute, 20 requests per day and 200K tokens per day, per model."
+        },
+        {
+          "q": "Does SambaNova Cloud require a credit card?",
+          "a": "A credit card is requested at registration, but the free tier does not require a payment method to use. For the current signup requirements, check the official docs at https://cloud.sambanova.ai/apis."
+        },
+        {
+          "q": "What are the SambaNova Cloud free tier rate limits?",
+          "a": "The free tier allows 20 RPM (requests per minute), 20 RPD (requests per day) and 200,000 tokens per day, applied per model. These limits were last verified on 2026-09-29."
+        },
+        {
+          "q": "What is the SambaNova Cloud API base URL?",
+          "a": "The API base URL is https://api.sambanova.ai/v1. You can generate an API key from https://cloud.sambanova.ai/apis after creating an account."
+        },
+        {
+          "q": "Do SambaNova Cloud free credits expire?",
+          "a": "The free tier is permanent rather than a time-limited credit grant, so there is no published credit amount or expiry date. For any changes to free tier terms, check the official docs."
+        }
+      ]
+    }
   },
   {
     "id": "llm7",
