@@ -28,6 +28,21 @@ export const isProviderIndexable = (id) => PROVIDERS_WITH_MODELS.has(id);
 const NOINDEX_POSTS = new Set(posts.filter(p => p.noindex).map(p => p.slug));
 export const isPostIndexable = (slug) => !NOINDEX_POSTS.has(slug);
 
+const NOINDEX_SITE_PATHS = new Set(['/privacy/', '/terms/', '/cookies/', '/contact/']);
+export const isSitePathIndexable = (pathname) => !NOINDEX_SITE_PATHS.has(pathname);
+
+/**
+ * Keep localized directory/comparison variants crawlable for users, but do not
+ * spend index slots on near-duplicate pages while the English pages establish
+ * the site's topical authority.
+ */
+export const isLocalizedDirectoryPageIndexable = (pathname) => {
+  const isLocalized = /^\/[a-z]{2}\//.test(pathname);
+  if (!isLocalized) return true;
+  const path = pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '');
+  return !/^\/(?:providers|compare)\//.test(path);
+};
+
 /** Most recent verification date across the dataset — the freshness floor for hub pages. */
 const latest = (dates) => dates.filter(Boolean).sort().at(-1);
 export const DATA_LAST_VERIFIED = latest(providers.map(p => p.last_verified));
@@ -51,7 +66,11 @@ export function lastmodFor(pathname) {
 
 /** Sitemap membership: everything we ask Google to index, and nothing we do not. */
 export function shouldBeInSitemap(url) {
-  const path = new URL(url).pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '') || '/';
+  const pathname = new URL(url).pathname;
+  const path = pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '') || '/';
+  if (!isSitePathIndexable(path)) return false;
+  const isLocalized = /^\/[a-z]{2}\//.test(pathname);
+  if (isLocalized && !isLocalizedDirectoryPageIndexable(pathname)) return false;
   const provider = path.match(/^\/providers\/([^/]+)\//);
   if (provider) return isProviderIndexable(provider[1]);
   const post = path.match(/^\/blog\/([^/]+)\/$/);

@@ -6,7 +6,7 @@ import models from '../../../../../data/models.json';
 import { DEFAULT_LOCALE, localePath } from '../../../i18n/config';
 import { TRANSLATED_LOCALES, useTranslations } from '../../../i18n/ui';
 import { postsFor, postIn, postHref, isPostIndexable } from '../../../i18n/posts';
-import { isProviderIndexable } from '../../../lib/seo.mjs';
+import { isLocalizedDirectoryPageIndexable, isProviderIndexable } from '../../../lib/seo.mjs';
 import Badge from '../../../components/ui/Badge.astro';
 import { fmtCtx, CARD_VARIANT, COMPARE_PAIRS } from '../../../lib/format';
 import { updates } from '../../../lib/changes';
@@ -32,6 +32,7 @@ const firstModel = providerModels[0];
 // Providers we cannot yet list a single free model for are a base URL plus boilerplate.
 // Keep them reachable and crawlable, keep them out of the index until the data exists.
 const indexable = isProviderIndexable(provider.id);
+const localeIndexable = locale === DEFAULT_LOCALE && isLocalizedDirectoryPageIndexable(Astro.url.pathname);
 // ponytail: change lines are English; show history on English pages only, localize when the tracker emits structured diffs.
 const history = locale === DEFAULT_LOCALE ? updates(provider.id) : [];
 
@@ -161,7 +162,8 @@ if (seo.faq?.length) {
   title={seo.title ?? tp.title(provider.name)}
   description={seo.description ?? tp.description(descLead, provider.base_url, providerModels.length)}
   schema={schema}
-  noindex={!indexable}
+  noindex={!indexable || !localeIndexable}
+  altLocales={localeIndexable ? [DEFAULT_LOCALE] : [locale]}
 >
   <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">
     <ol class="flex items-center gap-1.5">
