@@ -614,7 +614,34 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Free models: GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash, GLM-4.6V-Flash, GLM-4.1V-Thinking-Flash; per-model concurrency limits by account tier",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Zhipu AI Free API: GLM-4.7-Flash & GLM-Z1-Flash Access",
+      "description": "Zhipu AI offers permanently free GLM Flash models with no credit card required. Get an API key at bigmodel.cn and call the OpenAI-compatible v4 endpoint.",
+      "intro": "Zhipu AI is a China-based model provider whose BigModel platform offers a permanently free tier with no credit card required. The free lineup covers GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash for reasoning, and the vision models GLM-4.6V-Flash and GLM-4.1V-Thinking-Flash. You sign up at bigmodel.cn and send requests to the API base URL https://open.bigmodel.cn/api/paas/v4. Per-model concurrency limits vary by account tier. Provider details last verified 2026-09-29.",
+      "faq": [
+        {
+          "q": "Is Zhipu AI free to use?",
+          "a": "Yes. Zhipu AI has a permanent free tier, not a time-limited trial, and no credit card is required to sign up. The free models are GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash, GLM-4.6V-Flash and GLM-4.1V-Thinking-Flash."
+        },
+        {
+          "q": "Which Zhipu AI models are free?",
+          "a": "Five GLM Flash models are free: GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash (reasoning), GLM-4.6V-Flash and GLM-4.1V-Thinking-Flash (vision). For any other model's availability, check the official docs."
+        },
+        {
+          "q": "How do I get a Zhipu AI API key?",
+          "a": "Register at https://bigmodel.cn, then create a key from your BigModel account. No credit card is needed. Point your client at the base URL https://open.bigmodel.cn/api/paas/v4."
+        },
+        {
+          "q": "What is the Zhipu AI API base URL?",
+          "a": "Use https://open.bigmodel.cn/api/paas/v4 as the base URL, with your BigModel API key as the bearer token. For endpoint paths and request formats, check the official docs."
+        },
+        {
+          "q": "What are the rate limits on Zhipu AI's free models?",
+          "a": "Zhipu AI applies per-model concurrency limits that depend on your account tier. No specific request or token quotas are published here, so check the official docs for the current numbers."
+        }
+      ]
+    }
   },
   {
     "id": "minimax",
