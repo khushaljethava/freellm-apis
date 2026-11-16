@@ -10,10 +10,15 @@ assert.equal(isProviderIndexable('ai71'), false);
 
 // The sitemap and the noindex tag must agree, in every locale.
 for (const loc of ['', '/ar', '/zh', '/pt']) {
-  assert.equal(shouldBeInSitemap(U(`${loc}/providers/groq/`)), true, loc);
+  assert.equal(shouldBeInSitemap(U(`${loc}/providers/groq/`)), loc === '', loc);
   assert.equal(shouldBeInSitemap(U(`${loc}/providers/ai71/`)), false, loc);
+  assert.equal(shouldBeInSitemap(U(`${loc}/compare/groq-vs-cerebras/`)), loc === '', loc);
   assert.equal(shouldBeInSitemap(U(`${loc}/`)), true, loc);
   assert.equal(shouldBeInSitemap(U(`${loc}/models/`)), true, loc);
+}
+
+for (const path of ['/privacy/', '/terms/', '/cookies/', '/contact/']) {
+  assert.equal(shouldBeInSitemap(U(path)), false, path);
 }
 
 // Off-topic posts are noindexed by the English post's flag, in every locale.

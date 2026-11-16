@@ -7,6 +7,7 @@ import { DEFAULT_LOCALE, localePath } from '../../../i18n/config';
 import { TRANSLATED_LOCALES, useTranslations } from '../../../i18n/ui';
 import { postHref } from '../../../i18n/posts';
 import { fmtCtx, COMPARE_PAIRS } from '../../../lib/format';
+import { isLocalizedDirectoryPageIndexable } from '../../../lib/seo.mjs';
 
 export function getStaticPaths() {
   const PAIRS = COMPARE_PAIRS;
@@ -26,6 +27,7 @@ const t = useTranslations(locale);
 const tc = t.compare;
 const L = (p: string) => localePath(p, locale);
 const G = (slug: string) => postHref(locale, slug);
+const localeIndexable = locale === DEFAULT_LOCALE && isLocalizedDirectoryPageIndexable(Astro.url.pathname);
 
 const modelsOf = id => models.filter(m => m.provider_id === id && !m.deprecated);
 const maxCtx = id => { const c = modelsOf(id).map(m => m.context_window); return c.length ? Math.max(...c) : 0; };
@@ -83,10 +85,11 @@ const schema = {
 ---
 <Base
   locale={locale}
-  altLocales={TRANSLATED_LOCALES}
+  altLocales={localeIndexable ? [DEFAULT_LOCALE] : [locale]}
   title={`${title} | freellm.site`}
   description={description}
   schema={schema}
+  noindex={!localeIndexable}
 >
   <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">
     <ol class="flex items-center gap-1.5">
