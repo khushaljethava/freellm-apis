@@ -11,6 +11,8 @@
   <img src="https://img.shields.io/badge/Updated-2026--06--28-3b82f6?style=for-the-badge" alt="Last Updated"/>
 </p>
 
+[![Verified on FreeAPI](https://findfreeapi.com/api/badge/free-llm-api-directory-freellm-site-)](https://findfreeapi.com/en/service/free-llm-api-directory-freellm-site-)
+
 <p align="center">
   <a href="https://www.freellm.site" target="_blank" rel="noopener"><strong>🌐 freellm.site</strong></a> ·
   <a href="data/providers.json">providers.json</a> ·
