@@ -1035,7 +1035,34 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Anonymous free use without key: 2 RPM per IP per model; with key 400 RPM (paid)",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "OVHcloud AI Endpoints: Free EU AI API, No Card",
+      "description": "OVH AI Cloud endpoints with a permanent free tier. Use OVHcloud AI Endpoints anonymously at 2 RPM per IP per model, no credit card, EU-hosted.",
+      "intro": "OVHcloud AI Endpoints is the OVH AI Cloud inference service for developers who want a European-hosted, OpenAI-compatible API. It has a permanent free tier and no credit card is required to start. You can call it anonymously without a key at 2 requests per minute per IP per model, or create a key for 400 RPM on the paid plan. The OpenAI-compatible base URL is https://oai.endpoints.kepler.ai.cloud.ovh.net/v1, and you can sign up at https://endpoints.ai.cloud.ovh.net. Provider details last verified 2026-09-29.",
+      "faq": [
+        {
+          "q": "Is OVHcloud AI Endpoints free to use?",
+          "a": "Yes. OVHcloud AI Endpoints has a permanent free tier, not a time-limited trial. Anonymous use without a key is allowed at 2 RPM per IP per model."
+        },
+        {
+          "q": "Do I need a credit card for OVH AI Cloud endpoints?",
+          "a": "No. A credit card is not required to get started. You can sign up at https://endpoints.ai.cloud.ovh.net, or use the service anonymously without a key."
+        },
+        {
+          "q": "What are the rate limits?",
+          "a": "Anonymous use without a key is limited to 2 requests per minute per IP per model. With an API key the limit is 400 RPM on the paid plan."
+        },
+        {
+          "q": "What is the API base URL, and is it OpenAI-compatible?",
+          "a": "The base URL is https://oai.endpoints.kepler.ai.cloud.ovh.net/v1, an OpenAI-compatible endpoint, so most OpenAI client libraries work by swapping the base URL."
+        },
+        {
+          "q": "Where is OVHcloud AI Endpoints hosted?",
+          "a": "It is a Europe-region provider, which suits teams that prefer EU-hosted inference. For specific datacenter locations and data handling terms, check the official docs."
+        }
+      ]
+    }
   },
   {
     "id": "falcon_tii",
