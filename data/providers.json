@@ -720,7 +720,34 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Token Plan free public beta (¥0/mo): 60,000 points per rolling 5h, 600,000 per week; phone verification",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "SenseNova Free API: Token Plan Free Tier & Limits",
+      "description": "SenseNova offers a permanent free Token Plan public beta at ¥0/mo with 60,000 points per rolling 5h and 600,000 per week. Phone verification, no card.",
+      "intro": "SenseNova is a China-based LLM provider with a permanent free tier through its Token Plan free public beta (¥0/mo). The free quota is 60,000 points per rolling 5-hour window and 600,000 points per week. You sign up at platform.sensenova.cn with phone verification — no credit card is required — and point your client at the base URL https://token.sensenova.cn/v1. Details were last verified on 2026-09-29; for model names, pricing beyond the free plan, and exact API parameters, check the official docs.",
+      "faq": [
+        {
+          "q": "Is SenseNova's API free?",
+          "a": "Yes. SenseNova runs a Token Plan free public beta at ¥0/mo, and it is a permanent free tier rather than a one-off trial credit. Usage is capped by point quotas rather than a dollar credit amount."
+        },
+        {
+          "q": "What are the SenseNova free tier rate limits?",
+          "a": "The free Token Plan gives 60,000 points per rolling 5-hour window and 600,000 points per week. How many points a request consumes depends on the model, so check the official docs."
+        },
+        {
+          "q": "Do I need a credit card to use SenseNova?",
+          "a": "No credit card is required. SenseNova asks for phone verification instead when you register an account."
+        },
+        {
+          "q": "How do I sign up for SenseNova and get an API key?",
+          "a": "Create an account at https://platform.sensenova.cn/login and complete phone verification. For the exact steps to issue an API key, check the official docs."
+        },
+        {
+          "q": "What is the SenseNova API base URL?",
+          "a": "The base URL is https://token.sensenova.cn/v1. For supported endpoints, model identifiers, and whether an OpenAI-compatible client works, check the official docs."
+        }
+      ]
+    }
   },
   {
     "id": "stepfun",
