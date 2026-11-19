@@ -43,12 +43,12 @@ const en = {
   home: {
     title: (p: number) => `Free LLM API — Free LLM API Keys from ${p} Providers | freellm.site`,
     description: (p: number, m: number) =>
-      `Find a free LLM API with no credit card. ${p} providers, ${m} models — Groq, Gemini, Mistral, OpenRouter. Get your free LLM API key in seconds.`,
+      `Find a free LLM API with no credit card. ${p} providers, ${m} models, including Groq, Gemini, Mistral and OpenRouter. Get your free LLM API key in seconds.`,
     eyebrow: (d: string) => `Free & verified · Updated ${d}`,
     h1a: 'Every free LLM API.',
     h1b: 'One place.',
     lede: (p: number) =>
-      `Permanent free tiers and free-credit plans from ${p} providers — no hunting, no paywalls. Find your key in seconds.`,
+      `Permanent free tiers and free-credit plans from ${p} providers in one place. Find your key in seconds.`,
     statProviders: 'Providers',
     statModels: 'Models',
     statAlwaysFree: 'Always free',
@@ -60,7 +60,7 @@ const en = {
     creditsTitle: 'Free credits on signup',
     seoTitle: 'Every free LLM API in one directory',
     seoP1: (p: number, m: number) =>
-      `Finding a free LLM API that works — without a credit card — shouldn't take an afternoon of tab-hopping. This directory tracks ${p} providers and ${m} models, from always-free tiers to free-credit plans, so you can grab a free LLM API key and start building in minutes. Every LLM API here exposes an `,
+      `Finding a free LLM API that works without a credit card shouldn't take an afternoon of tab-hopping. This directory tracks ${p} providers and ${m} models, from always-free tiers to free-credit plans, so you can grab a free LLM API key and start building in minutes. Every LLM API here exposes an `,
     seoP1Link: 'OpenAI-compatible endpoint',
     seoP1End: ', so switching providers is a one-line change.',
     seoP2:
@@ -77,11 +77,11 @@ const en = {
       },
       {
         q: 'How do I get a free LLM API key?',
-        a: 'Pick a provider from the tables above, click Get key, and sign up on their console. Most issue a free LLM API key instantly with just an email — no credit card. Then set it as your API key and start making requests.',
+        a: 'Pick a provider from the tables above, click Get key, and sign up on their console. Most issue a free LLM API key instantly with just an email and no credit card. Then set it as your API key and start making requests.',
       },
       {
         q: 'Are there free LLM APIs with no credit card?',
-        a: 'Yes. Many providers here offer a free LLM API with no credit card required — the "No card" badge marks them. Groq, Google Gemini, Cloudflare Workers AI, and Mistral all give free API keys without any payment details.',
+        a: 'Yes. Many providers here offer a free LLM API with no credit card required, marked with the "No card" badge. Groq, Google Gemini, Cloudflare Workers AI, and Mistral all give free API keys without any payment details.',
       },
       {
         q: 'What is the cheapest LLM API?',
@@ -93,11 +93,11 @@ const en = {
       },
       {
         q: 'Are there open source LLM API keys available for free?',
-        a: 'Yes. You can get a free API key from any provider on this page and call open source LLM models through it. That gives you open source LLM API keys without a credit card — Groq, OpenRouter, and Cloudflare Workers AI all serve open-weight models this way.',
+        a: 'Yes. You can get a free API key from any provider on this page and call open source LLM models through it. That gives you open source LLM API keys without a credit card. Groq, OpenRouter and Cloudflare Workers AI all serve open-weight models this way.',
       },
       {
         q: 'What is the cheapest LLM API provider?',
-        a: 'For free usage, any provider here is the cheapest LLM API — you pay nothing to start. When you need paid scale, run an LLM API pricing comparison across providers, since per-token rates for a cheap LLM API vary widely by model and region.',
+        a: 'For free usage, any provider here is the cheapest LLM API, because you pay nothing to start. When you need paid scale, run an LLM API pricing comparison across providers, since per-token rates for a cheap LLM API vary widely by model and region.',
       },
       {
         q: 'Can I make free LLM API calls without limits?',
@@ -141,7 +141,7 @@ const en = {
     freeTierPermanent: 'a permanent free tier',
     card: {
       no: 'No credit card is required to start',
-      registration: 'Signup needs only an email — no credit card',
+      registration: 'Signup needs only an email, no credit card',
       phone: 'Signup requires phone verification but no credit card',
       yes: 'A credit card is required to activate the free tier',
     },
@@ -171,9 +171,9 @@ const en = {
   about: {
     title: 'About freellm.site — Free LLM API Directory',
     description:
-      'Learn about freellm.site — an open, community-maintained directory of free LLM API providers, models, and setup guides.',
+      'Learn about freellm.site, an open, community-maintained directory of free LLM API providers, models, and setup guides.',
     h1: 'About freellm.site',
-    lead: 'freellm.site is a free, open directory that helps developers find LLM API providers with permanent free tiers and signup credits — without hunting across dozens of websites.',
+    lead: 'freellm.site is a free, open directory that helps developers find LLM API providers with permanent free tiers and signup credits, without searching dozens of websites.',
     whatTitle: 'What we do',
     what: (p: number, m: number) =>
       `We track ${p} providers and ${m} models, covering rate limits, context windows, credit card requirements, and signup links. Each provider has a dedicated page with model tables and copy-paste code snippets so you can get started in minutes.`,
@@ -202,7 +202,7 @@ const en = {
   compare: {
     title: (a: string, b: string) => `${a} vs ${b}: Free LLM API Comparison (2026)`,
     description: (a: string, b: string) =>
-      `${a} vs ${b} free tier compared — credit card, models, context window and rate limits. See which free LLM API fits your project.`,
+      `${a} vs ${b} free tier compared: credit card, models, context window and rate limits. See which free LLM API fits your project.`,
     h1: (a: string, b: string) => `${a} vs ${b}: Free LLM API Comparison`,
     crumb: (a: string, b: string) => `${a} vs ${b}`,
     introA: 'Comparing the free tiers of ',
@@ -223,12 +223,12 @@ const en = {
     },
     pickTitle: 'Which should you pick?',
     verdictCard: (winner: string, loser: string, loserCard: string) =>
-      `${winner} is easier to start with — no credit card, versus ${loserCard} for ${loser}.`,
+      `${winner} is easier to start with: no credit card, versus ${loserCard} for ${loser}.`,
     verdictCtx: (winner: string, win: string, lose: string) =>
       `${winner} wins on context, handling up to ${win} tokens against ${lose}.`,
     verdictTie: (a: string, b: string) =>
-      `${a} and ${b} are closely matched on the free tier — pick on response speed and which models you need.`,
-    bothCompatA: 'Both are OpenAI-compatible, so trying each is a one-line change — see the ',
+      `${a} and ${b} are closely matched on the free tier, so pick on response speed and which models you need.`,
+    bothCompatA: 'Both are OpenAI-compatible, so trying each is a one-line change. See the ',
     bothCompatLink1: 'drop-in list',
     bothCompatMid: ' and our ',
     bothCompatLink2: 'rate-limit comparison',
