@@ -106,6 +106,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | H Company | 0 | 📧 Email | — | [Obtenir →](https://portal.hcompany.ai) |
 | DeepL API | 0 | ✅ Non | — | [Obtenir →](https://developers.deepl.com) |
 | Falcon (TII) | 0 | ✅ Non | — | [Obtenir →](https://falconllm.tii.ae) |
+| Merkium | 0 | ✅ Non | — | [Obtenir →](https://chat.merkium.nl) |
 
 <!-- END_PERMANENT -->
 

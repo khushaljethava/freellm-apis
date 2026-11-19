@@ -106,6 +106,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | H Company | 0 | 📧 이메일 | — | [받기 →](https://portal.hcompany.ai) |
 | DeepL API | 0 | ✅ 불필요 | — | [받기 →](https://developers.deepl.com) |
 | Falcon (TII) | 0 | ✅ 불필요 | — | [받기 →](https://falconllm.tii.ae) |
+| Merkium | 0 | ✅ 불필요 | — | [받기 →](https://chat.merkium.nl) |
 
 <!-- END_PERMANENT -->
 
