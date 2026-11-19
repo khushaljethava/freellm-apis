@@ -1,6 +1,6 @@
 <p align="center">
   <h1 align="center">🆓 Free LLM APIs</h1>
-  <p align="center"><strong>70+ free LLM API providers across 8 regions</strong> — find, compare & start calling AI models in seconds.</p>
+  <p align="center"><strong>70+ free LLM API providers across 8 regions</strong>: find, compare and start calling AI models in seconds.</p>
 </p>
 
 <p align="center">
@@ -32,27 +32,27 @@
 
 Finding a free LLM API shouldn't mean hunting through dozens of websites, signing up on five platforms, or guessing which free tier still works.
 
-This repo is a **structured, machine-readable directory** of every free LLM API — with credit card requirements, base URLs, and direct API key links. All in one place.
+This repo is a **structured, machine-readable directory** of every free LLM API, with credit card requirements, base URLs and direct API key links.
 
-- ✅ **No-card options first** — clearly shows which providers need zero payment info
-- ✅ **OpenAI-compatible** — every provider works as a drop-in `baseURL` replacement
-- ✅ **70+ providers** — global, India, China, Japan, Korea, Europe, Middle East, SEA
-- ✅ **Machine-readable** — structured JSON in `data/providers.json` for scripts & tools
-- ✅ **Community-maintained** — PRs welcome to add or update providers
-
----
-
-## ⚡ How to Use — 3 Steps
-
-**1. Pick a provider** — see [Provider Directory](#-provider-directory) below. Start with **Groq** (no credit card, 30 RPM free).
-
-**2. Get your API key** — click any `Get Key →` link, sign up (most need just an email), copy your key. Takes < 1 minute.
-
-**3. Plug it in** — copy the base URL + model ID into your tool.
+- ✅ **No-card options first**: shows which providers need zero payment info
+- ✅ **OpenAI-compatible**: every provider works as a drop-in `baseURL` replacement
+- ✅ **70+ providers**: global, India, China, Japan, Korea, Europe, Middle East, SEA
+- ✅ **Machine-readable**: structured JSON in `data/providers.json` for scripts & tools
+- ✅ **Community-maintained**: PRs welcome to add or update providers
 
 ---
 
-## 🚀 Quick Start — Use Any Free API in 30 Seconds
+## ⚡ How to use it in 3 steps
+
+**1. Pick a provider.** See [Provider Directory](#-provider-directory) below. Start with **Groq** (no credit card, 30 RPM free).
+
+**2. Get your API key.** Click any `Get Key →` link, sign up (most need just an email), copy your key. Takes < 1 minute.
+
+**3. Plug it in.** Copy the base URL + model ID into your tool.
+
+---
+
+## 🚀 Quick start: use any free API in 30 seconds
 
 All providers below expose an **OpenAI-compatible endpoint**. Any tool that accepts `baseURL` + `apiKey` works.
 
@@ -111,7 +111,7 @@ export OPENAI_BASE_URL="https://api.groq.com/openai/v1"
 export OPENAI_API_KEY="your-groq-key"  # console.groq.com/keys
 ```
 
-> **Tip:** Swap `base_url` to any provider in the tables below — same code, different provider, zero cost.
+> **Tip:** Swap `base_url` to any provider in the tables below. The code stays the same and costs nothing.
 
 ---
 
@@ -121,7 +121,7 @@ export OPENAI_API_KEY="your-groq-key"  # console.groq.com/keys
 
 ### ⚡ Permanent Free Tiers
 
-Providers with **unlimited free access** (rate-limited) — no time expiry.
+Providers with **unlimited free access** (rate-limited) with no expiry date.
 
 <!-- BEGIN_PERMANENT -->
 | Provider | Models | Card? | Max Context | Modalities | Last Verified | Get Key |
@@ -154,12 +154,13 @@ Providers with **unlimited free access** (rate-limited) — no time expiry.
 | H Company | 0 | 📧 Email | — | text | 2026-09-29 | [Get Key →](https://portal.hcompany.ai) |
 | DeepL API | 0 | ✅ No | — | text | 2026-09-29 | [Get Key →](https://developers.deepl.com) |
 | Falcon (TII) | 0 | ✅ No | — | text | 2026-09-29 | [Get Key →](https://falconllm.tii.ae) |
+| Merkium | 0 | ✅ No | — | text | 2026-11-09 | [Get Key →](https://chat.merkium.nl) |
 
 <!-- END_PERMANENT -->
 
 ### 💰 Free Credits on Signup
 
-Providers that give **trial credits** at registration — no monthly renewal needed.
+Providers that give **trial credits** at registration, with no monthly renewal.
 
 <!-- BEGIN_CREDITS -->
 | Provider | Credits (USD) | Expiry | Card? | Models | Last Verified | Get Key |
@@ -214,7 +215,7 @@ Providers that give **trial credits** at registration — no monthly renewal nee
 
 ---
 
-## 🔗 Quick Reference — Base URLs
+## 🔗 Quick reference: base URLs
 
 <!-- BEGIN_BASE_URLS -->
 | Provider | Base URL | Get Key |
@@ -251,6 +252,7 @@ Providers that give **trial credits** at registration — no monthly renewal nee
 | LG EXAONE | `https://www.lgresearch.ai` | [→](https://www.lgresearch.ai) |
 | LLM7.io | `https://api.llm7.io/v1` | [→](https://dash.llm7.io) |
 | LightOn | `https://api.lighton.ai/v3` | [→](https://lighton.ai/pricing) |
+| Merkium | `https://chat.merkium.nl/api/v1` | [→](https://chat.merkium.nl) |
 | MiniMax | `https://api.minimax.io/v1` | [→](https://platform.minimax.io) |
 | Mistral AI | `https://api.mistral.ai/v1` | [→](https://console.mistral.ai/api-keys) |
 | ModelScope | `https://api-inference.modelscope.cn/v1` | [→](https://modelscope.cn/my/myaccesstoken) |
@@ -475,7 +477,7 @@ Please verify provider details on their official websites before submitting. See
 
 ## 📄 License
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 

@@ -106,6 +106,7 @@ curl https://api.groq.com/openai/v1/chat/completions \
 | H Company | 0 | 📧 登録 | — | [取得 →](https://portal.hcompany.ai) |
 | DeepL API | 0 | ✅ 不要 | — | [取得 →](https://developers.deepl.com) |
 | Falcon (TII) | 0 | ✅ 不要 | — | [取得 →](https://falconllm.tii.ae) |
+| Merkium | 0 | ✅ 不要 | — | [取得 →](https://chat.merkium.nl) |
 
 <!-- END_PERMANENT -->
 
