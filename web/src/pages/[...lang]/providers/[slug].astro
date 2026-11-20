@@ -176,8 +176,8 @@ if (seo.faq?.length) {
   <div class="grid gap-8 lg:grid-cols-[1fr_20rem]">
     <div>
       <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{tp.h1(provider.name)}</h1>
-      <p class="mt-4 text-lg leading-relaxed text-muted-foreground">{overview}</p>
-      {seo.intro && <p class="mt-3 leading-relaxed text-muted-foreground">{seo.intro}</p>}
+      {/* Hand-written intro is English; it replaces the templated overview there. Other locales keep the translated overview. */}
+      <p class="mt-4 text-lg leading-relaxed text-muted-foreground">{locale === DEFAULT_LOCALE && seo.intro ? seo.intro : overview}</p>
       <div class="mt-6 flex flex-wrap items-center gap-3">
         <a href={provider.signup_url} target="_blank" rel="noopener" class="btn btn-primary">{tp.getKeyCta}</a>
         <Badge variant={CARD_VARIANT[provider.credit_card_required]}>{cardLabel[provider.credit_card_required]}</Badge>

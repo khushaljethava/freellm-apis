@@ -25,29 +25,25 @@
     "notes": "Free mode: no credit card, included monthly usage with low rate limits",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "Mistral AI Free API Key — No Credit Card Required",
-      "description": "Get a free Mistral AI API key with no credit card. Permanent free tier with included monthly usage at low rate limits. Base URL and signup steps inside.",
-      "intro": "Mistral AI offers a permanent free tier you can start using without entering a credit card. In free mode you get included monthly usage with low rate limits, which is enough for prototyping, side projects and testing prompts before you commit to paid capacity. Create a key in the Mistral console, point your client at the API base URL https://api.mistral.ai/v1, and you are ready to send requests. Availability is global, and this entry was last verified on 2026-09-29.",
+      "title": "Mistral AI Free API Key: No Credit Card Needed",
+      "description": "Mistral's free mode needs no credit card and includes monthly usage at low rate limits. Four models, up to 256K context, OpenAI-style endpoint.",
+      "intro": "Mistral AI has a permanent free mode that you can use without a credit card. It includes a monthly usage allowance at low rate limits, which Mistral doesn't publish as fixed numbers. That is enough for prototypes and prompt testing, though not for steady production traffic. Four models are on the free list: mistral-large-latest (128K context), mistral-small-latest (32K), mistral-large-2512, which reads images, and mistral-small-2603, both at 256K. Create a key in the Mistral console and send requests to https://api.mistral.ai/v1.",
       "faq": [
         {
           "q": "Is the Mistral AI API free?",
-          "a": "Yes. Mistral AI has a permanent free tier rather than a time-limited trial. Free mode includes monthly usage with low rate limits; for the exact allowances, check the official docs."
+          "a": "Yes. Free mode is permanent and includes monthly usage at low rate limits. Mistral doesn't publish exact per-minute numbers for it."
         },
         {
-          "q": "Do I need a credit card to use Mistral AI for free?",
-          "a": "No. A credit card is not required to sign up for the free mode. You can create an API key at https://console.mistral.ai/api-keys and start calling the API."
+          "q": "Do I need a credit card for Mistral's free mode?",
+          "a": "No. Create an account, then generate a key at https://console.mistral.ai/api-keys."
         },
         {
-          "q": "How do I get a Mistral AI API key?",
-          "a": "Open https://console.mistral.ai/api-keys, sign in to the Mistral console, and generate a new API key. Store it as an environment variable and send it with your requests."
+          "q": "Which Mistral models are free?",
+          "a": "mistral-large-latest, mistral-small-latest, mistral-large-2512 and mistral-small-2603. The 2512 and 2603 versions have a 256K context window, and mistral-large-2512 also accepts images."
         },
         {
-          "q": "What is the Mistral AI API base URL?",
-          "a": "Use https://api.mistral.ai/v1 as the base URL. Most OpenAI-compatible clients and SDKs let you override the base URL, so you can keep your existing request code."
-        },
-        {
-          "q": "What are the rate limits on the Mistral AI free tier?",
-          "a": "The free mode comes with low rate limits alongside its included monthly usage. Specific per-minute and per-month numbers are not listed here, so check the official docs."
+          "q": "What is the Mistral API base URL?",
+          "a": "https://api.mistral.ai/v1. Most OpenAI-compatible clients work once you change the base URL and key."
         }
       ]
     }
@@ -63,7 +59,26 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Free tier on Gemini Flash / Flash-Lite models, 1M context; limits shown in AI Studio",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Google Gemini Free API: Flash Models with 1M Context",
+      "description": "Gemini's free API tier is permanent and needs no credit card. 11 free models, including gemini-3.8-flash, with a 1M-token context window.",
+      "intro": "Gemini's free tier is the one most people should try first. It is permanent, it needs no credit card, and every Flash and Flash-Lite model takes a 1,048,576-token context window with text, image, audio and video input. Eleven models are free at the moment, from gemini-3.8-flash down to gemini-2.5-flash-lite, plus the open Gemma 4 models (gemma-4-31b-it and gemma-4-26b-a4b-it) with 262K context. Google doesn't publish one fixed rate limit for the free tier. AI Studio shows your per-model limits once you have a key.",
+      "faq": [
+        {
+          "q": "Is the Gemini API free?",
+          "a": "Yes. The Flash and Flash-Lite models have a permanent free tier, and you can get a key from Google AI Studio without a credit card."
+        },
+        {
+          "q": "What are the Gemini free tier rate limits?",
+          "a": "Google shows them per model inside AI Studio rather than publishing one fixed number, and they can change. Check AI Studio for the limits on your key."
+        },
+        {
+          "q": "Can I use the Gemini API with the OpenAI SDK?",
+          "a": "Yes. Set base_url to https://generativelanguage.googleapis.com/v1beta/openai/ and use your Gemini key as the API key."
+        }
+      ]
+    }
   },
   {
     "id": "cerebras",
@@ -78,29 +93,25 @@
     "notes": "$5 trial credits after adding payment method, expire in 30 days; 5 RPM, 1M tokens/day",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "Cerebras Free API: $5 Trial Credits, 1M Tokens/Day",
-      "description": "Cerebras gives $5 free trial credits after you add a payment method. Credits expire in 30 days. Limits: 5 RPM and 1M tokens/day. Verified Sep 29, 2026.",
-      "intro": "Cerebras offers a credit-based free tier: $5 in trial credits once you add a payment method to your account. The credits expire 30 days after they are issued, and usage is capped at 5 requests per minute and 1M tokens per day. The API is available globally at https://api.cerebras.ai/v1, and you can sign up at https://cloud.cerebras.ai/. Details below were last verified on 2026-09-29 — for anything not listed here, check the official docs.",
+      "title": "Cerebras Free API: $5 Trial Credit, 1M Tokens/Day",
+      "description": "Cerebras gives $5 of trial credit after you add a payment method. It expires in 30 days, with limits of 5 RPM and 1M tokens a day.",
+      "intro": "Cerebras no longer has a free tier you can use without a card. You get $5 of trial credit once you add a payment method, and it expires 30 days later. While it lasts you are limited to 5 requests per minute and 1M tokens per day. The two models we list are gpt-oss-120b (65K context) and qwen-3.8-27b (64K, with image input). Cerebras is known for fast inference, so the trial is mainly useful for measuring speed on your own prompts. For a free plan without a card, Groq and SambaNova Cloud are the closest alternatives.",
       "faq": [
         {
-          "q": "Is the Cerebras API free to use?",
-          "a": "It is not free-forever. Cerebras gives $5 in trial credits, which you receive after adding a payment method. Once those credits are used or expire after 30 days, check the official docs for current pricing."
+          "q": "Is the Cerebras API free?",
+          "a": "Only as a trial. You get $5 of credit after adding a payment method, and it expires after 30 days."
         },
         {
           "q": "Do I need a credit card for Cerebras?",
-          "a": "Yes. A payment method is required — the $5 trial credits are granted after you add one at https://cloud.cerebras.ai/."
+          "a": "Yes. The trial credit is granted only after you add a payment method at https://cloud.cerebras.ai/."
         },
         {
-          "q": "What are the Cerebras free tier rate limits?",
-          "a": "The documented limits are 5 requests per minute (RPM) and 1M tokens per day. For per-model limits or anything beyond those figures, check the official docs."
+          "q": "What are the Cerebras trial rate limits?",
+          "a": "5 requests per minute and 1M tokens per day."
         },
         {
-          "q": "How long do Cerebras trial credits last?",
-          "a": "The $5 in trial credits expire 30 days after they are granted. Any unused balance is lost at that point."
-        },
-        {
-          "q": "What is the Cerebras API base URL?",
-          "a": "https://api.cerebras.ai/v1. The service is offered globally. For supported models and endpoint paths, check the official docs."
+          "q": "What happens to unused Cerebras credit?",
+          "a": "It expires 30 days after it is granted, and any balance left is lost."
         }
       ]
     }
@@ -129,7 +140,26 @@
     "credit_amount_usd": 0.1,
     "credit_expiry": "monthly",
     "notes": "$0.10/month free Inference Providers credits (subject to change); OpenAI-compatible router",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Hugging Face Free API: $0.10/Month Inference Credits",
+      "description": "Hugging Face gives every account $0.10 of Inference Providers credit a month, no card needed. Try gpt-oss-120b, DeepSeek-V4-Flash and Qwen3.8 from one key.",
+      "intro": "Hugging Face gives every account $0.10 of Inference Providers credit each month, and says the amount may change. That isn't much, so it works best for trying several open models behind one key, not for production traffic. Requests go through the OpenAI-compatible router at router.huggingface.co/v1. Six models are on our list: openai/gpt-oss-120b, DeepSeek-V4-Flash with a 1M-token context, Qwen3.8-27B, Gemma 4 31B, Kimi-K2.6 and Llama 4 Scout. No credit card is needed.",
+      "faq": [
+        {
+          "q": "Is the Hugging Face Inference API free?",
+          "a": "Each account gets $0.10 of free Inference Providers credit per month. Usage beyond that is billed."
+        },
+        {
+          "q": "Do Hugging Face free credits roll over?",
+          "a": "No. The $0.10 is a monthly allowance and refills each month instead of accumulating."
+        },
+        {
+          "q": "What is the Hugging Face router base URL?",
+          "a": "https://router.huggingface.co/v1. Use a Hugging Face access token as the API key."
+        }
+      ]
+    }
   },
   {
     "id": "nvidia_nim",
@@ -157,29 +187,25 @@
     "notes": "10,000 neurons/day free (Free and Paid plans); OpenAI-compatible /ai/v1 endpoint",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "Cloudflare Workers AI API: Free Tier, No Card Needed",
-      "description": "Use the Cloudflare Workers AI API free with 10,000 neurons/day on Free and Paid plans. OpenAI-compatible /ai/v1 endpoint, no credit card required.",
-      "intro": "Cloudflare Workers AI gives you a permanently free way to call AI models over an API, with 10,000 neurons per day included on both the Free and Paid plans. No credit card is required to start. Requests go to an OpenAI-compatible endpoint at https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1, so most existing OpenAI client libraries work by swapping the base URL and key. You create an API token from the Cloudflare dashboard. Details last verified 2026-09-29.",
+      "title": "Cloudflare Workers AI Free API: 10,000 Neurons a Day",
+      "description": "Workers AI gives 10,000 neurons a day free on Free and Paid plans, with no card. OpenAI-compatible endpoint, models up to 1.3M context.",
+      "intro": "Cloudflare Workers AI includes 10,000 neurons a day for free on both the Free and Paid plans, and you don't need a credit card. Neurons are Cloudflare's own usage unit, so how many requests that buys depends on the model. Eight models are on our list, including @cf/openai/gpt-oss-120b, @cf/qwen/qwen3.8-27b, @cf/moonshotai/kimi-k2.6 and @cf/zai-org/glm-5.3-flash, which has a 1.3M-token context window. The OpenAI-compatible endpoint includes your account ID in the path, so replace {account_id} in https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1 with your own.",
       "faq": [
         {
-          "q": "What is the Cloudflare Workers AI API base URL?",
-          "a": "The OpenAI-compatible base URL is https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1 — replace {account_id} with your own Cloudflare account ID."
+          "q": "Is Cloudflare Workers AI free?",
+          "a": "Yes. Every account gets 10,000 neurons per day at no cost, on both the Free and Paid plans."
         },
         {
-          "q": "Is the Cloudflare Workers AI API free?",
-          "a": "Yes. It has a permanent free tier of 10,000 neurons per day, available on both the Free and Paid plans. For anything beyond that allowance, check the official docs."
+          "q": "What is a neuron in Workers AI?",
+          "a": "It is Cloudflare's unit for measuring model usage. Different models use different numbers of neurons per request, so the free allowance stretches further on smaller models."
         },
         {
-          "q": "Do I need a credit card to use Cloudflare Workers AI?",
-          "a": "No. No credit card is required to sign up and start using the free 10,000 neurons/day allowance."
+          "q": "How do I get a Workers AI API token?",
+          "a": "Create one at https://dash.cloudflare.com/profile/api-tokens and send it as a bearer token. No credit card is needed."
         },
         {
-          "q": "How do I get a Cloudflare Workers AI API key?",
-          "a": "Create an API token in the Cloudflare dashboard at https://dash.cloudflare.com/profile/api-tokens, then use it as the bearer token against the /ai/v1 endpoint."
-        },
-        {
-          "q": "Is Cloudflare Workers AI compatible with the OpenAI SDK?",
-          "a": "Yes. It exposes an OpenAI-compatible /ai/v1 endpoint, so you can point an OpenAI client at the base URL above and supply your Cloudflare API token. For supported routes and models, check the official docs."
+          "q": "Does Workers AI work with the OpenAI SDK?",
+          "a": "Yes. Set the base URL to https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1 with your account ID filled in, and use your Cloudflare token as the API key."
         }
       ]
     }
@@ -197,29 +223,25 @@
     "notes": "Free tier (no payment method): 20 RPM / 20 RPD / 200K tokens/day per model",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "SambaNova Cloud Free API Tier: Limits & Setup",
-      "description": "SambaNova Cloud offers a permanent free API tier with no payment method: 20 RPM, 20 RPD and 200K tokens/day per model. Sign up and start building.",
-      "intro": "SambaNova Cloud provides a permanent free tier for its OpenAI-compatible API, with no payment method required to use it. Registration does ask for a credit card, but the free tier itself runs without one. Each model allows 20 requests per minute, 20 requests per day and 200K tokens per day. The API base URL is https://api.sambanova.ai/v1, and keys are created at https://cloud.sambanova.ai/apis. Limits and model availability last verified 2026-09-29.",
+      "title": "SambaNova Cloud Free API: 20 RPM, No Payment Method",
+      "description": "SambaNova Cloud's free tier is permanent and needs only an email: 20 RPM, 20 RPD and 200K tokens a day per model. DeepSeek V3 and Llama 3.3 70B.",
+      "intro": "SambaNova Cloud has a permanent free tier that works without a payment method; you sign up with an email. Each model allows 20 requests per minute, 20 requests per day and 200K tokens per day. The daily request cap is the real constraint, so this suits testing and low-volume tools more than anything user-facing. Five models are free: DeepSeek-V3.1, DeepSeek-V3.2, Meta-Llama-3.3-70B-Instruct, gpt-oss-120b and gemma-4-31B-it, mostly at 131K context. The API is OpenAI-compatible at https://api.sambanova.ai/v1.",
       "faq": [
         {
-          "q": "Is SambaNova Cloud free to use?",
-          "a": "Yes. SambaNova Cloud has a permanent free tier that works without adding a payment method. The free allowance is 20 requests per minute, 20 requests per day and 200K tokens per day, per model."
+          "q": "Is SambaNova Cloud free?",
+          "a": "Yes. The free tier is permanent, with 20 requests per minute, 20 requests per day and 200,000 tokens per day for each model."
         },
         {
-          "q": "Does SambaNova Cloud require a credit card?",
-          "a": "A credit card is requested at registration, but the free tier does not require a payment method to use. For the current signup requirements, check the official docs at https://cloud.sambanova.ai/apis."
+          "q": "Does SambaNova Cloud need a credit card?",
+          "a": "No. Signup needs an email, and the free tier runs without a payment method. Keys are created at https://cloud.sambanova.ai/apis."
         },
         {
-          "q": "What are the SambaNova Cloud free tier rate limits?",
-          "a": "The free tier allows 20 RPM (requests per minute), 20 RPD (requests per day) and 200,000 tokens per day, applied per model. These limits were last verified on 2026-09-29."
+          "q": "Which models are free on SambaNova Cloud?",
+          "a": "DeepSeek-V3.1, DeepSeek-V3.2, Meta-Llama-3.3-70B-Instruct, gpt-oss-120b and gemma-4-31B-it. Gemma 4 also accepts image and video input."
         },
         {
-          "q": "What is the SambaNova Cloud API base URL?",
-          "a": "The API base URL is https://api.sambanova.ai/v1. You can generate an API key from https://cloud.sambanova.ai/apis after creating an account."
-        },
-        {
-          "q": "Do SambaNova Cloud free credits expire?",
-          "a": "The free tier is permanent rather than a time-limited credit grant, so there is no published credit amount or expiry date. For any changes to free tier terms, check the official docs."
+          "q": "Do SambaNova free limits reset?",
+          "a": "The per-day limits reset daily. Because they apply per model, you can spread work across several models to get more than 20 requests a day."
         }
       ]
     }
@@ -276,29 +298,25 @@
     "notes": "$10 trial credit valid 3 months; 200 RPM / 10 RPS",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "AI21 Labs Free API Credits — $10 Trial, No Card",
-      "description": "AI21 Labs gives $10 in free trial credits valid for 3 months, no credit card required. Rate limits are 200 RPM / 10 RPS. Verified 2026-09-29.",
-      "intro": "AI21 Labs offers a free trial tier for its Studio API: $10 in credits that stay valid for 3 months, with no credit card required to sign up. The API is available globally at https://api.ai21.com/studio/v1, with rate limits of 200 requests per minute and 10 requests per second. Sign up at https://www.ai21.com. Details below were last verified on 2026-09-29.",
+      "title": "AI21 Labs Free API: $10 Trial Credit, No Card",
+      "description": "AI21 Labs gives $10 of trial credit valid for 3 months, no credit card. Jamba Large and Jamba Mini, 256K context, 200 RPM.",
+      "intro": "AI21 Labs gives new Studio accounts $10 of trial credit, valid for three months, and you don't need a credit card to claim it. The free models are jamba-large and jamba-mini, both with a 256K-token context window. Rate limits are generous for a trial: 200 requests per minute and 10 per second. When the credit runs out or the three months pass, usage becomes paid, so treat it as a way to evaluate Jamba on long documents. The API base URL is https://api.ai21.com/studio/v1.",
       "faq": [
         {
-          "q": "Is AI21 Labs free to use?",
-          "a": "AI21 Labs is not permanently free, but it provides $10 in trial credits when you sign up. Those credits are valid for 3 months. After they are used or expire, check the official docs for current pricing."
+          "q": "Is AI21 Labs free?",
+          "a": "New accounts get $10 of trial credit that lasts three months. There is no permanent free tier."
         },
         {
-          "q": "Does AI21 Labs require a credit card?",
-          "a": "No. You can claim the $10 trial credit without entering a credit card."
+          "q": "Does AI21 Labs need a credit card?",
+          "a": "No. You can claim the $10 trial credit without one."
         },
         {
-          "q": "How long do AI21 Labs free credits last?",
-          "a": "The $10 trial credit is valid for 3 months from signup."
+          "q": "What are the AI21 trial rate limits?",
+          "a": "200 requests per minute and 10 requests per second."
         },
         {
-          "q": "What are the AI21 Labs API rate limits?",
-          "a": "The trial allows 200 requests per minute (RPM) and 10 requests per second (RPS). For limits on paid plans, check the official docs."
-        },
-        {
-          "q": "What is the AI21 Labs API base URL?",
-          "a": "The Studio API base URL is https://api.ai21.com/studio/v1. You can create an account and get a key at https://www.ai21.com."
+          "q": "Which models can I use with AI21 free credit?",
+          "a": "jamba-large and jamba-mini. Both have a 256K-token context window."
         }
       ]
     }
@@ -353,7 +371,26 @@
     "credit_amount_usd": 1,
     "credit_expiry": "30 days",
     "notes": "Rebranded from Nebius AI Studio; $1 trial credit on signup valid 30 days; bank card required for mandatory billing setup",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Nebius Token Factory Free Trial: $1 Credit, Card Needed",
+      "description": "Nebius Token Factory (formerly Nebius AI Studio) gives a $1 trial credit valid 30 days. A bank card is required. Runs gpt-oss-120b and gpt-oss-20b.",
+      "intro": "Nebius Token Factory is the new name for Nebius AI Studio. Its free offer is small: $1 of trial credit when you sign up, valid for 30 days, and you have to add a bank card to finish the mandatory billing setup. The two models we list are openai/gpt-oss-120b and openai/gpt-oss-20b, both with a 131K context window. Use it to check speed and output quality before you pay. If you want those same GPT-OSS models free for longer and without a card, Groq serves both on its permanent free plan.",
+      "faq": [
+        {
+          "q": "Is Nebius Token Factory free?",
+          "a": "New accounts get a $1 trial credit that expires after 30 days. There is no permanent free tier."
+        },
+        {
+          "q": "Does Nebius require a credit card?",
+          "a": "Yes. A bank card is required to complete billing setup before you can use the trial credit."
+        },
+        {
+          "q": "Is Nebius Token Factory the same as Nebius AI Studio?",
+          "a": "Yes. Nebius AI Studio was renamed Token Factory, and the API now lives at https://api.tokenfactory.nebius.com/v1."
+        }
+      ]
+    }
   },
   {
     "id": "novita_ai",
@@ -446,29 +483,25 @@
     "notes": "₹100 (~$1.1) free credits on signup, never expire; Starter plan: sarvam-105b 40 RPM",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "Sarvam AI Free API Key: ₹100 Credits, No Expiry",
-      "description": "Get a Sarvam AI API key free: ₹100 (~$1.1) signup credits that never expire. India-based endpoint at api.sarvam.ai/v1. Card needed at registration.",
-      "intro": "Sarvam AI is an India-based model provider that gives you ₹100 (about $1.1) in free credits when you sign up, and those credits never expire. You create your API key from the Sarvam dashboard at https://dashboard.sarvam.ai, then point your client at the base URL https://api.sarvam.ai/v1. A credit card is required at registration. The Starter plan includes sarvam-105b at 40 RPM. Provider details last verified 2026-09-29.",
+      "title": "Sarvam AI Free API Key: ₹100 Credit That Never Expires",
+      "description": "Sarvam AI gives ₹100 (~$1.1) of signup credit that never expires. Email signup, no card. sarvam-105b at 40 RPM on an India-based API.",
+      "intro": "Sarvam AI is an Indian model company. New accounts get ₹100 (about $1.1) of credit, and it never expires. You sign up with an email at https://dashboard.sarvam.ai, and no credit card is needed. The Starter plan runs sarvam-105b at 40 requests per minute with a 128K context window; sarvam-105b-conversations is the 32K chat version. ₹100 doesn't last long, but because it never expires you can keep it for occasional tests. The base URL is https://api.sarvam.ai/v1.",
       "faq": [
         {
-          "q": "How do I get a Sarvam AI API key?",
-          "a": "Sign up at https://dashboard.sarvam.ai and create your key there. A credit card is required at registration. Once you have the key, use https://api.sarvam.ai/v1 as the base URL for your requests."
+          "q": "Is the Sarvam AI API free?",
+          "a": "New accounts get ₹100 (about $1.1) of free credit. After that you pay Sarvam's normal rates."
         },
         {
-          "q": "Is the Sarvam AI API key free?",
-          "a": "Yes, to start. New accounts receive ₹100 (~$1.1) in free credits on signup, and those credits never expire. Usage beyond the free credits follows Sarvam's paid pricing — check the official docs for current rates."
+          "q": "Do Sarvam AI free credits expire?",
+          "a": "No. The ₹100 signup credit never expires."
         },
         {
-          "q": "Do the free Sarvam AI credits expire?",
-          "a": "No. The ₹100 (~$1.1) signup credits never expire, so you can use them at your own pace."
+          "q": "Does Sarvam AI need a credit card?",
+          "a": "No. Signup needs only an email."
         },
         {
-          "q": "What is the Sarvam AI API base URL?",
-          "a": "https://api.sarvam.ai/v1. Use it with the API key you generate in the Sarvam dashboard."
-        },
-        {
-          "q": "What rate limit do I get with a Sarvam AI free API key?",
-          "a": "The Starter plan lists sarvam-105b at 40 RPM. For limits on other models or plans, check the official docs."
+          "q": "What rate limit does Sarvam AI give on the Starter plan?",
+          "a": "sarvam-105b runs at 40 requests per minute."
         }
       ]
     }
@@ -575,7 +608,26 @@
     "credit_amount_usd": null,
     "credit_expiry": "90 days",
     "notes": "New users get ~1M free tokens per model (Beijing region), valid 90 days; no real-name verification needed to use free quota",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Alibaba DashScope Free API: 1M Qwen Tokens per Model",
+      "description": "New DashScope accounts get about 1M free tokens per Qwen model for 90 days, with no credit card. Covers qwen3.8-max, qwen3.7-plus and qwen3.8-flash.",
+      "intro": "DashScope is Alibaba's mainland China console for the Qwen models, served from the Beijing region. A new account gets roughly 1 million free tokens for each model, and the quota lasts 90 days. Three models are on the free list: qwen3.8-max, qwen3.7-plus and qwen3.8-flash. All three have a 1M-token context window, and max and plus also accept images. You don't need a credit card, and you can use the free quota without real-name verification. If your users are outside China, Alibaba Model Studio gives the same allowance from Singapore.",
+      "faq": [
+        {
+          "q": "Is Alibaba DashScope free?",
+          "a": "New accounts get about 1 million free tokens per model, valid for 90 days. After that you pay per token, so it is a trial rather than a permanent free tier."
+        },
+        {
+          "q": "Do I need real-name verification to use the DashScope free quota?",
+          "a": "No. The free quota works without real-name verification, and you don't need a credit card to sign up."
+        },
+        {
+          "q": "What is the difference between DashScope and Alibaba Model Studio?",
+          "a": "They offer the same Qwen models and the same free allowance. DashScope runs in the Beijing region at dashscope.aliyuncs.com, and Model Studio is the international version in Singapore at dashscope-intl.aliyuncs.com."
+        }
+      ]
+    }
   },
   {
     "id": "alibaba_model_studio",
@@ -588,7 +640,26 @@
     "credit_amount_usd": null,
     "credit_expiry": "90 days",
     "notes": "New users get ~1M free tokens per model (Singapore region), valid 90 days",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Alibaba Model Studio Free API: Qwen Tokens for 90 Days",
+      "description": "Alibaba Model Studio (Singapore) gives new users about 1M free tokens per Qwen model for 90 days. Email signup, no card, 1M-token context.",
+      "intro": "Model Studio is Alibaba Cloud's international console for Qwen, running in the Singapore region at dashscope-intl.aliyuncs.com. New users get about 1 million free tokens per model, valid for 90 days. Signup needs an email but no credit card. The free models are qwen3.8-max, qwen3.7-plus and qwen3.8-flash, each with a 1M-token context window, and max and plus also take image input. The lineup is the same as the Beijing-region DashScope account, so choose the region closer to your users.",
+      "faq": [
+        {
+          "q": "Is Alibaba Model Studio free?",
+          "a": "New accounts get about 1 million free tokens per model for 90 days. When the quota runs out or expires, usage is billed."
+        },
+        {
+          "q": "Does Alibaba Model Studio need a credit card?",
+          "a": "No. You sign up with an email address, and the free token quota is available without adding a card."
+        },
+        {
+          "q": "Which Qwen models are free on Model Studio?",
+          "a": "qwen3.8-max, qwen3.7-plus and qwen3.8-flash. All three support a 1M-token context, and max and plus accept images as well as text."
+        }
+      ]
+    }
   },
   {
     "id": "siliconflow_cn",
@@ -616,29 +687,25 @@
     "notes": "Free models: GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash, GLM-4.6V-Flash, GLM-4.1V-Thinking-Flash; per-model concurrency limits by account tier",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "Zhipu AI Free API: GLM-4.7-Flash & GLM-Z1-Flash Access",
-      "description": "Zhipu AI offers permanently free GLM Flash models with no credit card required. Get an API key at bigmodel.cn and call the OpenAI-compatible v4 endpoint.",
-      "intro": "Zhipu AI is a China-based model provider whose BigModel platform offers a permanently free tier with no credit card required. The free lineup covers GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash for reasoning, and the vision models GLM-4.6V-Flash and GLM-4.1V-Thinking-Flash. You sign up at bigmodel.cn and send requests to the API base URL https://open.bigmodel.cn/api/paas/v4. Per-model concurrency limits vary by account tier. Provider details last verified 2026-09-29.",
+      "title": "Zhipu AI Free API: GLM-4.7-Flash and Four Other Free Models",
+      "description": "Zhipu's BigModel platform has five permanently free GLM Flash models, including GLM-4.7-Flash and GLM-Z1-Flash. No credit card needed.",
+      "intro": "Zhipu AI makes the GLM models, and its BigModel platform at bigmodel.cn keeps five of them free permanently, with no credit card. They are glm-4.7-flash (200K context), glm-4-flash-250414 and glm-z1-flash for reasoning (128K each), and two vision models, glm-4.6v-flash (128K) and glm-4.1v-thinking-flash (64K). Instead of request quotas, Zhipu limits how many requests you can run at once per model, and that limit depends on your account tier. This is the mainland China endpoint at https://open.bigmodel.cn/api/paas/v4. For the international version, see Z.ai.",
       "faq": [
         {
-          "q": "Is Zhipu AI free to use?",
-          "a": "Yes. Zhipu AI has a permanent free tier, not a time-limited trial, and no credit card is required to sign up. The free models are GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash, GLM-4.6V-Flash and GLM-4.1V-Thinking-Flash."
+          "q": "Is Zhipu AI free?",
+          "a": "Yes for five GLM Flash models, which are free permanently. Other GLM models are paid."
         },
         {
           "q": "Which Zhipu AI models are free?",
-          "a": "Five GLM Flash models are free: GLM-4.7-Flash, GLM-4-Flash-250414, GLM-Z1-Flash (reasoning), GLM-4.6V-Flash and GLM-4.1V-Thinking-Flash (vision). For any other model's availability, check the official docs."
+          "a": "glm-4.7-flash, glm-4-flash-250414, glm-z1-flash, glm-4.6v-flash and glm-4.1v-thinking-flash. The last two accept images."
         },
         {
-          "q": "How do I get a Zhipu AI API key?",
-          "a": "Register at https://bigmodel.cn, then create a key from your BigModel account. No credit card is needed. Point your client at the base URL https://open.bigmodel.cn/api/paas/v4."
+          "q": "What limits apply to Zhipu's free models?",
+          "a": "Zhipu limits concurrent requests per model, and the limit depends on your account tier. It doesn't publish fixed request or token quotas for them."
         },
         {
-          "q": "What is the Zhipu AI API base URL?",
-          "a": "Use https://open.bigmodel.cn/api/paas/v4 as the base URL, with your BigModel API key as the bearer token. For endpoint paths and request formats, check the official docs."
-        },
-        {
-          "q": "What are the rate limits on Zhipu AI's free models?",
-          "a": "Zhipu AI applies per-model concurrency limits that depend on your account tier. No specific request or token quotas are published here, so check the official docs for the current numbers."
+          "q": "What is the difference between Zhipu AI and Z.ai?",
+          "a": "They are the same company. BigModel (open.bigmodel.cn) is the China platform, and Z.ai (api.z.ai) is the international one."
         }
       ]
     }
@@ -669,29 +736,25 @@
     "notes": "1M free tokens (shared across hunyuan-a13b, role, translation models) + 1M embedding tokens; valid 1 year from activation",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "Tencent Hunyuan Free API: 1M Free Tokens Tier",
-      "description": "Tencent's Hunyuan large language model offers 1M free tokens plus 1M embedding tokens, valid 1 year. Card required at signup. Verified Sep 2026.",
-      "intro": "Tencent Hunyuan is Tencent's family of large language models, available through an OpenAI-compatible API hosted in China at https://api.hunyuan.cloud.tencent.com/v1. New accounts get 1M free tokens shared across the hunyuan-a13b, role and translation models, plus a separate 1M embedding tokens, valid for 1 year from activation. A credit card is required at registration, but the free tier itself is credit-based rather than pay-as-you-go. Sign up through the Tencent Cloud console. Last verified 2026-09-29.",
+      "title": "Tencent Hunyuan Free API: 1M Tokens for a Year",
+      "description": "Tencent Hunyuan gives 1M free tokens across its chat models plus 1M embedding tokens, valid for a year. Email signup, no card.",
+      "intro": "Tencent Hunyuan is Tencent's family of language models, served from China through an OpenAI-compatible API at https://api.hunyuan.cloud.tencent.com/v1. New accounts get 1 million free tokens, shared across hunyuan-a13b, hunyuan-role-latest and hunyuan-translation, plus a separate 1 million tokens for embeddings. Both allowances last one year from activation. hunyuan-a13b has the largest context at 262K; the role model is 32K and the translation model 8K. Signup through the Tencent Cloud console needs an email, not a card.",
       "faq": [
         {
-          "q": "Is Tencent's large language model free to use?",
-          "a": "There is a free credits tier: 1M free tokens shared across the hunyuan-a13b, role and translation models, plus 1M embedding tokens. The credits are valid 1 year from activation. For anything beyond that allowance, check the official docs."
+          "q": "Is Tencent Hunyuan free?",
+          "a": "New accounts get 1M free tokens for the chat models and 1M for embeddings, valid for one year."
         },
         {
-          "q": "Do I need a credit card to use the Tencent Hunyuan API?",
-          "a": "Yes. A credit card is required at registration, before you can use the free token allowance. Register at https://console.cloud.tencent.com/hunyuan."
+          "q": "Does Tencent Hunyuan need a credit card?",
+          "a": "No. You register with an email at https://console.cloud.tencent.com/hunyuan."
         },
         {
-          "q": "What is the Tencent Hunyuan API base URL?",
-          "a": "https://api.hunyuan.cloud.tencent.com/v1. The service is hosted in China, so factor in regional latency and access requirements."
+          "q": "Which Hunyuan models do the free tokens cover?",
+          "a": "hunyuan-a13b, hunyuan-role-latest and hunyuan-translation share the 1M chat tokens. Embeddings draw on their own 1M."
         },
         {
-          "q": "Which Tencent Hunyuan models are covered by the free tokens?",
-          "a": "The 1M free tokens are shared across hunyuan-a13b, the role models and the translation models. Embedding usage draws on a separate 1M embedding token allowance. For the full model list, check the official docs."
-        },
-        {
-          "q": "Do the Tencent Hunyuan free credits expire?",
-          "a": "Yes, they are valid for 1 year from activation. The exact dollar value of the credits is not published here, so check the official docs for current pricing details."
+          "q": "When do Hunyuan free tokens expire?",
+          "a": "One year after you activate the service."
         }
       ]
     }
@@ -707,7 +770,26 @@
     "credit_amount_usd": null,
     "credit_expiry": "3 months",
     "notes": "New users: 1M free tokens per model for ERNIE-4.5-Turbo, ERNIE-X1-Turbo, DeepSeek, Kimi-K2, Qwen3 models; valid 3 months",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "Baidu ERNIE Free API: 1M Tokens per Model on Qianfan",
+      "description": "Baidu Qianfan gives new accounts 1M free tokens per model for 3 months, covering ERNIE-4.5-Turbo, ERNIE-X1-Turbo, DeepSeek, Kimi-K2 and Qwen3.",
+      "intro": "Baidu serves ERNIE through its Qianfan platform. New accounts get 1 million free tokens per model for three months. The offer covers ERNIE-4.5-Turbo and ERNIE-X1-Turbo as well as the DeepSeek, Kimi-K2 and Qwen3 models Qianfan hosts. We list three ERNIE models: ernie-4.5-turbo-128k with a 131K context window, and the 32K versions of ernie-4.5-turbo and ernie-x1-turbo. Signup needs an email, not a card. The quota ends after three months, so it suits trying ERNIE out more than building on it long term.",
+      "faq": [
+        {
+          "q": "Is the Baidu ERNIE API free?",
+          "a": "New Qianfan accounts get 1 million free tokens per model, valid for three months. It is a time-limited trial, not a permanent free tier."
+        },
+        {
+          "q": "Which models does the ERNIE free quota cover?",
+          "a": "ERNIE-4.5-Turbo and ERNIE-X1-Turbo, plus the DeepSeek, Kimi-K2 and Qwen3 models hosted on Qianfan."
+        },
+        {
+          "q": "What is the Baidu Qianfan API base URL?",
+          "a": "https://qianfan.baidubce.com/v2. It accepts OpenAI-style chat completion requests."
+        }
+      ]
+    }
   },
   {
     "id": "sensenova",
@@ -722,29 +804,25 @@
     "notes": "Token Plan free public beta (¥0/mo): 60,000 points per rolling 5h, 600,000 per week; phone verification",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "SenseNova Free API: Token Plan Free Tier & Limits",
-      "description": "SenseNova offers a permanent free Token Plan public beta at ¥0/mo with 60,000 points per rolling 5h and 600,000 per week. Phone verification, no card.",
-      "intro": "SenseNova is a China-based LLM provider with a permanent free tier through its Token Plan free public beta (¥0/mo). The free quota is 60,000 points per rolling 5-hour window and 600,000 points per week. You sign up at platform.sensenova.cn with phone verification — no credit card is required — and point your client at the base URL https://token.sensenova.cn/v1. Details were last verified on 2026-09-29; for model names, pricing beyond the free plan, and exact API parameters, check the official docs.",
+      "title": "SenseNova Free API: Token Plan Beta at ¥0 a Month",
+      "description": "SenseNova's free Token Plan beta gives 60,000 points per 5 hours and 600,000 a week. Phone verification, no card.",
+      "intro": "SenseNova, from SenseTime, runs its Token Plan as a free public beta at ¥0 a month. Usage is counted in points: 60,000 per rolling five-hour window and 600,000 per week. How many points a request costs depends on the model, so the allowance is easier to judge by trying it. Registration at platform.sensenova.cn needs phone verification but no credit card. The model on our list is sensenova-6.8-flash-lite, which takes text and images. The base URL is https://token.sensenova.cn/v1.",
       "faq": [
         {
-          "q": "Is SenseNova's API free?",
-          "a": "Yes. SenseNova runs a Token Plan free public beta at ¥0/mo, and it is a permanent free tier rather than a one-off trial credit. Usage is capped by point quotas rather than a dollar credit amount."
+          "q": "Is the SenseNova API free?",
+          "a": "Yes, during the Token Plan public beta, which costs ¥0 a month. Usage is capped by points rather than a dollar credit."
         },
         {
-          "q": "What are the SenseNova free tier rate limits?",
-          "a": "The free Token Plan gives 60,000 points per rolling 5-hour window and 600,000 points per week. How many points a request consumes depends on the model, so check the official docs."
+          "q": "What are SenseNova's free limits?",
+          "a": "60,000 points per rolling five-hour window and 600,000 points per week."
         },
         {
-          "q": "Do I need a credit card to use SenseNova?",
-          "a": "No credit card is required. SenseNova asks for phone verification instead when you register an account."
+          "q": "Does SenseNova need a credit card?",
+          "a": "No. Registration asks for phone verification instead."
         },
         {
-          "q": "How do I sign up for SenseNova and get an API key?",
-          "a": "Create an account at https://platform.sensenova.cn/login and complete phone verification. For the exact steps to issue an API key, check the official docs."
-        },
-        {
-          "q": "What is the SenseNova API base URL?",
-          "a": "The base URL is https://token.sensenova.cn/v1. For supported endpoints, model identifiers, and whether an OpenAI-compatible client works, check the official docs."
+          "q": "Which SenseNova model is free?",
+          "a": "sensenova-6.8-flash-lite, which accepts text and image input."
         }
       ]
     }
@@ -760,7 +838,26 @@
     "credit_amount_usd": null,
     "credit_expiry": "never",
     "notes": "Gift balance (赠送金额, amount unpublished, expires) deducted before paid balance; no free text models (only StepAudio 3 previews limited-time free)",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "StepFun API Free Gift Balance: What You Actually Get",
+      "description": "StepFun gives new accounts a gift balance of unpublished size that expires. No text model is free outright. Here is what that means for step-3.7-flash.",
+      "intro": "StepFun gives new accounts a gift balance (赠送金额). StepFun doesn't publish the amount, the balance expires, and it is spent before any money you top up. At our check on 2026-09-29, no text model was free outright. Only the StepAudio 3 previews were free, and only for a limited time. Our table lists step-3.7-flash with a 262K context window; check the StepFun console to see how far your gift balance goes on it. Signup needs an email, not a card.",
+      "faq": [
+        {
+          "q": "Is the StepFun API free?",
+          "a": "Not in the usual sense. New accounts get a gift balance of unpublished size that expires, and no text model is free per token."
+        },
+        {
+          "q": "How is the StepFun gift balance used?",
+          "a": "It is deducted before your paid balance, so your first requests draw it down until it runs out or expires."
+        },
+        {
+          "q": "What is the StepFun API base URL?",
+          "a": "https://api.stepfun.com/v1. It accepts OpenAI-compatible requests."
+        }
+      ]
+    }
   },
   {
     "id": "modelscope",
@@ -827,29 +924,25 @@
     "notes": "¥80 (~$11) free gift balance for new users, valid 3 months",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "Baichuan AI Free Credits: ¥80 (~$11) for New Users",
-      "description": "Baichuan AI gives new users a ¥80 (~$11) free gift balance valid for 3 months. Registration requires a card. API base URL and signup details inside.",
-      "intro": "Baichuan AI is a China-based LLM provider offering a free gift balance to new accounts. Signing up at platform.baichuan-ai.com gets you ¥80 (roughly $11) in credits, valid for 3 months from issue. A credit card is required at registration. The API is served from https://api.baichuan-ai.com/v1, so it works with standard OpenAI-style client setups that let you override the base URL. Details last verified 2026-09-29.",
+      "title": "Baichuan AI Free Credit: ¥80 (~$11) for New Users",
+      "description": "Baichuan AI gives new users a ¥80 (~$11) gift balance valid for 3 months. Email signup, no card. Baichuan4-Turbo and a 128K model.",
+      "intro": "Baichuan AI is a Chinese model company that gives new users a ¥80 (about $11) gift balance, valid for three months. You sign up at platform.baichuan-ai.com with an email; no card is needed. Three models are listed: Baichuan4-Turbo and Baichuan4-Air at 32K context, and Baichuan3-Turbo-128k at 131K. The API at https://api.baichuan-ai.com/v1 accepts OpenAI-style requests. Any balance left after three months expires, so use it for a focused evaluation.",
       "faq": [
         {
-          "q": "Is Baichuan AI free to use?",
-          "a": "There is no permanent free tier, but new users get a ¥80 (~$11) free gift balance. It is valid for 3 months, after which any remaining balance expires. For paid rates after the credits run out, check the official docs."
+          "q": "Is Baichuan AI free?",
+          "a": "New users get a one-time ¥80 (about $11) gift balance. There is no permanent free tier."
         },
         {
-          "q": "How much free credit does Baichuan AI give?",
-          "a": "¥80, approximately $11 USD, as a one-time gift balance for new users. The credit is valid for 3 months from the date it is granted."
+          "q": "How long does the Baichuan gift balance last?",
+          "a": "Three months from when it is granted. Unused balance expires after that."
         },
         {
-          "q": "Does Baichuan AI require a credit card?",
-          "a": "Yes. A credit card is required at registration, before you can claim the free gift balance. Sign up at https://platform.baichuan-ai.com."
+          "q": "Does Baichuan AI need a credit card?",
+          "a": "No. Signup at https://platform.baichuan-ai.com needs only an email."
         },
         {
-          "q": "What is the Baichuan AI API base URL?",
-          "a": "https://api.baichuan-ai.com/v1. For the available model names, endpoints and request formats, check the official docs."
-        },
-        {
-          "q": "How do I get a Baichuan AI API key?",
-          "a": "Register an account at https://platform.baichuan-ai.com, complete the card-required registration step, and generate a key from the platform console. For the exact console steps, check the official docs."
+          "q": "Which Baichuan model has the longest context?",
+          "a": "Baichuan3-Turbo-128k, with a 131K-token context window."
         }
       ]
     }
@@ -971,29 +1064,25 @@
     "notes": "Image/audio/3D models; 25 free credits on signup (1 credit = $0.01)",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "Stability AI Free Credits — No Credit Card Required",
-      "description": "Stability AI gives 25 free credits ($0.25) on signup, no credit card needed. Credits never expire. Use image, audio and 3D models via its API.",
-      "intro": "Stability AI offers a free way to try its image, audio and 3D generation models. Signing up at platform.stability.ai grants 25 free credits worth $0.25 (1 credit = $0.01), with no credit card required. The credits never expire, so you can test the API at api.stability.ai at your own pace. Stability AI is based in Europe. Details last verified 2026-09-29.",
+      "title": "Stability AI Free API: 25 Credits, No Card Needed",
+      "description": "Stability AI gives 25 free credits ($0.25) on signup that never expire, no card needed. Use them on SD 3.5 Large, Large Turbo and Medium.",
+      "intro": "Stability AI makes image, audio and 3D generation models. A new account at platform.stability.ai gets 25 credits, worth $0.25 at 1 credit to $0.01, and you don't need a credit card. The credits never expire. On image models that covers only a handful of generations, so it is enough to test the API and compare sd3.5-large, sd3.5-large-turbo and sd3.5-medium, not much more. Requests go to https://api.stability.ai. For image APIs with ongoing free allowances, see our free image generation API list.",
       "faq": [
         {
-          "q": "Is Stability AI free to use?",
-          "a": "Stability AI gives you 25 free credits when you sign up, worth $0.25 in total (1 credit = $0.01). That is a free credit allowance rather than an unlimited free tier, so once the credits are used you would need to check the official docs for paid options."
-        },
-        {
-          "q": "Do I need a credit card to sign up for Stability AI?",
-          "a": "No. Stability AI does not require a credit card to create an account and claim the 25 free signup credits."
+          "q": "Is Stability AI free?",
+          "a": "New accounts get 25 credits, worth $0.25. After those are spent, usage is paid."
         },
         {
           "q": "Do Stability AI free credits expire?",
-          "a": "No. The free signup credits never expire, so you can use them whenever you are ready to build or test."
+          "a": "No. The 25 signup credits never expire."
         },
         {
-          "q": "What can I build with Stability AI's free credits?",
-          "a": "Stability AI provides image, audio and 3D models. You can call them through the API at https://api.stability.ai. For the current model list and per-request credit costs, check the official docs."
+          "q": "Does Stability AI need a credit card?",
+          "a": "No. You can sign up and claim the credits without one."
         },
         {
-          "q": "How do I get started with Stability AI?",
-          "a": "Create an account at https://platform.stability.ai to receive your 25 free credits, then generate an API key and send requests to https://api.stability.ai. For endpoint and authentication details, check the official docs."
+          "q": "Which Stability AI models can I use with free credits?",
+          "a": "The listed models are sd3.5-large, sd3.5-large-turbo and sd3.5-medium."
         }
       ]
     }
@@ -1011,29 +1100,25 @@
     "notes": "Voice/TTS API; Free plan 10,000 credits/month (~10K TTS chars), non-commercial with attribution",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "ElevenLabs Free TTS API: 10,000 Credits/Month, No Card",
-      "description": "ElevenLabs free tier gives 10,000 credits/month (~10K TTS characters), no credit card needed. Non-commercial use with attribution. Verified 2026-09-29.",
-      "intro": "ElevenLabs offers a voice/text-to-speech API with a permanent free plan: 10,000 credits per month, roughly 10,000 TTS characters. No credit card is required to sign up. The free plan is for non-commercial use and requires attribution. The API base URL is https://api.elevenlabs.io/v1, and the service is operated from Europe. Free-tier details last verified 2026-09-29.",
+      "title": "ElevenLabs Free TTS API: 10,000 Credits a Month",
+      "description": "ElevenLabs' free plan gives 10,000 credits a month (about 10K TTS characters), no card. Non-commercial use only, with attribution.",
+      "intro": "ElevenLabs is a voice API for text-to-speech and transcription. Its free plan is permanent and gives 10,000 credits a month, which is about 10,000 characters of speech, without a credit card. The catch is the license: free-plan audio is for non-commercial use only and must credit ElevenLabs. You can use eleven_v4, eleven_v4_turbo, eleven_v3, eleven_multilingual_v2 and eleven_flash_v2_5 for speech, and scribe_v2 for speech-to-text. The API is at https://api.elevenlabs.io/v1.",
       "faq": [
         {
           "q": "Is the ElevenLabs API free?",
-          "a": "Yes. ElevenLabs has a permanent free plan with 10,000 credits per month (about 10,000 TTS characters). It is limited to non-commercial use with attribution."
+          "a": "Yes. The free plan gives 10,000 credits a month, about 10,000 characters of text-to-speech."
         },
         {
-          "q": "Does ElevenLabs require a credit card?",
-          "a": "No. You can sign up at https://elevenlabs.io/app/sign-up without entering a credit card."
+          "q": "Can I use ElevenLabs free audio commercially?",
+          "a": "No. Free-plan output is for non-commercial use and requires attribution. Commercial use needs a paid plan."
         },
         {
-          "q": "How many characters can I convert for free with ElevenLabs?",
-          "a": "The free plan includes 10,000 credits per month, which is approximately 10,000 TTS characters. For how credits map to specific models or features, check the official docs."
+          "q": "Does ElevenLabs need a credit card?",
+          "a": "No. Sign up at https://elevenlabs.io/app/sign-up without one."
         },
         {
-          "q": "Can I use the ElevenLabs free tier commercially?",
-          "a": "No. The free plan is non-commercial and requires attribution. For commercial licensing terms, check the official docs."
-        },
-        {
-          "q": "What is the ElevenLabs API base URL?",
-          "a": "https://api.elevenlabs.io/v1. For endpoint paths, authentication headers and voice IDs, check the official docs."
+          "q": "Does ElevenLabs offer speech-to-text on the free plan?",
+          "a": "Yes. scribe_v2 is on our free list alongside the text-to-speech models."
         }
       ]
     }
@@ -1064,29 +1149,25 @@
     "notes": "Anonymous free use without key: 2 RPM per IP per model; with key 400 RPM (paid)",
     "last_verified": "2026-09-29",
     "seo": {
-      "title": "OVHcloud AI Endpoints: Free EU AI API, No Card",
-      "description": "OVH AI Cloud endpoints with a permanent free tier. Use OVHcloud AI Endpoints anonymously at 2 RPM per IP per model, no credit card, EU-hosted.",
-      "intro": "OVHcloud AI Endpoints is the OVH AI Cloud inference service for developers who want a European-hosted, OpenAI-compatible API. It has a permanent free tier and no credit card is required to start. You can call it anonymously without a key at 2 requests per minute per IP per model, or create a key for 400 RPM on the paid plan. The OpenAI-compatible base URL is https://oai.endpoints.kepler.ai.cloud.ovh.net/v1, and you can sign up at https://endpoints.ai.cloud.ovh.net. Provider details last verified 2026-09-29.",
+      "title": "OVHcloud AI Endpoints: Free EU-Hosted API, No Key",
+      "description": "Call OVHcloud AI Endpoints without a key at 2 RPM per IP per model. EU-hosted, OpenAI-compatible, models like gpt-oss-120b and Qwen3.5.",
+      "intro": "OVHcloud AI Endpoints is a European, OpenAI-compatible inference service you can call without an account or key. Anonymous requests are limited to 2 per minute for each IP and model, which is fine for testing and too slow for anything else. A key raises that to 400 requests per minute, but that is the paid plan. Eight models are open this way, including Qwen3.5-397B-A17B, gpt-oss-120b, Meta-Llama-3_3-70B-Instruct, Qwen3-Coder-30B-A3B-Instruct and the bge-m3 embedding model. The base URL is https://oai.endpoints.kepler.ai.cloud.ovh.net/v1.",
       "faq": [
         {
-          "q": "Is OVHcloud AI Endpoints free to use?",
-          "a": "Yes. OVHcloud AI Endpoints has a permanent free tier, not a time-limited trial. Anonymous use without a key is allowed at 2 RPM per IP per model."
+          "q": "Is OVHcloud AI Endpoints free?",
+          "a": "Yes for anonymous use, which is limited to 2 requests per minute per IP per model. Higher limits with a key are paid."
         },
         {
-          "q": "Do I need a credit card for OVH AI Cloud endpoints?",
-          "a": "No. A credit card is not required to get started. You can sign up at https://endpoints.ai.cloud.ovh.net, or use the service anonymously without a key."
-        },
-        {
-          "q": "What are the rate limits?",
-          "a": "Anonymous use without a key is limited to 2 requests per minute per IP per model. With an API key the limit is 400 RPM on the paid plan."
-        },
-        {
-          "q": "What is the API base URL, and is it OpenAI-compatible?",
-          "a": "The base URL is https://oai.endpoints.kepler.ai.cloud.ovh.net/v1, an OpenAI-compatible endpoint, so most OpenAI client libraries work by swapping the base URL."
+          "q": "Do I need an API key for OVHcloud AI Endpoints?",
+          "a": "No. You can send requests without a key. A key gives 400 requests per minute on the paid plan."
         },
         {
           "q": "Where is OVHcloud AI Endpoints hosted?",
-          "a": "It is a Europe-region provider, which suits teams that prefer EU-hosted inference. For specific datacenter locations and data handling terms, check the official docs."
+          "a": "In Europe, which suits teams that want EU-hosted inference."
+        },
+        {
+          "q": "Does OVHcloud have a free embedding model?",
+          "a": "Yes. bge-m3 is available anonymously at the same 2 RPM limit."
         }
       ]
     }
@@ -1180,7 +1261,26 @@
     "credit_amount_usd": null,
     "credit_expiry": "1 month",
     "notes": "PLaMo API: free credit worth ~10M tokens on signup, valid 1 month; plamo-3.0-prime 100 RPM",
-    "last_verified": "2026-09-29"
+    "last_verified": "2026-09-29",
+    "seo": {
+      "title": "PLaMo API Free Credit: ~10M Tokens from Preferred Networks",
+      "description": "Preferred Networks' PLaMo API gives new users free credit worth about 10M tokens for one month. plamo-3.0-prime, 262K context, 100 RPM.",
+      "intro": "Preferred Networks is a Japanese AI company, and PLaMo is the model family it builds itself. New PLaMo API accounts get free credit worth about 10 million tokens, valid for one month. Signup needs an email but no card. The free model is plamo-3.0-prime, with a 262K-token context window and a limit of 100 requests per minute. That rate limit is high for a free offer, but the credit only lasts a month. It is worth a look if you build for Japanese-speaking users and want to test a model developed in Japan.",
+      "faq": [
+        {
+          "q": "Is the PLaMo API free?",
+          "a": "New accounts get credit worth about 10 million tokens, valid for one month. After that, usage is paid."
+        },
+        {
+          "q": "What is the PLaMo free tier rate limit?",
+          "a": "plamo-3.0-prime allows 100 requests per minute."
+        },
+        {
+          "q": "What is the PLaMo API base URL?",
+          "a": "https://api.platform.preferredai.jp/v1. It is OpenAI-compatible."
+        }
+      ]
+    }
   },
   {
     "id": "fujitsu_kozuchi",
@@ -1245,7 +1345,26 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "International Zhipu endpoint: GLM-4.7-Flash, GLM-4.5-Flash and GLM-4.6V-Flash are $0",
-    "last_verified": "2026-11-05"
+    "last_verified": "2026-11-05",
+    "seo": {
+      "title": "Z.ai Free API: GLM-4.7-Flash and Other $0 GLM Models",
+      "description": "Z.ai, Zhipu's international platform, prices GLM-4.7-Flash, GLM-4.5-Flash and GLM-4.6V-Flash at $0. No credit card, up to 200K context.",
+      "intro": "Z.ai is the international platform of Zhipu, the company behind the GLM models. Three of its models cost nothing per token: glm-4.7-flash with a 200K context window, glm-4.5-flash at 128K, and glm-4.6v-flash, which also reads images. You don't need a credit card, and the $0 pricing isn't a trial that expires. Z.ai doesn't list rate limits for these models, so test with your real workload before you depend on them. For the mainland China endpoint, see the Zhipu AI page.",
+      "faq": [
+        {
+          "q": "Is the Z.ai API free?",
+          "a": "Yes for glm-4.7-flash, glm-4.5-flash and glm-4.6v-flash, which are priced at $0. Other GLM models are paid."
+        },
+        {
+          "q": "Does Z.ai need a credit card?",
+          "a": "No. You can create an API key without adding payment details."
+        },
+        {
+          "q": "Which free Z.ai model supports images?",
+          "a": "glm-4.6v-flash accepts image input alongside text, with a 128K context window."
+        }
+      ]
+    }
   },
   {
     "id": "pollinations",
@@ -1258,7 +1377,26 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "No signup, no key: anonymous openai-fast (GPT-OSS 20B) on an OpenAI-compatible endpoint; a key unlocks more models",
-    "last_verified": "2026-11-05"
+    "last_verified": "2026-11-05",
+    "seo": {
+      "title": "Pollinations Free API: No Signup, No API Key",
+      "description": "Call Pollinations' OpenAI-compatible endpoint with no account and no key. Anonymous requests get openai-fast (GPT-OSS 20B) with 131K context.",
+      "intro": "Pollinations is one of two providers on this site you can call without an account; OVHcloud AI Endpoints is the other. Send a request to text.pollinations.ai/openai with no key and you get openai-fast, which runs GPT-OSS 20B with a 131K context window. That makes it handy for quick demos, workshops and throwaway scripts where managing a key is more trouble than it's worth. A free key unlocks more models. Pollinations doesn't publish rate limits for anonymous use, so don't build anything that has to stay up on it.",
+      "faq": [
+        {
+          "q": "Does Pollinations need an API key?",
+          "a": "No. Anonymous requests to https://text.pollinations.ai/openai work without a key. Registering for a key unlocks more models."
+        },
+        {
+          "q": "Which model does the Pollinations free API use?",
+          "a": "Anonymous requests use openai-fast, which is GPT-OSS 20B with a 131K context window."
+        },
+        {
+          "q": "Can I use Pollinations with the OpenAI SDK?",
+          "a": "Yes. Set base_url to https://text.pollinations.ai/openai and pass any placeholder string as the API key."
+        }
+      ]
+    }
   },
   {
     "id": "zenmux",
@@ -1271,7 +1409,26 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Several $0/M-token models (GLM Flash, Agnes, Dots3, Atria); API key required",
-    "last_verified": "2026-11-05"
+    "last_verified": "2026-11-05",
+    "seo": {
+      "title": "Zenmux Free API: $0 GLM, Agnes, Dots3 and Atria Models",
+      "description": "Zenmux lists five models at $0 per million tokens, with up to 524K context and audio and video input on Dots3. Email signup, no card.",
+      "intro": "Zenmux is an OpenAI-compatible router that prices some models at $0 per million tokens. Five were free at our last check: z-ai/glm-4.7-flash-free and z-ai/glm-4.6v-flash-free with 200K context each, sapiens-ai/agnes-2.5-flash and atria-asi/atria-dawn with 524K each, and dots-studio/dots3-note-prev, which takes text, image, video and audio. You sign up with an email and create an API key; no card is needed. Zenmux doesn't publish rate limits for the free models. The GLM Flash models are also free directly from Z.ai, so Zenmux is most useful for the other three.",
+      "faq": [
+        {
+          "q": "Is Zenmux free?",
+          "a": "Five models are priced at $0 per million tokens. The rest of the catalog is paid."
+        },
+        {
+          "q": "Which free Zenmux model handles audio and video?",
+          "a": "dots-studio/dots3-note-prev accepts text, image, video and audio input."
+        },
+        {
+          "q": "What is the Zenmux API base URL?",
+          "a": "https://zenmux.ai/api/v1. Use it with the OpenAI SDK and your Zenmux API key."
+        }
+      ]
+    }
   },
   {
     "id": "orcarouter",
@@ -1284,7 +1441,26 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "orcarouter/free auto-router plus $0 model IDs (DeepSeek V4 Flash, GLM 5.3 Flash, Hy3); API key required, some offers need a deposit",
-    "last_verified": "2026-11-05"
+    "last_verified": "2026-11-05",
+    "seo": {
+      "title": "OrcaRouter Free API: orcarouter/free and $0 Models",
+      "description": "OrcaRouter has a free auto-router plus $0 model IDs for DeepSeek V4 Flash, GLM 5.3 Flash and Tencent Hy3. API key required, no card.",
+      "intro": "OrcaRouter is an OpenAI-compatible router with two ways to use it for free. You can call orcarouter/free, which chooses a free model for you, or name a $0 model directly: deepseek-v4-flash-free, deepseek-v4.1-flash-free, glm-5.3-flash-free, hy3-free or hy4-preview-free. You need an account and an API key, but no card. Some offers ask for a deposit before they unlock, so read the model page before you depend on one. OrcaRouter doesn't publish context windows or rate limits for its free models, which is why those cells are empty below.",
+      "faq": [
+        {
+          "q": "What is orcarouter/free?",
+          "a": "It is an auto-router model ID. Send requests to it and OrcaRouter picks one of its free models to answer."
+        },
+        {
+          "q": "Is OrcaRouter completely free?",
+          "a": "The $0 model IDs and orcarouter/free cost nothing per token, but some offers require a deposit first."
+        },
+        {
+          "q": "What are OrcaRouter's free rate limits?",
+          "a": "OrcaRouter doesn't publish them for the free models. Test with your real workload before you rely on it."
+        }
+      ]
+    }
   },
   {
     "id": "opencode_zen",
@@ -1297,7 +1473,26 @@
     "credit_amount_usd": null,
     "credit_expiry": null,
     "notes": "Rotating free models (Big Pickle, DeepSeek V4.1 Flash, GLM 5.3 Flash, Nemotron); API key required; free-model prompts may be used for training",
-    "last_verified": "2026-11-05"
+    "last_verified": "2026-11-05",
+    "seo": {
+      "title": "OpenCode Zen Free API: Rotating Free Models",
+      "description": "OpenCode Zen offers a rotating set of free models, including big-pickle and glm-5.3-flash-free, on an OpenAI-compatible endpoint. No card needed.",
+      "intro": "OpenCode Zen is the model gateway run by the OpenCode coding agent, and it keeps a rotating set of free models on an OpenAI-compatible endpoint. At our check on 2026-11-05 there were ten, including big-pickle, deepseek-v4.1-flash-free, glm-5.3-flash-free and nemotron-3.5-super-vl-free, and several had a 1M-token context window. You need an account and an API key, but no credit card. The list rotates, so a model ID that works today can disappear. Prompts sent to free models may also be used for training, so keep private code and customer data out of them.",
+      "faq": [
+        {
+          "q": "Is OpenCode Zen free?",
+          "a": "Yes, for the models marked free. The free set rotates, so check the current list before you hard-code a model ID."
+        },
+        {
+          "q": "Does OpenCode Zen train on my prompts?",
+          "a": "Prompts sent to the free models may be used for training. Use a paid model or another provider for sensitive data."
+        },
+        {
+          "q": "Do I need an API key for OpenCode Zen?",
+          "a": "Yes. Create an account at opencode.ai to get a key. No credit card is required."
+        }
+      ]
+    }
   },
   {
     "id": "merkium",

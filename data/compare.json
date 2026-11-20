@@ -1,0 +1,146 @@
+{
+  "groq-vs-google_gemini": {
+    "intro": "Groq and Google Gemini are the two free tiers most developers start with, and neither needs a credit card. They suit different jobs. Groq publishes fixed limits (30 requests per minute and 1,000 a day on its GPT-OSS and Qwen models) and runs them at 131K context. Gemini gives you a 1M-token context window, image, audio and video input, and eleven free models, with limits shown per model in AI Studio.",
+    "verdict": "Pick Gemini when you need long documents, multimodal input or more daily volume. Pick Groq when you want predictable published limits and the GPT-OSS models. Plenty of apps call Gemini first and fall back to Groq.",
+    "faq": [
+      {
+        "q": "Is Groq or Gemini better for a free LLM API?",
+        "a": "Gemini for long context and multimodal input, Groq for fixed published limits on GPT-OSS and Qwen models. Both are free without a card."
+      },
+      {
+        "q": "Which has the larger context window, Groq or Gemini?",
+        "a": "Gemini. Its Flash models take 1,048,576 tokens, against 131,072 on Groq's free models."
+      },
+      {
+        "q": "Can I switch between Groq and Gemini easily?",
+        "a": "Yes. Both have OpenAI-compatible endpoints, so you change the base URL, key and model name."
+      }
+    ]
+  },
+  "groq-vs-cerebras": {
+    "intro": "Groq and Cerebras both sell fast inference, but their free offers are not alike. Groq's free plan is permanent and needs no card: 30 requests per minute and 1,000 per day on GPT-OSS and Qwen models with 131K context. Cerebras gives $5 of trial credit only after you add a payment method, the credit expires after 30 days, and you are held to 5 requests per minute with 1M tokens a day at about 65K context.",
+    "verdict": "Groq is the better free option on every measure here: no card, no expiry, six times the request rate and twice the context. Cerebras is worth the card only if you want to benchmark its speed before paying.",
+    "faq": [
+      {
+        "q": "Is Cerebras free like Groq?",
+        "a": "No. Cerebras gives $5 of credit after you add a payment method, and it expires in 30 days. Groq's free plan is permanent with no card."
+      },
+      {
+        "q": "Which is faster, Groq or Cerebras?",
+        "a": "Both build custom inference hardware and both are fast. This page compares free-tier terms, not speed, so test both on your own prompts."
+      },
+      {
+        "q": "What are the free rate limits on Groq and Cerebras?",
+        "a": "Groq allows 30 RPM and 1,000 RPD on most free models. Cerebras allows 5 RPM and 1M tokens per day."
+      }
+    ]
+  },
+  "groq-vs-sambanova": {
+    "intro": "Groq and SambaNova Cloud both run open models on their own hardware, and both have a permanent free tier. Groq needs no card and allows 30 requests per minute and 1,000 a day on GPT-OSS and Qwen. SambaNova needs only an email and allows 20 requests per minute, but just 20 requests per day and 200K tokens per day for each model. In exchange it offers DeepSeek-V3.1, DeepSeek-V3.2 and Llama 3.3 70B, which Groq doesn't.",
+    "verdict": "For daily volume, Groq wins easily: 1,000 requests a day against 20. Choose SambaNova when you specifically want DeepSeek V3 or Llama 3.3 70B for free.",
+    "faq": [
+      {
+        "q": "Is SambaNova Cloud free?",
+        "a": "Yes. It has a permanent free tier with 20 RPM, 20 RPD and 200K tokens per day per model, and signup needs only an email."
+      },
+      {
+        "q": "Which has higher free limits, Groq or SambaNova?",
+        "a": "Groq. It allows 1,000 requests per day on most free models, against SambaNova's 20 per model."
+      },
+      {
+        "q": "Which models does SambaNova offer that Groq doesn't?",
+        "a": "DeepSeek-V3.1, DeepSeek-V3.2, Meta-Llama-3.3-70B-Instruct and gemma-4-31B-it."
+      }
+    ]
+  },
+  "cerebras-vs-sambanova": {
+    "intro": "Cerebras and SambaNova both build their own AI chips and serve open models through an OpenAI-compatible API. The free offers differ a lot. Cerebras gives $5 of trial credit after you add a payment method, it expires after 30 days, and you get 5 requests per minute. SambaNova's free tier is permanent, needs only an email, and allows 20 requests per minute and 20 per day for each of its five models, at up to 131K context.",
+    "verdict": "SambaNova is the easier free choice: no card, no expiry and twice the context. Cerebras gives more tokens per day (1M against 200K) while the trial lasts, but you need a card and it ends after a month.",
+    "faq": [
+      {
+        "q": "Does Cerebras or SambaNova need a credit card?",
+        "a": "Cerebras does, because its $5 credit unlocks only after you add a payment method. SambaNova needs only an email."
+      },
+      {
+        "q": "Which has a bigger context window, Cerebras or SambaNova?",
+        "a": "SambaNova, with up to 131K tokens on most models. Cerebras' free models top out around 65K."
+      },
+      {
+        "q": "Does either free tier expire?",
+        "a": "Cerebras credits expire after 30 days. SambaNova's free tier is permanent."
+      }
+    ]
+  },
+  "mistral-vs-groq": {
+    "intro": "Mistral AI and Groq both have permanent free tiers without a credit card, but they serve different models. Mistral's free mode includes a monthly usage allowance on its own models, including mistral-large-2512 and mistral-small-2603 with up to 256K context, at low rate limits that Mistral doesn't publish as fixed numbers. Groq runs open models from other labs (GPT-OSS, Qwen, Whisper) with published limits of 30 requests per minute and 1,000 per day.",
+    "verdict": "Use Mistral when you want Mistral's own models or a 256K context window. Use Groq when you need predictable limits, audio transcription with Whisper, or more requests per day.",
+    "faq": [
+      {
+        "q": "Is the Mistral API free?",
+        "a": "Yes. Mistral's free mode needs no credit card and includes monthly usage, with low rate limits."
+      },
+      {
+        "q": "Does Groq run Mistral models?",
+        "a": "Not at the moment. Groq's free models are GPT-OSS, Qwen, Groq Compound and Whisper."
+      },
+      {
+        "q": "Which has a larger context window, Mistral or Groq?",
+        "a": "Mistral, with up to 256K tokens on mistral-large-2512 and mistral-small-2603. Groq's free models offer 131K."
+      }
+    ]
+  },
+  "google_gemini-vs-mistral": {
+    "intro": "Google Gemini and Mistral AI both have permanent free tiers that need no credit card. Gemini offers eleven free models with a 1M-token context window and image, audio and video input. Mistral offers four of its own models with up to 256K context and a monthly usage allowance at low rate limits. Neither publishes one fixed rate limit: Gemini shows yours in AI Studio, and Mistral describes its limits only as low.",
+    "verdict": "Gemini is the stronger free tier for most projects, with four times the context and multimodal input. Mistral makes sense when you want a European provider or Mistral's own models.",
+    "faq": [
+      {
+        "q": "Is Gemini or Mistral better for a free API?",
+        "a": "Gemini for context length and multimodal input. Mistral if you want its models or a provider based in Europe."
+      },
+      {
+        "q": "Do Gemini and Mistral need a credit card?",
+        "a": "Neither does. Both free tiers work with just an account."
+      },
+      {
+        "q": "Which has the larger context window?",
+        "a": "Gemini, at 1,048,576 tokens. Mistral's largest free context is 256K."
+      }
+    ]
+  },
+  "openrouter-vs-groq": {
+    "intro": "OpenRouter and Groq are different kinds of service. Groq runs a handful of models on its own hardware, and its free plan allows 30 requests per minute and 1,000 per day without a card. OpenRouter is a router to many providers: its :free models allow 20 requests per minute and only 50 per day, rising to 1,000 per day once you have bought $10 of credit. In return it lists sixteen free models, several with 1M-token context.",
+    "verdict": "Groq gives you far more daily requests for free. OpenRouter gives you far more models, and a one-time $10 top-up brings its daily cap level with Groq's.",
+    "faq": [
+      {
+        "q": "How many free requests does OpenRouter allow?",
+        "a": "20 per minute and 50 per day on :free models, or 1,000 per day after you buy $10 of credits."
+      },
+      {
+        "q": "Is OpenRouter or Groq better for free usage?",
+        "a": "Groq for volume, with 1,000 requests a day at no cost. OpenRouter for model choice, with sixteen free models."
+      },
+      {
+        "q": "Can I use OpenRouter and Groq together?",
+        "a": "Yes. Both are OpenAI-compatible, so you can send most traffic to one and fall back to the other when you hit a limit."
+      }
+    ]
+  },
+  "cohere-vs-mistral": {
+    "intro": "Cohere and Mistral AI both build their own models and give free access without a credit card. Cohere's trial key allows 20 chat requests per minute and 1,000 API calls a month across five Command models, including command-a-reasoning-08-2025 with 256K context. Mistral's free mode includes a monthly usage allowance at low rate limits on four models, with up to 256K context.",
+    "verdict": "They are close. Cohere publishes clearer numbers and has a reasoning model and vision models. Mistral is the better fit if you already use its models or want the latest mistral-large.",
+    "faq": [
+      {
+        "q": "Is the Cohere API free?",
+        "a": "Cohere's trial key is free. It allows 20 chat requests per minute and 1,000 API calls per month."
+      },
+      {
+        "q": "Can I use Cohere trial keys in production?",
+        "a": "Trial keys are meant for testing. Check Cohere's terms before you put one behind a live product."
+      },
+      {
+        "q": "Which has a larger context window, Cohere or Mistral?",
+        "a": "They match at the top: both offer free models with 256K tokens of context."
+      }
+    ]
+  }
+}

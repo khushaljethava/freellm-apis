@@ -8,6 +8,7 @@ import { TRANSLATED_LOCALES, useTranslations } from '../../../i18n/ui';
 import { postHref } from '../../../i18n/posts';
 import { fmtCtx, COMPARE_PAIRS } from '../../../lib/format';
 import { isLocalizedDirectoryPageIndexable } from '../../../lib/seo.mjs';
+import compareCopy from '../../../../../data/compare.json';
 
 export function getStaticPaths() {
   const PAIRS = COMPARE_PAIRS;
@@ -50,7 +51,9 @@ if (a.credit_card_required === 'no' && b.credit_card_required !== 'no') verdictB
 else if (b.credit_card_required === 'no' && a.credit_card_required !== 'no') verdictBits.push(tc.verdictCard(b.name, a.name, cardLabel[a.credit_card_required].toLowerCase()));
 if (maxCtx(a.id) > maxCtx(b.id) * 2) verdictBits.push(tc.verdictCtx(a.name, fmtCtx(maxCtx(a.id)), fmtCtx(maxCtx(b.id))));
 else if (maxCtx(b.id) > maxCtx(a.id) * 2) verdictBits.push(tc.verdictCtx(b.name, fmtCtx(maxCtx(b.id)), fmtCtx(maxCtx(a.id))));
-const verdict = verdictBits.length ? verdictBits.join(' ') : tc.verdictTie(a.name, b.name);
+// Hand-written English copy per pair (data/compare.json); other locales use the template.
+const copy = locale === DEFAULT_LOCALE ? (compareCopy as Record<string, any>)[`${a.id}-vs-${b.id}`] : undefined;
+const verdict = copy?.verdict ?? (verdictBits.length ? verdictBits.join(' ') : tc.verdictTie(a.name, b.name));
 
 const pageUrl = `https://www.freellm.site${L(`/compare/${a.id}-vs-${b.id}/`)}`;
 const title = tc.title(a.name, b.name);
@@ -80,6 +83,10 @@ const schema = {
         ],
       },
     },
+    ...(copy?.faq?.length ? [{
+      '@type': 'FAQPage',
+      mainEntity: copy.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    }] : []),
   ],
 };
 ---
@@ -100,10 +107,10 @@ const schema = {
   </nav>
 
   <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{tc.h1(a.name, b.name)}</h1>
-  <p class="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
+  {copy?.intro ? <p class="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">{copy.intro}</p> : <p class="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
     {tc.introA}<a href={L(`/providers/${a.id}/`)}>{a.name}</a>{tc.introAnd}<a
       href={L(`/providers/${b.id}/`)}>{b.name}</a>{tc.introEnd}
-  </p>
+  </p>}
 
   <AdSlot variant="top" />
 
@@ -128,6 +135,23 @@ const schema = {
       >{tc.bothCompatEnd}
     </p>
   </div>
+
+  {copy?.faq?.length > 0 && (
+    <>
+      <h2 class="section-title">FAQ</h2>
+      <div class="divide-y rounded-lg border bg-card">
+        {copy.faq.map((f) => (
+          <details class="group px-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium [&::-webkit-details-marker]:hidden">
+              <h3 class="text-base">{f.q}</h3>
+              <span class="text-muted-foreground transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="pb-4 text-muted-foreground">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </>
+  )}
 
   <h2 class="section-title">{tc.detailsTitle}</h2>
   <ul class="link-list">

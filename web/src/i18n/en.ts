@@ -121,9 +121,11 @@ const en = {
   },
   provider: {
     home: 'Home',
-    title: (name: string) => `${name} Free LLM API — Rate Limits, Models & Setup | freellm.site`,
-    description: (notes: string, baseUrl: string, n: number) =>
-      `${notes}. Base URL: ${baseUrl}. ${n} free model${n !== 1 ? 's' : ''} available.`,
+    // Under ~60 chars so Google does not cut it; the brand suffix was the first thing truncated.
+    title: (name: string) => `${name} Free LLM API: Models & Limits`,
+    // The base URL is on the page and in the code snippet; in a snippet it only ate the length budget.
+    description: (notes: string, _baseUrl: string, n: number) =>
+      `${notes}. ${n} free model${n !== 1 ? 's' : ''}, OpenAI-compatible endpoint, setup code included.`,
     h1: (name: string) => `${name} Free LLM API`,
     region: {
       global: 'globally available',
@@ -162,9 +164,9 @@ const en = {
     quickStartTitle: 'Quick Start',
     relatedTitle: 'Related Free LLM API Providers',
     relatedItem: (name: string, n: number) =>
-      `${name} free LLM API — ${n} free model${n !== 1 ? 's' : ''}`,
+      `${name} free LLM API: ${n} free model${n !== 1 ? 's' : ''}`,
     compareTitle: (name: string) => `Compare ${name}`,
-    compareItem: (a: string, b: string) => `${a} vs ${b} — free tier compared`,
+    compareItem: (a: string, b: string) => `${a} vs ${b}: free tiers compared`,
     guidesTitle: 'Guides',
     copied: 'Copied!',
   },
@@ -235,7 +237,7 @@ const en = {
     bothCompatEnd:
       ' for the full picture. You can also run both behind a fallback so a rate limit on one never stops your app.',
     detailsTitle: 'Full provider details',
-    detailsItem: (name: string) => `${name} free LLM API — models, limits & setup`,
+    detailsItem: (name: string) => `${name} free LLM API: models, limits and setup`,
     browseAll: 'Browse all free LLM API providers',
   },
   modelsIndex: {
