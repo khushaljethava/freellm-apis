@@ -1,0 +1,39 @@
+{
+  "slug": "free-llm-api-customer-support-chatbot",
+  "title": "Best Free LLM APIs for a Customer Support Chatbot",
+  "description": "The best free LLM APIs for a customer support chatbot, compared on latency, context window, rate limits, and function calling. No credit card needed.",
+  "date": "2026-07-14",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "customer-support",
+    "chatbot",
+    "free-llm",
+    "api",
+    "groq",
+    "gemini"
+  ],
+  "content": "A customer support chatbot succeeds or fails on two things: how fast it replies and how well it bases its answers on your own help docs. You can prototype both on a free LLM API with no credit card. This guide compares the free tiers that hold up for support workloads.\n\n## What matters for a support chatbot?\n\nFour things decide whether a free API works for support:\n\n- **Latency**: replies should feel instant, so tokens per second matters more than raw model size.\n- **Context window**: it has to hold the retrieved help-doc passages plus the conversation.\n- **Function calling**: so the bot can look up an order, open a ticket or check a status.\n- **Rate limits**: the free tier has to survive your traffic without constant 429 errors.\n\nNot every free provider does all four, so pick based on which one your bot depends on most.\n\n## Which free providers work best?\n\nFor most support bots, **Groq** and **Google Gemini** cover the two extremes: Groq for speed, Gemini for grounding answers in a large context. Mistral, Cohere and Cloudflare Workers AI are the other options. (GitHub Models, once a popular choice here, was retired on 2026-07-30.)\n\n| Provider | Card? | Strength | Free limits (Sept 2026) |\n|---|---|---|---|\n| [Groq](/providers/groq/) | No | Very fast replies, tool calling on all models | 30 RPM / 1,000 RPD / 8K TPM |\n| [Google Gemini](/providers/google_gemini/) | No | 1M-token context, multimodal | Per-model, shown in AI Studio |\n| [Mistral AI](/providers/mistral/) | No | EU-based provider, function calling | Low rate limits on free mode |\n| [Cohere](/providers/cohere/) | No | Built for RAG and enterprise search | 20 RPM chat, 1,000 calls/month (trial key) |\n| [Cloudflare Workers AI](/providers/cloudflare/) | No | Edge latency | 10,000 neurons/day |\n\nRate limits and model names change often, so confirm the current numbers in each provider's console before you commit. For a head-to-head of the top two, see [Groq vs Google Gemini](/compare/groq-vs-google_gemini/).\n\n## Why Groq for speed?\n\nGroq's free plan now runs OpenAI's open-weight `openai/gpt-oss-120b` and `openai/gpt-oss-20b`, plus `qwen/qwen3.8-27b`, at very high token throughput, so support replies stay quick even when they're long. (The Llama 3.x models this guide used to recommend left Groq's free plan on 2026-08-16.) Speed is what makes a chatbot feel responsive, and it does more for the support experience than anything else. The free tier needs no credit card, and every Groq-hosted model supports tool calling.\n\nFor support bots, the problem is the **8K tokens-per-minute** cap. A prompt with 4K to 5K tokens of retrieved help docs plus the answer can use most of a minute's budget in one request, so keep retrieval tight (three or four short chunks) and cap reply length. If your grounding context is large, Gemini fits better.\n\nGroq has an OpenAI-compatible endpoint, so you can drop it into any existing chatbot framework by changing the base URL. Our [OpenAI-compatible API guide](/blog/openai-compatible-api-guide/) shows the one-line swap.\n\n## Why Gemini for knowledge-base grounding?\n\nGoogle's Gemini Flash models (such as `gemini-3.8-flash`) have a 1M-token context window on the free tier, so you can put many retrieved help-doc passages into a single prompt without building a complex retrieval pipeline. For a support bot answering from a big knowledge base, that room means fewer \"I don't know\" replies and more answers that cite the docs.\n\nGemini is also multimodal, so it can read a screenshot a customer pastes in, which helps with troubleshooting.\n\n## How do you wire it up?\n\nThe pattern is retrieval-augmented generation: fetch the most relevant help-doc chunks, then ask the model to answer using only those. Here's the minimal version with an OpenAI-compatible free provider:\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\",\n)\n\ndocs = retrieve(user_question)  # your vector search over help articles (keep it short: 8K TPM)\n\nresponse = client.chat.completions.create(\n    model=\"openai/gpt-oss-120b\",\n    reasoning_effort=\"low\",       # fewer reasoning tokens, faster replies\n    max_completion_tokens=800,    # leave room in the per-minute token budget\n    messages=[\n        {\"role\": \"system\", \"content\": \"Answer only from the provided help docs. If unsure, say so.\"},\n        {\"role\": \"user\", \"content\": f\"Docs:\\n{docs}\\n\\nQuestion: {user_question}\"},\n    ],\n)\nprint(response.choices[0].message.content)\n```\n\nChange the `base_url` and model to move between providers. For Gemini, use `https://generativelanguage.googleapis.com/v1beta/openai/` with `gemini-3.8-flash` and remove the `reasoning_effort` line. For more on grounding, see our [free LLM API for RAG guide](/blog/free-llm-api-for-rag-embeddings/).\n\n## Where do free tiers fall short?\n\nFree tiers are for prototyping, not production traffic. Per-minute rate limits will throttle a busy support queue (Groq's free plan also caps you at 1,000 requests per day), there's no uptime guarantee, and data-handling terms differ between providers. For a live customer-facing bot, start free to validate the flow, then move the busiest path to a paid tier or a self-hosted model as volume grows.\n\nFor a broader list of providers, see our roundup of the [best free LLM APIs](/blog/best-free-llm-apis-2026/) and the [free LLM API rate limits comparison](/blog/free-llm-api-rate-limits-compared/).",
+  "faq": [
+    {
+      "q": "Which free LLM API is best for a customer support chatbot?",
+      "a": "Groq is the usual pick for fast replies, using openai/gpt-oss-120b on its free plan (30 RPM, 1,000 requests/day, 8K tokens/minute). If you ground answers in a large knowledge base, Google Gemini's 1M-token context window is the better fit. Both are free with no credit card."
+    },
+    {
+      "q": "Do free LLM APIs support function calling for support bots?",
+      "a": "Yes. Groq supports tool calling on all of its hosted models, and Google Gemini and Mistral support function calling on their free tiers too, letting a bot look up an order or open a ticket. Support can vary by model, so check the provider's docs for the model you choose."
+    },
+    {
+      "q": "Can I run a production support chatbot on a free tier?",
+      "a": "Free tiers suit prototyping, not production. Per-minute and daily rate limits, no uptime guarantee, and varying data terms mean a busy support queue will hit throttling. Validate the flow for free, then move live traffic to a paid tier or self-hosted model."
+    },
+    {
+      "q": "How do I keep the chatbot answering only from my help docs?",
+      "a": "Use retrieval-augmented generation: search your help articles for the most relevant passages, pass them in the prompt, and instruct the model to answer only from those docs and say so when unsure. On Groq's 8K tokens-per-minute free plan, keep retrieved context to a few short chunks."
+    },
+    {
+      "q": "Do I need a credit card to build a support chatbot with these APIs?",
+      "a": "No. Groq, Google Gemini, Mistral, Cohere (trial key), and Cloudflare Workers AI all offer free access with no card required. You generate an API key from the provider's console and build within its published limits. GitHub Models, once a common option, was retired on 2026-07-30."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "slug": "best-free-llm-apis-for-coding",
+  "title": "Best Free LLM APIs for Coding in 2026",
+  "description": "The best free LLM APIs for coding in 2026, compared on model quality, speed, context window, and tool support. No credit card required.",
+  "date": "2026-07-14",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "coding",
+    "free-llm",
+    "api",
+    "groq",
+    "cursor",
+    "tutorial"
+  ],
+  "content": "Free LLM APIs are now good enough for real coding work (completions, refactors, whole-file edits) without a credit card. You need to pick a provider whose model, speed and context window suit how you code. Here are the best free options for 2026 and when to use each.\n\n> **Updated September 2026:** GitHub Models was retired on 2026-07-30, Groq's free plan now serves GPT-OSS and Qwen models instead of Llama, and Cerebras now requires a payment method for its trial credits. The table below reflects those changes.\n\n## What makes an API good for coding?\n\nFour factors separate a usable coding API from a frustrating one:\n\n- **Model quality**: a strong code model writes correct, idiomatic code on the first try.\n- **Speed**: fast completions keep you focused; slow ones break your concentration.\n- **Context window**: it has to hold the files the model needs to reason about.\n- **Tool support**: it should work with your editor or agent through an OpenAI-compatible endpoint.\n\nNo free tier wins on all four, so match the provider to whichever one limits you most.\n\n## Which free providers are best?\n\nFor most developers, **Groq** and **Google Gemini** are the top two: Groq for raw speed, Gemini for large-context reasoning across a whole repo. OpenRouter, Mistral and NVIDIA NIM fill out the list.\n\n| Provider | Card? | Best for | Coding models (free) | Context |\n|---|---|---|---|---|\n| [Groq](/providers/groq/) | No | Fast completions | `openai/gpt-oss-120b`, `qwen/qwen3.8-27b` | 131K |\n| [Google Gemini](/providers/google_gemini/) | No | Large context, whole-repo | `gemini-3.8-flash`, `gemini-3.5-flash-lite` | 1M |\n| [OpenRouter](/providers/openrouter/) | No (registration) | Trying many models | `cohere/north-mini-code:free`, `poolside/laguna-s-2.1:free` | 256K to 262K |\n| [Mistral AI](/providers/mistral/) | No | Code-focused models | `mistral-small-2603` | 256K |\n| [NVIDIA NIM](/providers/nvidia_nim/) | Phone verification | Large open models for prototyping | `deepseek-ai/deepseek-v4.1-flash` | 1M |\n\nAll of them have OpenAI-compatible endpoints, so switching is a one-line change. **Cerebras** is still fast but no longer works without a card: you add a payment method to get $5 of trial credits that expire in 30 days. Our [Groq vs Cerebras vs SambaNova breakdown](/blog/groq-vs-cerebras-vs-sambanova-free-tier/) has the details. Model names and limits change quickly, so confirm them in each console.\n\n## Why Groq for speed?\n\nGroq runs open models like OpenAI's `gpt-oss-120b` at very high throughput, so code completions arrive almost instantly. That speed keeps you focused while pair-programming with an AI, and it's why many developers try Groq first for coding. The free plan needs no credit card and allows 30 requests per minute and 1,000 per day.\n\nWatch the **8K tokens per minute** limit. It's plenty for questions and completions on a single file, but a large prompt or an agent that resends a lot of context will hit it quickly. Groq is OpenAI-compatible, so it works in most editors and agents once you change the base URL.\n\n## Why Gemini for whole-repo work?\n\nGoogle's Gemini Flash has a 1M-token context window on the free tier, so you can give it many files, or an entire small repo, in one prompt. For refactors that span modules, or questions about how a codebase fits together, that room matters more than the speed of a model with a small window. Gemini is free with no card, and AI Studio shows your current limits. [Groq vs Google Gemini](/compare/groq-vs-google_gemini/) compares the two directly.\n\n## How do you plug one into your editor?\n\nMost AI coding tools accept a custom OpenAI-compatible endpoint: set the base URL and API key, add a model name, and you're done. Claude Code is the exception, because it speaks the Anthropic API and needs a translation proxy. Our guide to [using a free LLM API in your coding tools](/blog/use-free-llm-api-cursor-claude-code/) gives the exact setup for Cursor, Claude Code and VS Code.\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\",\n)\n\nresponse = client.chat.completions.create(\n    model=\"openai/gpt-oss-120b\",\n    messages=[{\"role\": \"user\", \"content\": \"Refactor this function to be iterative\"}],\n)\n```\n\n## Where do free tiers fall short?\n\nFree coding tiers throttle you with per-minute and per-day limits, which a heavy agent session can use up quickly: 8K tokens per minute on Groq, 50 requests per day on OpenRouter's free models. There's no service-level guarantee either, and free lineups change; several models and entire providers left free tiers in 2026. Use free tiers to learn what a model can do and for light daily coding, and consider a paid tier once a model becomes central to your workflow. Compare every option in our [free LLM API roundup](/blog/best-free-llm-apis-2026/), and see what paid options cost in [cheapest LLM API after the free tier](/blog/cheapest-llm-api-after-free-tier/).\n",
+  "faq": [
+    {
+      "q": "What is the best free LLM API for coding?",
+      "a": "Groq is a common first pick because its fast completions with openai/gpt-oss-120b keep you in flow. If you need to reason over many files at once, Google Gemini's 1M-token free context window is better. Both are free with no credit card and OpenAI-compatible."
+    },
+    {
+      "q": "Can I use free LLM APIs in Cursor or VS Code?",
+      "a": "Yes. Cursor, Continue, and Cline accept a custom OpenAI-compatible endpoint: set the base URL, API key, and model name. In Cursor, custom keys only power chat; Tab completion stays on Cursor's models. Claude Code is the exception: it uses the Anthropic API and needs a translation proxy such as claude-code-router or LiteLLM."
+    },
+    {
+      "q": "Are free LLM APIs good enough for real coding?",
+      "a": "For completions, refactors, and day-to-day help, yes. Modern free-tier models handle these well. The limits are rate caps, such as Groq's 8K tokens per minute or OpenRouter's 50 free requests per day, and no uptime guarantee. Heavy agent workloads can exhaust free quotas, at which point a paid tier makes sense."
+    },
+    {
+      "q": "Do free coding APIs support large codebases?",
+      "a": "It depends on the context window. Google Gemini Flash's 1M-token free context can hold many files or a small repo in one prompt, which suits whole-repo refactors. Groq's free models top out at 131K tokens with an 8K tokens-per-minute cap, so they are better suited to single-file work."
+    },
+    {
+      "q": "Do I need a credit card for a free coding LLM API?",
+      "a": "No. Groq, Google Gemini, and Mistral offer free tiers with no card, and OpenRouter's :free models need only an account. GitHub Models was retired on 2026-07-30, and Cerebras now requires a payment method for its $5 trial credits, which expire after 30 days."
+    }
+  ]
+}

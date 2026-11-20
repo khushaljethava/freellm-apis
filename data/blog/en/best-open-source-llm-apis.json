@@ -1,0 +1,38 @@
+{
+  "slug": "best-open-source-llm-apis",
+  "title": "Best Open Source LLM APIs in 2026 (Free & Hosted)",
+  "description": "The best open source LLMs you can call through a free API in 2026 (GPT-OSS, Qwen, DeepSeek, Llama, Gemma), with no GPU and mostly no credit card.",
+  "date": "2026-07-14",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "open-source",
+    "free-llm",
+    "api",
+    "coding",
+    "groq"
+  ],
+  "content": "You don't need a GPU to use the best open source LLMs. Providers now host open-weight models like GPT-OSS, Qwen, DeepSeek, Llama, Gemma and Mistral behind a free API, so you call them the same way you'd call a closed model. Here are the best open source LLM APIs in 2026, and when each one is the right pick.\n\n## What counts as an open source LLM?\n\nAn open source LLM comes with open weights you're free to run, inspect or fine-tune. GPT-OSS, Qwen, DeepSeek, Llama, Gemma, Mistral and Kimi are the common families. A hosted open source LLM API runs those weights for you and serves them over HTTP, so you get open models without owning the hardware.\n\n\"Open source\" describes the model; \"API\" describes who runs it.\n\n## Which are the best open source LLM APIs?\n\nFor most developers, **Groq**, **OpenRouter** and **NVIDIA NIM** are the best hosted options, and all three serve strong open-weight models through a free, OpenAI-compatible API. Cloudflare Workers AI, SambaNova and Cerebras complete the list.\n\n| Provider | Card? | Open models served (free) | Best for |\n|---|---|---|---|\n| [Groq](/providers/groq/) | No | GPT-OSS 120B/20B, Qwen3.8 27B | Fastest inference |\n| [OpenRouter](/providers/openrouter/) | No | Nemotron 3, Qwen3.8, Gemma 4 (`:free` models) | One key, many models |\n| [NVIDIA NIM](/providers/nvidia_nim/) | No (phone) | DeepSeek V4.1 Flash, Kimi K3, Nemotron 3, GPT-OSS, Gemma 4 | Widest free open lineup |\n| [Cloudflare Workers AI](/providers/cloudflare/) | No | GPT-OSS, Llama 4 Scout, Qwen, Gemma, GLM, DeepSeek | Daily free allowance |\n| [SambaNova](/providers/sambanova/) | No | DeepSeek V3.x, Llama 3.3 70B, GPT-OSS, Gemma 4 | Big models, per-model quotas |\n| [Cerebras](/providers/cerebras/) | Yes | GPT-OSS 120B, Qwen 3.8 27B | High-speed inference ($5 trial) |\n\nModel availability changes monthly, so confirm the current lineup on each provider's page. Two recent changes: Together AI and DeepInfra, once regulars on lists like this, no longer offer a free tier, and Groq removed its Llama models from the free plan in August 2026, so on Groq's free plan \"open source\" now means GPT-OSS and Qwen. If you specifically want Llama 3.3 70B, SambaNova still serves it for free. See [Groq vs Cerebras](/compare/groq-vs-cerebras/) and [Groq vs SambaNova](/compare/groq-vs-sambanova/) for head-to-head limits.\n\n## What is the best open source LLM for coding?\n\nFor coding in 2026, the best open source LLMs are GPT-OSS 120B, the large Qwen models and DeepSeek's V4 family, with Kimi K3 as a strong long-context option. All of them handle completions and multi-file refactors well. Run GPT-OSS or Qwen on a fast host like Groq to keep completions quick in your editor, or use Qwen3-Coder on [OVHcloud AI Endpoints](/providers/ovhcloud_ai/) for light testing without a key.\n\nThey're all OpenAI-compatible, so you connect them to Cursor or VS Code by changing the base URL. See our guide to [using a free LLM API in your coding tools](/blog/use-free-llm-api-cursor-claude-code/) and our [best free LLM APIs for coding](/blog/best-free-llm-apis-for-coding/) roundup.\n\n## Can you get open source LLM API keys for free?\n\nYes. Every provider above issues a free API key (all except Cerebras skip the credit card), and that key calls open source models directly. An \"open source LLM API key\" is just a free key from a host that serves open weights: you sign up, copy the key and start making requests within the free tier's rate limits.\n\nThere's no separate kind of key for open and closed models; the same key works for both.\n\n## Hosted API vs. running it yourself\n\nA hosted open source LLM API is the quickest route, with no GPU, setup or operations work. Self-hosting gives you full control and privacy but needs hardware and maintenance. For most projects (prototypes, coding, apps), start with a hosted free API and self-host only when data residency or cost at scale requires it.\n\nCompare all your options in our [free LLM API directory](/blog/best-free-llm-apis-2026/).",
+  "faq": [
+    {
+      "q": "What is the best open source LLM in 2026?",
+      "a": "The best open source LLM depends on the task, but GPT-OSS 120B, the large Qwen models, DeepSeek V4, Kimi K3, Llama, and Gemma 4 lead in 2026. You can call them through free, hosted APIs like Groq, OpenRouter, or NVIDIA NIM without owning a GPU or paying upfront."
+    },
+    {
+      "q": "What is the best open source LLM for coding?",
+      "a": "For coding, GPT-OSS 120B, large Qwen models (including Qwen3-Coder), and DeepSeek V4 are the best open source LLM options in 2026. Run them through a fast host such as Groq and connect via an OpenAI-compatible endpoint in Cursor or VS Code."
+    },
+    {
+      "q": "Are there open source LLM API keys available for free?",
+      "a": "Yes. Providers like Groq, OpenRouter, SambaNova, and Cloudflare Workers AI issue free API keys with no credit card (NVIDIA NIM asks for phone verification), and those keys call open source LLM models directly. Together AI and DeepInfra no longer have a free tier. The same free key works for open and closed models alike."
+    },
+    {
+      "q": "Can I run the best open source LLM models without a GPU?",
+      "a": "Yes. A hosted open source LLM API runs the model weights on the provider's hardware and exposes them over HTTP, so you call the best open source LLM models from any machine. You only need a GPU if you choose to self-host the weights."
+    },
+    {
+      "q": "Which provider has the most open source LLM models?",
+      "a": "OpenRouter, NVIDIA NIM, and Hugging Face's router expose the widest range of open source LLM models, spanning GPT-OSS, Qwen, DeepSeek, Kimi, Llama, Gemma, and Nemotron. Groq carries fewer models on its free plan but focuses on speed. Check each provider page for the current list."
+    }
+  ]
+}

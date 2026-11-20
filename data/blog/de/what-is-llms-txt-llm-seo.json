@@ -1,0 +1,38 @@
+{
+  "slug": "what-is-llms-txt-llm-seo",
+  "title": "Was ist llms.txt? Leitfaden zu LLM-SEO und GEO",
+  "description": "llms.txt ist ein vorgeschlagener Standard, der KI-Assistenten zu Ihren besten Inhalten führt. Was es ist, wie Sie eine schreiben und wie sie ins LLM-SEO passt.",
+  "date": "2026-07-14",
+  "lastUpdated": "2026-07-14",
+  "author": "freellm.site",
+  "tags": [
+    "llms-txt",
+    "llm-seo",
+    "geo",
+    "tutorial",
+    "free-llm"
+  ],
+  "content": "KI-Assistenten beantworten Fragen zunehmend, indem sie Websites lesen, und `llms.txt` ist ein vorgeschlagener Standard, der ihnen eine saubere Karte Ihrer besten Inhalte in die Hand gibt. Es ist der Verwandte von `robots.txt` und `sitemap.xml` für das LLM-Zeitalter. Dieser Leitfaden zeigt, was es ist, wie Sie eine schreiben und wo sie im LLM-SEO steht.\n\n## Was ist llms.txt?\n\n`llms.txt` ist eine reine Markdown-Datei im Wurzelverzeichnis Ihrer Website, die Ihre wichtigsten Seiten mit kurzen Beschreibungen auflistet, damit große Sprachmodelle Ihre Inhalte schnell finden und verstehen. Das Format wurde auf [llmstxt.org](https://llmstxt.org/) vorgeschlagen und ist dafür gedacht, von KI-Assistenten gelesen zu werden, nicht von Browsern.\n\nBetrachten Sie es als kuratiertes Inhaltsverzeichnis, geschrieben für Maschinen, die Fragen beantworten.\n\n## Warum ist das für LLM-SEO wichtig?\n\nDie Suche verschiebt sich von zehn blauen Links zu KI-generierten Antworten, ein Trend, der oft GEO (Generative Engine Optimization) oder AEO (Answer Engine Optimization) genannt wird. Wenn ein Assistent Quellen zitiert, erhöht gute Lesbarkeit Ihre Chancen, die zitierte Quelle zu sein. Eine saubere `llms.txt` reduziert das Rätselraten einer KI bei der Frage, welche Ihrer Seiten eine Anfrage tatsächlich beantwortet.\n\nSie schlägt keine starken Inhalte: Sie macht starke Inhalte leichter auffindbar.\n\n## Wie sieht das Format aus?\n\nDie Datei ist schlicht Markdown mit einem Titel, einem optionalen Blockzitat als Zusammenfassung und gruppierten Linklisten. So sieht die Form aus:\n\n```\n# Your Site Name\n\n> One-line summary of what your site offers.\n\n## Guides\n- [Guide title](https://example.com/guide/): Short description of the page.\n- [Another guide](https://example.com/other/): What this page covers.\n\n## Reference\n- [API docs](https://example.com/docs/): Description.\n```\n\nHalten Sie die Beschreibungen sachlich und konkret. Das Ziel ist, einer KI genau zu sagen, welche Frage jede Seite beantwortet.\n\n## Wie erstellen Sie eine?\n\nDrei Schritte führen zu einer funktionierenden Datei:\n\n- **Wählen Sie Ihre besten Seiten**: die, die echte Fragen beantworten, nicht jede URL.\n- **Schreiben Sie einzeilige Beschreibungen**: Sagen Sie, wobei jede Seite einer Leserin hilft.\n- **Speichern Sie sie als `/llms.txt`**: im Wurzelverzeichnis Ihrer Website, neben `robots.txt`.\n\nWenn Sie einen Static-Site-Generator nutzen, legen Sie die Datei in den Ordner für öffentliche Assets, damit sie im Wurzelverzeichnis veröffentlicht wird. Genau so liefern wir unsere aus: Sie können [freellm.site/llms.txt](https://www.freellm.site/llms.txt) als Referenz ansehen.\n\n## Worin unterscheidet es sich von robots.txt und Sitemaps?\n\nJede Datei spricht ein anderes Publikum an, sie ergänzen einander, statt sich zu ersetzen.\n\n| Datei | Publikum | Zweck |\n|---|---|---|\n| robots.txt | Crawler | Was sie crawlen dürfen und was nicht |\n| sitemap.xml | Suchmaschinen | Eine vollständige Liste der URLs zum Indexieren |\n| llms.txt | KI-Assistenten | Eine kuratierte Karte Ihrer besten Inhalte |\n\nSie sollten alle drei behalten. `llms.txt` ergänzt die KI-gerichtete Ebene, die die beiden anderen nicht abdecken.\n\n## Funktioniert das schon?\n\nEhrlichkeit ist hier angebracht: `llms.txt` ist ein Vorschlag, kein allgemein anerkannter Standard, und kein großer KI-Anbieter hat sich öffentlich dazu bekannt, die Datei als Ranking-Signal zu verarbeiten. Die Verbreitung steht am Anfang. Der Vorteil: Die Datei ist billig zu erstellen und risikoarm, also eine vernünftige Wette, solange der Standard reift, ähnlich wie frühe Sitemaps. Behandeln Sie sie als kleinen Teil einer breiteren GEO-Strategie, nicht als Zauberschalter.\n\nMehr dazu, wie Sie Inhalte KI-freundlich machen, finden Sie in unserem [Leitfaden zu OpenAI-kompatiblen APIs](/blog/openai-compatible-api-guide/) und im vollständigen [Verzeichnis kostenloser LLM-APIs](/blog/best-free-llm-apis-2026/).",
+  "faq": [
+    {
+      "q": "Was ist eine llms.txt-Datei?",
+      "a": "Es ist eine reine Markdown-Datei im Wurzelverzeichnis Ihrer Website, die Ihre wichtigsten Seiten mit kurzen Beschreibungen auflistet, damit KI-Assistenten Ihre Inhalte schnell finden und verstehen. Das Format wurde auf llmstxt.org vorgeschlagen und ist für Maschinen geschrieben, nicht für Browser."
+    },
+    {
+      "q": "Wo lege ich llms.txt ab?",
+      "a": "Im Wurzelverzeichnis Ihrer Website, ausgeliefert als /llms.txt, neben robots.txt. Bei einem Static-Site-Generator legen Sie sie in den Ordner für öffentliche Assets, damit sie im Wurzelverzeichnis landet. Jeder, auch ein KI-Crawler, kann sie dann direkt über die URL abrufen."
+    },
+    {
+      "q": "Ist llms.txt dasselbe wie robots.txt oder eine Sitemap?",
+      "a": "Nein. robots.txt sagt Crawlern, worauf sie zugreifen dürfen, sitemap.xml listet für Suchmaschinen jede URL, und llms.txt gibt KI-Assistenten eine kuratierte Karte Ihrer besten Inhalte. Sie bedienen unterschiedliche Leser, Sie sollten also alle drei behalten statt eine zu ersetzen."
+    },
+    {
+      "q": "Verbessert llms.txt meine Sichtbarkeit in der KI-Suche?",
+      "a": "Sie kann helfen, weil Ihre besten Seiten für KI leichter zu erfassen sind, aber es ist ein Vorschlag, kein bestätigtes Ranking-Signal, und die Verbreitung steht am Anfang. Starke Inhalte schlägt sie nicht. Sehen Sie sie als risikoarmen Baustein einer breiteren GEO-Strategie."
+    },
+    {
+      "q": "Was bedeutet GEO im LLM-SEO?",
+      "a": "GEO steht für Generative Engine Optimization: die Praxis, Inhalte so aufzubereiten, dass KI-Antwortmaschinen wie ChatGPT, Perplexity und Google AI Overviews sie ausspielen und zitieren. Im Fokus stehen klare, extrahierbare Antworten und maschinenlesbare Struktur wie llms.txt."
+    }
+  ]
+}

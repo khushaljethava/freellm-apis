@@ -1,0 +1,30 @@
+{
+  "slug": "cheapest-llm-api-after-free-tier",
+  "title": "Cheapest LLM API After the Free Tier: How to Compare (2026)",
+  "description": "The cheapest LLM API is a free one, but when you outgrow it, here is how to compare paid pricing the right way: per token, per model, with no surprises.",
+  "date": "2026-07-21",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "free-llm",
+    "api",
+    "pricing",
+    "cheapest",
+    "cost"
+  ],
+  "content": "The cheapest LLM API is a free one. Every provider in our directory has a free tier or free credits, so you pay nothing to start. Once your usage outgrows the free limits, the cheapest paid option depends on your model and volume, so compare carefully instead of chasing one headline price.\n\nPer-token prices vary by model and change often, so this guide doesn't list them. It shows a method for finding your own cheapest option.\n\n## What is the cheapest LLM API?\n\nFor most developers, it's the free tier they already have. [Dozens of no-card providers](/blog/how-to-get-free-llm-api-key-no-credit-card/) offer free usage, with permanent free tiers at Groq, Google Gemini, Mistral, OpenRouter and SambaNova, plus signup credits such as $10 at Upstage AI and $5 at Nscale. You can run prototypes and light production without paying anything.\n\nFree offers change, so re-check before you plan around one. Together AI and DeepInfra no longer have a free tier, GitHub Models was retired in July 2026, and Groq's free plan now covers only its GPT-OSS and Qwen models.\n\nYou only start paying when you exceed free [rate limits](/blog/free-llm-api-rate-limits-compared/) at sustained volume. At that point \"cheapest\" depends on which model you use and how many tokens you send, so compare on your actual workload.\n\n## How do you compare LLM API pricing fairly?\n\nCompare the price per million tokens for the model you'll use, and count input and output tokens separately, because output usually costs more. A provider that looks cheap on input can be expensive on output, so a blended estimate based on your real traffic beats any single advertised rate.\n\nWork through these steps:\n\n- **Fix the model.** Pick the exact model that meets your quality bar, then price only that one.\n- **Estimate your token mix.** Measure typical input and output lengths from real prompts.\n- **Price input and output separately**, then combine them at your ratio. Check whether the provider discounts cached input, which can matter a lot if you repeat system prompts.\n- **Project monthly volume** and multiply, because small per-token differences add up at scale.\n- **Re-check free credits**, which can cover your first paid months entirely.\n\n## Why does open-model hosting tend to be cheaper?\n\nProviders serving open-weight models like GPT-OSS, Qwen, DeepSeek, Llama and Mistral often undercut proprietary APIs, because the model itself costs nothing to license and competition among hosts pushes prices down. Several providers run the same open model, so you can shop around for identical output.\n\nBecause these hosts are [OpenAI-compatible](/blog/openai-compatible-api-guide/), moving your traffic to a cheaper one means changing the base URL, not rewriting code. For example, `gpt-oss-120b` is served by [Fireworks AI](/providers/fireworks/), [Nebius Token Factory](/providers/nebius/), [Hugging Face](/providers/huggingface/) and [SambaNova](/providers/sambanova/), and DeepSeek V4 Flash is on [SiliconFlow](/providers/siliconflow/) and [Novita AI](/providers/novita_ai/), so they're easy to compare head to head. Paid-only hosts such as Together AI and DeepInfra, which dropped their free tiers, publish per-token rates for many of the same models, so include them once you're paying anyway.\n\n## How do you keep costs low as you scale?\n\nStay on free tiers as long as you can by spreading load across providers, and move only the overflow to paid. Every provider here uses the same request format, so a fallback that shifts traffic to a second free key delays paid usage with no code change. Pages like [Groq vs Cerebras](/compare/groq-vs-cerebras/) and [OpenRouter vs Groq](/compare/openrouter-vs-groq/) help you pick the pair.\n\nWhen you do pay, prefer open-model hosts, use the smallest model that does the job, and cache repeated prompts so you never pay twice for the same answer. Start from the [full directory](/) to see which providers offer free credits you haven't used yet.",
+  "faq": [
+    {
+      "q": "What is the cheapest LLM API in 2026?",
+      "a": "A free one. Every provider in our directory has a free tier or free credits, so the cheapest option costs nothing to start. When you outgrow free limits, hosts serving open-weight models such as GPT-OSS, Qwen, DeepSeek, and Llama typically offer the lowest paid per-token rates, but the exact winner depends on your model and volume."
+    },
+    {
+      "q": "How should you compare LLM API pricing?",
+      "a": "Price the exact model you will use, and count input and output tokens separately since output usually costs more. Check for cached-input discounts, then multiply by your real monthly volume. A provider that looks cheap on one metric can be costly overall, so always estimate against your actual traffic mix."
+    },
+    {
+      "q": "Are open-model LLM APIs cheaper than proprietary ones?",
+      "a": "Often, yes. Open-weight models like GPT-OSS, Qwen, DeepSeek, and Llama are free to license, and multiple hosts serve them in competition — gpt-oss-120b alone runs on Fireworks AI, Nebius, Hugging Face, and SambaNova — which drives paid prices down. Because these providers are OpenAI-compatible, you can switch with a one-line change."
+    }
+  ]
+}

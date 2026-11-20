@@ -1,13 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
-import enPosts from '../../../../data/blog.json';
+import { DEFAULT_LOCALE } from '../../i18n/config';
 import FilterBar from '../../components/FilterBar.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import providers from '../../../../data/providers.json';
 import models from '../../../../data/models.json';
 import { localeOf, localePath } from '../../i18n/config';
 import { translatedPaths, useTranslations, TRANSLATED_LOCALES } from '../../i18n/ui';
-import { postIn, postHref } from '../../i18n/posts';
+import { postIn, postHref, postsFor } from '../../i18n/posts';
 import Badge from '../../components/ui/Badge.astro';
 import { fmtCtx, CARD_VARIANT } from '../../lib/format';
 
@@ -18,7 +18,7 @@ const t = useTranslations(locale);
 const L = (p: string) => localePath(p, locale);
 
 // Guides: prefer this language's version of each post, fall back to English per post.
-const guides = enPosts.map(p => postIn(locale, p.slug) ?? p);
+const guides = postsFor(DEFAULT_LOCALE).map(p => postIn(locale, p.slug) ?? p);
 // Blog links resolve per post, so they never point at a page that wasn't built.
 const G = (slug: string) => postHref(locale, slug);
 

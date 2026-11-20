@@ -1,0 +1,38 @@
+{
+  "slug": "what-is-llms-txt-llm-seo",
+  "title": "¿Qué es llms.txt? Guía de SEO para LLM y GEO",
+  "description": "llms.txt es un estándar propuesto que ayuda a los asistentes de IA a encontrar tu mejor contenido. Qué es, cómo escribirlo y cómo encaja en el SEO para LLM.",
+  "date": "2026-07-14",
+  "lastUpdated": "2026-07-14",
+  "author": "freellm.site",
+  "tags": [
+    "llms-txt",
+    "llm-seo",
+    "geo",
+    "tutorial",
+    "free-llm"
+  ],
+  "content": "Los asistentes de IA responden cada vez más preguntas leyendo sitios web, y `llms.txt` es un estándar propuesto que les entrega un mapa limpio de tu mejor contenido. Es el primo en la era de los LLM de `robots.txt` y `sitemap.xml`. Esta guía cubre qué es, cómo escribir uno y dónde encaja en el SEO para LLM.\n\n## ¿Qué es llms.txt?\n\n`llms.txt` es un archivo en Markdown plano ubicado en la raíz de tu sitio que enumera tus páginas más importantes con descripciones breves, para que los grandes modelos de lenguaje encuentren y entiendan tu contenido rápido. El formato se propuso en [llmstxt.org](https://llmstxt.org/) y está pensado para que lo lean asistentes de IA, no navegadores.\n\nPiénsalo como un índice comentado escrito para máquinas que responden preguntas.\n\n## ¿Por qué importa para el SEO para LLM?\n\nLa búsqueda está pasando de diez enlaces azules a respuestas generadas por IA, una tendencia que se suele llamar GEO (optimización para motores generativos) o AEO (optimización para motores de respuesta). Cuando un asistente cita fuentes, ser fácil de parsear mejora tus opciones de ser la fuente citada. Un `llms.txt` limpio reduce las conjeturas que hace una IA al decidir cuál de tus páginas responde de verdad a una consulta.\n\nNo va a superar a un buen contenido: hace que el buen contenido sea más fácil de encontrar.\n\n## ¿Qué aspecto tiene el formato?\n\nEl archivo es simplemente Markdown con un título, una cita de resumen opcional y listas de enlaces agrupadas. Esta es la estructura:\n\n```\n# Your Site Name\n\n> One-line summary of what your site offers.\n\n## Guides\n- [Guide title](https://example.com/guide/): Short description of the page.\n- [Another guide](https://example.com/other/): What this page covers.\n\n## Reference\n- [API docs](https://example.com/docs/): Description.\n```\n\nMantén las descripciones concretas y factuales. El objetivo es decirle a una IA exactamente qué responde cada página.\n\n## ¿Cómo se crea uno?\n\nCon tres pasos tienes un archivo funcional:\n\n- **Elige tus mejores páginas**: las que responden preguntas reales, no todas las URL.\n- **Escribe descripciones de una línea**: di qué ayuda a hacer cada página al lector.\n- **Guárdalo como `/llms.txt`**: en la raíz de tu sitio, junto a `robots.txt`.\n\nSi usas un generador de sitios estáticos, deja el archivo en la carpeta de recursos públicos para que se publique en la raíz. Así lo publicamos nosotros: puedes ver [freellm.site/llms.txt](https://www.freellm.site/llms.txt) como referencia.\n\n## ¿En qué se diferencia de robots.txt y los sitemaps?\n\nCada archivo se dirige a un lector distinto y se complementan en lugar de sustituirse.\n\n| Archivo | Lector | Función |\n|---|---|---|\n| robots.txt | Rastreadores | Qué pueden y qué no pueden rastrear |\n| sitemap.xml | Motores de búsqueda | Una lista completa de URL para indexar |\n| llms.txt | Asistentes de IA | Un mapa comentado de tu mejor contenido |\n\nDeberías mantener los tres. `llms.txt` añade la capa orientada a la IA que los otros dos no cubren.\n\n## ¿Ya funciona de verdad?\n\nSeamos honestos: `llms.txt` es una propuesta, no un estándar de adopción universal, y ningún gran proveedor de IA se ha comprometido públicamente a usarlo como señal de posicionamiento. La adopción es incipiente. La ventaja es que el archivo es barato de crear y de bajo riesgo, así que es una apuesta razonable mientras el estándar madura, igual que pasó con los primeros sitemaps. Trátalo como una pieza pequeña de una estrategia GEO más amplia, no como un interruptor mágico.\n\nPara más ideas sobre cómo hacer tu contenido apto para la IA, consulta nuestra [guía de API compatibles con OpenAI](/blog/openai-compatible-api-guide/) y el [directorio completo de API LLM gratis](/blog/best-free-llm-apis-2026/).",
+  "faq": [
+    {
+      "q": "¿Qué es un archivo llms.txt?",
+      "a": "Es un archivo en Markdown plano en la raíz de tu sitio que enumera tus páginas más importantes con descripciones breves, para que los asistentes de IA encuentren y entiendan tu contenido rápido. El formato se propuso en llmstxt.org y está escrito para máquinas, no para navegadores."
+    },
+    {
+      "q": "¿Dónde coloco llms.txt?",
+      "a": "En la raíz de tu sitio, servido como /llms.txt, junto a robots.txt. En un generador de sitios estáticos, ponlo en la carpeta de recursos públicos para que se publique en la raíz. Cualquiera, incluido un rastreador de IA, puede entonces descargarlo directamente por URL."
+    },
+    {
+      "q": "¿llms.txt es lo mismo que robots.txt o un sitemap?",
+      "a": "No. robots.txt indica a los rastreadores a qué pueden acceder, sitemap.xml lista todas las URL para los motores de búsqueda y llms.txt da a los asistentes de IA un mapa comentado de tu mejor contenido. Sirven a lectores distintos, así que conviene mantener los tres en vez de sustituir uno."
+    },
+    {
+      "q": "¿llms.txt mejora mi visibilidad en las búsquedas con IA?",
+      "a": "Puede ayudar, porque facilita que la IA parsee tus mejores páginas, pero es una propuesta, no una señal de posicionamiento confirmada, y la adopción es incipiente. No va a superar a un contenido sólido. Trátalo como una pieza de bajo riesgo dentro de una estrategia GEO más amplia."
+    },
+    {
+      "q": "¿Qué es GEO en el SEO para LLM?",
+      "a": "GEO significa optimización para motores generativos: la práctica de optimizar el contenido para que los motores de respuesta con IA como ChatGPT, Perplexity y las AI Overviews de Google lo muestren y lo citen. Se centra en respuestas claras y extraíbles y en una estructura legible por máquina como llms.txt."
+    }
+  ]
+}

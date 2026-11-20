@@ -1,0 +1,34 @@
+{
+  "slug": "free-llm-api-largest-context-window",
+  "title": "Free LLM APIs With the Largest Context Windows (2026)",
+  "description": "Which free LLM API has the biggest context window? Cloudflare, Gemini and OpenRouter offer about 1M tokens free; see how Groq, Cohere and others compare.",
+  "date": "2026-07-21",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "free-llm",
+    "api",
+    "context-window",
+    "gemini",
+    "long-context"
+  ],
+  "content": "The free LLM APIs with the largest context windows now top out at roughly **1 million tokens**. The biggest verified free window is **Cloudflare Workers AI**'s `@cf/zai-org/glm-5.3-flash` at **1,310,720 tokens**, followed by **Google Gemini**'s Flash models at **1,048,576 tokens**, both with no credit card. That is enough to fit a large codebase or a stack of long documents in a single prompt.\n\nThe old \"Gemini 2M free context\" claim no longer applies: it came from Gemini 1.5 Pro, which has been retired. Context window size decides how much text a model can read at once. If you feed long documents, transcripts or large code files, this number matters more than raw speed. Here is how the free tiers stack up.\n\n## What is the largest free LLM API context window?\n\n**Cloudflare Workers AI** leads at **1.31M tokens** on GLM-5.3-Flash, within its free allowance of 10,000 neurons per day. **Google Gemini** is close behind: `gemini-3.8-flash`, `gemini-3.7-flash` and `gemini-3.5-flash-lite` all accept **1,048,576 tokens** on the free tier. That capacity lets you paste entire books, long meeting transcripts or sprawling code repositories into one request without chunking.\n\nThere is a practical catch at this size. A full 1M-token prompt uses a large share of a free daily budget, whether that is Cloudflare's neuron allowance or the token limits Google shows for your account in AI Studio. Check those before you plan on many maximum-size calls. See the [Google Gemini free LLM API](/providers/google_gemini/) and [Cloudflare Workers AI](/providers/cloudflare/) pages for current models.\n\n## How do free LLM API context windows compare?\n\nBelow the 1M group, the field spreads out: 400K on LLM7, 256K on Cohere and Mistral, and 131K on Groq and SambaNova. These figures come from each provider's current free-tier models in our directory.\n\n| Provider | Max free context | Model | Card required |\n| --- | --- | --- | --- |\n| [Cloudflare Workers AI](/providers/cloudflare/) | 1,310K | `@cf/zai-org/glm-5.3-flash` | No |\n| [Google Gemini](/providers/google_gemini/) | 1,049K | `gemini-3.8-flash` | No |\n| [OpenRouter](/providers/openrouter/) | 1,049K | `thinkingmachines/inkling:free` | No (email signup) |\n| [NVIDIA NIM](/providers/nvidia_nim/) | 1,049K | `moonshotai/kimi-k3` | No (phone verification) |\n| [LLM7.io](/providers/llm7/) | 400K | `DeepSeek-V4-Flash-0731` | No |\n| [Cohere](/providers/cohere/) | 256K | `command-a-03-2025` | No |\n| [Mistral AI](/providers/mistral/) | 256K | `mistral-large-2512` | No |\n| [Groq](/providers/groq/) | 131K | `openai/gpt-oss-120b` | No |\n| [SambaNova](/providers/sambanova/) | 131K | `gpt-oss-120b` | No (email signup) |\n| [Cerebras](/providers/cerebras/) | 65K | `gpt-oss-120b` | Yes ($5 credits, 30 days) |\n\nOpenRouter's free models are capped at 50 requests per day, so its 1M window suits occasional long jobs rather than steady traffic. Cerebras now requires a payment method and offers smaller windows than it used to. Together AI and GitHub Models, which appeared in earlier versions of this list, no longer offer free access.\n\nAmong providers with the same ceiling, choose on [rate limits](/blog/free-llm-api-rate-limits-compared/) and response speed.\n\n## Do you need a huge context window?\n\nMost applications do not. A 128K window already holds far more than a typical chat or document Q&A needs. You only need a 1M-token window when a single prompt has to contain hundreds of pages, such as analyzing a full contract set or an entire code repository at once.\n\nLarge contexts also cost more compute and can slow responses. When you can, retrieval, which pulls only the relevant passages into the prompt, beats stuffing everything in. That pattern, retrieval-augmented generation, keeps prompts small even with big source material. See our guide on [using a free LLM API for RAG](/blog/free-llm-api-for-rag-embeddings/).\n\n## Which large-context free LLM API should you pick?\n\nPick **Gemini** or **Cloudflare Workers AI** if your prompts routinely exceed 256K tokens. They are the no-card options that reach about 1M. Between 128K and 256K, Cohere and Mistral cover you. For everything else, choose a 131K provider like Groq based on speed and rate limits, since the context difference will not affect you.\n\nStart from the [full free LLM API directory](/) and filter by the context column. The setup is the same across providers thanks to their [OpenAI-compatible endpoints](/blog/openai-compatible-api-guide/), so you can test two and keep the one that fits.",
+  "faq": [
+    {
+      "q": "Which free LLM API has the biggest context window?",
+      "a": "Cloudflare Workers AI's GLM-5.3-Flash has the largest verified free window at 1,310,720 tokens, followed by Google Gemini's Flash models at 1,048,576 tokens. Both need no credit card. OpenRouter also has free models with about 1M tokens, but they are capped at 50 requests per day."
+    },
+    {
+      "q": "Does Google Gemini still offer a 2M-token context for free?",
+      "a": "No. The 2M-token window belonged to Gemini 1.5 Pro, which has been retired. Gemini's current free-tier models, such as gemini-3.8-flash, accept 1,048,576 tokens, and your free token limits are shown in Google AI Studio."
+    },
+    {
+      "q": "How many pages fit in a 128K context window?",
+      "a": "Around 300 pages of plain text, since 128K tokens is roughly 96,000 words. That covers most document-analysis and long-chat use cases, which is why a 131K free tier like Groq's is enough for the majority of applications without needing a 1M window."
+    },
+    {
+      "q": "Does a larger context window mean better answers?",
+      "a": "Not automatically. Beyond what your task needs, extra context adds compute cost and can slow responses without improving quality. Retrieval-augmented generation, which feeds only relevant passages into the prompt, often produces better results than filling a huge context window."
+    }
+  ]
+}

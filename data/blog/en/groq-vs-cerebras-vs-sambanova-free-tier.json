@@ -1,0 +1,39 @@
+{
+  "slug": "groq-vs-cerebras-vs-sambanova-free-tier",
+  "title": "Groq vs Cerebras vs SambaNova: Fast Free LLM APIs Compared",
+  "description": "Groq, Cerebras and SambaNova run open models on fast custom hardware. Compare free tiers, limits and models, and see why Cerebras now needs a card.",
+  "date": "2026-07-21",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "free-llm",
+    "api",
+    "groq",
+    "cerebras",
+    "sambanova",
+    "comparison"
+  ],
+  "content": "Groq, Cerebras and SambaNova are the three LLM APIs built around **fast, specialised inference hardware** for open models. All three let you try them without paying up front, and they run the same class of open-weight models, so they differ mainly in signup friction, model lineup and rate limits rather than raw capability.\n\nIn short: **Groq needs no credit card**, **SambaNova requires registration** but no payment method, and **Cerebras now asks for a payment method** and gives you $5 of trial credits that expire in 30 days. All three are OpenAI-compatible, so switching between them is a one-line change.\n\n> **Updated September 2026:** Cerebras moved from a no-card free tier to a card-required credit trial, and Groq removed its Llama models from the free plan on 2026-08-16. Its free models are now `openai/gpt-oss-120b`, `openai/gpt-oss-20b`, and `qwen/qwen3.8-27b`.\n\n## How are Groq, Cerebras, and SambaNova different?\n\nAll three specialise in low-latency inference, but access now differs a lot. Groq issues a free key with no card. SambaNova asks you to register first but still needs no payment method. Cerebras wants a payment method before it gives out trial credits, which makes it a short paid trial rather than a permanent free tier. All of them run open-weight models, so your code and prompts move directly between them.\n\nHere's the verified comparison from our directory:\n\n| Provider | Card / signup | Free offer | Free models | Max context | Free limits | Base URL |\n| --- | --- | --- | --- | --- | --- | --- |\n| [Groq](/providers/groq/) | No card | Permanent free plan | 3 | 131K | 30 RPM / 1,000 RPD / 8K TPM | api.groq.com/openai/v1 |\n| [Cerebras](/providers/cerebras/) | Card required | $5 credits, expire in 30 days | 2 | 65K | 5 RPM / 1M tokens per day | api.cerebras.ai/v1 |\n| [SambaNova](/providers/sambanova/) | Registration | Permanent free tier | 5 | 131K | 20 RPM / 20 RPD / 200K tokens per day per model | api.sambanova.ai/v1 |\n\nContext is no longer identical across the three: Groq and SambaNova top out at 131K, while Cerebras's `gpt-oss-120b` offers 65K. For most apps, speed, access and limits still matter more.\n\n## What models does each one run?\n\nThe lineups overlap more than they used to, and `gpt-oss-120b` is available on all three:\n\n- **Groq:** `openai/gpt-oss-120b`, `openai/gpt-oss-20b`, `qwen/qwen3.8-27b` (the Qwen model also accepts images).\n- **Cerebras:** `gpt-oss-120b`, `qwen-3.8-27b`.\n- **SambaNova:** `gpt-oss-120b`, `DeepSeek-V3.1`, `DeepSeek-V3.2`, `Meta-Llama-3.3-70B-Instruct`, `gemma-4-31B-it`.\n\nIf you need Llama 3.3 70B or DeepSeek on a free tier, SambaNova is now the only one of the three that offers them.\n\n## Which one is the fastest free LLM API?\n\nAll three are built for speed, running open models on custom silicon instead of general-purpose GPUs, so each responds far faster than a typical cloud endpoint. Which one is fastest changes with the model and the load, and any of them feels near-instant next to a standard provider.\n\nChat interfaces, autocomplete and voice apps are the reason to use these providers at all. Benchmark rankings shift with every hardware update, so choose on access and limits, then measure latency on your own workload. Our [Groq vs Google Gemini comparison](/blog/groq-vs-google-gemini-free-tier/) covers the trade-off between speed and volume in more depth, and the head-to-head pages for [Groq vs Cerebras](/compare/groq-vs-cerebras/), [Groq vs SambaNova](/compare/groq-vs-sambanova/) and [Cerebras vs SambaNova](/compare/cerebras-vs-sambanova/) show the live numbers side by side.\n\n## When should you pick each provider?\n\nChoose **Groq** as the default no-card starting point. Its 1,000 requests a day is the most generous request budget of the three, though the 8K tokens-per-minute cap limits large prompts. Choose **SambaNova** if you don't mind registering and want its wider model lineup, especially DeepSeek or Llama, but note the limit of 20 requests per day per model. Choose **Cerebras** only if you're willing to add a card: the $5 trial is useful for benchmarking its speed for 30 days, but it isn't a long-term free option.\n\nUsing more than one is the better setup. All three are [OpenAI-compatible](/blog/openai-compatible-api-guide/), so you can route traffic across them by changing only the base URL, which gives you extra headroom against [rate limits](/blog/free-llm-api-rate-limits-compared/). The two options that are free without a card pair well, since both serve `gpt-oss-120b`:\n\n```python\nimport os\nfrom openai import OpenAI\n\nendpoints = [\n    (\"https://api.groq.com/openai/v1\", os.environ[\"GROQ_API_KEY\"], \"openai/gpt-oss-120b\"),\n    (\"https://api.sambanova.ai/v1\", os.environ[\"SAMBANOVA_API_KEY\"], \"gpt-oss-120b\"),\n]\nfor base, key, model in endpoints:\n    try:\n        client = OpenAI(base_url=base, api_key=key)\n        print(client.chat.completions.create(\n            model=model, messages=[{\"role\": \"user\", \"content\": \"Hi\"}]\n        ).choices[0].message.content)\n        break\n    except Exception:\n        continue\n```\n\nIf you've activated Cerebras's trial, add `(\"https://api.cerebras.ai/v1\", os.environ[\"CEREBRAS_API_KEY\"], \"gpt-oss-120b\")` as a third entry.\n\n## The verdict\n\nStart with Groq, add SambaNova as a no-card fallback, and treat Cerebras as a short trial that needs a card, for when you want to test its speed. All three are fast and focused on open models. See the live details on each provider page, and the [full directory](/) for alternatives.\n",
+  "faq": [
+    {
+      "q": "Is Groq or Cerebras faster?",
+      "a": "Both run open models on custom high-speed hardware, and which is fastest shifts by model and load. Either feels near-instant compared with a general-purpose cloud endpoint, so pick on access, limits, and model lineup rather than benchmark rankings that change with each hardware update."
+    },
+    {
+      "q": "Does Cerebras still have a free tier without a credit card?",
+      "a": "No. Cerebras now requires a payment method, then grants $5 of trial credits that expire in 30 days, with limits of 5 requests per minute and 1M tokens per day. It works as a short trial, but Groq and SambaNova are the no-card options of the three."
+    },
+    {
+      "q": "Does SambaNova need a credit card?",
+      "a": "No. SambaNova's free tier requires account registration but no payment method. It allows 20 requests per minute, 20 requests per day, and 200K tokens per day per model, across models including gpt-oss-120b, DeepSeek-V3.1, and Llama 3.3 70B."
+    },
+    {
+      "q": "Which Groq models are free now?",
+      "a": "Groq's free plan covers openai/gpt-oss-120b, openai/gpt-oss-20b, and qwen/qwen3.8-27b, each with a 131K context window and limits of 30 RPM, 1,000 RPD, and 8K tokens per minute. The llama-3.3-70b-versatile and llama-3.1-8b-instant models were removed from the free plan on 2026-08-16."
+    },
+    {
+      "q": "Can you switch between Groq, Cerebras, and SambaNova easily?",
+      "a": "Yes. All three expose OpenAI-compatible endpoints, and all three serve gpt-oss-120b, so moving between them means changing only the base URL, API key, and model name. That makes it easy to run Groq and SambaNova as no-card fallbacks for one another."
+    }
+  ]
+}

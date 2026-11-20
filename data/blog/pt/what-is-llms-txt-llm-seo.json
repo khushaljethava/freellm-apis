@@ -1,0 +1,38 @@
+{
+  "slug": "what-is-llms-txt-llm-seo",
+  "title": "O Que é llms.txt? Guia de LLM SEO e GEO",
+  "description": "llms.txt é um padrão proposto que ajuda assistentes de IA a achar seu melhor conteúdo. Veja o que é, como escrever um e onde ele entra no LLM SEO (GEO).",
+  "date": "2026-07-14",
+  "lastUpdated": "2026-07-14",
+  "author": "freellm.site",
+  "tags": [
+    "llms-txt",
+    "llm-seo",
+    "geo",
+    "tutorial",
+    "free-llm"
+  ],
+  "content": "Assistentes de IA respondem cada vez mais a perguntas lendo sites, e o `llms.txt` é um padrão proposto que entrega a eles um mapa limpo do seu melhor conteúdo. É o primo, na era dos LLMs, do `robots.txt` e do `sitemap.xml`. Este guia cobre o que ele é, como escrever um e onde ele se encaixa no LLM SEO.\n\n## O que é llms.txt?\n\n`llms.txt` é um arquivo em Markdown puro na raiz do seu site que lista as suas páginas mais importantes com descrições curtas, para que os grandes modelos de linguagem encontrem e entendam o seu conteúdo rapidamente. O formato foi proposto em [llmstxt.org](https://llmstxt.org/) e é feito para ser lido por assistentes de IA, não por navegadores.\n\nPense nele como um sumário curado, escrito para máquinas que respondem perguntas.\n\n## Por que ele importa para o LLM SEO?\n\nA busca está saindo dos dez links azuis para respostas geradas por IA, uma tendência chamada de GEO (otimização para motores generativos) ou AEO (otimização para motores de resposta). Quando um assistente cita fontes, ser fácil de interpretar aumenta a sua chance de ser a fonte citada. Um `llms.txt` bem feito reduz o trabalho de adivinhação da IA na hora de decidir qual das suas páginas realmente responde a uma pergunta.\n\nEle não vai superar um bom conteúdo: ele torna o bom conteúdo mais fácil de ser encontrado.\n\n## Como é o formato?\n\nO arquivo é só Markdown, com um título, um bloco de citação opcional de resumo e listas de links agrupadas. O formato é este:\n\n```\n# Nome do seu site\n\n> Resumo em uma linha do que o seu site oferece.\n\n## Guias\n- [Título do guia](https://example.com/guide/): Descrição curta da página.\n- [Outro guia](https://example.com/other/): O que esta página cobre.\n\n## Referência\n- [Documentação da API](https://example.com/docs/): Descrição.\n```\n\nMantenha as descrições factuais e específicas. O objetivo é dizer à IA exatamente o que cada página responde.\n\n## Como criar um?\n\nTrês passos bastam para ter um arquivo funcionando:\n\n- **Escolha as suas melhores páginas**: as que respondem perguntas reais, não todas as URLs.\n- **Escreva descrições de uma linha**: diga o que cada página ajuda o leitor a fazer.\n- **Salve como `/llms.txt`**: na raiz do site, ao lado do `robots.txt`.\n\nSe você usa um gerador de sites estáticos, coloque o arquivo na pasta de assets públicos para que ele seja publicado na raiz. É exatamente assim que entregamos o nosso: dá para conferir [freellm.site/llms.txt](https://www.freellm.site/llms.txt) como referência.\n\n## Em que ele difere de robots.txt e sitemaps?\n\nCada arquivo fala com um leitor diferente, e eles se complementam em vez de se substituir.\n\n| Arquivo | Leitor | Finalidade |\n|---|---|---|\n| robots.txt | Rastreadores | O que eles podem ou não rastrear |\n| sitemap.xml | Motores de busca | Uma lista completa de URLs para indexar |\n| llms.txt | Assistentes de IA | Um mapa curado do seu melhor conteúdo |\n\nVocê deve manter os três. O `llms.txt` acrescenta a camada voltada à IA que os outros dois não cobrem.\n\n## Isso já funciona de fato?\n\nVale a honestidade aqui: o `llms.txt` é uma proposta, não um padrão adotado universalmente, e nenhuma grande empresa de IA se comprometeu publicamente a usá-lo como sinal de ranqueamento. A adoção é incipiente. O lado bom é que o arquivo é barato de criar e de baixo risco, então é uma aposta razoável enquanto o padrão amadurece, mais ou menos como os primeiros sitemaps. Trate-o como uma peça pequena de uma estratégia de GEO mais ampla, não como uma solução mágica.\n\nPara mais sobre deixar o conteúdo amigável à IA, veja o nosso [guia de APIs compatíveis com a OpenAI](/blog/openai-compatible-api-guide/) e o [diretório completo de APIs LLM grátis](/blog/best-free-llm-apis-2026/).",
+  "faq": [
+    {
+      "q": "O que é um arquivo llms.txt?",
+      "a": "É um arquivo em Markdown puro na raiz do seu site que lista as páginas mais importantes com descrições curtas, para que assistentes de IA encontrem e entendam o seu conteúdo rapidamente. O formato foi proposto em llmstxt.org e é escrito para máquinas, não para navegadores."
+    },
+    {
+      "q": "Onde colocar o llms.txt?",
+      "a": "Na raiz do site, servido como /llms.txt, ao lado do robots.txt. Em um gerador de sites estáticos, coloque-o na pasta de assets públicos para que seja publicado na raiz. Qualquer um, inclusive um rastreador de IA, pode então buscá-lo direto pela URL."
+    },
+    {
+      "q": "llms.txt é a mesma coisa que robots.txt ou um sitemap?",
+      "a": "Não. O robots.txt diz aos rastreadores o que eles podem acessar, o sitemap.xml lista todas as URLs para os motores de busca e o llms.txt dá aos assistentes de IA um mapa curado do seu melhor conteúdo. São leitores diferentes, então mantenha os três em vez de trocar um pelo outro."
+    },
+    {
+      "q": "O llms.txt melhora a minha visibilidade na busca com IA?",
+      "a": "Pode ajudar, por deixar as suas melhores páginas mais fáceis de interpretar pela IA, mas é uma proposta, não um sinal de ranqueamento confirmado, e a adoção é incipiente. Ele não vai superar um conteúdo forte. Trate-o como uma peça de baixo risco de uma estratégia de GEO mais ampla."
+    },
+    {
+      "q": "O que é GEO no LLM SEO?",
+      "a": "GEO significa otimização para motores generativos: a prática de otimizar conteúdo para que motores de resposta com IA, como ChatGPT, Perplexity e as Visões Gerais de IA do Google, o exibam e o citem. O foco está em respostas claras e extraíveis e em estrutura legível por máquina, como o llms.txt."
+    }
+  ]
+}

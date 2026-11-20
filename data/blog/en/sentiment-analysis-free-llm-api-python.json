@@ -1,0 +1,39 @@
+{
+  "slug": "sentiment-analysis-free-llm-api-python",
+  "title": "Sentiment Analysis With a Free LLM API in Python",
+  "description": "Run sentiment analysis in Python using a free LLM API, with no model training and no credit card. Structured JSON output, batching, and accuracy tips included.",
+  "date": "2026-07-14",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "sentiment-analysis",
+    "python",
+    "tutorial",
+    "free-llm",
+    "api",
+    "groq"
+  ],
+  "content": "You can run sentiment analysis in Python without training a model, labelling data or paying per request. A free LLM API classifies text out of the box and handles the nuance that older lexicon methods miss, such as sarcasm, mixed feelings and domain slang. Here's the full setup.\n\n## Why use an LLM instead of a classic classifier?\n\nTraditional sentiment tools score words against a fixed lexicon, so they trip over sarcasm, negation and context (\"not bad\" reads as negative). An LLM reads the whole sentence and infers intent, which makes it far more accurate on messy real-world text like reviews and support tickets, and it needs no training data.\n\nYou pay in latency and rate limits, but for most analysis jobs a free tier is plenty.\n\n## How do you set it up?\n\nAny OpenAI-compatible free provider works. This guide uses [Groq](/providers/groq/): get a free key from [console.groq.com/keys](https://console.groq.com/keys), install the OpenAI SDK, and point it at the provider's base URL. If the pattern is new to you, our [OpenAI-compatible API guide](/blog/openai-compatible-api-guide/) explains the one-line swap.\n\n```bash\npip install openai\n```\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\",\n)\n```\n\n## How do you classify a single text?\n\nAsk the model for a fixed label plus a confidence score, and force structured output so the result is easy to parse. JSON mode keeps replies machine-readable instead of chatty.\n\nWe use `openai/gpt-oss-20b`, the smaller of the two GPT-OSS models on Groq's free plan, because classification doesn't need a 120B model. (If you followed an older version of this tutorial with `llama-3.3-70b-versatile`, that model left Groq's free plan on 2026-08-16.) GPT-OSS is a reasoning model, so `reasoning_effort=\"low\"` keeps it fast and stops it spending your token budget deliberating over a one-word label.\n\n```python\nimport json\n\nMODEL = \"openai/gpt-oss-20b\"\n\ndef analyze(text):\n    resp = client.chat.completions.create(\n        model=MODEL,\n        reasoning_effort=\"low\",\n        response_format={\"type\": \"json_object\"},\n        messages=[\n            {\"role\": \"system\", \"content\":\n             \"Classify sentiment. Reply as JSON with keys \"\n             \"'sentiment' (positive|negative|neutral) and 'confidence' (0-1).\"},\n            {\"role\": \"user\", \"content\": text},\n        ],\n    )\n    return json.loads(resp.choices[0].message.content)\n\nprint(analyze(\"Honestly, not what I expected — but I kind of love it.\"))\n# e.g. {'sentiment': 'positive', 'confidence': 0.82}\n```\n\nThe model reads the mixed phrasing correctly, where a lexicon tool would probably flag \"not\" as negative. JSON object mode works on every Groq model. If you want a schema to enforce the keys, Groq also supports strict `json_schema` output on the GPT-OSS and Qwen models.\n\n## How do you process a batch?\n\nFor a spreadsheet of reviews, loop over the rows and stay within the free tier's rate limits. Groq's free plan allows 30 requests per minute, 1,000 requests per day and 8,000 tokens per minute, so a 2-second pause between calls keeps you under the per-minute cap.\n\n```python\nimport time\n\ndef analyze_batch(texts, delay=2.0):\n    results = []\n    for t in texts:\n        results.append(analyze(t))\n        time.sleep(delay)   # 30 RPM on Groq's free plan = one call every 2 s\n    return results\n```\n\nWatch the token cap too: long reviews can hit 8K tokens per minute before you reach 30 requests, so truncate very long texts. With 1,000 requests per day, one key handles about 1,000 rows a day, so spread bigger jobs over several days or add a second provider. See the [free LLM API rate limits comparison](/blog/free-llm-api-rate-limits-compared/) for other options.\n\n## How do you improve accuracy?\n\nTwo cheap tricks improve accuracy without any training:\n\n- **Few-shot examples**: add 2-3 labelled samples to the system prompt so the model matches your definition of \"neutral.\"\n- **Domain framing**: tell the model whether the text is product reviews, tweets or support tickets, so it reads the tone in the right context.\n\nThe model isn't fine-tuned, so prompt wording is the main thing you can adjust, and small changes to the instruction noticeably shift the results. If the 20B model struggles with subtle cases, switch `MODEL` to `openai/gpt-oss-120b`, which has the same free limits.\n\n## What does it cost?\n\nOn a free tier, nothing: no credit card, just rate limits. That makes LLM sentiment analysis a good fit for one-off studies, dashboards and prototypes. For always-on, high-volume pipelines, benchmark a paid tier or a small self-hosted model once the free limits start to pinch. See our [list of free LLM APIs](/blog/best-free-llm-apis-2026/) to compare options.",
+  "faq": [
+    {
+      "q": "Can I do sentiment analysis for free with an LLM API?",
+      "a": "Yes. Providers like Groq and Google Gemini offer free tiers with no credit card, and an LLM classifies sentiment out of the box with no training data. On Groq's free plan (openai/gpt-oss-20b) you get 30 requests per minute and 1,000 per day, enough for most analysis jobs."
+    },
+    {
+      "q": "Is an LLM more accurate than a traditional sentiment classifier?",
+      "a": "Usually, on real-world text. Lexicon-based tools score fixed word lists and miss sarcasm, negation, and context. An LLM reads the whole sentence and infers intent, so it handles phrases like 'not bad' correctly — without any labeled training data."
+    },
+    {
+      "q": "How do I get structured output for sentiment analysis?",
+      "a": "Use JSON mode. Set response_format to a JSON object and instruct the model to reply with fixed keys like sentiment and confidence. JSON object mode works on all Groq models, and GPT-OSS and Qwen models also support strict json_schema output if you want keys enforced."
+    },
+    {
+      "q": "How do I avoid rate-limit errors when analyzing many texts?",
+      "a": "On Groq's free plan (30 requests/minute, 1,000/day, 8K tokens/minute), wait about 2 seconds between calls, truncate very long texts, and split jobs over 1,000 rows across days or a second provider. If you get a 429, wait for the retry-after header before retrying."
+    },
+    {
+      "q": "How can I improve LLM sentiment accuracy without training?",
+      "a": "Add two or three labeled few-shot examples to the system prompt so the model matches your definition of each label, and tell it the text domain (reviews, tweets, tickets). Since the model isn't fine-tuned, prompt wording is your main accuracy lever."
+    }
+  ]
+}

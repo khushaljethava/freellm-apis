@@ -1,6 +1,6 @@
 // Shared SEO facts about the dataset, used by both page templates and astro.config.mjs.
 // Kept in one place so the noindex rule and the sitemap filter can never disagree.
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const read = (name) =>
@@ -8,7 +8,10 @@ const read = (name) =>
 
 const providers = read('providers');
 const models = read('models');
-const posts = read('blog');
+// One file per post in data/blog/en/ (the English source decides indexability and lastmod).
+const BLOG_EN = new URL('../../../data/blog/en/', import.meta.url);
+const posts = readdirSync(BLOG_EN).filter(f => f.endsWith('.json'))
+  .map(f => JSON.parse(readFileSync(new URL(f, BLOG_EN), 'utf8')));
 const imageApis = read('image_apis');
 
 /**

@@ -1,0 +1,39 @@
+{
+  "slug": "sentiment-analysis-free-llm-api-python",
+  "title": "Python में फ्री LLM API से सेंटीमेंट एनालिसिस",
+  "description": "Python में फ्री LLM API से सेंटीमेंट एनालिसिस, बिना model training और बिना credit card। structured JSON output, batching और सटीकता के टिप्स।",
+  "date": "2026-07-14",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "sentiment-analysis",
+    "python",
+    "tutorial",
+    "free-llm",
+    "api",
+    "groq"
+  ],
+  "content": "आप Python में सेंटीमेंट एनालिसिस बिना model ट्रेन किए, बिना डेटा लेबल किए और बिना per request पैसे दिए चला सकते हैं। एक फ्री LLM API टेक्स्ट को सीधे classify कर देती है और ऐसी बारीकियाँ भी संभालती है, जैसे तंज़, मिले-जुले भाव, डोमेन स्लैंग, जो पुराने lexicon तरीके चूक जाते हैं। पूरा setup यह रहा।\n\n## क्लासिक classifier के बजाय LLM क्यों?\n\nपारंपरिक सेंटीमेंट टूल शब्दों को एक तय lexicon से मिलाकर स्कोर देते हैं, इसलिए वे तंज़, नकार और संदर्भ पर लड़खड़ाते हैं (\"not bad\" उन्हें नकारात्मक लगता है)। LLM पूरा वाक्य पढ़ता है और मंशा भाँपता है, जिससे वह रिव्यू और सपोर्ट ticket जैसे उलझे असली टेक्स्ट पर कहीं ज़्यादा सटीक रहता है, वो भी शून्य training data के साथ।\n\nबदले में latency और rate limit की कीमत चुकानी पड़ती है, पर ज़्यादातर एनालिसिस के कामों के लिए free tier काफ़ी है।\n\n## इसे सेट कैसे कीजिए?\n\nकोई भी OpenAI-compatible फ्री provider चलेगा। यह गाइड [Groq](/providers/groq/) इस्तेमाल करती है: [console.groq.com/keys](https://console.groq.com/keys) से फ्री key लीजिए, OpenAI SDK install कीजिए, और उसे provider के base URL पर पॉइंट कीजिए। अगर यह तरीका नया है, तो हमारी [OpenAI-compatible API गाइड](/blog/openai-compatible-api-guide/) एक लाइन का स्वैप समझाती है।\n\n```bash\npip install openai\n```\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI(\n    base_url=\"https://api.groq.com/openai/v1\",\n    api_key=\"your-groq-key\",\n)\n```\n\n## एक टेक्स्ट को classify कैसे करें?\n\nModel से कहिए कि वह एक तय label और confidence score लौटाए, और structured output ज़रूरी कर दीजिए ताकि नतीजा आसानी से parse हो। JSON mode जवाबों को बातूनी गद्य के बजाय machine-readable रखता है।\n\nहम `openai/gpt-oss-20b` इस्तेमाल करते हैं, जो Groq के फ्री प्लान के दो GPT-OSS model में छोटा है, क्योंकि classification के लिए 120B model की ज़रूरत नहीं। (अगर आपने इस tutorial का पुराना version `llama-3.3-70b-versatile` के साथ फ़ॉलो किया था, तो वह model 16 अगस्त 2026 को Groq के फ्री प्लान से हट चुका है।) GPT-OSS एक reasoning model है, इसलिए `reasoning_effort=\"low\"` उसे तेज़ रखता है और एक शब्द के label पर सोचते हुए आपका token बजट खर्च होने से बचाता है।\n\n```python\nimport json\n\nMODEL = \"openai/gpt-oss-20b\"\n\ndef analyze(text):\n    resp = client.chat.completions.create(\n        model=MODEL,\n        reasoning_effort=\"low\",\n        response_format={\"type\": \"json_object\"},\n        messages=[\n            {\"role\": \"system\", \"content\":\n             \"सेंटीमेंट classify कीजिए। JSON में जवाब दीजिए, keys हों \"\n             \"'sentiment' (positive|negative|neutral) और 'confidence' (0-1)।\"},\n            {\"role\": \"user\", \"content\": text},\n        ],\n    )\n    return json.loads(resp.choices[0].message.content)\n\nprint(analyze(\"सच कहूँ तो यह वैसा नहीं था जैसी उम्मीद थी, पर मुझे यह पसंद आ गया।\"))\n# उदाहरण: {'sentiment': 'positive', 'confidence': 0.82}\n```\n\nगौर कीजिए कि model मिले-जुले वाक्य को सही पढ़ता है, जबकि lexicon टूल शायद \"नहीं\" को नकारात्मक मान बैठता। JSON object mode हर Groq model पर चलता है; अगर आप keys को schema से लागू करवाना चाहते हैं, तो Groq GPT-OSS और Qwen model पर strict `json_schema` output भी सपोर्ट करता है।\n\n## Batch कैसे process करें?\n\nरिव्यू की पूरी स्प्रेडशीट के लिए पंक्तियों पर लूप कीजिए और free tier की rate limit का ध्यान रखिए। Groq का फ्री प्लान 30 requests प्रति मिनट, 1,000 requests प्रति दिन और 8,000 tokens प्रति मिनट देता है, इसलिए हर कॉल के बीच 2 सेकंड का ठहराव आपको प्रति-मिनट सीमा के नीचे रखता है।\n\n```python\nimport time\n\ndef analyze_batch(texts, delay=2.0):\n    results = []\n    for t in texts:\n        results.append(analyze(t))\n        time.sleep(delay)   # Groq के फ्री प्लान पर 30 RPM = हर 2 सेकंड में एक कॉल\n    return results\n```\n\nToken सीमा का भी ध्यान रखिए: लंबे रिव्यू 30 requests से पहले ही 8K tokens प्रति मिनट तक पहुँच सकते हैं, इसलिए बहुत लंबे टेक्स्ट छोटे कर दीजिए। रोज़ 1,000 requests की सीमा का मतलब है कि एक key दिन में करीब 1,000 पंक्तियाँ संभालती है, इसलिए बड़े काम कई दिनों में बाँटिए या दूसरा provider जोड़िए। दूसरे विकल्पों के लिए [फ्री LLM API rate limit तुलना](/blog/free-llm-api-rate-limits-compared/) देखिए।\n\n## सटीकता कैसे बढ़ाएँ?\n\nबिना किसी training के दो सस्ते नुस्खे सटीकता बढ़ा देते हैं:\n\n- **Few-shot उदाहरण**: system prompt में 2-3 लेबल किए नमूने जोड़िए ताकि model \"neutral\" की आपकी परिभाषा से मेल खाए।\n- **डोमेन फ़्रेमिंग**: model को बताइए कि टेक्स्ट प्रोडक्ट रिव्यू है, ट्वीट है या सपोर्ट ticket, ताकि वह टोन सही संदर्भ में पढ़े।\n\nModel fine-tuned नहीं है, इसलिए prompt की शब्दावली ही सटीकता का मुख्य लीवर है, निर्देश में छोटे बदलाव भी नतीजे ठीक-ठाक बदल देते हैं। अगर 20B model बारीक मामलों में उलझे, तो `MODEL` को `openai/gpt-oss-120b` कर दीजिए, उसकी फ्री limit भी वही है।\n\n## इसकी लागत क्या है?\n\nFree tier पर कुछ नहीं, न credit card, बस rate limit। इसी वजह से LLM सेंटीमेंट एनालिसिस एक बार की स्टडी, डैशबोर्ड और prototype के लिए बढ़िया है। हमेशा चलने वाली, ज़्यादा वॉल्यूम की pipeline के लिए, जब फ्री limit चुभने लगे तो paid tier या किसी छोटे self-hosted model को benchmark कीजिए। विकल्पों की तुलना के लिए हमारी [फ्री LLM API की लिस्ट](/blog/best-free-llm-apis-2026/) देखिए।",
+  "faq": [
+    {
+      "q": "क्या LLM API से फ्री में सेंटीमेंट एनालिसिस कर सकते हैं?",
+      "a": "हाँ। Groq और Google Gemini जैसे provider बिना credit card free tier देते हैं, और LLM बिना किसी training data के सेंटीमेंट classify कर देता है। Groq के फ्री प्लान (openai/gpt-oss-20b) पर आपको 30 requests प्रति मिनट और रोज़ 1,000 requests मिलती हैं, जो ज़्यादातर एनालिसिस कामों के लिए काफ़ी है।"
+    },
+    {
+      "q": "क्या LLM पारंपरिक सेंटीमेंट classifier से ज़्यादा सटीक है?",
+      "a": "असली दुनिया के टेक्स्ट पर आम तौर पर हाँ। Lexicon आधारित टूल तय शब्द-सूची से स्कोर करते हैं और तंज़, नकार तथा संदर्भ चूक जाते हैं। LLM पूरा वाक्य पढ़कर मंशा भाँपता है, इसलिए वह 'not bad' जैसे वाक्यांश सही समझता है, वो भी बिना किसी लेबल किए training data के।"
+    },
+    {
+      "q": "सेंटीमेंट एनालिसिस के लिए structured output कैसे लूँ?",
+      "a": "JSON mode इस्तेमाल कीजिए। response_format को JSON object पर सेट कीजिए और model को निर्देश दीजिए कि sentiment और confidence जैसी तय keys के साथ जवाब दे। JSON object mode सभी Groq model पर चलता है, और अगर keys लागू करवानी हों तो GPT-OSS और Qwen model strict json_schema output भी सपोर्ट करते हैं।"
+    },
+    {
+      "q": "बहुत सारे टेक्स्ट एनालाइज़ करते समय rate limit error से कैसे बचूँ?",
+      "a": "Groq के फ्री प्लान (30 requests प्रति मिनट, रोज़ 1,000, 8K tokens प्रति मिनट) पर हर कॉल के बीच करीब 2 सेकंड रुकिए, बहुत लंबे टेक्स्ट छोटे कीजिए, और 1,000 से ज़्यादा पंक्तियों वाले काम को कई दिनों या दूसरे provider में बाँटिए। 429 मिले तो दोबारा कोशिश से पहले retry-after header जितना इंतज़ार कीजिए।"
+    },
+    {
+      "q": "बिना training के LLM सेंटीमेंट की सटीकता कैसे बढ़ाऊँ?",
+      "a": "System prompt में दो-तीन लेबल किए few-shot उदाहरण जोड़िए ताकि model हर label की आपकी परिभाषा से मेल खाए, और उसे टेक्स्ट का डोमेन बताइए (रिव्यू, ट्वीट, ticket)। model fine-tuned नहीं है, इसलिए prompt की शब्दावली ही सटीकता का मुख्य लीवर है।"
+    }
+  ]
+}

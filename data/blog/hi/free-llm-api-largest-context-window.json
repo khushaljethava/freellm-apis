@@ -1,0 +1,34 @@
+{
+  "slug": "free-llm-api-largest-context-window",
+  "title": "सबसे बड़े context window वाले फ्री LLM API (2026)",
+  "description": "किस फ्री LLM API का context window सबसे बड़ा है? Cloudflare, Gemini और OpenRouter करीब 1M token फ्री देते हैं; Groq, Cohere से तुलना देखिए।",
+  "date": "2026-07-21",
+  "lastUpdated": "2026-09-29",
+  "author": "freellm.site",
+  "tags": [
+    "free-llm",
+    "api",
+    "context-window",
+    "gemini",
+    "long-context"
+  ],
+  "content": "सबसे बड़े context window वाले फ्री LLM API अब करीब **1 मिलियन token** तक पहुँचते हैं। सबसे बड़ा verified फ्री window **Cloudflare Workers AI** के `@cf/zai-org/glm-5.3-flash` का है, **1,310,720 token**, और उसके बाद **Google Gemini** के Flash models **1,048,576 token** के साथ आते हैं, दोनों बिना credit card। इतने में एक बड़ा codebase या लंबे दस्तावेज़ों का ढेर एक ही prompt में समा जाता है।\n\n\"Gemini का 2M फ्री context\" वाला पुराना दावा अब लागू नहीं होता: वह Gemini 1.5 Pro से आता था, जो retire हो चुका है। Context window का आकार तय करता है कि model एक बार में कितना टेक्स्ट पढ़ सकता है। अगर आप लंबे दस्तावेज़, transcript या बड़ी code फ़ाइलें भेजते हैं, तो यह संख्या कच्ची रफ़्तार से ज़्यादा मायने रखती है। फ्री tiers की स्थिति इस तरह है।\n\n## सबसे बड़ा फ्री LLM API context window कौन सा है?\n\n**Cloudflare Workers AI** GLM-5.3-Flash पर **1.31M token** के साथ आगे है, जो उसके प्रति दिन 10,000 neurons के फ्री allowance के भीतर आता है। **Google Gemini** ठीक पीछे है: `gemini-3.8-flash`, `gemini-3.7-flash` और `gemini-3.5-flash-lite` सभी फ्री tier पर **1,048,576 token** लेते हैं। इतनी क्षमता में आप पूरी किताबें, लंबी मीटिंग transcript या फैले हुए code repository एक ही request में बिना chunking के डाल सकते हैं।\n\nइस आकार पर एक व्यावहारिक अड़चन है। पूरा 1 मिलियन token का prompt फ्री daily बजट का बड़ा हिस्सा खा जाता है, चाहे वह Cloudflare का neuron allowance हो या वे token limits जो Google आपके account के लिए AI Studio में दिखाता है। ज़्यादा maximum-size calls की योजना बनाने से पहले इन्हें जाँच लीजिए। मौजूदा models के लिए [Google Gemini फ्री LLM API](/providers/google_gemini/) और [Cloudflare Workers AI](/providers/cloudflare/) पेज देखिए।\n\n## फ्री LLM API के context window की तुलना कैसी है?\n\n1M वाले समूह के नीचे मैदान फैल जाता है: LLM7 पर 400K, Cohere और Mistral पर 256K, और Groq व SambaNova पर 131K। ये आँकड़े हमारी directory में हर provider के मौजूदा free-tier models से लिए गए हैं।\n\n| Provider | अधिकतम फ्री context | Model | Card ज़रूरी |\n| --- | --- | --- | --- |\n| [Cloudflare Workers AI](/providers/cloudflare/) | 1,310K | `@cf/zai-org/glm-5.3-flash` | नहीं |\n| [Google Gemini](/providers/google_gemini/) | 1,049K | `gemini-3.8-flash` | नहीं |\n| [OpenRouter](/providers/openrouter/) | 1,049K | `thinkingmachines/inkling:free` | नहीं (email signup) |\n| [NVIDIA NIM](/providers/nvidia_nim/) | 1,049K | `moonshotai/kimi-k3` | नहीं (phone verification) |\n| [LLM7.io](/providers/llm7/) | 400K | `DeepSeek-V4-Flash-0731` | नहीं |\n| [Cohere](/providers/cohere/) | 256K | `command-a-03-2025` | नहीं |\n| [Mistral AI](/providers/mistral/) | 256K | `mistral-large-2512` | नहीं |\n| [Groq](/providers/groq/) | 131K | `openai/gpt-oss-120b` | नहीं |\n| [SambaNova](/providers/sambanova/) | 131K | `gpt-oss-120b` | नहीं (email signup) |\n| [Cerebras](/providers/cerebras/) | 65K | `gpt-oss-120b` | हाँ ($5 credits, 30 दिन) |\n\nOpenRouter के फ्री models प्रति दिन 50 requests पर सीमित हैं, इसलिए उसका 1M window लगातार traffic के बजाय कभी-कभार के लंबे कामों के लिए ठीक है। Cerebras अब payment method माँगता है और पहले से छोटे windows देता है। Together AI और GitHub Models, जो इस लिस्ट के पुराने versions में थे, अब फ्री access नहीं देते।\n\nएक ही सीमा वाले providers के बीच असली चुनाव context नहीं बल्कि [rate limits](/blog/free-llm-api-rate-limits-compared/) और response की रफ़्तार तय करती है।\n\n## क्या आपको वाकई इतने बड़े context window की ज़रूरत है?\n\nज़्यादातर applications को नहीं। 128K का window पहले ही उससे कहीं ज़्यादा रखता है जितना एक आम chat या दस्तावेज़ Q&A को चाहिए। 1 मिलियन token का window तभी चाहिए जब एक ही prompt में सैकड़ों पेज डालना सचमुच ज़रूरी हो, जैसे पूरे contract सेट या पूरे code repository का एक साथ विश्लेषण।\n\nबड़े context ज़्यादा compute भी खाते हैं और response धीमा कर सकते हैं। जहाँ संभव हो, सब कुछ ठूँसने के बजाय retrieval बेहतर है, यानी prompt में सिर्फ़ प्रासंगिक हिस्से भेजना। यही पैटर्न, retrieval-augmented generation, बड़ी सामग्री होने पर भी prompt छोटे रखता है। हमारी गाइड देखिए: [RAG के लिए फ्री LLM API का इस्तेमाल](/blog/free-llm-api-for-rag-embeddings/)।\n\n## बड़े context वाला कौन सा फ्री LLM API चुनें?\n\nअगर आपके prompt नियमित रूप से 256K token से ऊपर जाते हैं तो **Gemini** या **Cloudflare Workers AI** चुनिए। यही no-card विकल्प हैं जो करीब 1M तक पहुँचते हैं। 128K से 256K के बीच Cohere और Mistral काम कर देते हैं। बाकी हर स्थिति में Groq जैसा 131K वाला provider रफ़्तार और rate limits के आधार पर चुनिए, क्योंकि context का अंतर आप पर असर नहीं डालेगा।\n\nशुरुआत [पूरी फ्री LLM API directory](/) से कीजिए और context कॉलम से filter लगाइए। सभी providers के [OpenAI-compatible endpoints](/blog/openai-compatible-api-guide/) की वजह से setup एक जैसा रहता है, इसलिए दो आज़माइए और जो फिट बैठे उसे रख लीजिए।",
+  "faq": [
+    {
+      "q": "किस फ्री LLM API का context window सबसे बड़ा है?",
+      "a": "Cloudflare Workers AI के GLM-5.3-Flash का verified फ्री window सबसे बड़ा है, 1,310,720 token, और उसके बाद Google Gemini के Flash models 1,048,576 token के साथ आते हैं। दोनों को credit card नहीं चाहिए। OpenRouter के पास भी करीब 1M token वाले फ्री models हैं, लेकिन वे प्रति दिन 50 requests पर सीमित हैं।"
+    },
+    {
+      "q": "क्या Google Gemini अब भी फ्री में 2M-token context देता है?",
+      "a": "नहीं। 2M-token window Gemini 1.5 Pro का था, जो retire हो चुका है। Gemini के मौजूदा free-tier models, जैसे gemini-3.8-flash, 1,048,576 token लेते हैं, और आपकी फ्री token limits Google AI Studio में दिखती हैं।"
+    },
+    {
+      "q": "128K context window में कितने पेज आते हैं?",
+      "a": "करीब 300 पेज सादा टेक्स्ट, क्योंकि 128K token लगभग 96,000 शब्द होते हैं। इतने में दस्तावेज़ विश्लेषण और लंबी chat के ज़्यादातर मामले आ जाते हैं, इसीलिए Groq जैसा 131K वाला फ्री tier अधिकांश applications के लिए काफ़ी है और 1M window की ज़रूरत नहीं पड़ती।"
+    },
+    {
+      "q": "क्या बड़ा context window बेहतर जवाब देता है?",
+      "a": "अपने आप नहीं। आपके काम की ज़रूरत से ज़्यादा context सिर्फ़ compute लागत बढ़ाता है और गुणवत्ता सुधारे बिना response धीमा कर सकता है। Retrieval-augmented generation, जो prompt में सिर्फ़ प्रासंगिक हिस्से भेजता है, अक्सर बड़े context window भरने से बेहतर नतीजे देता है।"
+    }
+  ]
+}

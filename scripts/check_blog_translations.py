@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Structural check on data/blog.<locale>.json against data/blog.json.
+"""Structural check on data/blog/<locale>/<slug>.json against the English source in data/blog/en/.
 
 A translation that drifts structurally breaks silently: a changed slug detaches the post
 from its hreflang cluster, a dropped table pipe wrecks the renderer, a translated model
@@ -21,6 +21,7 @@ from collections import Counter
 from pathlib import Path
 
 DATA = Path(__file__).resolve().parent.parent / "data"
+BLOG = DATA / "blog"
 COPY_VERBATIM = ("slug", "date", "lastUpdated", "author", "tags")
 
 FENCE = re.compile(r"```.*?```", re.S)
@@ -63,16 +64,16 @@ def structure(md: str) -> dict:
 
 
 def check(locale: str, src_by_slug: dict) -> list[str]:
-    path = DATA / f"blog.{locale}.json"
-    errs, posts = [], json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(posts, list) or not posts:
-        return [f"{path.name}: expected a non-empty array"]
-    for i, post in enumerate(posts):
-        tag = f"{path.name}[{i}]"
+    errs = []
+    for path in sorted((BLOG / locale).glob("*.json")):
+        post = json.loads(path.read_text(encoding="utf-8"))
+        tag = f"{locale}/{path.name}"
+        if post.get("slug") != path.stem:
+            errs.append(f"{tag}: slug {post.get('slug')!r} must match the file name")
         slug = post.get("slug")
         src = src_by_slug.get(slug)
         if src is None:
-            errs.append(f"{tag}: slug {slug!r} does not exist in blog.json — hreflang will not link up")
+            errs.append(f"{tag}: slug {slug!r} has no English source in blog/en/, hreflang will not link up")
             continue
         for key in COPY_VERBATIM:
             if key in src and post.get(key) != src[key]:
@@ -96,17 +97,16 @@ def check(locale: str, src_by_slug: dict) -> list[str]:
 
 
 def main() -> int:
-    src_by_slug = {p["slug"]: p for p in json.loads((DATA / "blog.json").read_text(encoding="utf-8"))}
-    files = sorted(DATA.glob("blog.*.json"))
-    if not files:
-        print("no translation files found")
+    src_by_slug = {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in (BLOG / "en").glob("*.json")}
+    locales = sorted(d.name for d in BLOG.iterdir() if d.is_dir() and d.name != "en")
+    if not locales:
+        print("no translations found")
         return 0
     failed = False
-    for path in files:
-        locale = path.stem.split(".")[1]
+    for locale in locales:
         errs = check(locale, src_by_slug)
-        posts = json.loads(path.read_text(encoding="utf-8"))
-        print(f"{'FAIL' if errs else 'ok  '}  {path.name}  ({len(posts)} posts)")
+        n = len(list((BLOG / locale).glob("*.json")))
+        print(f"{'FAIL' if errs else 'ok  '}  blog/{locale}/  ({n} posts)")
         for e in errs:
             print(f"      {e}")
         failed |= bool(errs)

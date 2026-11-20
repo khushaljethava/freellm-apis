@@ -1,6 +1,5 @@
 import { DEFAULT_LOCALE, type Locale } from './config';
 import { TRANSLATED_LOCALES } from './ui';
-import en from '../../../data/blog.json';
 
 export interface Post {
   slug: string;
@@ -19,17 +18,19 @@ export interface Post {
 // Single source of truth shared with the sitemap filter (English post's flag, all locales).
 export { isPostIndexable } from '../lib/seo.mjs';
 
-// Translated posts live in data/blog.<locale>.json, same shape and same slugs as
-// data/blog.json. Vite resolves this glob at build time; a locale with no file simply
-// has no translated posts, and none get routed for it.
-const translated = import.meta.glob<{ default: Post[] }>('../../../data/blog.*.json', {
-  eager: true,
-});
+// One file per post: data/blog/<locale>/<slug>.json. English is the source; a translation
+// uses the same slug. Vite resolves this glob at build time; a locale with no folder simply
+// has no posts, and none get routed for it.
+const files = import.meta.glob<{ default: Post }>('../../../data/blog/*/*.json', { eager: true });
 
-const byLocale: Partial<Record<Locale, Post[]>> = { [DEFAULT_LOCALE]: en as Post[] };
-for (const [path, mod] of Object.entries(translated)) {
-  const code = path.match(/blog\.([a-z]{2})\.json$/)?.[1] as Locale | undefined;
-  if (code) byLocale[code] = mod.default;
+const byLocale: Partial<Record<Locale, Post[]>> = {};
+for (const [path, mod] of Object.entries(files)) {
+  const code = path.match(/blog\/([a-z]{2})\/[^/]+\.json$/)?.[1] as Locale | undefined;
+  if (code) (byLocale[code] ??= []).push(mod.default);
+}
+// Newest first; slug breaks ties so the order never depends on the filesystem.
+for (const list of Object.values(byLocale)) {
+  list!.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
 }
 
 /** Posts available in a locale. Empty when nothing is translated yet. */

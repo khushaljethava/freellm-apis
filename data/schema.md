@@ -52,3 +52,10 @@ Each provider is a JSON object with the following fields:
   "last_verified": "2026-06-28"
 }
 ```
+
+## Blog posts
+
+One file per post: `data/blog/<locale>/<slug>.json`. English lives in `data/blog/en/` and is the source;
+a translation uses the same file name in its locale folder (`data/blog/de/<slug>.json`). The file name
+must equal the post's `slug`. To add a post, add one file; nothing else needs editing. The site sorts
+posts by `date`, newest first. Check translations with `python3 scripts/check_blog_translations.py`.
